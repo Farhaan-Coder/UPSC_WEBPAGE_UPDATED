@@ -68,7 +68,7 @@ export default function DarkSection() {
             <span className="text-xs font-semibold text-[#F59E0B] tracking-wider block mb-3 uppercase">
               24/7 AI UPSC MENTOR & MAINS LAB
             </span>
-            <h2 className="text-3xl sm:text-4xl font-serif font-bold text-white leading-tight mb-4">
+            <h2 className="text-3xl sm:text-4xl font-sans font-bold text-white tracking-tight leading-tight mb-4">
               Not just answers. The art of UPSC Mains Answer Writing.
             </h2>
             <p className="text-sm sm:text-base text-[#D7E5DB] leading-relaxed mb-8 max-w-md font-normal">

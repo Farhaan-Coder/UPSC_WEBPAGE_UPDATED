@@ -21,7 +21,7 @@ export default function Navbar() {
           <div className="w-9 h-9 rounded-lg bg-[#133026] flex items-center justify-center text-[#F59E0B] shadow-xs transition-transform duration-300 group-hover:scale-105">
             <BookOpenCheck className="w-5 h-5 stroke-[2.2]" />
           </div>
-          <span className="font-serif font-bold text-lg sm:text-xl tracking-tight text-[#133026] transition-colors duration-200">
+          <span className="font-sans font-bold text-lg sm:text-xl tracking-tight text-[#133026] transition-colors duration-200">
             UPSC ZONE
           </span>
         </a>

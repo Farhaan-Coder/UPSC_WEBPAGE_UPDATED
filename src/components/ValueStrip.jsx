@@ -30,7 +30,7 @@ export default function ValueStrip() {
             <span className="text-[11px] font-bold text-[#F59E0B] tracking-wider block mb-1.5 uppercase">
               STRATEGIC PREPARATION
             </span>
-            <h2 className="text-xl font-serif font-bold text-white leading-snug">
+            <h2 className="text-xl font-sans font-bold text-white tracking-tight leading-snug">
               Focus on outcome-driven learning,<br className="hidden sm:inline" /> not just study hours.
             </h2>
           </div>

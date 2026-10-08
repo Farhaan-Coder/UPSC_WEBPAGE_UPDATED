@@ -41,7 +41,7 @@ export default function Testimonials() {
           <span className="text-xs font-semibold text-[#133026] tracking-wider block mb-2 uppercase">
             ASPIRANT STORIES & DISCIPLINE
           </span>
-          <h2 className="text-3xl sm:text-4xl font-serif font-bold text-[#133026] leading-tight mb-2">
+          <h2 className="text-3xl sm:text-4xl font-sans font-bold text-[#133026] tracking-tight leading-tight mb-2">
             Different journeys. One shared pursuit of clarity.
           </h2>
           <p className="text-sm sm:text-base text-stone-600 font-normal">
@@ -83,7 +83,7 @@ export default function Testimonials() {
                     />
                   </div>
                   <div>
-                    <div className="text-sm font-serif font-bold text-[#133026]">{item.name}</div>
+                    <div className="text-sm font-sans font-bold text-[#133026] tracking-tight">{item.name}</div>
                     <div className="text-[11px] text-stone-500 font-normal">{item.role}</div>
                   </div>
                 </div>

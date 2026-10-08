@@ -47,7 +47,7 @@ export default function StagesCovered() {
             <span className="text-xs font-semibold text-[#133026] tracking-wider block mb-2 uppercase">
               FROM DAY 1 TO LBSNAA MUSSOORIE
             </span>
-            <h2 className="text-3xl sm:text-4xl font-serif font-bold text-[#133026] leading-tight">
+            <h2 className="text-3xl sm:text-4xl font-sans font-bold text-[#133026] tracking-tight leading-tight">
               One goal. Every stage of UPSC covered.
             </h2>
           </div>
@@ -75,7 +75,7 @@ export default function StagesCovered() {
               <span className="text-[11px] font-semibold text-[#F59E0B] tracking-wider block mb-2 uppercase">
                 COMMITTED TO EVERY ASPIRANT'S AMBITION
               </span>
-              <h3 className="text-xl sm:text-2xl font-serif font-bold text-white leading-tight mb-2.5">
+              <h3 className="text-xl sm:text-2xl font-sans font-bold text-white tracking-tight leading-tight mb-2.5">
                 From foundational preparation to the academy halls of LBSNAA.
               </h3>
               <p className="text-xs sm:text-sm text-[#D7E5DB] leading-relaxed font-normal">

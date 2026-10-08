@@ -51,7 +51,7 @@ export default function Footer() {
               <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center text-[#F59E0B]">
                 <Layers className="w-4.5 h-4.5" />
               </div>
-              <span className="font-serif font-bold text-lg text-white tracking-tight">
+              <span className="font-sans font-bold text-lg text-white tracking-tight">
                 SANKALP IAS
               </span>
             </a>

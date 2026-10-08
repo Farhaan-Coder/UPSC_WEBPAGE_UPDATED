@@ -103,7 +103,7 @@ export default function DashboardPreview() {
           <span className="text-xs font-semibold text-[#133026] tracking-wider block mb-2 uppercase">
             DISCIPLINED PREPARATION, OPTIMIZED FOR YOUR DESK
           </span>
-          <h2 className="text-3xl sm:text-4xl font-serif font-bold text-[#133026] leading-tight mb-3">
+          <h2 className="text-3xl sm:text-4xl font-sans font-bold text-[#133026] tracking-tight leading-tight mb-3">
             An ambitious goal. A daily strategic roadmap.
           </h2>
           <p className="text-sm sm:text-base text-stone-600 leading-relaxed font-normal">
@@ -125,7 +125,7 @@ export default function DashboardPreview() {
                 <div className="w-8 h-8 rounded-lg bg-[#133026] hover:bg-[#183C30] hover:scale-105 active:scale-95 flex items-center justify-center text-[#F59E0B] shadow-2xs transition-all duration-200 cursor-pointer">
                   <Layers className="w-4 h-4" />
                 </div>
-                <span className="font-serif font-bold text-sm text-[#133026] tracking-tight">SANKALP IAS</span>
+                <span className="font-sans font-bold text-sm text-[#133026] tracking-tight">SANKALP IAS</span>
               </div>
 
               <div className="flex-1 max-w-md hidden md:flex items-center gap-2.5 bg-slate-50 hover:bg-white border border-slate-200/80 rounded-xl px-3.5 py-2 text-xs text-slate-600 focus-within:ring-2 focus-within:ring-teal-700 focus-within:bg-white focus-within:shadow-md transition-all duration-300 cursor-text group">
@@ -345,10 +345,10 @@ export default function DashboardPreview() {
                     <Sparkles className="w-4 h-4 text-[#F59E0B] fill-[#F59E0B] group-hover:rotate-12 transition-transform duration-300 shrink-0" />
                     <span className="text-[10px] sm:text-xs font-bold uppercase tracking-widest text-[#F59E0B]">MAINS QUESTION OF THE DAY • GS II</span>
                   </div>
-                  <h4 className="font-sans font-semibold text-xs sm:text-[13px] leading-snug line-clamp-2 text-white mb-2">
+                  <h4 className="font-sans font-bold text-sm sm:text-[15px] leading-snug line-clamp-2 text-white mb-2 tracking-tight">
                     Critically examine the role of the Finance Commission in balancing cooperative and competitive federalism in India.
                   </h4>
-                  <p className="text-[10.5px] text-[#D7E5DB] font-normal leading-relaxed mb-4">
+                  <p className="text-xs text-[#D7E5DB] font-normal leading-relaxed mb-4">
                     250 words • 15 marks • Instant evaluation against topper copies
                   </p>
                 </div>

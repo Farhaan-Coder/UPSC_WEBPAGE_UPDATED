@@ -19,7 +19,7 @@ export default function CtaBanner() {
               <Sparkles className="w-3.5 h-3.5 fill-[#F59E0B]" />
               <span>ACCELERATE YOUR JOURNEY TO LBSNAA</span>
             </span>
-            <h2 className="text-3xl sm:text-4xl font-serif font-bold text-white leading-tight mb-3">
+            <h2 className="text-3xl sm:text-4xl font-sans font-bold text-white tracking-tight leading-tight mb-3">
               Your ambition deserves a<br className="hidden sm:inline" /> smarter, disciplined plan.
             </h2>
             <p className="text-sm sm:text-base text-[#D7E5DB] leading-relaxed font-normal">

@@ -77,7 +77,7 @@ export default function FeaturesGrid() {
             <span className="text-xs font-semibold text-[#133026] tracking-wider block mb-2 uppercase">
               STRATEGIC PREPARATION TOOLKIT
             </span>
-            <h2 className="text-3xl sm:text-4xl font-serif font-bold text-[#133026] leading-tight">
+            <h2 className="text-3xl sm:text-4xl font-sans font-bold text-[#133026] tracking-tight leading-tight">
               One unified platform.<br />Master Prelims, Mains, and the Interview.
             </h2>
           </div>

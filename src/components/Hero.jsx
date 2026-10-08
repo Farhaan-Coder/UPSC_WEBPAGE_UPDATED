@@ -57,7 +57,7 @@ export default function Hero() {
               <span>DELHI'S PREMIER COACHING PEDAGOGY, AT YOUR DESK.</span>
             </div>
 
-            <h1 className="text-4xl sm:text-5xl lg:text-[50px] font-serif font-bold text-[#133026] leading-[1.16] tracking-tight mb-5">
+            <h1 className="text-4xl sm:text-5xl lg:text-[50px] font-sans font-extrabold text-[#133026] leading-[1.14] tracking-tight mb-5">
               Bring Delhi's Top UPSC Expertise to Your Desk.<br />
               <span className="text-[#133026] mt-1 inline-block">
                 Crack the Exam with Data-Driven Insights.
@@ -255,30 +255,30 @@ export default function Hero() {
               <div className="p-3.5 sm:p-4 border-t border-slate-100 bg-slate-50/40">
                 <div className="flex flex-col md:flex-row items-stretch md:items-center gap-4">
                   {/* Target Milestone Card */}
-                  <div className="md:w-64 shrink-0 bg-gradient-to-br from-slate-50 to-green-50/30 border border-slate-200 rounded-xl p-3 sm:p-3.5 shadow-sm hover:shadow-md transition-all duration-200 cursor-pointer group">
-                    <span className="text-[8.5px] font-bold text-[#133026] tracking-wider block mb-0.5 uppercase">
+                  <div className="md:w-64 shrink-0 bg-gradient-to-br from-slate-50 to-green-50/30 border border-slate-200 rounded-xl p-3.5 sm:p-4 shadow-sm hover:shadow-md transition-all duration-200 cursor-pointer group">
+                    <span className="text-[10px] font-bold text-slate-500 tracking-wider block mb-1 uppercase">
                       TARGET MILESTONE
                     </span>
-                    <span className="text-xs font-sans font-bold text-[#133026] block group-hover:text-emerald-950 transition-colors">
+                    <span className="text-sm font-sans font-bold text-slate-800 block group-hover:text-[#133026] transition-colors tracking-tight">
                       Prelims 2026 Target
                     </span>
-                    <span className="text-[10px] text-slate-600 font-medium block">
+                    <span className="text-xs text-slate-500 font-medium block mt-0.5">
                       246 Days Remaining • Consistent Progress
                     </span>
                   </div>
 
                   {/* Accelerate Focus Dark Banner */}
-                  <div className="flex-1 bg-gradient-to-r from-[#133026] to-[#1b4234] hover:from-[#16382c] hover:to-[#225342] border border-emerald-900/40 rounded-xl p-3 sm:p-3.5 text-white flex items-center justify-between shadow-lg shadow-teal-900/20 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer group relative overflow-hidden">
+                  <div className="flex-1 bg-gradient-to-r from-[#133026] to-[#1b4234] hover:from-[#16382c] hover:to-[#225342] border border-emerald-900/40 rounded-xl p-3.5 sm:p-4 text-white flex items-center justify-between shadow-lg shadow-teal-900/20 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer group relative overflow-hidden">
                     {/* Subtle radial inner glow */}
                     <div className="absolute top-0 right-0 -mr-6 -mt-6 w-24 h-24 bg-emerald-400/10 rounded-full blur-xl pointer-events-none" />
                     
-                    <div className="flex items-center gap-2.5 relative z-10 min-w-0">
-                      <Sparkles className="w-4 h-4 text-[#F59E0B] shrink-0 fill-[#F59E0B] group-hover:rotate-12 transition-transform duration-300" />
+                    <div className="flex items-center gap-3 relative z-10 min-w-0">
+                      <Sparkles className="w-4.5 h-4.5 text-[#F59E0B] shrink-0 fill-[#F59E0B] group-hover:rotate-12 transition-transform duration-300" />
                       <div>
-                        <div className="text-[11.5px] font-semibold leading-tight text-white">
+                        <div className="text-xs sm:text-[13px] font-sans font-bold text-white tracking-tight leading-snug">
                           Accelerate focus on Environment PYQs.
                         </div>
-                        <div className="text-[10px] text-[#D7E5DB] mt-0.5 font-normal leading-normal">
+                        <div className="text-[11px] text-[#D7E5DB] mt-0.5 font-normal leading-normal">
                           Recent mock test diagnosis recommends a 15-minute targeted revision drill.
                         </div>
                       </div>

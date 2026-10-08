@@ -31,7 +31,7 @@ export default function Insights() {
             <span className="text-xs font-semibold text-[#133026] tracking-wider block mb-2 uppercase">
               EDITORIALS & CURATED FIELD NOTES
             </span>
-            <h2 className="text-3xl sm:text-4xl font-serif font-bold text-[#133026] leading-tight">
+            <h2 className="text-3xl sm:text-4xl font-sans font-bold text-[#133026] tracking-tight leading-tight">
               Less information overload. High-yield UPSC insights.
             </h2>
           </div>
@@ -73,7 +73,7 @@ export default function Insights() {
                   <span className="tracking-wider uppercase bg-[#EAF1EB] px-2 py-0.5 rounded">THE SYLLABUS CONNECTION</span>
                   <span className="text-stone-400 font-normal">6 min read</span>
                 </div>
-                <h3 className="text-xl font-serif font-bold text-[#133026] mb-2.5 group-hover:text-[#183C30] transition-colors">
+                <h3 className="text-xl font-sans font-bold text-[#133026] tracking-tight mb-2.5 group-hover:text-[#183C30] transition-colors">
                   Urban Flooding in Indian Metros: Beyond heavy rainfall
                 </h3>
                 <p className="text-xs sm:text-sm text-stone-600 leading-relaxed mb-4 font-normal">
@@ -111,7 +111,7 @@ export default function Insights() {
                       <span className="text-[10px] font-bold text-[#133026] tracking-wider block mb-1 uppercase bg-[#EAF1EB] px-2 py-0.5 rounded w-fit">
                         {note.tag}
                       </span>
-                      <h3 className="text-base font-serif font-bold text-[#133026] leading-snug mb-1.5 group-hover:text-[#183C30] transition-colors">
+                      <h3 className="text-base font-sans font-bold text-[#133026] tracking-tight leading-snug mb-1.5 group-hover:text-[#183C30] transition-colors">
                         {note.title}
                       </h3>
                       <p className="text-xs text-stone-600 leading-relaxed mb-3 font-normal">

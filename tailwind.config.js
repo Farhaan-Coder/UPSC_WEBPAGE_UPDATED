@@ -37,7 +37,7 @@ export default {
         },
       },
       fontFamily: {
-        serif: ['"Playfair Display"', 'Merriweather', 'Georgia', 'serif'],
+        serif: ['Inter', '"Plus Jakarta Sans"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
         sans: ['Inter', '"Plus Jakarta Sans"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
       },
       borderRadius: {

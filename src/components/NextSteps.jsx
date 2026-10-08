@@ -36,7 +36,7 @@ export default function NextSteps() {
             <span className="text-xs font-semibold text-[#133026] tracking-wider block mb-2 uppercase">
               YOUR BATTLE-TESTED ROADMAP
             </span>
-            <h2 className="text-3xl sm:text-4xl font-serif font-bold text-[#133026] leading-tight">
+            <h2 className="text-3xl sm:text-4xl font-sans font-bold text-[#133026] tracking-tight leading-tight">
               Your next step doesn't have to be<br className="hidden sm:inline" /> guesswork.
             </h2>
           </div>
