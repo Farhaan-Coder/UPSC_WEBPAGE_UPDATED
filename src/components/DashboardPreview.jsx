@@ -383,22 +383,28 @@ export default function DashboardPreview() {
       </div>
 
         {/* Feature Highlights */}
-        <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-10 text-xs font-medium text-stone-700 mt-10 mb-2">
-          <div className="flex items-center gap-2">
-            <Check className="w-4 h-4 text-[#133026] stroke-[3]" />
-            <span>Personalized for working aspirants & full-time students</span>
+        <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-8 mt-12 mb-3">
+          <div className="flex items-center gap-2.5">
+            <Check className="w-4.5 h-4.5 text-[#133026] stroke-[2.5] shrink-0" />
+            <span className="font-sans font-medium text-[15px] sm:text-base text-slate-800 tracking-tight">
+              Personalized for working aspirants & full-time students
+            </span>
           </div>
-          <div className="flex items-center gap-2">
-            <Check className="w-4 h-4 text-[#133026] stroke-[3]" />
-            <span>Prelims MCQs + Mains Answer Writing in one view</span>
+          <div className="flex items-center gap-2.5">
+            <Check className="w-4.5 h-4.5 text-[#133026] stroke-[2.5] shrink-0" />
+            <span className="font-sans font-medium text-[15px] sm:text-base text-slate-800 tracking-tight">
+              Prelims MCQs + Mains Answer Writing in one view
+            </span>
           </div>
-          <div className="flex items-center gap-2">
-            <Check className="w-4 h-4 text-[#133026] stroke-[3]" />
-            <span>Spaced repetition engine engineered for long-term syllabus retention</span>
+          <div className="flex items-center gap-2.5">
+            <Check className="w-4.5 h-4.5 text-[#133026] stroke-[2.5] shrink-0" />
+            <span className="font-sans font-medium text-[15px] sm:text-base text-slate-800 tracking-tight">
+              Spaced repetition engine engineered for long-term syllabus retention
+            </span>
           </div>
         </div>
 
-        <div className="text-center text-[11px] text-stone-500 font-normal">
+        <div className="text-sm text-slate-500 mt-2 text-center font-normal">
           Curated with real UPSC CSE trends, topper notes & verified syllabus mappings.
         </div>
 
