@@ -12,7 +12,7 @@ const stepsData = [
   {
     step: '02',
     title: 'Daily High-Yield Execution',
-    description: 'Balance standard textbooks (Laxmikanth, Spectrum) with daily The Hindu editorial breakdowns and active recall flashcards.',
+    description: 'Balance standard foundational textbooks with daily national editorial breakdowns and active recall flashcards.',
     feature: 'No backlogs, no FOMO on materials',
     icon: Calendar,
   },

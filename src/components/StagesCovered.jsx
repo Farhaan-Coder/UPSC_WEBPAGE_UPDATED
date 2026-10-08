@@ -14,7 +14,7 @@ const stagesData = [
     id: 'mains',
     tag: 'DEPTH & MULTI-DIMENSIONALITY',
     title: 'Mains (GS I-IV & Essay)',
-    desc: 'Develop intro-body-conclusion flow, incorporate SC verdicts & NITI Aayog data, and solve GS IV Ethics case studies.',
+    desc: 'Develop intro-body-conclusion flow, incorporate judicial principles & national development data, and solve GS IV Ethics case studies.',
     meta: 'GS I-IV • Essay • Daily Answer Evaluation',
     icon: PenTool,
   },
@@ -59,19 +59,41 @@ export default function StagesCovered() {
         {/* Section Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
           
-          {/* Aspirant Spotlight Card - Dynamic High-Resolution Image Container */}
-          <div className="lg:col-span-5 rounded-2xl overflow-hidden bg-[#133026] text-white relative shadow-xl min-h-[420px] flex flex-col justify-end transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl cursor-pointer group border border-[#183C30]">
-            {/* High-Resolution Placeholder Image (Text-free, ready for custom HD asset) */}
-            <img 
-              src="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&w=1200&q=80" 
-              alt="UPSC Aspirant study desk environment"
-              className="w-full h-full object-cover rounded-2xl absolute inset-0 transition-transform duration-700 group-hover:scale-105"
-            />
-            {/* Dark Gradient Overlay for Maximum Text Contrast & Readability */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-[#0F281E]/60 to-transparent pointer-events-none" />
+          {/* Aspirant Spotlight Card - Original SVG & Gradient Illustration Container */}
+          <div className="lg:col-span-5 rounded-2xl overflow-hidden bg-gradient-to-br from-[#133026] via-[#183C30] to-[#0A1D16] text-white relative shadow-xl min-h-[420px] flex flex-col justify-between p-6 sm:p-8 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl border border-[#1E493B] group">
+            {/* Background Decorative SVG Graphic */}
+            <div className="absolute inset-0 opacity-15 pointer-events-none overflow-hidden">
+              <svg className="w-full h-full" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="200" cy="200" r="160" stroke="#F59E0B" strokeWidth="1" strokeDasharray="4 8" />
+                <circle cx="200" cy="200" r="110" stroke="#FFFFFF" strokeWidth="1" strokeDasharray="2 4" />
+                <path d="M200 40V360M40 200H360" stroke="#BCD3C3" strokeWidth="0.75" />
+              </svg>
+            </div>
+
+            {/* Top Illustration Element */}
+            <div className="relative z-10 flex items-center justify-between">
+              <div className="w-14 h-14 rounded-2xl bg-white/10 border border-white/15 flex items-center justify-center text-[#F59E0B] shadow-inner group-hover:scale-105 transition-transform">
+                <BookMarked className="w-7 h-7 stroke-[2]" />
+              </div>
+              <span className="text-[10px] sm:text-xs font-bold text-[#F59E0B] bg-[#F59E0B]/10 border border-[#F59E0B]/20 px-3 py-1 rounded-full uppercase tracking-wider">
+                Full CSE Cycle Coverage
+              </span>
+            </div>
+
+            {/* Mid Graphic: Progression Nodes */}
+            <div className="relative z-10 my-auto py-6">
+              <div className="flex items-center justify-between text-xs font-semibold text-[#D7E5DB] mb-2 px-1">
+                <span>Prelims Foundation</span>
+                <span>Mains Synthesis</span>
+                <span>Interview Board</span>
+              </div>
+              <div className="w-full h-2 bg-white/10 rounded-full overflow-hidden p-0.5">
+                <div className="h-full bg-gradient-to-r from-[#F59E0B] via-emerald-400 to-[#F59E0B] rounded-full w-full animate-pulse" />
+              </div>
+            </div>
 
             {/* HTML / Tailwind Text Content Overlay */}
-            <div className="relative z-10 p-6 sm:p-8 mt-auto flex flex-col justify-end">
+            <div className="relative z-10 mt-auto flex flex-col justify-end">
               <span className="text-[11px] font-semibold text-[#F59E0B] tracking-wider block mb-2 uppercase">
                 COMMITTED TO EVERY ASPIRANT'S AMBITION
               </span>

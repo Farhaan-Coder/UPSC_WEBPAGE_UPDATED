@@ -4,97 +4,95 @@ import { Star } from 'lucide-react';
 const testimonialsData = [
   {
     id: 1,
-    quote: "“I wasted months drowning in 15 different Telegram channels and endless topper PDFs. Sankalp's daily checklist gave me the confidence of knowing I completed Laxmikanth and 10 years of PYQs systematically.”",
-    initial: 'A',
-    name: 'Ananya Sharma',
-    role: 'Full-Time Aspirant • Delhi (Old Rajinder Nagar)',
-    tag: 'Clarity over scattered Telegram PDFs',
-    avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80',
+    quote: "“I wasted months drowning in dozens of unorganized channels and conflicting PDFs. UPSC ZONE AI's structured daily schedule gave me the calm confidence of finishing core Polity modules and 10 years of PYQs systematically.”",
+    initial: 'AS',
+    name: 'Ananya S.',
+    role: 'Full-Time Aspirant • 2nd Attempt',
+    bg: 'bg-emerald-800 text-emerald-100',
+    tag: 'Structured daily execution',
   },
   {
     id: 2,
-    quote: "“Balancing a 9-to-6 tech job while preparing for CSE felt overwhelming. The 2-hour daily study sprint and instant Mains answer feedback made my limited study window twice as productive.”",
-    initial: 'R',
-    name: 'Rahul Verma',
-    role: 'Working Professional • Bengaluru',
-    tag: 'Disciplined 3-hour evening routine',
-    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80',
+    quote: "“Balancing a 9-to-6 professional job while preparing for CSE felt impossible. The 2-hour daily study sprint and instant rubric feedback on Mains answer writing made my limited study window twice as productive.”",
+    initial: 'RV',
+    name: 'Rahul V.',
+    role: 'Working Professional • 1st Attempt',
+    bg: 'bg-amber-700 text-amber-100',
+    tag: 'Disciplined 3-hour evening plan',
   },
   {
     id: 3,
-    quote: "“In my first attempt, I missed the Prelims cutoff by 4 marks due to panic in CSAT and negative marking traps. The option elimination diagnostics showed me exactly where I fell into trick questions.”",
-    initial: 'P',
-    name: 'Priya Mukhopadhyay',
-    role: 'Returning Aspirant • Rank Improver',
-    tag: 'Fixed negative marking & CSAT panic',
-    avatar: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=150&q=80',
+    quote: "“In my previous attempt, I struggled with option elimination traps and negative marking. The diagnostic tests highlighted my blind spots in Environment and CSAT comprehension before test day.”",
+    initial: 'PM',
+    name: 'Priya M.',
+    role: 'Returning Aspirant • Prelims Cleared',
+    bg: 'bg-teal-800 text-teal-100',
+    tag: 'Mastered option elimination',
   },
 ];
 
 export default function Testimonials() {
   return (
-    <section className="py-20 lg:py-24 bg-[#FDF9F1] border-b border-stone-200/60" id="testimonials">
+    <section className="py-20 lg:py-24 bg-[#FDF9F1] border-b border-stone-200/60 scroll-mt-20" id="testimonials">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         
         {/* Section Header */}
-        <div className="mb-8 sm:mb-9">
-          <span className="text-xs font-semibold text-[#133026] tracking-wider block mb-2 uppercase">
+        <div className="mb-8 sm:mb-9 max-w-2xl">
+          <span className="text-xs font-bold text-[#133026] tracking-wider block mb-2 uppercase">
             ASPIRANT STORIES & DISCIPLINE
           </span>
-          <h2 className="text-3xl sm:text-4xl font-sans font-bold text-[#133026] tracking-tight leading-tight mb-2">
+          <h2 className="text-3xl sm:text-4xl font-serif font-bold text-[#133026] tracking-tight leading-tight mb-2">
             Different journeys. One shared pursuit of clarity.
           </h2>
           <p className="text-sm sm:text-base text-stone-600 font-normal">
-            From Old Rajinder Nagar study halls to late-night desks across India, see how serious aspirants build unshakeable discipline.
+            From dedicated home libraries to late-night study desks across India, see how serious aspirants build unshakeable consistency.
           </p>
         </div>
 
-        {/* 3 Testimonial Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+        {/* Testimonials: Horizontally Scrollable Carousel on Mobile, 3-Col Grid on Desktop */}
+        <div className="flex overflow-x-auto pb-4 pt-1 snap-x snap-mandatory md:grid md:grid-cols-3 gap-6 lg:gap-8 -mx-4 px-4 sm:mx-0 sm:px-0">
           {testimonialsData.map((item) => (
             <div
               key={item.id}
-              className="bg-white border border-stone-200/80 rounded-2xl p-7 flex flex-col justify-between shadow-xs transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl hover:border-stone-300 cursor-pointer group"
+              className="min-w-[280px] sm:min-w-[320px] md:min-w-0 snap-center bg-white border border-stone-200/90 rounded-2xl p-6 sm:p-7 flex flex-col justify-between shadow-xs transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl hover:border-stone-300 cursor-default group"
             >
               <div>
-                {/* 5 Stars Rating matching academic reference */}
+                {/* 5 Stars Rating */}
                 <div className="flex items-center gap-1 mb-4 text-[#F59E0B]">
                   {[...Array(5)].map((_, i) => (
                     <Star key={i} className="w-4 h-4 fill-[#F59E0B]" />
                   ))}
                 </div>
 
-                <p className="text-xs sm:text-[13.5px] text-stone-700 leading-relaxed mb-6 font-normal">
+                <p className="text-sm text-stone-700 leading-relaxed mb-6 font-normal">
                   {item.quote}
                 </p>
               </div>
 
               <div>
                 <div className="pt-4 border-t border-stone-100 flex items-center gap-3.5 mb-3.5">
-                  <div className="w-10 h-10 rounded-full overflow-hidden bg-stone-100 border border-stone-200 shrink-0">
-                    <img 
-                      src={item.avatar} 
-                      alt={item.name} 
-                      className="w-full h-full object-cover"
-                      onError={(e) => {
-                        e.target.style.display = 'none';
-                        e.target.parentNode.innerHTML = `<span class="flex items-center justify-center w-full h-full text-[#133026] font-bold text-xs">${item.initial}</span>`;
-                      }}
-                    />
+                  {/* Clean Initials Avatar Circle (No internet stock photos) */}
+                  <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-xs shadow-xs shrink-0 ${item.bg}`}>
+                    {item.initial}
                   </div>
                   <div>
                     <div className="text-sm font-sans font-bold text-[#133026] tracking-tight">{item.name}</div>
-                    <div className="text-[11px] text-stone-500 font-normal">{item.role}</div>
+                    <div className="text-xs text-stone-500 font-normal">{item.role}</div>
                   </div>
                 </div>
 
-                <div className="text-[11px] font-semibold text-[#133026] bg-[#EAF1EB] px-3 py-1 rounded-md inline-block border border-[#133026]/10">
+                <div className="text-xs font-semibold text-[#133026] bg-[#EAF1EB] px-3 py-1 rounded-md inline-block border border-[#133026]/10">
                   {item.tag}
                 </div>
               </div>
             </div>
           ))}
         </div>
+
+        {/* Required Sample Reviews Caption */}
+        <p className="text-center text-xs text-stone-500 mt-6 font-normal">
+          Sample reviews for design purposes. Based on typical preparation workflows of UPSC CSE candidates.
+        </p>
 
       </div>
     </section>

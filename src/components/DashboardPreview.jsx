@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { 
   Search, 
   SlidersHorizontal, 
@@ -12,233 +12,460 @@ import {
   RotateCw,
   Bell,
   Layers,
-  LayoutDashboard,
-  Calendar,
-  FileText,
-  Clock,
-  Newspaper,
-  PenTool,
-  Bot,
+  LayoutDashboard, 
+  Calendar, 
+  FileText, 
+  Clock, 
   TrendingUp,
+  Award,
+  BarChart3,
+  CheckCircle2,
+  AlertCircle,
+  Briefcase,
+  GraduationCap
 } from 'lucide-react';
 
-const sidebarNav = [
-  { name: 'Daily Command Center', icon: LayoutDashboard, active: true },
-  { name: 'My Study Plan (GS I-IV)', icon: Calendar },
-  { name: 'Prelims & CSAT Mocks', icon: FileText },
-  { name: '25-Yr PYQ Bank', icon: Clock },
-  { name: 'The Hindu & IE Briefs', icon: Newspaper },
-  { name: 'Laxmikanth & NCERT Notes', icon: PenTool },
-  { name: 'AI Mains Answer Evaluator', icon: Bot },
-  { name: 'AIR Rank & Weak Areas', icon: TrendingUp },
-];
-
-const metrics = [
+const tabsConfig = [
   {
-    label: 'GS Syllabus coverage',
-    value: '68%',
-    footer: 'Laxmikanth & Spectrum completed',
-    icon: BookOpen,
+    id: 0,
+    title: 'Daily Study Plan',
+    subtitle: 'Spaced repetition, syllabus pacing & study hours',
+    icon: Calendar,
   },
-  {
-    label: 'Last Prelims mock score',
-    value: '118 / 200',
-    footer: 'Cutoff cleared by +16 marks (AIR 240)',
-    icon: CheckSquare,
-  },
-  {
-    label: 'Active study streak',
-    value: '14 days',
-    footer: 'Consistent 7.5 hrs/day discipline',
-    icon: Flame,
-  },
-];
-
-const initialFocusTasks = [
   {
     id: 1,
-    title: 'Laxmikanth: Basic Structure & Judicial Review',
-    sub: 'GS II • Indian Polity • Active Recall & Notes',
+    title: 'PYQ Insights',
+    subtitle: '25-Year trend weightage & high-yield topic heatmaps',
+    icon: BarChart3,
+  },
+  {
+    id: 2,
+    title: 'AI Answer Feedback',
+    subtitle: 'Mains structure rubric, topper benchmarking & missing points',
+    icon: Award,
+  },
+];
+
+const initialDailyTasks = [
+  {
+    id: 1,
+    title: 'Polity: Parliamentary Committees & Legislative Procedures',
+    sub: 'GS II • Standard Reference • Active Recall Drill',
     time: '45 min',
     completed: true,
   },
   {
     id: 2,
-    title: 'PYQs: National Parks & Ramsar Sites (2014-2024)',
-    sub: 'Prelims GS I • Shankar IAS • 25 MCQs practice',
+    title: 'Environment: Biosphere Reserves & Ramsar Wetlands (2014-2024)',
+    sub: 'Prelims GS I • 25 MCQs Elimination Practice',
     time: '35 min',
     completed: false,
   },
   {
     id: 3,
-    title: 'The Hindu Editorial: DPDP Act & Privacy Rights',
-    sub: 'GS III • Governance • 1 editorial brief + 5 flashcards',
-    time: '25 min',
+    title: 'Governance & Economy: Fiscal Federalism & Tax Devolutions',
+    sub: 'GS III • National Editorial Synthesis + 5 flashcards',
+    time: '30 min',
     completed: false,
   },
 ];
 
 const syllabusProgress = [
   { name: 'Indian Polity & Governance', percentage: 82, isCoral: false },
-  { name: 'Modern Indian History (Spectrum)', percentage: 68, isCoral: false },
-  { name: 'Geography & Mapping', percentage: 56, isCoral: false },
-  { name: 'Environment & Ecology', percentage: 42, isCoral: true },
+  { name: 'Modern Indian History', percentage: 68, isCoral: false },
+  { name: 'Geography & Environment', percentage: 56, isCoral: false },
+  { name: 'Economy & Inclusive Growth', percentage: 44, isCoral: true },
+];
+
+const pyqTrends = [
+  { subject: 'Polity & Governance', weight: '18%', trend: '+3% YoY', questions: '15-18 Qs', highYield: 'Fundamental Rights, Federalism, Judiciary' },
+  { subject: 'Environment & Ecology', weight: '22%', trend: 'High Weight', questions: '18-22 Qs', highYield: 'Protected Areas, Climate Treaties, Species' },
+  { subject: 'Economy & Development', weight: '20%', trend: 'Stable', questions: '16-19 Qs', highYield: 'Monetary Policy, Inflation, Balance of Payments' },
+  { subject: 'Science & Emerging Tech', weight: '14%', trend: 'Rising', questions: '11-14 Qs', highYield: 'Biotech, AI, Space Missions, Vaccines' },
+  { subject: 'Modern & Ancient History', weight: '14%', trend: 'Moderate', questions: '12-15 Qs', highYield: 'Freedom Movement, Art & Architecture' },
+  { subject: 'Geography & Agriculture', weight: '12%', trend: 'Application-based', questions: '10-12 Qs', highYield: 'Monsoon Patterns, Soil, Cropping Systems' },
 ];
 
 export default function DashboardPreview() {
-  const [tasks, setTasks] = useState(initialFocusTasks);
+  const [activeTab, setActiveTab] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+  const [studyHours, setStudyHours] = useState(6.0);
+  const [studyMode, setStudyMode] = useState('fulltime'); // 'working' or 'fulltime'
+  const [tasks, setTasks] = useState(initialDailyTasks);
+  const [typingIndex, setTypingIndex] = useState(0);
+
+  const fullPromptText = "Based on your last 3 mock diagnostics, prioritize Environment National Parks & Schedule species. Your accuracy improves +24% when solving elimination drills in 15-minute bursts.";
+
+  // Auto-rotation every 5 seconds unless paused
+  useEffect(() => {
+    if (isPaused) return;
+    const interval = setInterval(() => {
+      setActiveTab((prev) => (prev + 1) % tabsConfig.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [isPaused]);
+
+  // Subtle typing animation in AI advice
+  useEffect(() => {
+    setTypingIndex(0);
+    const interval = setInterval(() => {
+      setTypingIndex((prev) => {
+        if (prev < fullPromptText.length) {
+          return prev + 1;
+        }
+        clearInterval(interval);
+        return prev;
+      });
+    }, 28);
+    return () => clearInterval(interval);
+  }, [activeTab]);
 
   const toggleTask = (id) => {
     setTasks(tasks.map(t => t.id === id ? { ...t, completed: !t.completed } : t));
   };
 
+  const handleModeChange = (mode) => {
+    setStudyMode(mode);
+    if (mode === 'working') {
+      setStudyHours(3.5);
+    } else {
+      setStudyHours(7.5);
+    }
+  };
+
   const completedCount = tasks.filter(t => t.completed).length;
+
+  // Real-time calculation based on study hours slider
+  const staticHours = (studyHours * 0.45).toFixed(1);
+  const currentAffairsHours = (studyHours * 0.25).toFixed(1);
+  const pyqHours = (studyHours * 0.20).toFixed(1);
+  const mcqCount = Math.round(studyHours * 7);
+  const flashcardsMin = Math.round(studyHours * 0.10 * 60);
 
   return (
     <section className="py-20 lg:py-24 bg-[#FDF9F1] border-b border-stone-200/60" id="preparation">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-14">
-          <span className="text-xs font-semibold text-[#133026] tracking-wider block mb-2 uppercase">
+        <div className="text-center max-w-3xl mx-auto mb-14">
+          <span className="text-xs font-semibold text-[#133026] tracking-wider block mb-2 uppercase font-sans">
             DISCIPLINED PREPARATION, OPTIMIZED FOR YOUR DESK
           </span>
-          <h2 className="text-3xl sm:text-4xl font-sans font-bold text-[#133026] tracking-tight leading-tight mb-3">
-            An ambitious goal. A daily strategic roadmap.
+          <h2 className="text-3xl sm:text-4xl lg:text-[44px] font-serif font-bold text-[#133026] tracking-tight leading-tight mb-3">
+            Everything you study today, in one command center.
           </h2>
           <p className="text-sm sm:text-base text-stone-600 leading-relaxed font-normal">
-            Eliminate scattered resources and indecision. Your GS syllabus, previous-year questions, and daily answer writing synchronized in a single command center.
+            Eliminate scattered notes, chaotic tabs, and syllabus anxiety. Synchronize syllabus completion, 25-year PYQs, and daily AI answer reviews into a serene daily rhythm.
           </p>
         </div>
 
-        {/* Interactive Dashboard Container with Ambient Glow */}
-        <div className="relative max-w-5xl mx-auto">
-          {/* Subtle Faint Radial Gradient Glow */}
-          <div className="absolute -inset-4 sm:-inset-8 bg-gradient-to-r from-teal-700/10 via-amber-500/10 to-emerald-600/10 rounded-3xl blur-3xl pointer-events-none -z-10" />
-
-          {/* Main Floating Dashboard Card */}
-          <div className="bg-white/95 backdrop-blur-sm border border-slate-200/50 rounded-2xl shadow-2xl shadow-teal-900/10 hover:shadow-teal-900/15 transition-all duration-300 overflow-hidden" id="dashboard-demo">
+        {/* 2-Column Showcase */}
+        <div 
+          className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start"
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+        >
+          
+          {/* Left Column: Interactive Nav Tabs & Plan Your Day Slider */}
+          <div className="lg:col-span-5 flex flex-col gap-6">
             
-            {/* Top Bar */}
-            <div className="px-4 sm:px-6 py-3.5 sm:py-4 border-b border-slate-200 shadow-sm flex items-center justify-between gap-2 md:gap-4 bg-white/95 backdrop-blur-md">
-              <div className="flex items-center gap-2.5 shrink-0">
-                <div className="w-8 h-8 rounded-lg bg-[#133026] hover:bg-[#183C30] hover:scale-105 active:scale-95 flex items-center justify-center text-[#F59E0B] shadow-2xs transition-all duration-200 cursor-pointer">
-                  <Layers className="w-4 h-4" />
-                </div>
-                <span className="font-sans font-bold text-sm text-[#133026] tracking-tight">SANKALP IAS</span>
+            {/* Clickable Tabs */}
+            <div className="bg-white border border-stone-200/80 rounded-2xl p-3 shadow-xs space-y-2">
+              <div className="flex items-center justify-between px-3 py-1.5 text-xs text-stone-400 font-medium">
+                <span>SELECT WORKSPACE VIEW</span>
+                <span className="text-[11px] text-[#133026] font-semibold">
+                  {isPaused ? 'Auto-rotate paused' : 'Auto-switching (5s)'}
+                </span>
               </div>
 
-              <div className="flex-1 max-w-md hidden md:flex items-center gap-2.5 bg-slate-50 hover:bg-white border border-slate-200/80 rounded-xl px-3.5 py-2 text-xs text-slate-600 focus-within:ring-2 focus-within:ring-teal-700 focus-within:bg-white focus-within:shadow-md transition-all duration-300 cursor-text group">
-                <Search className="w-3.5 h-3.5 text-slate-400 group-focus-within:text-teal-700 transition-colors shrink-0" />
+              {tabsConfig.map((tab) => {
+                const Icon = tab.icon;
+                const isActive = activeTab === tab.id;
+                return (
+                  <button
+                    key={tab.id}
+                    type="button"
+                    onClick={() => setActiveTab(tab.id)}
+                    className={`w-full text-left p-3.5 sm:p-4 rounded-xl transition-all duration-300 flex items-start gap-3.5 cursor-pointer relative overflow-hidden ${
+                      isActive 
+                        ? 'bg-[#133026] text-white shadow-md' 
+                        : 'bg-stone-50/70 hover:bg-stone-100 text-stone-700'
+                    }`}
+                  >
+                    {isActive && (
+                      <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-[#F59E0B]" />
+                    )}
+                    <div className={`w-9 h-9 rounded-lg flex items-center justify-center shrink-0 transition-colors ${
+                      isActive ? 'bg-white/10 text-[#F59E0B]' : 'bg-white text-stone-600 border border-stone-200'
+                    }`}>
+                      <Icon className="w-5 h-5" />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <div className={`text-sm sm:text-[15px] font-sans font-bold tracking-tight ${
+                        isActive ? 'text-white' : 'text-stone-900'
+                      }`}>
+                        {tab.title}
+                      </div>
+                      <div className={`text-xs mt-0.5 line-clamp-1 ${
+                        isActive ? 'text-[#D7E5DB]' : 'text-stone-500'
+                      }`}>
+                        {tab.subtitle}
+                      </div>
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Signature Element 2: Interactive "Plan Your Day" Study Hours Slider */}
+            <div className="bg-white border border-stone-200/80 rounded-2xl p-5 shadow-sm">
+              <div className="flex items-center justify-between mb-3">
+                <div className="flex items-center gap-2">
+                  <SlidersHorizontal className="w-4 h-4 text-[#133026]" />
+                  <h3 className="font-sans font-bold text-sm text-[#133026] tracking-tight">
+                    Plan Your Study Day
+                  </h3>
+                </div>
+                <span className="text-xs font-extrabold text-[#133026] bg-[#EAF1EB] px-2.5 py-1 rounded-full border border-green-200">
+                  {studyHours} Hours / Day
+                </span>
+              </div>
+
+              {/* Mode Toggle */}
+              <div className="grid grid-cols-2 gap-2 mb-4 bg-stone-100 p-1 rounded-xl">
+                <button
+                  type="button"
+                  onClick={() => handleModeChange('working')}
+                  className={`flex items-center justify-center gap-1.5 py-1.5 px-2 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+                    studyMode === 'working'
+                      ? 'bg-white text-[#133026] shadow-xs'
+                      : 'text-stone-600 hover:text-stone-900'
+                  }`}
+                >
+                  <Briefcase className="w-3.5 h-3.5" />
+                  <span>Working Professional</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleModeChange('fulltime')}
+                  className={`flex items-center justify-center gap-1.5 py-1.5 px-2 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+                    studyMode === 'fulltime'
+                      ? 'bg-white text-[#133026] shadow-xs'
+                      : 'text-stone-600 hover:text-stone-900'
+                  }`}
+                >
+                  <GraduationCap className="w-3.5 h-3.5" />
+                  <span>Full-Time Aspirant</span>
+                </button>
+              </div>
+
+              {/* Interactive Range Slider */}
+              <div className="mb-4">
+                <div className="flex justify-between text-[11px] text-stone-400 mb-1.5 font-medium">
+                  <span>1 Hour (Light revision)</span>
+                  <span>8 Hours (Intensive marathon)</span>
+                </div>
                 <input
-                  type="text"
-                  placeholder="Search Article 21, Kesavananda Bharati, or Budget 2025..."
-                  className="w-full bg-transparent border-none p-0 text-xs text-slate-700 placeholder-slate-400 focus:outline-none focus:ring-0"
+                  type="range"
+                  min="1"
+                  max="8"
+                  step="0.5"
+                  value={studyHours}
+                  onChange={(e) => {
+                    const val = parseFloat(e.target.value);
+                    setStudyHours(val);
+                    if (val <= 4) setStudyMode('working');
+                    else setStudyMode('fulltime');
+                  }}
+                  className="w-full h-2 bg-stone-200 rounded-lg appearance-none cursor-pointer accent-[#133026]"
+                  aria-label="Daily study hours slider"
                 />
               </div>
 
-              <div className="flex items-center gap-2 sm:gap-3 shrink-0">
-                <span className="bg-[#EAF1EB] border border-green-200 hover:border-green-400 hover:bg-green-50 text-[#133026] text-xs font-semibold px-3 py-1.5 rounded-full shadow-2xs hover:shadow-xs transition-colors cursor-pointer whitespace-nowrap">
-                  Target: CSE 2026 (AIR &lt; 50)
-                </span>
-                <div className="w-8 h-8 rounded-full bg-slate-50 hover:bg-slate-100 hover:scale-105 active:scale-95 border border-slate-200/80 flex items-center justify-center text-slate-600 hover:text-[#133026] cursor-pointer transition-all duration-200 shadow-2xs">
-                  <Bell className="w-3.5 h-3.5" />
-                </div>
-                <div className="w-8 h-8 rounded-full bg-[#133026] hover:bg-[#183C30] hover:scale-105 active:scale-95 text-white font-bold text-xs flex items-center justify-center shadow-xs cursor-pointer transition-all duration-200 ring-2 ring-[#EAF1EB]">
-                  AS
-                </div>
+              {/* Animated Stacked Visual Bar */}
+              <div className="h-3.5 rounded-full overflow-hidden flex bg-stone-100 mb-4 shadow-inner">
+                <div 
+                  className="bg-[#133026] transition-all duration-300"
+                  style={{ width: `${(staticHours / studyHours) * 100}%` }}
+                  title={`Static Core: ${staticHours}h`}
+                />
+                <div 
+                  className="bg-[#F59E0B] transition-all duration-300"
+                  style={{ width: `${(currentAffairsHours / studyHours) * 100}%` }}
+                  title={`Current Affairs: ${currentAffairsHours}h`}
+                />
+                <div 
+                  className="bg-emerald-600 transition-all duration-300"
+                  style={{ width: `${(pyqHours / studyHours) * 100}%` }}
+                  title={`PYQ Drill: ${pyqHours}h`}
+                />
+                <div 
+                  className="bg-stone-400 transition-all duration-300"
+                  style={{ width: `${((studyHours - staticHours - currentAffairsHours - pyqHours) / studyHours) * 100}%` }}
+                  title={`Spaced Revision: ${flashcardsMin}m`}
+                />
               </div>
-            </div>
 
-          {/* Main Layout */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 min-h-[520px]">
-            
-            {/* Sidebar */}
-            <div className="lg:col-span-4 bg-slate-50/70 border-r border-slate-100 p-4 sm:p-5 flex flex-col justify-start">
-              <div>
-                <span className="text-[11px] font-bold text-slate-400 tracking-wider px-2 block mb-4 uppercase font-sans">
-                  PREPARATION ROADMAP
-                </span>
-                <nav className="space-y-3">
-                  {sidebarNav.map((item, idx) => {
-                    const Icon = item.icon;
-                    return (
-                      <a
-                        key={idx}
-                        href="#"
-                        className={`flex items-center gap-3.5 text-sm sm:text-[15px] px-3.5 py-3 sm:py-3.5 rounded-xl font-medium transition-all duration-200 cursor-pointer ${
-                          item.active 
-                            ? 'bg-[#133026] text-white font-semibold shadow-xs' 
-                            : 'text-slate-600 hover:bg-slate-100 hover:text-[#133026]'
-                        }`}
-                      >
-                        <Icon className={`w-5 h-5 shrink-0 ${item.active ? 'text-[#F59E0B]' : 'text-slate-400'}`} />
-                        <span className="tracking-tight">{item.name}</span>
-                      </a>
-                    );
-                  })}
-                </nav>
-              </div>
-            </div>
-
-            {/* Workspace Area */}
-            <div className="lg:col-span-8 p-5 sm:p-7 bg-white flex flex-col justify-between">
-              <div>
-                {/* Workspace Header */}
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6 pb-4 border-b border-slate-100">
-                  <div>
-                    <h3 className="text-lg font-sans font-bold text-slate-800 tracking-tight">
-                      Welcome back, Ananya. Ready for Day 42?
-                    </h3>
-                    <p className="text-xs text-slate-500 font-normal mt-0.5">
-                      Target: Complete GS II Module • 2h 30m planned study session today.
-                    </p>
+              {/* Breakdown Grid */}
+              <div className="grid grid-cols-2 gap-2.5 text-xs">
+                <div className="p-2.5 bg-stone-50 rounded-xl border border-stone-200/60">
+                  <div className="flex items-center gap-1.5 text-stone-600 mb-0.5">
+                    <span className="w-2 h-2 rounded-full bg-[#133026]" />
+                    <span className="font-medium text-[11px]">Core GS Textbooks</span>
                   </div>
-                  <button className="self-start sm:self-auto inline-flex items-center gap-1.5 bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-800 text-xs font-semibold px-3 py-1.5 rounded-lg transition-all duration-200 active:scale-95 cursor-pointer shadow-2xs">
-                    <SlidersHorizontal className="w-3.5 h-3.5 text-slate-600" />
-                    <span>Adjust daily hours</span>
-                  </button>
+                  <div className="font-bold text-stone-900 text-sm">{staticHours} hrs</div>
+                  <div className="text-[10px] text-stone-500">Target: 2 Standard Chapters</div>
                 </div>
 
-                {/* Metrics Cards (Hierarchy & Accent Colors) */}
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5 sm:gap-4 mb-6">
-                  {metrics.map((m, idx) => {
-                    const Icon = m.icon;
-                    return (
-                      <div
-                        key={idx}
-                        className="bg-white border border-slate-200 shadow-sm rounded-xl p-4 sm:p-5 hover:shadow-md transition-shadow duration-200 cursor-pointer group"
-                      >
-                        <div className="flex items-center justify-between mb-2">
-                          <span className="text-sm text-slate-500 font-medium group-hover:text-slate-700 transition-colors">
-                            {m.label}
-                          </span>
-                          <div className="w-7 h-7 rounded-lg bg-slate-50 border border-slate-200/80 group-hover:bg-[#EAF1EB] group-hover:text-[#133026] flex items-center justify-center text-slate-600 transition-colors">
-                            <Icon className="w-4 h-4 group-hover:scale-105 transition-transform" />
-                          </div>
-                        </div>
-                        <div className="font-sans font-bold tracking-tight text-xl sm:text-2xl lg:text-3xl text-slate-800 my-1.5 transition-colors whitespace-nowrap flex flex-row items-baseline">
-                          {m.value}
-                        </div>
-                        <div className="text-xs sm:text-[13px] text-slate-500 font-normal leading-relaxed">
-                          {m.footer}
-                        </div>
-                      </div>
-                    );
-                  })}
+                <div className="p-2.5 bg-stone-50 rounded-xl border border-stone-200/60">
+                  <div className="flex items-center gap-1.5 text-stone-600 mb-0.5">
+                    <span className="w-2 h-2 rounded-full bg-[#F59E0B]" />
+                    <span className="font-medium text-[11px]">Editorials & Current</span>
+                  </div>
+                  <div className="font-bold text-stone-900 text-sm">{currentAffairsHours} hrs</div>
+                  <div className="text-[10px] text-stone-500">2 National Papers Digest</div>
                 </div>
 
-                {/* Focus for Today vs Syllabus Coverage */}
-                <div className="grid grid-cols-1 md:grid-cols-12 gap-5 items-start">
+                <div className="p-2.5 bg-stone-50 rounded-xl border border-stone-200/60">
+                  <div className="flex items-center gap-1.5 text-stone-600 mb-0.5">
+                    <span className="w-2 h-2 rounded-full bg-emerald-600" />
+                    <span className="font-medium text-[11px]">PYQ Practice</span>
+                  </div>
+                  <div className="font-bold text-stone-900 text-sm">{pyqHours} hrs</div>
+                  <div className="text-[10px] text-stone-500">{mcqCount} MCQs + Elimination</div>
+                </div>
+
+                <div className="p-2.5 bg-stone-50 rounded-xl border border-stone-200/60">
+                  <div className="flex items-center gap-1.5 text-stone-600 mb-0.5">
+                    <span className="w-2 h-2 rounded-full bg-stone-400" />
+                    <span className="font-medium text-[11px]">Spaced Revision</span>
+                  </div>
+                  <div className="font-bold text-stone-900 text-sm">{flashcardsMin} mins</div>
+                  <div className="text-[10px] text-stone-500">Active Recall Deck</div>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+          {/* Right Column: Dynamic Mockup & Floating Badges */}
+          <div className="lg:col-span-7 relative">
+            
+            {/* Ambient Backing Glow */}
+            <div className="absolute -inset-4 bg-gradient-to-r from-teal-700/10 via-amber-500/10 to-emerald-600/10 rounded-3xl blur-2xl pointer-events-none -z-10" />
+
+            {/* Floating Mini Badge 1: Streak Saved */}
+            <div className="hidden sm:flex items-center gap-2.5 absolute -top-4 -left-4 z-20 bg-white border border-stone-200/90 rounded-xl px-3.5 py-2 shadow-lg hover:scale-105 transition-transform duration-200">
+              <div className="w-6 h-6 rounded-lg bg-amber-50 border border-amber-200 flex items-center justify-center text-amber-600">
+                <Flame className="w-4 h-4 fill-amber-500" />
+              </div>
+              <div>
+                <div className="text-xs font-bold text-stone-900">Streak saved: 14 days</div>
+                <div className="text-[10px] text-stone-500">Daily disciplined study</div>
+              </div>
+            </div>
+
+            {/* Floating Mini Badge 2: Score Uplift */}
+            <div className="hidden sm:flex items-center gap-2.5 absolute -bottom-4 -right-4 z-20 bg-[#133026] text-white border border-emerald-900 rounded-xl px-3.5 py-2 shadow-xl hover:scale-105 transition-transform duration-200">
+              <div className="w-6 h-6 rounded-lg bg-emerald-800 flex items-center justify-center text-[#F59E0B]">
+                <TrendingUp className="w-4 h-4" />
+              </div>
+              <div>
+                <div className="text-xs font-bold text-white">+12 marks predicted in GS II</div>
+                <div className="text-[10px] text-emerald-300">Based on recent PYQ drills</div>
+              </div>
+            </div>
+
+            {/* Main Interactive Screen Container */}
+            <div className="bg-white border border-slate-200/90 rounded-2xl shadow-xl overflow-hidden transition-all duration-300">
+              
+              {/* Top Screen App Bar */}
+              <div className="px-5 py-3.5 border-b border-slate-100 flex items-center justify-between bg-slate-50/70">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-7 h-7 rounded-lg bg-[#133026] flex items-center justify-center text-[#F59E0B]">
+                    <Layers className="w-4 h-4" />
+                  </div>
+                  <span className="font-sans font-bold text-sm text-[#133026] tracking-tight">UPSC ZONE AI</span>
+                  <span className="text-[10px] font-bold bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full border border-amber-200">
+                    Live Simulator
+                  </span>
+                </div>
+
+                <div className="flex items-center gap-2 text-xs">
+                  <span className="text-stone-400 hidden sm:inline text-[11px] font-medium">Sample data for demonstration</span>
+                  <div className="w-7 h-7 rounded-full bg-[#133026] text-[#F59E0B] font-bold text-xs flex items-center justify-center">
+                    AS
+                  </div>
+                </div>
+              </div>
+
+              {/* TAB 1: DAILY STUDY PLAN VIEW */}
+              {activeTab === 0 && (
+                <div className="p-5 sm:p-6 space-y-5 animate-fadeIn">
                   
-                  {/* Today's Focus Tasks */}
-                  <div className="md:col-span-7 space-y-3">
-                    <div className="flex items-center justify-between">
-                      <span className="text-xs font-sans font-bold text-slate-800 uppercase tracking-wider">
-                        Today's Study Checklist
+                  {/* Top Welcome & Circular Progress Ring */}
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-xl bg-gradient-to-r from-emerald-50/50 to-stone-50 border border-slate-200/70">
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <span className="text-xs font-bold uppercase tracking-wider text-[#133026]">DAY 42 OF 365</span>
+                        <span className="text-[10px] bg-red-50 text-red-700 border border-red-200 font-bold px-2 py-0.5 rounded-full flex items-center gap-1">
+                          <AlertCircle className="w-3 h-3" />
+                          Weak Area: Environment Wetlands
+                        </span>
+                      </div>
+                      <h4 className="text-base sm:text-lg font-sans font-bold text-stone-900 mt-1">
+                        Today's Targeted Syllabus Focus
+                      </h4>
+                      <p className="text-xs text-stone-500 mt-0.5">
+                        Planned session: {studyHours} hours • Paced to complete GS II revision
+                      </p>
+                    </div>
+
+                    {/* Circular Progress Ring */}
+                    <div className="flex items-center gap-3 shrink-0">
+                      <div className="relative w-16 h-16 flex items-center justify-center">
+                        <svg className="w-16 h-16 transform -rotate-90" viewBox="0 0 80 80">
+                          <circle
+                            cx="40"
+                            cy="40"
+                            r="34"
+                            stroke="#E2E8F0"
+                            strokeWidth="7"
+                            fill="transparent"
+                          />
+                          <circle
+                            cx="40"
+                            cy="40"
+                            r="34"
+                            stroke="#133026"
+                            strokeWidth="7"
+                            strokeDasharray={213.6}
+                            strokeDashoffset={213.6 * (1 - 0.68)}
+                            strokeLinecap="round"
+                            fill="transparent"
+                            className="transition-all duration-1000 ease-out"
+                          />
+                        </svg>
+                        <span className="absolute font-sans font-extrabold text-xs text-stone-900">
+                          68%
+                        </span>
+                      </div>
+                      <div className="text-left">
+                        <div className="text-xs font-bold text-stone-900">GS Coverage</div>
+                        <div className="text-[10px] text-stone-500">68% of 2026 Core</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Priority Checklist */}
+                  <div>
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-xs font-bold text-stone-800 uppercase tracking-wider">
+                        Today's Action Items
                       </span>
-                      <span className="text-[10px] font-bold text-[#133026] bg-[#EAF1EB] px-2.5 py-0.5 rounded-full border border-[#133026]/10">
-                        {completedCount} / 3 complete
+                      <span className="text-xs font-semibold text-[#133026] bg-[#EAF1EB] px-2 py-0.5 rounded-full">
+                        {completedCount} of 3 tasks checked
                       </span>
                     </div>
 
@@ -247,143 +474,236 @@ export default function DashboardPreview() {
                         <div
                           key={task.id}
                           onClick={() => toggleTask(task.id)}
-                          className={`flex items-center justify-between p-3 rounded-xl border transition-all duration-200 cursor-pointer ${
-                            task.completed 
-                              ? 'bg-slate-50/70 border-slate-200 text-slate-400' 
-                              : 'bg-white hover:bg-slate-100 border-slate-200/70 hover:border-slate-300 shadow-2xs hover:shadow-xs'
+                          className={`p-3 rounded-xl border transition-all duration-200 cursor-pointer flex items-center justify-between gap-3 ${
+                            task.completed
+                              ? 'bg-stone-50 border-stone-200 opacity-70'
+                              : 'bg-white hover:bg-slate-50 border-slate-200/80 shadow-xs'
                           }`}
                         >
-                          <div className="flex items-center gap-2.5 min-w-0">
-                            <div className={`w-4.5 h-4.5 rounded-md flex items-center justify-center border transition-colors ${
-                              task.completed ? 'bg-[#133026] border-[#133026] text-white shadow-2xs' : 'border-slate-300 bg-white group-hover:border-slate-400'
+                          <div className="flex items-center gap-3 min-w-0">
+                            <div className={`w-5 h-5 rounded-md flex items-center justify-center border transition-colors shrink-0 ${
+                              task.completed 
+                                ? 'bg-[#133026] border-[#133026] text-white' 
+                                : 'border-stone-300 bg-white'
                             }`}>
-                              {task.completed && <Check className="w-3 h-3 stroke-[3]" />}
+                              {task.completed && <Check className="w-3.5 h-3.5 stroke-[3]" />}
                             </div>
-                            <div className="truncate">
-                              <div className={`text-xs font-semibold truncate ${task.completed ? 'line-through text-slate-400' : 'text-slate-900'}`}>
+                            <div className="min-w-0">
+                              <div className={`text-xs sm:text-[13px] font-semibold truncate ${
+                                task.completed ? 'line-through text-stone-400' : 'text-stone-900'
+                              }`}>
                                 {task.title}
                               </div>
-                              <div className="text-[10px] text-slate-500 font-normal">{task.sub}</div>
+                              <div className="text-[10px] text-stone-500 mt-0.5 truncate">
+                                {task.sub}
+                              </div>
                             </div>
                           </div>
-                          <span className="text-xs text-slate-400 font-normal shrink-0 ml-2">{task.time}</span>
+                          <span className="text-xs font-medium text-stone-400 shrink-0">
+                            {task.time}
+                          </span>
                         </div>
                       ))}
                     </div>
-
-                    <div className="flex items-center justify-between text-xs pt-1">
-                      <span className="text-slate-400 text-[11px]">Strict 2-hour window recommended.</span>
-                      <a href="#" className="font-semibold text-[#133026] hover:text-[#F59E0B] hover:underline transition-colors duration-200 cursor-pointer">
-                        Open Timer →
-                      </a>
-                    </div>
                   </div>
 
-                  {/* Syllabus Coverage & Recommendation */}
-                  <div className="md:col-span-5 space-y-4">
-                    <div className="bg-slate-50 hover:bg-white border border-slate-200/60 hover:border-slate-300 rounded-xl p-4 transition-all duration-200 shadow-2xs hover:shadow-xs">
-                      <div className="flex items-center justify-between mb-3">
-                        <span className="text-xs font-sans font-bold text-slate-800">Syllabus Coverage</span>
-                        <a href="#" className="text-[11px] font-semibold text-[#133026] hover:text-[#F59E0B] hover:underline inline-flex items-center transition-colors duration-200 cursor-pointer">
-                          View all <ArrowUpRight className="w-3 h-3 ml-0.5" />
-                        </a>
-                      </div>
-
-                      {/* Subject Progress */}
-                      <div className="space-y-3">
-                        {syllabusProgress.map((item, idx) => (
-                          <div key={idx} className="group/bar cursor-pointer">
-                            <div className="flex items-center justify-between text-[11px] mb-1">
-                              <span className="font-medium text-slate-800 group-hover/bar:text-[#133026] transition-colors">{item.name}</span>
-                              <span className="font-bold text-[#133026]">{item.percentage}%</span>
-                            </div>
-                            <div className="w-full h-2 bg-slate-200/70 rounded-full overflow-hidden">
-                              <div
-                                className={`h-full rounded-full transition-all duration-500 ${item.isCoral ? 'bg-[#F59E0B]' : 'bg-[#133026]'}`}
-                                style={{ width: `${item.percentage}%` }}
-                              />
-                            </div>
+                  {/* Syllabus Bars Breakdown */}
+                  <div className="bg-slate-50/60 border border-slate-200/70 rounded-xl p-4">
+                    <div className="flex items-center justify-between text-xs font-bold text-stone-800 mb-3">
+                      <span>Subject Completion Benchmarks</span>
+                      <span className="text-stone-400 font-normal">Target: 85% by January</span>
+                    </div>
+                    <div className="space-y-2.5">
+                      {syllabusProgress.map((item, idx) => (
+                        <div key={idx}>
+                          <div className="flex justify-between text-[11px] mb-1">
+                            <span className="font-medium text-stone-700">{item.name}</span>
+                            <span className="font-bold text-[#133026]">{item.percentage}%</span>
                           </div>
+                          <div className="w-full h-1.5 bg-slate-200 rounded-full overflow-hidden">
+                            <div
+                              className={`h-full rounded-full transition-all duration-700 ${
+                                item.isCoral ? 'bg-[#F59E0B]' : 'bg-[#133026]'
+                              }`}
+                              style={{ width: `${item.percentage}%` }}
+                            />
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* AI Next Best Step with Typing Animation */}
+                  <div className="p-3.5 rounded-xl bg-[#133026] text-white flex items-start gap-3">
+                    <Sparkles className="w-4 h-4 text-[#F59E0B] shrink-0 mt-0.5" />
+                    <div className="min-w-0 text-xs">
+                      <div className="font-bold text-[#F59E0B] text-[11px] uppercase tracking-wider mb-0.5">
+                        AIR Mentor Next Best Step
+                      </div>
+                      <p className="text-stone-200 leading-relaxed font-normal">
+                        {fullPromptText.slice(0, typingIndex)}
+                        <span className="inline-block w-1.5 h-3 bg-[#F59E0B] ml-0.5 animate-pulse" />
+                      </p>
+                    </div>
+                  </div>
+
+                </div>
+              )}
+
+              {/* TAB 2: PYQ INSIGHTS VIEW */}
+              {activeTab === 1 && (
+                <div className="p-5 sm:p-6 space-y-5 animate-fadeIn">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-stone-200/60">
+                    <div>
+                      <h4 className="text-base font-sans font-bold text-stone-900">
+                        25-Year UPSC CSE Prelims Topic Recurrence Heatmap
+                      </h4>
+                      <p className="text-xs text-stone-500">
+                        Analyzing 2,500+ official questions (2000 – 2025) categorized by syllabus micro-themes.
+                      </p>
+                    </div>
+                    <span className="text-xs font-semibold text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200 self-start sm:self-auto">
+                      Official Trends
+                    </span>
+                  </div>
+
+                  {/* Recurrence Heatmap Table */}
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-left text-xs">
+                      <thead>
+                        <tr className="border-b border-stone-200 text-stone-500 font-medium">
+                          <th className="pb-2">Theme</th>
+                          <th className="pb-2">Avg Share</th>
+                          <th className="pb-2">Trend</th>
+                          <th className="pb-2">High-Yield Micro-Topics</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-stone-100">
+                        {pyqTrends.map((row, idx) => (
+                          <tr key={idx} className="hover:bg-slate-50/70 transition-colors">
+                            <td className="py-2.5 font-semibold text-stone-900">{row.subject}</td>
+                            <td className="py-2.5 font-bold text-[#133026]">{row.weight}</td>
+                            <td className="py-2.5">
+                              <span className="bg-amber-50 text-amber-800 font-semibold text-[10px] px-2 py-0.5 rounded-full border border-amber-200">
+                                {row.trend}
+                              </span>
+                            </td>
+                            <td className="py-2.5 text-stone-600 truncate max-w-[200px]">{row.highYield}</td>
+                          </tr>
                         ))}
+                      </tbody>
+                    </table>
+                  </div>
+
+                  {/* High Yield Drill Action Card */}
+                  <div className="p-4 rounded-xl bg-gradient-to-r from-emerald-900 to-[#133026] text-white flex items-center justify-between">
+                    <div>
+                      <div className="text-xs font-bold text-[#F59E0B] uppercase tracking-wider">
+                        High-Yield Elimination Drill
+                      </div>
+                      <div className="text-sm font-bold text-white mt-0.5">
+                        Practice 25 Most Repeated Polity Articles & Schedules
+                      </div>
+                      <div className="text-[11px] text-emerald-200 mt-0.5">
+                        Tested 42 times across 2011–2024. Average aspirant accuracy: 61%.
                       </div>
                     </div>
+                    <button 
+                      type="button"
+                      className="bg-[#F59E0B] hover:bg-amber-400 text-stone-950 text-xs font-bold px-4 py-2 rounded-lg transition-colors cursor-pointer shrink-0 ml-4"
+                    >
+                      Launch Drill →
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {/* TAB 3: AI ANSWER FEEDBACK VIEW */}
+              {activeTab === 2 && (
+                <div className="p-5 sm:p-6 space-y-4 animate-fadeIn">
+                  <div className="flex items-center justify-between pb-3 border-b border-stone-200/60">
+                    <div>
+                      <span className="text-[10px] font-bold text-[#F59E0B] bg-[#133026] px-2 py-0.5 rounded-full uppercase tracking-wider">
+                        GS II MAINS EVALUATION
+                      </span>
+                      <h4 className="text-sm sm:text-base font-sans font-bold text-stone-900 mt-1">
+                        Question: "Evaluate the role of the Finance Commission in balancing fiscal federalism."
+                      </h4>
+                    </div>
+                    <div className="text-right shrink-0">
+                      <div className="text-xl font-sans font-extrabold text-[#133026]">6.5 / 10</div>
+                      <div className="text-[10px] font-semibold text-emerald-700">Top 15% Percentile</div>
+                    </div>
                   </div>
 
+                  {/* Rubric Breakdown */}
+                  <div className="grid grid-cols-3 gap-2.5 text-xs text-center">
+                    <div className="p-2.5 bg-stone-50 border border-stone-200/70 rounded-xl">
+                      <div className="font-semibold text-stone-500 text-[11px]">Introduction</div>
+                      <div className="font-bold text-stone-800 text-sm mt-0.5">1.5 / 2.0</div>
+                      <div className="text-[10px] text-emerald-600 font-medium">Clear Article citation</div>
+                    </div>
+                    <div className="p-2.5 bg-stone-50 border border-stone-200/70 rounded-xl">
+                      <div className="font-semibold text-stone-500 text-[11px]">Core Body Arguments</div>
+                      <div className="font-bold text-stone-800 text-sm mt-0.5">3.5 / 5.0</div>
+                      <div className="text-[10px] text-amber-600 font-medium">Good cooperative points</div>
+                    </div>
+                    <div className="p-2.5 bg-stone-50 border border-stone-200/70 rounded-xl">
+                      <div className="font-semibold text-stone-500 text-[11px]">Way Forward</div>
+                      <div className="font-bold text-stone-800 text-sm mt-0.5">1.5 / 3.0</div>
+                      <div className="text-[10px] text-red-600 font-medium">Needs institutional reform</div>
+                    </div>
+                  </div>
+
+                  {/* Missing High-Yield Keywords Tag Cloud */}
+                  <div>
+                    <div className="text-xs font-bold text-stone-800 mb-1.5 flex items-center justify-between">
+                      <span>High-Scoring Keywords to Integrate:</span>
+                      <span className="text-[10px] text-stone-400 font-normal">Present in topper copies</span>
+                    </div>
+                    <div className="flex flex-wrap gap-1.5">
+                      <span className="bg-emerald-50 text-emerald-800 border border-emerald-200 text-xs px-2.5 py-1 rounded-md font-medium">
+                        ✓ Article 280 Mandate (Included)
+                      </span>
+                      <span className="bg-emerald-50 text-emerald-800 border border-emerald-200 text-xs px-2.5 py-1 rounded-md font-medium">
+                        ✓ Vertical Devolution 41% (Included)
+                      </span>
+                      <span className="bg-red-50 text-red-800 border border-red-200 text-xs px-2.5 py-1 rounded-md font-medium">
+                        + Missing: Horizontal Equity Criteria
+                      </span>
+                      <span className="bg-red-50 text-red-800 border border-red-200 text-xs px-2.5 py-1 rounded-md font-medium">
+                        + Missing: Cess & Surcharge Erosion
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Evaluator Summary */}
+                  <div className="p-3.5 bg-emerald-50/60 border border-emerald-200/70 rounded-xl text-xs text-stone-700">
+                    <div className="font-bold text-[#133026] mb-1">AI Evaluator Feedback:</div>
+                    <p className="leading-relaxed">
+                      "Strong contextual opening with balanced arguments. To jump from 6.5 to 8.0, incorporate a simple 3-tier flowchart illustrating statutory grants under Article 275 versus tax sharing."
+                    </p>
+                  </div>
                 </div>
+              )}
+
+              {/* Bottom Workspace Status Bar */}
+              <div className="px-5 py-3 border-t border-slate-100 bg-slate-50/50 flex items-center justify-between text-xs text-stone-500">
+                <div className="flex items-center gap-2">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+                  <span>Synchronized with UPSC CSE 2026 Notification Standards</span>
+                </div>
+                <span className="font-semibold text-[#133026]">Command Center Active</span>
               </div>
+
             </div>
 
           </div>
 
-          {/* Action Cards Grid - Perfectly Aligned Single Row with Equal Heights */}
-          <div className="p-5 sm:p-7 border-t border-slate-100 bg-slate-50/40">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
-              
-              {/* 1. Active Recall Queue */}
-              <div className="h-full flex flex-col justify-between bg-[#EAF1EB]/70 hover:bg-[#EAF1EB] border border-slate-200/70 rounded-2xl p-5 sm:p-6 transition-all duration-300 ease-in-out hover:-translate-y-1 hover:shadow-xl cursor-default group shadow-2xs">
-                <div>
-                  <div className="flex items-center gap-2 mb-3 text-[#133026]">
-                    <div className="w-7 h-7 rounded-lg bg-white/80 border border-[#133026]/10 flex items-center justify-center shrink-0 shadow-2xs">
-                      <RotateCw className="w-4 h-4 text-[#133026] group-hover:rotate-45 transition-transform duration-300" />
-                    </div>
-                    <h4 className="font-sans font-bold text-slate-800 tracking-tight text-sm sm:text-base">Active Recall Queue</h4>
-                  </div>
-                  <p className="text-[15px] text-slate-600 leading-relaxed font-normal mb-4">
-                    14 spaced-revision flashcards on <strong className="font-semibold text-slate-800">Fundamental Rights & Writs</strong> due today.
-                  </p>
-                </div>
-                <div className="pt-3 border-t border-[#133026]/10 flex items-center justify-between text-xs font-bold text-[#133026] group-hover:text-[#F59E0B] transition-colors">
-                  <span>Start 10-min revision</span>
-                  <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
-                </div>
-              </div>
-
-              {/* 2. Mains Question of the Day (Center Dark Focal Point) */}
-              <div className="h-full flex flex-col justify-between bg-[#133026] hover:bg-[#183C30] border border-[#1e483a] rounded-2xl p-5 sm:p-6 shadow-lg shadow-teal-900/30 transition-all duration-300 ease-in-out hover:-translate-y-1 hover:shadow-2xl hover:shadow-teal-900/50 cursor-default group text-white">
-                <div>
-                  <div className="flex items-center gap-2 mb-2.5">
-                    <Sparkles className="w-4 h-4 text-[#F59E0B] fill-[#F59E0B] group-hover:rotate-12 transition-transform duration-300 shrink-0" />
-                    <span className="text-[10px] sm:text-xs font-bold uppercase tracking-widest text-[#F59E0B]">MAINS QUESTION OF THE DAY • GS II</span>
-                  </div>
-                  <h4 className="font-sans font-bold text-sm sm:text-[15px] leading-snug line-clamp-2 text-white mb-2 tracking-tight">
-                    Critically examine the role of the Finance Commission in balancing cooperative and competitive federalism in India.
-                  </h4>
-                  <p className="text-xs text-[#D7E5DB] font-normal leading-relaxed mb-4">
-                    250 words • 15 marks • Instant evaluation against topper copies
-                  </p>
-                </div>
-                <div className="pt-3 border-t border-white/10 flex items-center justify-between text-xs font-bold text-[#F59E0B] group-hover:text-amber-300 transition-colors">
-                  <span>Submit Answer for AI Review</span>
-                  <ArrowRight className="w-4 h-4 text-[#F59E0B] transition-transform duration-200 group-hover:translate-x-1" />
-                </div>
-              </div>
-
-              {/* 3. AI Next Best Step */}
-              <div className="h-full flex flex-col justify-between bg-[#EAF1EB]/70 hover:bg-[#EAF1EB] border border-slate-200/70 rounded-2xl p-5 sm:p-6 transition-all duration-300 ease-in-out hover:-translate-y-1 hover:shadow-xl cursor-default group shadow-2xs">
-                <div>
-                  <div className="flex items-center gap-2 mb-3 text-[#133026]">
-                    <div className="w-7 h-7 rounded-lg bg-white/80 border border-[#133026]/10 flex items-center justify-center shrink-0 shadow-2xs">
-                      <Sparkles className="w-4 h-4 text-[#133026] fill-[#133026] group-hover:rotate-12 transition-transform duration-300" />
-                    </div>
-                    <h4 className="font-sans font-bold text-slate-800 tracking-tight text-sm sm:text-base">AI Next Best Step</h4>
-                  </div>
-                  <p className="text-[15px] text-slate-600 leading-relaxed font-normal mb-4">
-                    Environment PYQs show low recall on Wildlife Protection Act amendments. Revise Schedule 1-4 species.
-                  </p>
-                </div>
-                <div className="pt-3 border-t border-[#133026]/10 flex items-center justify-between text-xs font-bold text-[#133026] group-hover:text-[#F59E0B] transition-colors">
-                  <span>Start 15-min MCQ drill</span>
-                  <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
-                </div>
-              </div>
-
-            </div>
-          </div>
         </div>
-      </div>
 
-        {/* Consolidated Compact Feature Highlights */}
-        <div className="mt-6 md:mt-8 mb-2">
+        {/* Consolidated Compact Feature Highlights (Phase 3 micro-polish) */}
+        <div className="mt-12 pt-8 border-t border-stone-200/60">
           <div className="flex flex-col md:flex-row flex-wrap justify-center items-center gap-5 sm:gap-6 md:gap-10">
             <div className="flex items-center gap-2.5">
               <Check className="w-4 h-4 text-[#133026] stroke-[2.5] shrink-0" />
@@ -405,7 +725,7 @@ export default function DashboardPreview() {
             </div>
           </div>
 
-          <div className="text-xs sm:text-[13px] text-slate-500 mt-2.5 text-center font-normal">
+          <div className="text-xs sm:text-[13px] text-slate-500 mt-3 text-center font-normal">
             Curated with real UPSC CSE trends, topper notes & verified syllabus mappings.
           </div>
         </div>

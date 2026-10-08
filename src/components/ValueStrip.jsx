@@ -5,32 +5,32 @@ const valueProps = [
   {
     icon: GitFork,
     title: 'Granular Syllabus Mapping',
-    description: 'Clear progress tracking across every micro-theme from GS Paper I to GS IV.',
+    description: 'Track progress across every micro-theme from GS Paper I to GS IV with zero ambiguity.',
   },
   {
     icon: Target,
     title: 'Negative Marking Elimination',
-    description: 'Pinpoint recurring blind spots and eliminate option traps after every sectional mock.',
+    description: 'Pinpoint recurring knowledge blind spots and eliminate 50:50 option traps systematically.',
   },
   {
     icon: BookOpen,
     title: 'Static & Editorial Sync',
-    description: 'Seamlessly connect daily national news with NCERTs and standard reference textbooks.',
+    description: 'Connect daily national current affairs with foundational textbooks and syllabus themes.',
   },
 ];
 
 export default function ValueStrip() {
   return (
-    <section className="bg-[#133026] text-white py-12 border-y border-[#183C30]">
+    <section className="bg-[#133026] text-white py-14 sm:py-16 border-y border-[#183C30] relative overflow-hidden" aria-label="Core Principles">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-6 items-start">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-8 items-start">
           
           {/* Column 1: Heading */}
-          <div>
-            <span className="text-[11px] font-bold text-[#F59E0B] tracking-wider block mb-1.5 uppercase">
+          <div className="lg:pr-4">
+            <span className="text-xs font-bold text-[#F59E0B] tracking-wider block mb-2 uppercase">
               STRATEGIC PREPARATION
             </span>
-            <h2 className="text-xl font-sans font-bold text-white tracking-tight leading-snug">
+            <h2 className="text-xl sm:text-2xl font-serif font-bold text-white tracking-tight leading-snug">
               Focus on outcome-driven learning,<br className="hidden sm:inline" /> not just study hours.
             </h2>
           </div>
@@ -39,14 +39,17 @@ export default function ValueStrip() {
           {valueProps.map((item, idx) => {
             const Icon = item.icon;
             return (
-              <div key={idx} className="flex flex-col group p-3 -m-3 rounded-xl transition-all duration-200 hover:bg-white/5 cursor-pointer">
-                <div className="mb-2.5 text-[#F59E0B] transition-transform duration-200 group-hover:scale-110">
+              <div 
+                key={idx} 
+                className="flex flex-col group p-4 -m-4 rounded-xl transition-all duration-200 hover:bg-white/5 cursor-default"
+              >
+                <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center text-[#F59E0B] mb-3 transition-transform duration-200 group-hover:scale-110">
                   <Icon className="w-5 h-5 stroke-[2.2]" />
                 </div>
-                <h3 className="text-sm font-semibold text-white mb-1">
+                <h3 className="text-base font-bold text-white mb-1.5 tracking-tight">
                   {item.title}
                 </h3>
-                <p className="text-xs text-[#D7E5DB] leading-relaxed">
+                <p className="text-xs sm:text-[13px] text-[#D7E5DB] leading-relaxed font-normal">
                   {item.description}
                 </p>
               </div>

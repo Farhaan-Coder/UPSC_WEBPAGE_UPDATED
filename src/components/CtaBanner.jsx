@@ -1,7 +1,7 @@
 import React from 'react';
 import { ArrowRight, Sparkles } from 'lucide-react';
 
-export default function CtaBanner() {
+export default function CtaBanner({ onOpenAuth }) {
   return (
     <section className="py-20 bg-[#FDF9F1]" id="get-started">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
@@ -15,11 +15,11 @@ export default function CtaBanner() {
 
           {/* Banner Copy */}
           <div className="relative z-10 max-w-lg">
-            <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#F59E0B] tracking-wider mb-3 uppercase bg-white/10 px-3 py-1 rounded-full border border-white/10">
+            <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#F59E0B] tracking-wider mb-3 uppercase bg-white/10 px-3 py-1 rounded-full border border-white/10 font-sans">
               <Sparkles className="w-3.5 h-3.5 fill-[#F59E0B]" />
               <span>ACCELERATE YOUR JOURNEY TO LBSNAA</span>
             </span>
-            <h2 className="text-3xl sm:text-4xl font-sans font-bold text-white tracking-tight leading-tight mb-3">
+            <h2 className="text-3xl sm:text-4xl font-serif font-bold text-white tracking-tight leading-tight mb-3">
               Your ambition deserves a<br className="hidden sm:inline" /> smarter, disciplined plan.
             </h2>
             <p className="text-sm sm:text-base text-[#D7E5DB] leading-relaxed font-normal">
@@ -29,19 +29,20 @@ export default function CtaBanner() {
 
           {/* Call to Action Actions */}
           <div className="relative z-10 flex flex-col items-start md:items-center gap-3.5">
-            <a
-              href="#get-started"
-              className="group relative inline-flex items-center gap-3 bg-gradient-to-b from-[#FBBF24] to-[#F59E0B] hover:from-[#F59E0B] hover:to-[#D97706] text-stone-900 font-bold text-sm sm:text-base px-8 py-4 rounded-xl shadow-[0_4px_18px_rgba(245,158,11,0.32)] hover:shadow-[0_8px_30px_rgba(245,158,11,0.5)] border border-amber-300/60 transition-all duration-300 ease-out hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98] overflow-hidden"
+            <button
+              type="button"
+              onClick={() => onOpenAuth ? onOpenAuth('signup') : null}
+              className="group relative inline-flex items-center gap-3 bg-gradient-to-b from-[#FBBF24] to-[#F59E0B] hover:from-[#F59E0B] hover:to-[#D97706] text-stone-900 font-bold text-sm sm:text-base px-8 py-4 rounded-xl shadow-[0_4px_18px_rgba(245,158,11,0.32)] hover:shadow-[0_8px_30px_rgba(245,158,11,0.5)] border border-amber-300/60 transition-all duration-300 ease-out hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98] overflow-hidden cursor-pointer"
             >
               <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out pointer-events-none" />
               <span className="relative">Start Free Daily Prep</span>
               <ArrowRight className="w-5 h-5 stroke-[2.5] transition-transform duration-300 group-hover:translate-x-1.5" />
-            </a>
+            </button>
             <a
-              href="#dashboard-demo"
+              href="#preparation"
               className="group inline-flex items-center gap-1.5 text-xs font-semibold text-[#D7E5DB] hover:text-white transition-colors duration-200"
             >
-              <span>View 7-day preparation demo</span>
+              <span>Explore live preparation dashboard</span>
               <span className="transition-transform duration-200 group-hover:translate-x-1">→</span>
             </a>
             <span className="text-[11px] text-[#D7E5DB]/70 font-normal">
