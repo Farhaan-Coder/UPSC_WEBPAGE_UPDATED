@@ -54,9 +54,6 @@ export default function Footer() {
               <span className="font-serif font-bold text-lg text-white tracking-tight">
                 SANKALP IAS
               </span>
-              <span className="bg-white/10 border border-white/10 text-[#F59E0B] text-[10px] font-semibold px-2 py-0.5 rounded">
-                AI CO-PILOT
-              </span>
             </a>
             
             <p className="text-xs sm:text-sm text-[#D7E5DB] leading-relaxed mb-6 font-normal">

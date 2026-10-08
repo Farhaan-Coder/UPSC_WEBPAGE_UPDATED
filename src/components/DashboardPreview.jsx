@@ -126,9 +126,6 @@ export default function DashboardPreview() {
                   <Layers className="w-4 h-4" />
                 </div>
                 <span className="font-serif font-bold text-sm text-[#133026] tracking-tight">SANKALP IAS</span>
-                <span className="bg-[#EAF1EB] text-[#133026] text-[10px] font-bold px-2 py-0.5 rounded-md border border-[#133026]/10">
-                  AI CO-PILOT
-                </span>
               </div>
 
               <div className="flex-1 max-w-md hidden md:flex items-center gap-2 bg-slate-50 hover:bg-slate-100 border border-slate-200/80 rounded-lg px-3.5 py-2 text-xs text-slate-600 transition-colors duration-200 cursor-text">
