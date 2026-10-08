@@ -39,24 +39,24 @@ export default function JourneyRoadmapCard({
     <div
       onMouseEnter={onCardMouseEnter}
       onMouseLeave={onCardMouseLeave}
-      className="rounded-2xl bg-gradient-to-br from-[#133026] via-[#183C30] to-[#0A1D16] text-white p-6 sm:p-7 flex flex-col justify-between shadow-xl border border-[#1E493B] transition-all duration-300 hover:shadow-2xl h-full"
+      className="rounded-2xl bg-gradient-to-br from-[#133026] via-[#183C30] to-[#0A1D16] text-white p-6 sm:p-7 flex flex-col justify-between shadow-xl border border-[#1E493B] transition-all duration-300 hover:shadow-2xl h-full font-sans"
     >
       <div>
         {/* Top Row: Pill Badge and Line Icon */}
         <div className="flex items-center justify-between gap-3 mb-4">
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-400/10 border border-amber-400/25 text-[#F59E0B] text-xs font-bold uppercase tracking-wider">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-yellow-400/10 border border-yellow-400/25 text-yellow-400 text-xs font-bold uppercase tracking-wider">
             3 STAGES - 1 ROADMAP
           </span>
-          <div className="w-8 h-8 rounded-lg bg-white/10 border border-white/15 flex items-center justify-center text-[#F59E0B]">
+          <div className="w-8 h-8 rounded-lg bg-white/10 border border-white/15 flex items-center justify-center text-yellow-400">
             <Route className="w-4 h-4 stroke-[2.2]" />
           </div>
         </div>
 
         {/* Title & Sub-line */}
-        <h3 className="text-xl sm:text-2xl font-serif font-bold text-white tracking-tight leading-snug mb-1.5">
+        <h3 className="font-sans text-2xl md:text-3xl font-bold text-white tracking-tight leading-snug mb-2">
           Your UPSC journey, stage by stage.
         </h3>
-        <p className="text-sm text-[#D7E5DB] leading-relaxed font-normal mb-5">
+        <p className="text-[15px] text-white/80 leading-relaxed font-normal mb-5">
           Know what each stage tests and how we help you clear it.
         </p>
 
@@ -78,7 +78,7 @@ export default function JourneyRoadmapCard({
                 onBlur={() => onStepHover(null)}
                 aria-pressed={isStepActive}
                 aria-controls="stages-grid"
-                className={`w-full text-left p-3 sm:p-3.5 rounded-xl transition-all duration-200 cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#F59E0B] focus:ring-offset-2 focus:ring-offset-[#133026] min-h-[44px] flex items-start gap-3.5 relative ${
+                className={`w-full text-left p-3 sm:p-3.5 rounded-xl transition-all duration-200 cursor-pointer focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2 focus:ring-offset-[#133026] min-h-[44px] flex items-start gap-3.5 relative ${
                   isStepActive 
                     ? 'bg-white/10 shadow-sm border border-white/15' 
                     : 'hover:bg-white/5 border border-transparent'
@@ -89,10 +89,10 @@ export default function JourneyRoadmapCard({
                   <div
                     className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all duration-300 z-10 shrink-0 ${
                       isStepActive
-                        ? 'bg-[#F59E0B] text-stone-950 font-extrabold ring-4 ring-[#F59E0B]/30 scale-105'
+                        ? 'bg-yellow-400 text-stone-950 font-extrabold ring-4 ring-yellow-400/30 scale-105'
                         : isStepPassed
                         ? 'bg-amber-400 text-stone-950 font-bold'
-                        : 'bg-[#133026] text-[#D7E5DB] border-2 border-white/20'
+                        : 'bg-[#133026] text-white/80 border-2 border-white/20'
                     }`}
                   >
                     {stepItem.step}
@@ -102,7 +102,7 @@ export default function JourneyRoadmapCard({
                   {idx < JOURNEY_STEPS.length - 1 && (
                     <div className="w-0.5 flex-1 min-h-[40px] bg-white/15 my-0.5 relative overflow-hidden -mb-4 z-0">
                       <div
-                        className={`w-full bg-[#F59E0B] transition-all duration-500 ease-out ${
+                        className={`w-full bg-yellow-400 transition-all duration-500 ease-out ${
                           isLineFilled ? 'h-full' : 'h-0'
                         }`}
                       />
@@ -114,28 +114,28 @@ export default function JourneyRoadmapCard({
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2">
                     <span
-                      className={`font-sans font-bold text-base tracking-tight transition-colors ${
-                        isStepActive ? 'text-[#F59E0B]' : 'text-white'
+                      className={`font-sans font-semibold text-lg tracking-tight transition-colors ${
+                        isStepActive ? 'text-yellow-400' : 'text-white'
                       }`}
                     >
                       {stepItem.name}
                     </span>
                     {isStepActive && (
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-amber-200 bg-amber-500/20 border border-amber-400/30 px-2 py-0.5 rounded-full">
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-yellow-300 bg-yellow-500/20 border border-yellow-400/30 px-2 py-0.5 rounded-full">
                         Active Stage
                       </span>
                     )}
                   </div>
 
-                  <p className="text-sm text-[#D7E5DB] leading-snug font-normal mt-1">
+                  <p className="text-[15px] text-white/80 leading-relaxed font-normal mt-1">
                     {stepItem.whatItIs}
                   </p>
 
-                  <div className="mt-2 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-[#F59E0B]/15 border border-[#F59E0B]/30 text-xs font-semibold text-amber-200">
-                    <span className="text-xs uppercase font-bold tracking-wider text-amber-300">
-                      We help with:
+                  <div className="mt-2 inline-flex items-center gap-2 px-2.5 py-1 rounded-md bg-yellow-400/10 border border-yellow-400/20">
+                    <span className="text-[11px] font-bold uppercase tracking-widest text-yellow-400/90">
+                      WE HELP WITH:
                     </span>
-                    <span className="text-xs font-medium text-amber-100">
+                    <span className="text-xs font-medium text-white/90">
                       {stepItem.helpWith}
                     </span>
                   </div>
@@ -149,11 +149,11 @@ export default function JourneyRoadmapCard({
       {/* Footer Section */}
       <div className="border-t border-white/10 pt-3.5 mt-4">
         {/* Verify these figures against the latest official UPSC notification before submission. */}
-        <div className="flex items-start gap-2 text-xs text-[#D7E5DB] font-medium leading-relaxed">
-          <Info className="w-4 h-4 text-[#F59E0B] shrink-0 mt-0.5" />
+        <div className="flex items-start gap-2 text-xs text-white/85 font-medium leading-relaxed">
+          <Info className="w-4 h-4 text-yellow-400 shrink-0 mt-0.5" />
           <span>Mains + Interview = 2,025 marks. That decides your rank.</span>
         </div>
-        <p className="text-[11px] text-stone-400 font-normal mt-1.5 pl-6">
+        <p className="text-[11px] text-white/60 font-normal mt-1.5 pl-6">
           Click a stage to see its tools
         </p>
       </div>
