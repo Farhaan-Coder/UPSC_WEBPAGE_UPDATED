@@ -190,24 +190,25 @@ export default function Hero() {
                     </div>
 
                     {/* Performance Metrics */}
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4 mb-4">
-                      <div className="border border-slate-200/80 rounded-xl p-3 sm:p-3.5 bg-white hover:-translate-y-1 hover:shadow-md transition-all duration-200 cursor-pointer group shadow-2xs">
-                        <div className="text-xl sm:text-2xl font-sans font-bold tracking-tight text-slate-800 group-hover:text-[#133026] transition-colors whitespace-nowrap">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-2.5 sm:gap-3.5 mb-4">
+                      <div className="border border-slate-200/80 rounded-xl px-4 py-3 sm:px-5 sm:py-3.5 bg-white hover:-translate-y-0.5 hover:shadow-md transition-all duration-200 cursor-pointer group shadow-2xs flex flex-col items-start justify-center">
+                        <div className="text-lg sm:text-xl font-sans font-bold tracking-tight text-slate-800 group-hover:text-[#133026] transition-colors whitespace-nowrap">
                           68%
                         </div>
-                        <div className="text-[10px] text-slate-500 font-medium mt-0.5">GS Syllabus Complete</div>
+                        <div className="text-[10px] sm:text-[11px] text-slate-500 font-medium mt-1">GS Syllabus Complete</div>
                       </div>
-                      <div className="border border-slate-200/80 rounded-xl p-3 sm:p-3.5 bg-white hover:-translate-y-1 hover:shadow-md transition-all duration-200 cursor-pointer group shadow-2xs">
-                        <div className="text-xl sm:text-2xl font-sans font-bold tracking-tight text-slate-800 group-hover:text-[#133026] transition-colors whitespace-nowrap flex flex-row items-baseline">
-                          118 / 200
+                      <div className="border border-slate-200/80 rounded-xl px-4 py-3 sm:px-5 sm:py-3.5 bg-white hover:-translate-y-0.5 hover:shadow-md transition-all duration-200 cursor-pointer group shadow-2xs flex flex-col items-start justify-center">
+                        <div className="text-lg sm:text-xl font-sans font-bold tracking-tight text-slate-800 group-hover:text-[#133026] transition-colors whitespace-nowrap flex items-baseline gap-1">
+                          <span>118</span>
+                          <span className="text-xs sm:text-sm font-semibold text-slate-500">/ 200</span>
                         </div>
-                        <div className="text-[10px] text-slate-500 font-medium mt-0.5">GS I Mock Score</div>
+                        <div className="text-[10px] sm:text-[11px] text-slate-500 font-medium mt-1">GS I Mock Score</div>
                       </div>
-                      <div className="border border-slate-200/80 rounded-xl p-3 sm:p-3.5 bg-white hover:-translate-y-1 hover:shadow-md transition-all duration-200 cursor-pointer group shadow-2xs">
-                        <div className="text-xl sm:text-2xl font-sans font-bold tracking-tight text-slate-800 group-hover:text-[#133026] transition-colors whitespace-nowrap">
+                      <div className="border border-slate-200/80 rounded-xl px-4 py-3 sm:px-5 sm:py-3.5 bg-white hover:-translate-y-0.5 hover:shadow-md transition-all duration-200 cursor-pointer group shadow-2xs flex flex-col items-start justify-center">
+                        <div className="text-lg sm:text-xl font-sans font-bold tracking-tight text-slate-800 group-hover:text-[#133026] transition-colors whitespace-nowrap">
                           6h 15m
                         </div>
-                        <div className="text-[10px] text-slate-500 font-medium mt-0.5">Self Study This Week</div>
+                        <div className="text-[10px] sm:text-[11px] text-slate-500 font-medium mt-1">Self Study This Week</div>
                       </div>
                     </div>
 

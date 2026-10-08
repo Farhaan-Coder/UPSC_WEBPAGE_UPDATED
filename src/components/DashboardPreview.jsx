@@ -217,7 +217,7 @@ export default function DashboardPreview() {
                             <Icon className="w-4 h-4 group-hover:scale-105 transition-transform" />
                           </div>
                         </div>
-                        <div className="font-sans font-bold tracking-tight text-2xl sm:text-3xl text-slate-800 my-1.5 transition-colors whitespace-nowrap flex flex-row items-baseline">
+                        <div className="font-sans font-bold tracking-tight text-xl sm:text-2xl lg:text-3xl text-slate-800 my-1.5 transition-colors whitespace-nowrap flex flex-row items-baseline">
                           {m.value}
                         </div>
                         <div className="text-xs sm:text-[13px] text-slate-500 font-normal leading-relaxed">
