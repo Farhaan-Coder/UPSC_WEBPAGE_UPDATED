@@ -111,47 +111,52 @@ export default function DashboardPreview() {
           </p>
         </div>
 
-        {/* Interactive Dashboard Container */}
-        <div className="bg-white border border-stone-200/90 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden max-w-5xl mx-auto" id="dashboard-demo">
-          
-          {/* Top Bar */}
-          <div className="px-5 py-4 border-b border-stone-100 flex flex-wrap items-center justify-between gap-4 bg-white">
-            <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-lg bg-[#133026] flex items-center justify-center text-[#F59E0B]">
-                <Layers className="w-4 h-4" />
-              </div>
-              <span className="font-serif font-bold text-sm text-[#133026] tracking-tight">SANKALP IAS</span>
-              <span className="bg-[#EAF1EB] text-[#133026] text-[10px] font-semibold px-2 py-0.5 rounded">
-                AI CO-PILOT
-              </span>
-            </div>
+        {/* Interactive Dashboard Container with Ambient Glow */}
+        <div className="relative max-w-5xl mx-auto">
+          {/* Subtle Faint Radial Gradient Glow */}
+          <div className="absolute -inset-4 sm:-inset-8 bg-gradient-to-r from-teal-700/10 via-amber-500/10 to-emerald-600/10 rounded-3xl blur-3xl pointer-events-none -z-10" />
 
-            <div className="flex-1 max-w-md hidden md:flex items-center gap-2 bg-[#FBFDFB] border border-stone-200/80 rounded-lg px-3.5 py-2 text-xs text-stone-600">
-              <Search className="w-3.5 h-3.5 text-stone-400" />
-              <span className="flex-1 text-stone-400">Search Article 21, Kesavananda Bharati, or Budget 2025...</span>
-              <kbd className="bg-white border border-stone-200 text-stone-500 text-[10px] px-2 py-0.5 rounded shadow-2xs font-mono">⌘ K</kbd>
-            </div>
+          {/* Main Floating Dashboard Card */}
+          <div className="bg-white/95 backdrop-blur-sm border border-slate-200/50 rounded-2xl shadow-2xl shadow-teal-900/10 hover:shadow-teal-900/15 transition-all duration-300 overflow-hidden" id="dashboard-demo">
+            
+            {/* Top Bar */}
+            <div className="px-5 py-4 border-b border-slate-100 flex flex-wrap items-center justify-between gap-4 bg-white/90 backdrop-blur-xs">
+              <div className="flex items-center gap-2.5">
+                <div className="w-8 h-8 rounded-lg bg-[#133026] flex items-center justify-center text-[#F59E0B] shadow-2xs">
+                  <Layers className="w-4 h-4" />
+                </div>
+                <span className="font-serif font-bold text-sm text-[#133026] tracking-tight">SANKALP IAS</span>
+                <span className="bg-[#EAF1EB] text-[#133026] text-[10px] font-bold px-2 py-0.5 rounded-md border border-[#133026]/10">
+                  AI CO-PILOT
+                </span>
+              </div>
 
-            <div className="flex items-center gap-3">
-              <span className="bg-[#EAF1EB] border border-[#133026]/10 text-[#133026] text-xs font-semibold px-3 py-1.5 rounded-full">
-                Target: CSE 2026 (AIR &lt; 50)
-              </span>
-              <div className="w-8 h-8 rounded-full bg-stone-100 flex items-center justify-center text-stone-500 hover:bg-stone-200 cursor-pointer transition-colors">
-                <Bell className="w-3.5 h-3.5" />
+              <div className="flex-1 max-w-md hidden md:flex items-center gap-2 bg-slate-50 hover:bg-slate-100 border border-slate-200/80 rounded-lg px-3.5 py-2 text-xs text-slate-600 transition-colors duration-200 cursor-text">
+                <Search className="w-3.5 h-3.5 text-slate-400" />
+                <span className="flex-1 text-slate-400">Search Article 21, Kesavananda Bharati, or Budget 2025...</span>
+                <kbd className="bg-white border border-slate-200 text-slate-500 text-[10px] px-2 py-0.5 rounded shadow-2xs font-mono">⌘ K</kbd>
               </div>
-              <div className="w-8 h-8 rounded-full bg-[#133026] text-white font-bold text-xs flex items-center justify-center">
-                AS
+
+              <div className="flex items-center gap-3">
+                <span className="bg-[#EAF1EB] border border-[#133026]/10 text-[#133026] text-xs font-semibold px-3 py-1.5 rounded-full shadow-2xs">
+                  Target: CSE 2026 (AIR &lt; 50)
+                </span>
+                <div className="w-8 h-8 rounded-full bg-slate-50 hover:bg-slate-100 border border-slate-200/80 flex items-center justify-center text-slate-600 hover:text-[#133026] cursor-pointer transition-colors duration-200 shadow-2xs">
+                  <Bell className="w-3.5 h-3.5" />
+                </div>
+                <div className="w-8 h-8 rounded-full bg-[#133026] hover:bg-[#183C30] text-white font-bold text-xs flex items-center justify-center shadow-xs cursor-pointer transition-colors duration-200 ring-2 ring-[#EAF1EB]">
+                  AS
+                </div>
               </div>
             </div>
-          </div>
 
           {/* Main Layout */}
           <div className="grid grid-cols-1 lg:grid-cols-12 min-h-[520px]">
             
             {/* Sidebar */}
-            <div className="lg:col-span-4 bg-[#FBFDFB] border-r border-stone-100 p-4 flex flex-col justify-between">
+            <div className="lg:col-span-4 bg-slate-50/70 border-r border-slate-100 p-4 flex flex-col justify-between">
               <div>
-                <span className="text-[10px] font-bold text-stone-400 tracking-wider px-2 block mb-2.5 uppercase">
+                <span className="text-[10px] font-bold text-slate-400 tracking-wider px-2 block mb-2.5 uppercase font-sans">
                   PREPARATION ROADMAP
                 </span>
                 <nav className="space-y-1">
@@ -161,13 +166,13 @@ export default function DashboardPreview() {
                       <a
                         key={idx}
                         href="#"
-                        className={`flex items-center gap-2.5 text-xs px-3 py-2.5 rounded-lg font-medium transition-all ${
+                        className={`flex items-center gap-2.5 text-xs px-3 py-2.5 rounded-xl font-medium transition-all duration-200 cursor-pointer ${
                           item.active 
-                            ? 'bg-[#133026] text-white font-semibold shadow-2xs' 
-                            : 'text-stone-600 hover:bg-stone-100 hover:text-[#133026]'
+                            ? 'bg-[#133026] text-white font-semibold shadow-xs' 
+                            : 'text-slate-600 hover:bg-slate-100 hover:text-[#133026]'
                         }`}
                       >
-                        <Icon className={`w-3.5 h-3.5 ${item.active ? 'text-[#F59E0B]' : 'text-stone-400'}`} />
+                        <Icon className={`w-3.5 h-3.5 ${item.active ? 'text-[#F59E0B]' : 'text-slate-400'}`} />
                         <span>{item.name}</span>
                       </a>
                     );
@@ -176,17 +181,17 @@ export default function DashboardPreview() {
               </div>
 
               {/* Revision Queue Widget */}
-              <div className="bg-[#EAF1EB] border border-[#133026]/10 rounded-xl p-3.5 mt-4">
+              <div className="bg-[#EAF1EB]/90 hover:bg-[#EAF1EB] border border-[#133026]/10 rounded-xl p-3.5 mt-4 transition-all duration-200 shadow-2xs hover:shadow-xs group cursor-pointer">
                 <div className="flex items-center gap-1.5 mb-1 text-[#133026]">
-                  <RotateCw className="w-4 h-4 text-[#133026]" />
+                  <RotateCw className="w-4 h-4 text-[#133026] group-hover:rotate-45 transition-transform duration-300" />
                   <span className="text-xs font-serif font-bold text-[#133026]">Active Recall Queue</span>
                 </div>
-                <p className="text-[11px] text-stone-600 mt-0.5 mb-2.5 leading-relaxed font-normal">
+                <p className="text-[11px] text-slate-600 mt-0.5 mb-2.5 leading-relaxed font-normal">
                   14 spaced-revision flashcards on <strong>Fundamental Rights & Writs</strong> due today.
                 </p>
-                <a href="#" className="inline-flex items-center gap-1 text-[11px] font-bold text-[#133026] hover:underline">
+                <a href="#" className="inline-flex items-center gap-1 text-[11px] font-bold text-[#133026] hover:text-[#F59E0B] hover:underline transition-colors duration-200 cursor-pointer">
                   <span>Start 10-min revision</span>
-                  <ArrowRight className="w-3 h-3" />
+                  <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform duration-200" />
                 </a>
               </div>
             </div>
@@ -195,33 +200,46 @@ export default function DashboardPreview() {
             <div className="lg:col-span-8 p-5 sm:p-7 bg-white flex flex-col justify-between">
               <div>
                 {/* Workspace Header */}
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6 pb-4 border-b border-stone-100">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6 pb-4 border-b border-slate-100">
                   <div>
                     <h3 className="text-lg font-serif font-bold text-[#133026]">
                       Welcome back, Ananya. Ready for Day 42?
                     </h3>
-                    <p className="text-xs text-stone-500 font-normal">
+                    <p className="text-xs text-slate-500 font-normal mt-0.5">
                       Target: Complete GS II Module • 2h 30m planned study session today.
                     </p>
                   </div>
-                  <button className="self-start sm:self-auto inline-flex items-center gap-1.5 border border-stone-200 hover:bg-stone-50 text-stone-800 text-xs font-semibold px-3 py-1.5 rounded-lg transition-all duration-200 active:scale-95">
-                    <SlidersHorizontal className="w-3.5 h-3.5 text-stone-600" />
+                  <button className="self-start sm:self-auto inline-flex items-center gap-1.5 bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-800 text-xs font-semibold px-3 py-1.5 rounded-lg transition-all duration-200 active:scale-95 cursor-pointer shadow-2xs">
+                    <SlidersHorizontal className="w-3.5 h-3.5 text-slate-600" />
                     <span>Adjust daily hours</span>
                   </button>
                 </div>
 
-                {/* Metrics Cards */}
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
+                {/* Metrics Cards (Hierarchy & Accent Colors) */}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5 mb-6">
                   {metrics.map((m, idx) => {
                     const Icon = m.icon;
                     return (
-                      <div key={idx} className="border border-stone-100 rounded-xl p-4 bg-[#FBFDFB] hover:bg-white hover:border-stone-200 transition-all duration-300 hover:-translate-y-1 hover:shadow-xs cursor-pointer">
-                        <div className="flex items-center justify-between mb-1.5">
-                          <span className="text-[11.5px] font-medium text-stone-500">{m.label}</span>
-                          <Icon className="w-4 h-4 text-[#133026]" />
+                      <div
+                        key={idx}
+                        className="bg-slate-50 hover:bg-white border border-slate-200/60 hover:border-slate-300 rounded-xl p-4 transition-all duration-200 hover:-translate-y-1 hover:shadow-md cursor-pointer group shadow-2xs"
+                      >
+                        <div className="flex items-center justify-between mb-2">
+                          <span className="text-[11.5px] font-medium text-slate-500 group-hover:text-slate-700 transition-colors">
+                            {m.label}
+                          </span>
+                          <div className="w-6 h-6 rounded-md bg-white border border-slate-200/60 group-hover:bg-[#EAF1EB] flex items-center justify-center transition-colors">
+                            <Icon className="w-3.5 h-3.5 text-[#133026] group-hover:scale-110 transition-transform" />
+                          </div>
                         </div>
-                        <div className="text-2xl font-serif font-bold text-[#133026] tracking-tight">{m.value}</div>
-                        <div className="text-[10px] text-stone-500 mt-1 font-normal">{m.footer}</div>
+                        <div className={`text-2xl sm:text-3xl font-serif font-bold tracking-tight mb-1 transition-colors ${
+                          idx === 2 ? 'text-[#F59E0B]' : 'text-[#133026]'
+                        }`}>
+                          {m.value}
+                        </div>
+                        <div className="text-[10px] text-slate-500 font-normal leading-tight">
+                          {m.footer}
+                        </div>
                       </div>
                     );
                   })}
@@ -233,8 +251,10 @@ export default function DashboardPreview() {
                   {/* Today's Focus Tasks */}
                   <div className="md:col-span-7 space-y-3">
                     <div className="flex items-center justify-between">
-                      <span className="text-xs font-serif font-bold text-[#133026] uppercase tracking-wider">Today's Study Checklist</span>
-                      <span className="text-[10px] font-bold text-[#133026] bg-[#EAF1EB] px-2.5 py-0.5 rounded-full">
+                      <span className="text-xs font-serif font-bold text-[#133026] uppercase tracking-wider">
+                        Today's Study Checklist
+                      </span>
+                      <span className="text-[10px] font-bold text-[#133026] bg-[#EAF1EB] px-2.5 py-0.5 rounded-full border border-[#133026]/10">
                         {completedCount} / 3 complete
                       </span>
                     </div>
@@ -244,41 +264,41 @@ export default function DashboardPreview() {
                         <div
                           key={task.id}
                           onClick={() => toggleTask(task.id)}
-                          className={`flex items-center justify-between p-3 rounded-lg border transition-all cursor-pointer ${
+                          className={`flex items-center justify-between p-3 rounded-xl border transition-all duration-200 cursor-pointer ${
                             task.completed 
-                              ? 'bg-[#EAF1EB]/30 border-stone-200' 
-                              : 'bg-white border-stone-200/80 hover:border-stone-300 hover:bg-stone-50/50'
+                              ? 'bg-slate-50/70 border-slate-200 text-slate-400' 
+                              : 'bg-white hover:bg-slate-100 border-slate-200/70 hover:border-slate-300 shadow-2xs hover:shadow-xs'
                           }`}
                         >
                           <div className="flex items-center gap-2.5 min-w-0">
-                            <div className={`w-4.5 h-4.5 rounded flex items-center justify-center border transition-colors ${
-                              task.completed ? 'bg-[#133026] border-[#133026] text-white' : 'border-stone-300 bg-white'
+                            <div className={`w-4.5 h-4.5 rounded-md flex items-center justify-center border transition-colors ${
+                              task.completed ? 'bg-[#133026] border-[#133026] text-white shadow-2xs' : 'border-slate-300 bg-white group-hover:border-slate-400'
                             }`}>
                               {task.completed && <Check className="w-3 h-3 stroke-[3]" />}
                             </div>
                             <div className="truncate">
-                              <div className={`text-xs font-semibold truncate ${task.completed ? 'line-through text-stone-400' : 'text-stone-900'}`}>
+                              <div className={`text-xs font-semibold truncate ${task.completed ? 'line-through text-slate-400' : 'text-slate-900'}`}>
                                 {task.title}
                               </div>
-                              <div className="text-[10px] text-stone-500 font-normal">{task.sub}</div>
+                              <div className="text-[10px] text-slate-500 font-normal">{task.sub}</div>
                             </div>
                           </div>
-                          <span className="text-xs text-stone-400 font-normal shrink-0 ml-2">{task.time}</span>
+                          <span className="text-xs text-slate-400 font-normal shrink-0 ml-2">{task.time}</span>
                         </div>
                       ))}
                     </div>
 
                     <div className="flex items-center justify-between text-xs pt-1">
-                      <span className="text-stone-400 text-[11px]">Strict 2-hour window recommended.</span>
-                      <a href="#" className="font-semibold text-[#133026] hover:underline">
+                      <span className="text-slate-400 text-[11px]">Strict 2-hour window recommended.</span>
+                      <a href="#" className="font-semibold text-[#133026] hover:text-[#F59E0B] hover:underline transition-colors duration-200 cursor-pointer">
                         Open Timer →
                       </a>
                     </div>
 
                     {/* Mains Answer Banner */}
-                    <div className="bg-[#133026] rounded-xl p-4 text-white flex items-center gap-3 shadow-xs">
+                    <div className="bg-[#133026] hover:bg-[#183C30] rounded-xl p-4 text-white flex items-center gap-3 shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer group">
                       <div className="text-[#F59E0B] shrink-0">
-                        <Sparkles className="w-5 h-5 fill-[#F59E0B]" />
+                        <Sparkles className="w-5 h-5 fill-[#F59E0B] group-hover:rotate-12 transition-transform duration-300" />
                       </div>
                       <div className="flex-1 min-w-0">
                         <span className="text-[9.5px] font-bold text-[#F59E0B] tracking-wider block mb-0.5">
@@ -291,16 +311,16 @@ export default function DashboardPreview() {
                           250 words • 15 marks • Instant evaluation against topper copies
                         </div>
                       </div>
-                      <ArrowRight className="w-4 h-4 text-[#F59E0B] shrink-0" />
+                      <ArrowRight className="w-4 h-4 text-[#F59E0B] shrink-0 group-hover:translate-x-1 transition-transform duration-200" />
                     </div>
                   </div>
 
                   {/* Syllabus Coverage & Recommendation */}
                   <div className="md:col-span-5 space-y-4">
-                    <div className="border border-stone-100 rounded-xl p-4 bg-[#FBFDFB]">
+                    <div className="bg-slate-50 hover:bg-white border border-slate-200/60 hover:border-slate-300 rounded-xl p-4 transition-all duration-200 shadow-2xs hover:shadow-xs">
                       <div className="flex items-center justify-between mb-3">
                         <span className="text-xs font-serif font-bold text-[#133026]">Syllabus Coverage</span>
-                        <a href="#" className="text-[11px] font-semibold text-[#133026] hover:underline inline-flex items-center">
+                        <a href="#" className="text-[11px] font-semibold text-[#133026] hover:text-[#F59E0B] hover:underline inline-flex items-center transition-colors duration-200 cursor-pointer">
                           View all <ArrowUpRight className="w-3 h-3 ml-0.5" />
                         </a>
                       </div>
@@ -308,12 +328,12 @@ export default function DashboardPreview() {
                       {/* Subject Progress */}
                       <div className="space-y-3">
                         {syllabusProgress.map((item, idx) => (
-                          <div key={idx}>
+                          <div key={idx} className="group/bar cursor-pointer">
                             <div className="flex items-center justify-between text-[11px] mb-1">
-                              <span className="font-medium text-stone-800">{item.name}</span>
+                              <span className="font-medium text-slate-800 group-hover/bar:text-[#133026] transition-colors">{item.name}</span>
                               <span className="font-bold text-[#133026]">{item.percentage}%</span>
                             </div>
-                            <div className="w-full h-2 bg-stone-100 rounded-full overflow-hidden">
+                            <div className="w-full h-2 bg-slate-200/70 rounded-full overflow-hidden">
                               <div
                                 className={`h-full rounded-full transition-all duration-500 ${item.isCoral ? 'bg-[#F59E0B]' : 'bg-[#133026]'}`}
                                 style={{ width: `${item.percentage}%` }}
@@ -325,16 +345,17 @@ export default function DashboardPreview() {
                     </div>
 
                     {/* Next Best Step */}
-                    <div className="bg-[#EAF1EB] border border-[#133026]/10 rounded-xl p-4">
+                    <div className="bg-[#EAF1EB]/90 hover:bg-[#EAF1EB] border border-[#133026]/12 rounded-xl p-4 transition-all duration-200 shadow-2xs hover:shadow-xs group cursor-pointer">
                       <div className="flex items-center gap-1.5 text-xs font-serif font-bold text-[#133026] mb-1">
-                        <Sparkles className="w-3.5 h-3.5 text-[#133026] fill-[#133026]" />
+                        <Sparkles className="w-3.5 h-3.5 text-[#133026] fill-[#133026] group-hover:rotate-12 transition-transform duration-300" />
                         <span>AI Next Best Step</span>
                       </div>
-                      <p className="text-[11px] text-stone-700 leading-relaxed mb-3 font-normal">
+                      <p className="text-[11px] text-slate-700 leading-relaxed mb-3 font-normal">
                         Environment PYQs show low recall on Wildlife Protection Act amendments. Revise Schedule 1-4 species.
                       </p>
-                      <a href="#" className="text-xs font-bold text-[#133026] hover:underline">
-                        Start 15-min MCQ drill →
+                      <a href="#" className="text-xs font-bold text-[#133026] hover:text-[#F59E0B] hover:underline inline-flex items-center gap-1 transition-colors duration-200 cursor-pointer">
+                        <span>Start 15-min MCQ drill</span>
+                        <span className="group-hover:translate-x-1 transition-transform duration-200">→</span>
                       </a>
                     </div>
                   </div>
@@ -345,6 +366,7 @@ export default function DashboardPreview() {
 
           </div>
         </div>
+      </div>
 
         {/* Feature Highlights */}
         <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-10 text-xs font-medium text-stone-700 mt-10 mb-2">
