@@ -78,6 +78,25 @@ const syllabusProgress = [
   { name: 'Economy & Inclusive Growth', percentage: 44, isCoral: true },
 ];
 
+const getTrendBadgeClass = (trend) => {
+  switch (trend) {
+    case '+3% YoY':
+      return 'bg-green-50 border border-green-200 text-green-700';
+    case 'High Weight':
+      return 'bg-orange-50 border border-orange-200 text-orange-700';
+    case 'Stable':
+      return 'bg-blue-50 border border-blue-200 text-blue-700';
+    case 'Moderate':
+      return 'bg-slate-100 border border-slate-200 text-slate-600';
+    case 'Application-based':
+      return 'bg-purple-50 border border-purple-200 text-purple-700';
+    case 'Rising':
+      return 'bg-emerald-50 border border-emerald-200 text-emerald-700';
+    default:
+      return 'bg-slate-100 border border-slate-200 text-slate-600';
+  }
+};
+
 export default function DashboardPreview() {
   const [activeTab, setActiveTab] = useState(0);
   const [studyHours, setStudyHours] = useState(6.0);
@@ -505,20 +524,20 @@ export default function DashboardPreview() {
               {/* TAB 2: PYQ INSIGHTS VIEW (Unified with pyqThemes from pyqSample.js) */}
               {activeTab === 1 && (
                 <div className="p-5 sm:p-6 space-y-5 animate-fadeIn">
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-stone-200/60">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3.5 border-b border-slate-200">
                     <div>
-                      <h4 className="text-base font-sans font-bold text-stone-900">
+                      <h4 className="font-sans text-base sm:text-lg font-bold text-slate-900 tracking-tight">
                         25-Year UPSC CSE Prelims Topic Recurrence Heatmap ({PYQ_RANGE})
                       </h4>
-                      <p className="text-xs text-stone-600">
+                      <p className="font-sans text-xs text-slate-600 mt-0.5">
                         Analyzing 2,500 sample questions ({PYQ_RANGE}) categorized by syllabus micro-themes.
                       </p>
                     </div>
-                    <div className="flex items-center gap-2 self-start sm:self-auto">
-                      <span className="text-xs font-semibold text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200">
+                    <div className="flex items-center gap-2 self-start sm:self-auto shrink-0">
+                      <span className="font-sans text-xs font-semibold text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200">
                         Sample trends
                       </span>
-                      <span className="text-xs text-stone-500 font-medium hidden sm:inline">
+                      <span className="font-sans text-xs text-slate-500 font-medium hidden sm:inline">
                         • Illustrative sample data
                       </span>
                     </div>
@@ -526,28 +545,30 @@ export default function DashboardPreview() {
 
                   {/* Recurrence Heatmap Table */}
                   <div className="overflow-x-auto">
-                    <table className="w-full text-left text-xs">
+                    <table className="w-full text-left font-sans">
                       <thead>
-                        <tr className="border-b border-stone-200 text-stone-600 font-medium">
-                          <th className="pb-2">Theme</th>
-                          <th className="pb-2">Avg Share</th>
-                          <th className="pb-2">Sample Trend</th>
-                          <th className="pb-2">High-Yield Micro-Topics</th>
+                        <tr className="border-b border-slate-200">
+                          <th className="text-xs font-semibold text-slate-500 uppercase tracking-wider pb-3">Theme</th>
+                          <th className="text-xs font-semibold text-slate-500 uppercase tracking-wider pb-3">Avg Share</th>
+                          <th className="text-xs font-semibold text-slate-500 uppercase tracking-wider pb-3">Sample Trend</th>
+                          <th className="text-xs font-semibold text-slate-500 uppercase tracking-wider pb-3">High-Yield Micro-Topics</th>
                         </tr>
                       </thead>
-                      <tbody className="divide-y divide-stone-100">
+                      <tbody className="divide-y divide-slate-100">
                         {pyqThemes.map((row, idx) => (
-                          <tr key={idx} className="hover:bg-slate-50/70 transition-colors">
-                            <td className="py-2.5 font-semibold text-stone-900">{row.name}</td>
-                            <td className="py-2.5 font-bold text-[#133026]">
-                              {row.weight} <span className="font-normal text-stone-500">({row.count} Qs)</span>
+                          <tr key={idx} className="hover:bg-slate-50/80 transition-colors cursor-default">
+                            <td className="py-3.5 sm:py-4 font-semibold text-slate-900 text-sm whitespace-nowrap">{row.name}</td>
+                            <td className="py-3.5 sm:py-4 font-bold text-[#133026] text-sm whitespace-nowrap">
+                              {row.weight} <span className="font-normal text-slate-500 text-xs">({row.count} Qs)</span>
                             </td>
-                            <td className="py-2.5">
-                              <span className="bg-amber-50 text-amber-800 font-semibold text-xs px-2 py-0.5 rounded-full border border-amber-200">
+                            <td className="py-3.5 sm:py-4 whitespace-nowrap">
+                              <span className={`px-2.5 py-0.5 rounded-full text-xs font-medium inline-block ${getTrendBadgeClass(row.trend)}`}>
                                 {row.trend}
                               </span>
                             </td>
-                            <td className="py-2.5 text-stone-600 truncate max-w-[200px]">{row.highYield}</td>
+                            <td className="py-3.5 sm:py-4 text-slate-500 text-sm truncate max-w-[200px]" title={row.highYield}>
+                              {row.highYield}
+                            </td>
                           </tr>
                         ))}
                       </tbody>
@@ -555,21 +576,21 @@ export default function DashboardPreview() {
                   </div>
 
                   {/* High Yield Drill Action Card */}
-                  <div className="p-4 rounded-xl bg-gradient-to-r from-emerald-900 to-[#133026] text-white flex items-center justify-between">
+                  <div className="p-4 rounded-xl bg-[#133026] border border-emerald-900/50 text-white flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-md">
                     <div>
-                      <div className="text-xs font-bold text-[#F59E0B] uppercase tracking-wider">
-                        High-Yield Elimination Drill
+                      <div className="font-sans text-[11px] font-bold text-[#F59E0B] uppercase tracking-wider">
+                        HIGH-YIELD ELIMINATION DRILL
                       </div>
-                      <div className="text-sm font-bold text-white mt-0.5">
+                      <div className="font-sans text-sm sm:text-base font-bold text-white mt-0.5 tracking-tight">
                         Practice 25 Most Repeated Polity Articles & Schedules
                       </div>
-                      <div className="text-xs text-emerald-200 mt-0.5">
+                      <div className="font-sans text-xs text-emerald-200/90 mt-0.5">
                         Sample drill: 25 most repeated Polity articles and schedules
                       </div>
                     </div>
                     <button 
                       type="button"
-                      className="bg-[#F59E0B] hover:bg-amber-400 text-stone-950 text-xs font-bold px-4 py-2 rounded-lg transition-colors cursor-pointer shrink-0 ml-4"
+                      className="bg-[#F59E0B] hover:bg-orange-400 hover:shadow-lg hover:-translate-y-0.5 text-stone-950 font-sans text-xs font-bold px-4 py-2.5 rounded-lg transition-all duration-300 cursor-pointer shrink-0 self-start sm:self-auto"
                     >
                       Launch Drill →
                     </button>
