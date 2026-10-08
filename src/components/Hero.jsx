@@ -245,8 +245,8 @@ export default function Hero({ onOpenAuth }) {
 
               {/* Workspace Layout: Responsive flex structure with widened sidebar to prevent truncation */}
               <div className="flex flex-col md:flex-row min-h-[380px]">
-                {/* Navigation Sidebar: Widened to 176px (w-44) on desktop so all labels fit on ONE line */}
-                <div className="w-full md:w-44 lg:w-48 shrink-0 bg-slate-50/70 border-r border-slate-100 p-3 sm:p-4 flex flex-col justify-start">
+                {/* Navigation Sidebar: Widened to prevent label truncation, flex flex-col h-full pushes milestone card to bottom */}
+                <div className="w-full md:w-48 lg:w-52 shrink-0 bg-slate-50/70 border-r border-slate-100 p-3 sm:p-4 flex flex-col h-full">
                   <div>
                     <span className="text-xs font-bold text-slate-500 tracking-wider px-2 block mb-3 uppercase font-sans">
                       STUDY DESK
@@ -277,6 +277,21 @@ export default function Hero({ onOpenAuth }) {
                         <span className="tracking-tight">AI Mentor</span>
                       </li>
                     </ul>
+                  </div>
+
+                  {/* Target Milestone Card: mt-auto smartly pushes to bottom of sidebar */}
+                  <div className="mt-auto pt-4">
+                    <div className="bg-white border border-slate-200/90 rounded-xl p-3 shadow-2xs hover:shadow-xs transition-all cursor-pointer group">
+                      <span className="text-[10px] font-bold text-slate-500 tracking-wider block mb-0.5 uppercase font-sans">
+                        TARGET MILESTONE
+                      </span>
+                      <span className="text-xs sm:text-sm font-sans font-bold text-slate-800 block group-hover:text-[#133026] transition-colors tracking-tight">
+                        Prelims {EXAM_YEAR} Target
+                      </span>
+                      <span className="text-[11px] text-slate-600 font-medium block mt-0.5">
+                        {timeLeft.days} Days Remaining • Consistent
+                      </span>
+                    </div>
                   </div>
                 </div>
 
@@ -358,39 +373,23 @@ export default function Hero({ onOpenAuth }) {
                 </div>
               </div>
 
-              {/* Bottom Section: Target Milestone & Action Banner */}
+              {/* Bottom Section: Action Banner */}
               <div className="p-3.5 sm:p-4 border-t border-slate-100 bg-slate-50/40">
-                <div className="flex flex-col md:flex-row items-stretch md:items-center gap-4">
-                  {/* Target Milestone Card with Live Days Left */}
-                  <div className="md:w-60 shrink-0 bg-gradient-to-br from-slate-50 to-green-50/30 border border-slate-200 rounded-xl p-3 shadow-sm hover:shadow-md transition-all duration-200 cursor-pointer group">
-                    <span className="text-xs font-bold text-slate-500 tracking-wider block mb-0.5 uppercase">
-                      TARGET MILESTONE
-                    </span>
-                    <span className="text-sm font-sans font-bold text-slate-800 block group-hover:text-[#133026] transition-colors tracking-tight">
-                      Prelims {EXAM_YEAR} Target
-                    </span>
-                    <span className="text-xs text-slate-600 font-medium block mt-0.5">
-                      {timeLeft.days} Days Remaining • Consistent
-                    </span>
-                  </div>
-
-                  {/* Accelerate Focus Dark Banner */}
-                  <div className="flex-1 bg-gradient-to-r from-[#133026] to-[#1b4234] hover:from-[#16382c] hover:to-[#225342] border border-emerald-900/40 rounded-xl p-3 text-white flex items-center justify-between shadow-lg shadow-teal-900/20 hover:shadow-xl transition-all duration-300 cursor-pointer group relative overflow-hidden">
-                    <div className="absolute top-0 right-0 -mr-6 -mt-6 w-24 h-24 bg-emerald-400/10 rounded-full blur-xl pointer-events-none" />
-                    
-                    <div className="flex items-center gap-3 relative z-10 min-w-0">
-                      <Sparkles className="w-4 h-4 text-[#F59E0B] shrink-0 fill-[#F59E0B] group-hover:rotate-12 transition-transform duration-300" />
-                      <div>
-                        <div className="text-xs sm:text-[13px] font-sans font-bold text-white tracking-tight leading-snug">
-                          Accelerate focus on Environment PYQs.
-                        </div>
-                        <div className="text-xs text-stone-200 mt-0.5 font-normal leading-normal">
-                          Sample drill: 15-minute targeted revision recommendation.
-                        </div>
+                <div className="w-full bg-gradient-to-r from-[#133026] to-[#1b4234] hover:from-[#16382c] hover:to-[#225342] border border-emerald-900/40 rounded-xl p-3 text-white flex items-center justify-between shadow-lg shadow-teal-900/20 hover:shadow-xl transition-all duration-300 cursor-pointer group relative overflow-hidden">
+                  <div className="absolute top-0 right-0 -mr-6 -mt-6 w-24 h-24 bg-emerald-400/10 rounded-full blur-xl pointer-events-none" />
+                  
+                  <div className="flex items-center gap-3 relative z-10 min-w-0">
+                    <Sparkles className="w-4 h-4 text-[#F59E0B] shrink-0 fill-[#F59E0B] group-hover:rotate-12 transition-transform duration-300" />
+                    <div>
+                      <div className="text-xs sm:text-[13px] font-sans font-bold text-white tracking-tight leading-snug">
+                        Accelerate focus on Environment PYQs.
+                      </div>
+                      <div className="text-xs text-stone-200 mt-0.5 font-normal leading-normal">
+                        Sample drill: 15-minute targeted revision recommendation.
                       </div>
                     </div>
-                    <ArrowRight className="w-4 h-4 text-[#F59E0B] shrink-0 relative z-10 group-hover:translate-x-1 transition-transform duration-200 ml-2" />
                   </div>
+                  <ArrowRight className="w-4 h-4 text-[#F59E0B] shrink-0 relative z-10 group-hover:translate-x-1 transition-transform duration-200 ml-2" />
                 </div>
               </div>
             </div>
