@@ -54,7 +54,7 @@ export default function Testimonials() {
           {testimonialsData.map((item) => (
             <div
               key={item.id}
-              className="min-w-[280px] sm:min-w-[320px] md:min-w-0 snap-center bg-white border border-slate-200/80 rounded-2xl p-6 sm:p-7 flex flex-col justify-between shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-slate-300 cursor-default group"
+              className="min-w-[280px] sm:min-w-[320px] md:min-w-0 snap-center bg-white border border-slate-100 rounded-xl p-6 sm:p-7 flex flex-col justify-between hover:-translate-y-1 hover:shadow-xl hover:border-slate-300 transition-all duration-300 cursor-default group"
             >
               <div>
                 {/* 5 Stars Rating */}
@@ -76,12 +76,12 @@ export default function Testimonials() {
                     {item.initial}
                   </div>
                   <div>
-                    <div className="text-sm font-sans font-bold text-slate-900 tracking-tight">{item.name}</div>
+                    <div className="font-sans font-semibold text-slate-900 text-sm">{item.name}</div>
                     <div className="text-xs text-slate-500 font-normal">{item.role}</div>
                   </div>
                 </div>
 
-                <div className="text-xs font-semibold text-[#133026] bg-[#EAF1EB] px-3 py-1 rounded-md inline-block border border-[#133026]/10">
+                <div className="inline-flex items-center px-3 py-1 rounded-full bg-slate-100/80 border border-slate-200 text-xs font-medium text-slate-700">
                   {item.tag}
                 </div>
               </div>
@@ -90,7 +90,7 @@ export default function Testimonials() {
         </div>
 
         {/* Required Sample Reviews Caption */}
-        <p className="text-center text-xs text-slate-500 mt-5 font-normal">
+        <p className="text-sm text-slate-400 font-medium text-center mt-6">
           Sample reviews for design purposes. Based on typical preparation workflows of UPSC CSE candidates.
         </p>
 
