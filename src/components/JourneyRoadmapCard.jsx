@@ -61,11 +61,10 @@ export default function JourneyRoadmapCard({
         </p>
 
         {/* Vertical Stepper */}
-        <div className="space-y-1.5">
+        <div className="space-y-2">
           {JOURNEY_STEPS.map((stepItem, idx) => {
             const isStepActive = currentStep === stepItem.step;
-            const isStepPassed = currentStep !== null && currentStep > stepItem.step;
-            const isLineFilled = currentStep !== null && currentStep > stepItem.step;
+            const isLineActive = currentStep !== null && currentStep > stepItem.step;
 
             return (
               <button
@@ -78,10 +77,10 @@ export default function JourneyRoadmapCard({
                 onBlur={() => onStepHover(null)}
                 aria-pressed={isStepActive}
                 aria-controls="stages-grid"
-                className={`w-full text-left p-3 sm:p-3.5 rounded-xl transition-all duration-200 cursor-pointer focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2 focus:ring-offset-[#133026] min-h-[44px] flex items-start gap-3.5 relative ${
+                className={`w-full text-left p-3.5 sm:p-4 rounded-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2 focus:ring-offset-[#133026] min-h-[44px] flex items-start gap-3.5 relative ${
                   isStepActive 
-                    ? 'bg-white/10 shadow-sm border border-white/15' 
-                    : 'hover:bg-white/5 border border-transparent'
+                    ? 'bg-white/10 shadow-xl border border-white/20' 
+                    : 'bg-transparent border border-transparent hover:bg-white/5 hover:-translate-x-1 cursor-pointer'
                 }`}
               >
                 {/* Left Column: Number Circle & Continuous Vertical Connecting Line */}
@@ -89,21 +88,21 @@ export default function JourneyRoadmapCard({
                   <div
                     className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all duration-300 z-10 shrink-0 ${
                       isStepActive
-                        ? 'bg-yellow-400 text-stone-950 font-extrabold ring-4 ring-yellow-400/30 scale-105'
-                        : isStepPassed
-                        ? 'bg-amber-400 text-stone-950 font-bold'
-                        : 'bg-[#133026] text-white/80 border-2 border-white/20'
+                        ? 'bg-yellow-400 text-slate-900 font-extrabold ring-4 ring-yellow-400/30 scale-105 shadow-md'
+                        : 'bg-yellow-400 text-slate-900 font-bold'
                     }`}
                   >
                     {stepItem.step}
                   </div>
 
-                  {/* Vertical Line with Amber Progress Fill */}
+                  {/* Vertical Line with Active Glow vs Subtle Inactive Track */}
                   {idx < JOURNEY_STEPS.length - 1 && (
-                    <div className="w-0.5 flex-1 min-h-[40px] bg-white/15 my-0.5 relative overflow-hidden -mb-4 z-0">
+                    <div className="w-0.5 flex-1 min-h-[44px] my-1 relative overflow-hidden -mb-4 z-0">
                       <div
-                        className={`w-full bg-yellow-400 transition-all duration-500 ease-out ${
-                          isLineFilled ? 'h-full' : 'h-0'
+                        className={`w-full h-full transition-all duration-500 ease-out ${
+                          isLineActive
+                            ? 'bg-yellow-400 shadow-[0_0_8px_rgba(250,204,21,0.5)]'
+                            : 'bg-white/20'
                         }`}
                       />
                     </div>
@@ -112,16 +111,16 @@ export default function JourneyRoadmapCard({
 
                 {/* Right Column: Stage Details */}
                 <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2 flex-wrap">
                     <span
-                      className={`font-sans font-semibold text-lg tracking-tight transition-colors ${
+                      className={`font-sans text-xl font-bold tracking-tight transition-colors ${
                         isStepActive ? 'text-yellow-400' : 'text-white'
                       }`}
                     >
                       {stepItem.name}
                     </span>
                     {isStepActive && (
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-yellow-300 bg-yellow-500/20 border border-yellow-400/30 px-2 py-0.5 rounded-full">
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-yellow-300 bg-yellow-500/20 border border-yellow-500/30 px-2 py-0.5 rounded-full shadow-2xs">
                         Active Stage
                       </span>
                     )}
@@ -131,11 +130,12 @@ export default function JourneyRoadmapCard({
                     {stepItem.whatItIs}
                   </p>
 
-                  <div className="mt-2 inline-flex items-center gap-2 px-2.5 py-1 rounded-md bg-yellow-400/10 border border-yellow-400/20">
-                    <span className="text-[11px] font-bold uppercase tracking-widest text-yellow-400/90">
+                  {/* Premium WE HELP WITH Glassmorphism Card */}
+                  <div className="mt-3 bg-white/5 border border-white/10 rounded-lg p-3 backdrop-blur-sm flex items-start gap-3">
+                    <span className="text-[11px] font-bold uppercase tracking-widest text-yellow-400 shrink-0 mt-0.5 leading-snug">
                       WE HELP WITH:
                     </span>
-                    <span className="text-xs font-medium text-white/90">
+                    <span className="text-xs sm:text-[13px] font-medium text-white/90 leading-snug">
                       {stepItem.helpWith}
                     </span>
                   </div>
