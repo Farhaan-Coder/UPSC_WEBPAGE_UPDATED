@@ -14,7 +14,7 @@ const featureCards = [
     id: 'mock-tests',
     icon: ClipboardCheck,
     title: 'AI Mock Tests & Option Elimination',
-    description: 'Solve exam-caliber Prelims questions. Uncover the precise trap behind every mistake with automated elimination logic.',
+    description: 'Practice real exam-level Prelims questions with guided explanations. Understand why you picked the wrong option and master the art of elimination.',
     tag: 'PRELIMS GS + CSAT',
     subTitle: 'Polity: Parliament Revision Set',
     subMeta: '25 Questions • UPSC 2013-2024 Trends',
@@ -23,7 +23,7 @@ const featureCards = [
     id: 'current-affairs',
     icon: Newspaper,
     title: 'Daily Editorial & GS Mapping',
-    description: 'Condense multi-page editorials from The Hindu and Indian Express into 5-minute syllabus-mapped executive summaries.',
+    description: 'Stop spending three hours on the newspaper. Get crisp, syllabus-mapped takeaways from The Hindu and Indian Express in just 10 focused minutes.',
     tag: 'DAILY EDITORIAL BRIEF',
     subTitle: 'Urban Flooding & Disaster Mgmt',
     subMeta: 'GS III Syllabus Connect • High-Yield Mains Data',
@@ -32,7 +32,7 @@ const featureCards = [
     id: 'pyqs',
     icon: RotateCcw,
     title: '25-Year Topic-Wise PYQ Intelligence',
-    description: 'Decode the examiner mindset. Identify recurring high-yield themes and filter historical questions by subject and trend.',
+    description: 'Understand what the examiner really tests. Explore past 25 years of questions categorized by topic so you know exactly where to invest your energy.',
     tag: 'EXAM TREND ANALYSIS',
     subTitle: 'Modern History: Gandhian Movements',
     subMeta: 'Prelims + Mains Previous Years Questions',
@@ -41,7 +41,7 @@ const featureCards = [
     id: 'smart-notes',
     icon: PenLine,
     title: 'Active Recall & Spaced Repetition',
-    description: 'Condense bulky reference textbooks into intelligent flashcards engineered for rapid, long-term retention.',
+    description: 'Never forget Laxmikanth or Spectrum again. Review bite-sized flashcards timed to refresh your memory right before you are about to forget.',
     tag: 'ACTIVE RECALL LIBRARY',
     subTitle: 'Fundamental Rights & DPSP Matrix',
     subMeta: '18 Spaced Revision Flashcards',
@@ -50,7 +50,7 @@ const featureCards = [
     id: 'ai-assistant',
     icon: Sparkles,
     title: 'Mains Answer Structure Assistant',
-    description: 'Generate multi-dimensional 150/250-word answer frameworks complete with constitutional articles, committee citations, and case studies.',
+    description: 'Overcome blank-page syndrome during answer writing. Get proven introduction-body-conclusion frameworks backed by relevant articles, committees, and data.',
     tag: 'MAINS MENTOR ON DEMAND',
     subTitle: 'Quasi-Federalism in Indian Polity',
     subMeta: 'Structured Framework • 10-Mark Model Answer',
@@ -59,7 +59,7 @@ const featureCards = [
     id: 'progress-tracking',
     icon: BarChart3,
     title: 'Comprehensive Readiness Analytics',
-    description: 'Quantify your readiness with clarity. Track GS I-IV coverage, percentile rankings, CSAT speed, and optional milestones in real time.',
+    description: 'Know where you stand without the guesswork. Track your syllabus completion, mock test percentiles, and revision streaks in one calm dashboard.',
     tag: 'REAL PERFORMANCE DATA',
     subTitle: 'Aspirant Readiness Index',
     subMeta: 'GS Covered: 78% • CSAT Speed: Optimal',
@@ -93,37 +93,37 @@ export default function FeaturesGrid() {
             return (
               <div
                 key={card.id}
-                className="group bg-white border border-stone-200/80 rounded-2xl p-7 flex flex-col justify-between shadow-xs hover:shadow-xl hover:border-stone-300 transition-all duration-300 hover:-translate-y-1.5 cursor-pointer"
+                className="group bg-white border border-slate-200/80 rounded-2xl p-6 sm:p-7 flex flex-col justify-between shadow-xs hover:shadow-xl hover:border-slate-300 transition-all duration-300 hover:-translate-y-1.5 cursor-pointer"
               >
                 {/* Card Top: Icon & Arrow */}
                 <div className="flex items-center justify-between mb-5">
                   <div className="w-12 h-12 rounded-xl bg-[#EAF1EB] text-[#133026] flex items-center justify-center transition-colors duration-200 group-hover:bg-[#133026] group-hover:text-[#F59E0B]">
                     <Icon className="w-6 h-6 stroke-[2]" />
                   </div>
-                  <div className="w-8 h-8 rounded-full bg-stone-100 flex items-center justify-center text-stone-400 group-hover:bg-[#F59E0B] group-hover:text-stone-900 transition-all duration-200">
+                  <div className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-400 group-hover:bg-[#F59E0B] group-hover:text-slate-900 transition-all duration-200">
                     <ArrowUpRight className="w-4 h-4" />
                   </div>
                 </div>
 
-                {/* Card Content */}
-                <div className="mb-6 flex-1">
-                  <h3 className="text-lg font-serif font-bold text-[#133026] mb-2 leading-snug group-hover:text-[#183C30] transition-colors">
+                {/* Card Content with proper vertical breathing room */}
+                <div className="space-y-3 mb-6 flex-1">
+                  <h3 className="font-sans font-semibold text-lg text-slate-800 tracking-tight group-hover:text-[#133026] transition-colors leading-snug">
                     {card.title}
                   </h3>
-                  <p className="text-xs sm:text-[13px] text-stone-600 font-normal leading-relaxed">
+                  <p className="text-sm md:text-[15px] text-slate-600 leading-relaxed font-normal">
                     {card.description}
                   </p>
                 </div>
 
                 {/* Card Footer with Meta */}
-                <div className="pt-4 border-t border-stone-100">
-                  <span className="text-[10px] font-bold text-[#133026] tracking-wider uppercase bg-[#EAF1EB] px-2 py-0.5 rounded-md inline-block mb-1.5">
+                <div className="pt-4 border-t border-slate-100 mt-auto">
+                  <span className="text-[10px] font-bold text-[#133026] tracking-wider uppercase bg-[#EAF1EB] px-2.5 py-1 rounded-md inline-block mb-1.5">
                     {card.tag}
                   </span>
-                  <div className="text-xs sm:text-[13px] font-semibold text-stone-900">
+                  <div className="text-xs sm:text-[13px] font-semibold text-slate-900">
                     {card.subTitle}
                   </div>
-                  <div className="text-[11px] text-stone-500 font-normal mt-0.5">
+                  <div className="text-[11px] text-slate-500 font-normal mt-0.5">
                     {card.subMeta}
                   </div>
                 </div>
