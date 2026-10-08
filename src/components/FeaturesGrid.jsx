@@ -116,16 +116,16 @@ export default function FeaturesGrid() {
                 </div>
 
                 {/* Card Footer with Meta */}
-                <div className="pt-4 border-t border-slate-100 mt-auto">
-                  <span className="text-[10px] font-bold text-[#133026] tracking-wider uppercase bg-[#EAF1EB] px-2.5 py-1 rounded-md inline-block mb-1.5">
+                <div className="pt-4.5 border-t border-slate-100 mt-auto flex flex-col items-start">
+                  <span className="inline-flex items-center px-2.5 py-1 rounded-md bg-green-50/80 border border-green-200/50 text-[10px] sm:text-xs font-bold uppercase tracking-wider text-green-800">
                     {card.tag}
                   </span>
-                  <div className="text-xs sm:text-[13px] font-semibold text-slate-900">
+                  <h4 className="font-sans font-semibold text-sm sm:text-base text-slate-800 leading-tight mt-3">
                     {card.subTitle}
-                  </div>
-                  <div className="text-[11px] text-slate-500 font-normal mt-0.5">
+                  </h4>
+                  <p className="text-xs sm:text-sm text-slate-500 mt-1 font-medium">
                     {card.subMeta}
-                  </div>
+                  </p>
                 </div>
               </div>
             );
