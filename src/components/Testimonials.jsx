@@ -37,7 +37,7 @@ export default function Testimonials() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         
         {/* Section Header */}
-        <div className="mb-14">
+        <div className="mb-8 sm:mb-9">
           <span className="text-xs font-semibold text-[#133026] tracking-wider block mb-2 uppercase">
             ASPIRANT STORIES & DISCIPLINE
           </span>

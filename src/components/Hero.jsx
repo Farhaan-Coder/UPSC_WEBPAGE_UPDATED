@@ -57,7 +57,7 @@ export default function Hero() {
               <span>DELHI'S PREMIER COACHING PEDAGOGY, AT YOUR DESK.</span>
             </div>
 
-            <h1 className="text-4xl sm:text-5xl lg:text-[50px] font-sans font-extrabold text-[#133026] leading-[1.14] tracking-tight mb-5">
+            <h1 className="text-4xl sm:text-5xl lg:text-[50px] font-sans font-extrabold text-[#133026] leading-tight tracking-tight mb-5">
               Bring Delhi's Top UPSC Expertise to Your Desk.<br />
               <span className="text-[#133026] mt-1 inline-block">
                 Crack the Exam with Data-Driven Insights.
@@ -214,9 +214,9 @@ export default function Hero() {
 
                     {/* Today's Checklist */}
                     <div>
-                      <div className="flex items-center justify-between text-xs mb-2">
+                      <div className="flex items-center justify-between text-xs sm:text-sm mb-2.5">
                         <span className="font-sans font-bold text-slate-800">Daily Priority Checklist</span>
-                        <span className="text-slate-400 text-[10.5px] font-medium">{completedCount} of 3 complete</span>
+                        <span className="text-slate-400 text-xs font-medium">{completedCount} of 3 complete</span>
                       </div>
 
                       <div className="space-y-2 mb-1">
@@ -224,25 +224,25 @@ export default function Hero() {
                           <div
                             key={task.id}
                             onClick={() => toggleTask(task.id)}
-                            className="flex items-center gap-2.5 p-2.5 rounded-xl border border-slate-200/80 bg-white hover:bg-slate-50 hover:shadow-sm transition-all duration-200 cursor-pointer group"
+                            className="flex items-center gap-3 p-3 rounded-xl border border-slate-200/80 bg-white hover:bg-slate-50 hover:shadow-sm transition-all duration-200 cursor-pointer group"
                           >
-                            <div className={`w-4.5 h-4.5 rounded-md flex items-center justify-center border transition-all duration-200 shrink-0 ${
+                            <div className={`w-5 h-5 rounded-md flex items-center justify-center border transition-all duration-200 shrink-0 ${
                               task.completed 
                                 ? 'bg-[#133026] border-[#133026] text-white shadow-2xs' 
                                 : 'border-slate-300 bg-white group-hover:border-slate-400'
                             }`}>
-                              {task.completed && <Check className="w-3 h-3 stroke-[3]" />}
+                              {task.completed && <Check className="w-3.5 h-3.5 stroke-[3]" />}
                             </div>
                             <div className="flex-1 min-w-0">
-                              <div className={`text-xs font-semibold truncate transition-colors ${task.completed ? 'line-through text-slate-400' : 'text-slate-900'}`}>
+                              <div className={`text-[13px] sm:text-sm font-semibold truncate transition-colors ${task.completed ? 'line-through text-slate-400' : 'text-slate-900'}`}>
                                 {task.title}
                               </div>
-                              <div className="text-[10px] text-slate-500 font-normal">{task.subtitle}</div>
+                              <div className="text-xs text-slate-500 font-normal mt-0.5">{task.subtitle}</div>
                             </div>
                             {task.completed ? (
-                              <Check className="w-3.5 h-3.5 text-[#133026] stroke-[2.5] shrink-0" />
+                              <Check className="w-4 h-4 text-[#133026] stroke-[2.5] shrink-0" />
                             ) : (
-                              <ChevronRight className="w-3.5 h-3.5 text-slate-400 group-hover:translate-x-0.5 group-hover:text-slate-600 transition-all duration-200 shrink-0" />
+                              <ChevronRight className="w-4 h-4 text-slate-400 group-hover:translate-x-0.5 group-hover:text-slate-600 transition-all duration-200 shrink-0" />
                             )}
                           </div>
                         ))}

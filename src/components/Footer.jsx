@@ -43,15 +43,15 @@ export default function Footer() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         
         {/* Top Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-y-10 gap-x-10 lg:gap-x-12 mb-12">
           
           {/* Brand Column */}
           <div className="lg:col-span-5 max-w-sm">
-            <a href="#" className="flex items-center gap-2.5 mb-4">
-              <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center text-[#F59E0B]">
+            <a href="#" className="flex items-center gap-2.5 mb-4 group">
+              <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center text-[#F59E0B] group-hover:bg-orange-500 group-hover:text-stone-900 transition-colors duration-200">
                 <Layers className="w-4.5 h-4.5" />
               </div>
-              <span className="font-sans font-bold text-lg text-white tracking-tight">
+              <span className="font-sans font-bold text-lg text-white group-hover:text-orange-500 transition-colors duration-200 tracking-tight">
                 SANKALP IAS
               </span>
             </a>
@@ -62,20 +62,20 @@ export default function Footer() {
 
             {/* Social Icons */}
             <div className="flex items-center gap-3.5 text-[#D7E5DB]">
-              <a href="#" aria-label="YouTube" className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center hover:bg-[#F59E0B] hover:text-stone-900 transition-all duration-200 border border-white/10">
+              <a href="#" aria-label="YouTube" className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center hover:bg-orange-500 hover:text-stone-900 transition-all duration-200 border border-white/10">
                 <Youtube className="w-4 h-4" />
               </a>
-              <a href="#" aria-label="LinkedIn" className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center hover:bg-[#F59E0B] hover:text-stone-900 transition-all duration-200 border border-white/10">
+              <a href="#" aria-label="LinkedIn" className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center hover:bg-orange-500 hover:text-stone-900 transition-all duration-200 border border-white/10">
                 <Linkedin className="w-4 h-4" />
               </a>
-              <a href="#" aria-label="Instagram" className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center hover:bg-[#F59E0B] hover:text-stone-900 transition-all duration-200 border border-white/10">
+              <a href="#" aria-label="Instagram" className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center hover:bg-orange-500 hover:text-stone-900 transition-all duration-200 border border-white/10">
                 <Instagram className="w-4 h-4" />
               </a>
             </div>
           </div>
 
           {/* Navigation Columns */}
-          <div className="lg:col-span-7 grid grid-cols-2 sm:grid-cols-3 gap-8">
+          <div className="lg:col-span-7 grid grid-cols-2 sm:grid-cols-3 gap-y-8 gap-x-10 sm:gap-x-12">
             {footerSections.map((section, idx) => (
               <div key={idx}>
                 <h4 className="text-xs font-semibold text-white uppercase tracking-wider mb-4">
@@ -86,7 +86,7 @@ export default function Footer() {
                     <li key={lIdx}>
                       <a
                         href={link.href}
-                        className="text-xs sm:text-[13px] text-[#D7E5DB] hover:text-[#F59E0B] transition-colors duration-200 font-normal"
+                        className="text-xs sm:text-[13px] text-[#D7E5DB] hover:text-orange-500 transition-colors duration-200 font-normal inline-block"
                       >
                         {link.name}
                       </a>
@@ -110,7 +110,7 @@ export default function Footer() {
               <a
                 key={idx}
                 href={item.href}
-                className="hover:text-white transition-colors duration-200"
+                className="hover:text-orange-500 transition-colors duration-200"
               >
                 {item.name}
               </a>
