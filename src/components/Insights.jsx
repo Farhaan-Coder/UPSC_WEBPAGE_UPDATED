@@ -1,20 +1,15 @@
 import React from 'react';
-import { RotateCw, BarChart3, Scale, ArrowUpRight, ArrowRight } from 'lucide-react';
+import { BrainCircuit, BarChart3, Scale, ArrowUpRight, ArrowRight } from 'lucide-react';
 
 const fieldNotes = [
   {
     id: 'revision-plan',
-    icon: RotateCw,
+    icon: BrainCircuit,
     tag: 'ACTIVE RECALL STRATEGY',
     title: 'How to structure Polity revisions before Prelims',
     desc: 'Build a disciplined 1-7-30 day spaced repetition cycle without letting fresh current affairs pile up.',
     meta: 'Study Framework • 5 min read',
-    svgPattern: (
-      <svg className="absolute inset-0 w-full h-full opacity-20 pointer-events-none" viewBox="0 0 64 64">
-        <circle cx="32" cy="32" r="24" stroke="#F59E0B" strokeWidth="1" strokeDasharray="3 3" fill="none" />
-        <circle cx="32" cy="32" r="14" stroke="#FFFFFF" strokeWidth="0.75" fill="none" />
-      </svg>
-    ),
+    svgPattern: null,
   },
   {
     id: 'pyq-playbook',
@@ -147,10 +142,10 @@ export default function Insights() {
                   key={note.id}
                   className="bg-white border border-stone-200/80 rounded-2xl p-5 sm:p-6 flex items-stretch gap-4 sm:gap-5 shadow-xs transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:border-stone-300 cursor-pointer flex-1 group"
                 >
-                  {/* Original SVG Illustration Card: 56-72px rounded dark-green tile with amber icon */}
-                  <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-br from-[#133026] via-[#1a4235] to-[#0c1f18] flex flex-col items-center justify-center text-center text-white shrink-0 shadow-sm relative overflow-hidden group-hover:scale-105 transition-transform duration-300 border border-[#1e493b]">
+                  {/* Semantic Icon Card: Rounded dark green container with vibrant yellow/gold icon */}
+                  <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-br from-[#133026] via-[#1a4235] to-[#0c1f18] flex items-center justify-center text-center text-white shrink-0 shadow-sm relative overflow-hidden group-hover:scale-105 transition-all duration-300 border border-[#1e493b]">
                     {note.svgPattern}
-                    <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-[#F59E0B] relative z-10" />
+                    <Icon className="w-6 h-6 text-yellow-400 relative z-10 transition-transform duration-300 group-hover:scale-110" />
                   </div>
 
                   {/* Note Details */}
