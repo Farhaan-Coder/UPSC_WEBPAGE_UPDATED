@@ -382,30 +382,32 @@ export default function DashboardPreview() {
         </div>
       </div>
 
-        {/* Feature Highlights */}
-        <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-8 mt-12 mb-3">
-          <div className="flex items-center gap-2.5">
-            <Check className="w-4.5 h-4.5 text-[#133026] stroke-[2.5] shrink-0" />
-            <span className="font-sans font-medium text-[15px] sm:text-base text-slate-800 tracking-tight">
-              Personalized for working aspirants & full-time students
-            </span>
+        {/* Consolidated Compact Feature Highlights */}
+        <div className="mt-6 md:mt-8 mb-2">
+          <div className="flex flex-col md:flex-row flex-wrap justify-center items-center gap-5 sm:gap-6 md:gap-10">
+            <div className="flex items-center gap-2.5">
+              <Check className="w-4 h-4 text-[#133026] stroke-[2.5] shrink-0" />
+              <span className="font-sans font-medium text-xs sm:text-[13px] lg:text-sm text-slate-800 tracking-tight whitespace-normal md:whitespace-nowrap">
+                Personalized for working aspirants & full-time students
+              </span>
+            </div>
+            <div className="flex items-center gap-2.5">
+              <Check className="w-4 h-4 text-[#133026] stroke-[2.5] shrink-0" />
+              <span className="font-sans font-medium text-xs sm:text-[13px] lg:text-sm text-slate-800 tracking-tight whitespace-normal md:whitespace-nowrap">
+                Prelims MCQs + Mains Answer Writing in one view
+              </span>
+            </div>
+            <div className="flex items-center gap-2.5">
+              <Check className="w-4 h-4 text-[#133026] stroke-[2.5] shrink-0" />
+              <span className="font-sans font-medium text-xs sm:text-[13px] lg:text-sm text-slate-800 tracking-tight whitespace-normal md:whitespace-nowrap">
+                Spaced repetition engine engineered for long-term syllabus retention
+              </span>
+            </div>
           </div>
-          <div className="flex items-center gap-2.5">
-            <Check className="w-4.5 h-4.5 text-[#133026] stroke-[2.5] shrink-0" />
-            <span className="font-sans font-medium text-[15px] sm:text-base text-slate-800 tracking-tight">
-              Prelims MCQs + Mains Answer Writing in one view
-            </span>
-          </div>
-          <div className="flex items-center gap-2.5">
-            <Check className="w-4.5 h-4.5 text-[#133026] stroke-[2.5] shrink-0" />
-            <span className="font-sans font-medium text-[15px] sm:text-base text-slate-800 tracking-tight">
-              Spaced repetition engine engineered for long-term syllabus retention
-            </span>
-          </div>
-        </div>
 
-        <div className="text-sm text-slate-500 mt-2 text-center font-normal">
-          Curated with real UPSC CSE trends, topper notes & verified syllabus mappings.
+          <div className="text-xs sm:text-[13px] text-slate-500 mt-2.5 text-center font-normal">
+            Curated with real UPSC CSE trends, topper notes & verified syllabus mappings.
+          </div>
         </div>
 
       </div>
