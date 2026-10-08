@@ -1,5 +1,5 @@
 import React from 'react';
-import { RotateCw, BarChart3, Scale, ArrowUpRight, ArrowRight, CloudRain } from 'lucide-react';
+import { RotateCw, BarChart3, Scale, ArrowUpRight, ArrowRight } from 'lucide-react';
 
 const fieldNotes = [
   {
@@ -77,7 +77,7 @@ export default function Insights() {
           {/* Editorial Highlight Card */}
           <div className="lg:col-span-6 bg-white border border-stone-200/80 rounded-2xl overflow-hidden shadow-xs flex flex-col justify-between h-full transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:border-stone-300 cursor-pointer group">
             {/* Premium Image Header */}
-            <div className="relative h-60 sm:h-64 lg:h-72 overflow-hidden bg-slate-900 flex items-center justify-center p-6 shrink-0">
+            <div className="relative h-60 sm:h-64 lg:h-72 overflow-hidden bg-slate-900 shrink-0">
               <img
                 src="https://images.unsplash.com/photo-1515694346937-94d85e41e6f0?auto=format&fit=crop&w=1200&q=80"
                 alt="Urban Watersheds & Infrastructure Resilience"
@@ -90,20 +90,13 @@ export default function Insights() {
               {/* Smooth dark gradient overlay */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
 
-              {/* Center Topic & Icon */}
-              <div className="relative z-10 flex flex-col items-center text-center">
-                <div className="w-12 h-12 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-[#F59E0B] mb-2 shadow-lg group-hover:scale-110 transition-transform duration-300">
-                  <CloudRain className="w-6 h-6 stroke-[2]" />
-                </div>
-                <span className="text-xs sm:text-sm font-semibold text-white/95 tracking-wide drop-shadow-sm">
-                  Urban Watersheds & Infrastructure Resilience
-                </span>
-              </div>
-
-              {/* Orange GS III Badge Overlay */}
-              <div className="absolute bottom-3.5 left-5 z-10">
-                <span className="bg-[#F59E0B] text-stone-950 font-bold text-[11px] sm:text-xs uppercase tracking-wider px-2.5 py-1 rounded shadow-md inline-block">
+              {/* Bottom Overlay: Orange Badge & White Text */}
+              <div className="absolute bottom-4 left-5 right-5 z-10 flex flex-col items-start">
+                <span className="bg-[#F59E0B] text-stone-950 font-bold text-[11px] sm:text-xs uppercase tracking-wider px-2.5 py-1 rounded shadow-md inline-block mb-1.5">
                   GS III • Disaster Management
+                </span>
+                <span className="text-xs sm:text-sm font-medium text-white/95 tracking-wide drop-shadow-md">
+                  Urban Watersheds & Infrastructure Resilience
                 </span>
               </div>
             </div>
