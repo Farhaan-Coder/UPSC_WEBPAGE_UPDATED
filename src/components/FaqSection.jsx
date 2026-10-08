@@ -32,19 +32,19 @@ export default function FaqSection() {
   };
 
   return (
-    <section className="py-20 bg-[#FDF9F1] border-b border-stone-200/60" id="faq">
+    <section className="pt-8 md:pt-10 pb-16 md:pb-20 bg-[#FDF9F1] border-b border-stone-200/60 font-sans" id="faq">
       <div className="max-w-4xl mx-auto px-4 sm:px-6">
         
         {/* Section Header */}
-        <div className="text-center mb-12">
-          <div className="inline-flex items-center gap-1.5 bg-[#EAF1EB] text-[#133026] text-xs font-semibold px-3.5 py-1.5 rounded-full border border-green-200/60 mb-3 uppercase tracking-wider font-sans">
-            <HelpCircle className="w-3.5 h-3.5" />
+        <div className="text-center mb-10 sm:mb-12">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-green-50 border border-green-200 text-sm font-bold uppercase tracking-widest text-green-800 mb-4 font-sans shadow-2xs">
+            <HelpCircle className="w-4 h-4 text-green-700" />
             <span>FREQUENTLY ASKED QUESTIONS</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-serif font-bold text-[#133026] tracking-tight leading-tight mb-3">
+          <h2 className="font-sans text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight mb-3">
             Common questions about UPSC ZONE AI.
           </h2>
-          <p className="text-sm sm:text-base text-stone-600 max-w-xl mx-auto">
+          <p className="text-[15px] sm:text-base text-slate-600 max-w-xl mx-auto leading-relaxed font-normal">
             Everything you need to know about our study pedagogy, answer evaluations, and daily preparation workflows.
           </p>
         </div>

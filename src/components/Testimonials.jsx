@@ -33,18 +33,18 @@ const testimonialsData = [
 
 export default function Testimonials() {
   return (
-    <section className="py-12 md:py-16 lg:py-20 bg-[#FDF9F1] border-b border-stone-200/60 scroll-mt-20" id="testimonials">
+    <section className="pt-12 md:pt-16 pb-8 md:pb-10 bg-[#FDF9F1] border-b border-stone-200/60 scroll-mt-20 font-sans" id="testimonials">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         
         {/* Section Header */}
         <div className="mb-8 sm:mb-9 max-w-2xl">
-          <span className="text-xs font-bold text-[#133026] tracking-wider block mb-2 uppercase">
+          <span className="text-xs font-bold text-[#133026] tracking-wider block mb-2 uppercase font-sans">
             ASPIRANT STORIES & DISCIPLINE
           </span>
-          <h2 className="text-3xl sm:text-4xl font-serif font-bold text-[#133026] tracking-tight leading-tight mb-2">
+          <h2 className="text-3xl sm:text-4xl font-sans font-bold text-slate-900 tracking-tight leading-tight mb-2">
             Different journeys. One shared pursuit of clarity.
           </h2>
-          <p className="text-sm sm:text-base text-stone-600 font-normal">
+          <p className="text-sm sm:text-base text-slate-600 font-normal">
             From dedicated home libraries to late-night study desks across India, see how serious aspirants build unshakeable consistency.
           </p>
         </div>
@@ -54,7 +54,7 @@ export default function Testimonials() {
           {testimonialsData.map((item) => (
             <div
               key={item.id}
-              className="min-w-[280px] sm:min-w-[320px] md:min-w-0 snap-center bg-white border border-stone-200/90 rounded-2xl p-6 sm:p-7 flex flex-col justify-between shadow-xs transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl hover:border-stone-300 cursor-default group"
+              className="min-w-[280px] sm:min-w-[320px] md:min-w-0 snap-center bg-white border border-slate-200/80 rounded-2xl p-6 sm:p-7 flex flex-col justify-between shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-slate-300 cursor-default group"
             >
               <div>
                 {/* 5 Stars Rating */}
@@ -64,20 +64,20 @@ export default function Testimonials() {
                   ))}
                 </div>
 
-                <p className="text-sm text-stone-700 leading-relaxed mb-6 font-normal">
+                <p className="font-sans text-[15px] text-slate-600 leading-relaxed mb-6 font-normal">
                   {item.quote}
                 </p>
               </div>
 
               <div>
-                <div className="pt-4 border-t border-stone-100 flex items-center gap-3.5 mb-3.5">
+                <div className="pt-4 border-t border-slate-100 flex items-center gap-3.5 mb-3.5">
                   {/* Clean Initials Avatar Circle (No internet stock photos) */}
                   <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-xs shadow-xs shrink-0 ${item.bg}`}>
                     {item.initial}
                   </div>
                   <div>
-                    <div className="text-sm font-sans font-bold text-[#133026] tracking-tight">{item.name}</div>
-                    <div className="text-xs text-stone-500 font-normal">{item.role}</div>
+                    <div className="text-sm font-sans font-bold text-slate-900 tracking-tight">{item.name}</div>
+                    <div className="text-xs text-slate-500 font-normal">{item.role}</div>
                   </div>
                 </div>
 
@@ -90,7 +90,7 @@ export default function Testimonials() {
         </div>
 
         {/* Required Sample Reviews Caption */}
-        <p className="text-center text-xs text-stone-500 mt-6 font-normal">
+        <p className="text-center text-xs text-slate-500 mt-5 font-normal">
           Sample reviews for design purposes. Based on typical preparation workflows of UPSC CSE candidates.
         </p>
 
