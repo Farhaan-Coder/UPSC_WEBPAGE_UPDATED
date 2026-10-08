@@ -151,7 +151,7 @@ export default function DashboardPreview() {
           <div className="grid grid-cols-1 lg:grid-cols-12 min-h-[520px]">
             
             {/* Sidebar */}
-            <div className="lg:col-span-4 bg-slate-50/70 border-r border-slate-100 p-4 sm:p-5 flex flex-col justify-between">
+            <div className="lg:col-span-4 bg-slate-50/70 border-r border-slate-100 p-4 sm:p-5 flex flex-col justify-start">
               <div>
                 <span className="text-[11px] font-bold text-slate-400 tracking-wider px-2 block mb-4 uppercase font-sans">
                   PREPARATION ROADMAP
@@ -175,21 +175,6 @@ export default function DashboardPreview() {
                     );
                   })}
                 </nav>
-              </div>
-
-              {/* Revision Queue Widget */}
-              <div className="bg-[#EAF1EB]/90 hover:bg-[#EAF1EB] border border-[#133026]/10 rounded-xl p-4 mt-6 transition-all duration-200 shadow-2xs hover:shadow-xs group cursor-pointer">
-                <div className="flex items-center gap-2 mb-1.5 text-[#133026]">
-                  <RotateCw className="w-4 h-4 text-[#133026] group-hover:rotate-45 transition-transform duration-300 shrink-0" />
-                  <span className="text-xs font-serif font-bold text-[#133026]">Active Recall Queue</span>
-                </div>
-                <p className="text-[11.5px] text-slate-600 mt-0.5 mb-3 leading-relaxed font-normal">
-                  14 spaced-revision flashcards on <strong>Fundamental Rights & Writs</strong> due today.
-                </p>
-                <a href="#" className="inline-flex items-center gap-1.5 text-xs font-bold text-[#133026] hover:text-[#F59E0B] hover:underline transition-colors duration-200 cursor-pointer">
-                  <span>Start 10-min revision</span>
-                  <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform duration-200" />
-                </a>
               </div>
             </div>
 
@@ -291,25 +276,6 @@ export default function DashboardPreview() {
                         Open Timer →
                       </a>
                     </div>
-
-                    {/* Mains Answer Banner */}
-                    <div className="bg-[#133026] hover:bg-[#183C30] rounded-xl p-4 text-white flex items-center gap-3 shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer group">
-                      <div className="text-[#F59E0B] shrink-0">
-                        <Sparkles className="w-5 h-5 fill-[#F59E0B] group-hover:rotate-12 transition-transform duration-300" />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <span className="text-[9.5px] font-bold text-[#F59E0B] tracking-wider block mb-0.5">
-                          MAINS QUESTION OF THE DAY • GS II
-                        </span>
-                        <div className="text-xs font-medium leading-snug line-clamp-2 text-white">
-                          Critically examine the role of the Finance Commission in balancing cooperative and competitive federalism in India.
-                        </div>
-                        <div className="text-[10px] text-[#D7E5DB] mt-1 font-normal">
-                          250 words • 15 marks • Instant evaluation against topper copies
-                        </div>
-                      </div>
-                      <ArrowRight className="w-4 h-4 text-[#F59E0B] shrink-0 group-hover:translate-x-1 transition-transform duration-200" />
-                    </div>
                   </div>
 
                   {/* Syllabus Coverage & Recommendation */}
@@ -340,27 +306,77 @@ export default function DashboardPreview() {
                         ))}
                       </div>
                     </div>
-
-                    {/* Next Best Step */}
-                    <div className="bg-[#EAF1EB]/90 hover:bg-[#EAF1EB] border border-[#133026]/12 rounded-xl p-4 transition-all duration-200 shadow-2xs hover:shadow-xs group cursor-pointer">
-                      <div className="flex items-center gap-1.5 text-xs font-serif font-bold text-[#133026] mb-1">
-                        <Sparkles className="w-3.5 h-3.5 text-[#133026] fill-[#133026] group-hover:rotate-12 transition-transform duration-300" />
-                        <span>AI Next Best Step</span>
-                      </div>
-                      <p className="text-[11px] text-slate-700 leading-relaxed mb-3 font-normal">
-                        Environment PYQs show low recall on Wildlife Protection Act amendments. Revise Schedule 1-4 species.
-                      </p>
-                      <a href="#" className="text-xs font-bold text-[#133026] hover:text-[#F59E0B] hover:underline inline-flex items-center gap-1 transition-colors duration-200 cursor-pointer">
-                        <span>Start 15-min MCQ drill</span>
-                        <span className="group-hover:translate-x-1 transition-transform duration-200">→</span>
-                      </a>
-                    </div>
                   </div>
 
                 </div>
               </div>
             </div>
 
+          </div>
+
+          {/* Action Cards Grid - Perfectly Aligned Single Row with Equal Heights */}
+          <div className="p-5 sm:p-7 border-t border-slate-100 bg-slate-50/40">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
+              
+              {/* 1. Active Recall Queue */}
+              <div className="h-full flex flex-col justify-between bg-[#EAF1EB]/70 hover:bg-[#EAF1EB] border border-slate-200/70 rounded-2xl p-5 sm:p-6 transition-all duration-300 ease-in-out hover:-translate-y-2 hover:shadow-2xl cursor-pointer group shadow-2xs">
+                <div>
+                  <div className="flex items-center gap-2 mb-3 text-[#133026]">
+                    <div className="w-7 h-7 rounded-lg bg-white/80 border border-[#133026]/10 flex items-center justify-center shrink-0 shadow-2xs">
+                      <RotateCw className="w-4 h-4 text-[#133026] group-hover:rotate-45 transition-transform duration-300" />
+                    </div>
+                    <h4 className="text-sm sm:text-base font-serif font-bold text-[#133026]">Active Recall Queue</h4>
+                  </div>
+                  <p className="text-xs text-slate-600 leading-relaxed font-normal mb-4">
+                    14 spaced-revision flashcards on <strong className="font-semibold text-slate-800">Fundamental Rights & Writs</strong> due today.
+                  </p>
+                </div>
+                <div className="pt-3 border-t border-[#133026]/10 flex items-center justify-between text-xs font-bold text-[#133026] group-hover:text-[#F59E0B] transition-colors">
+                  <span>Start 10-min revision</span>
+                  <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
+                </div>
+              </div>
+
+              {/* 2. Mains Question of the Day (Center Dark Focal Point) */}
+              <div className="h-full flex flex-col justify-between bg-[#133026] hover:bg-[#183C30] border border-[#1e483a] rounded-2xl p-5 sm:p-6 shadow-lg shadow-teal-900/30 transition-all duration-300 ease-in-out hover:-translate-y-2 hover:shadow-2xl hover:shadow-teal-900/50 cursor-pointer group text-white">
+                <div>
+                  <div className="flex items-center gap-2 mb-2.5">
+                    <Sparkles className="w-4 h-4 text-[#F59E0B] fill-[#F59E0B] group-hover:rotate-12 transition-transform duration-300 shrink-0" />
+                    <span className="text-[10px] font-bold text-[#F59E0B] tracking-wider uppercase">MAINS QUESTION OF THE DAY • GS II</span>
+                  </div>
+                  <h4 className="text-xs sm:text-[13px] font-medium leading-snug line-clamp-2 text-white mb-2">
+                    Critically examine the role of the Finance Commission in balancing cooperative and competitive federalism in India.
+                  </h4>
+                  <p className="text-[10.5px] text-[#D7E5DB] font-normal leading-relaxed mb-4">
+                    250 words • 15 marks • Instant evaluation against topper copies
+                  </p>
+                </div>
+                <div className="pt-3 border-t border-white/10 flex items-center justify-between text-xs font-bold text-[#F59E0B] group-hover:text-amber-300 transition-colors">
+                  <span>Submit Answer for AI Review</span>
+                  <ArrowRight className="w-4 h-4 text-[#F59E0B] transition-transform duration-200 group-hover:translate-x-1" />
+                </div>
+              </div>
+
+              {/* 3. AI Next Best Step */}
+              <div className="h-full flex flex-col justify-between bg-[#EAF1EB]/70 hover:bg-[#EAF1EB] border border-slate-200/70 rounded-2xl p-5 sm:p-6 transition-all duration-300 ease-in-out hover:-translate-y-2 hover:shadow-2xl cursor-pointer group shadow-2xs">
+                <div>
+                  <div className="flex items-center gap-2 mb-3 text-[#133026]">
+                    <div className="w-7 h-7 rounded-lg bg-white/80 border border-[#133026]/10 flex items-center justify-center shrink-0 shadow-2xs">
+                      <Sparkles className="w-4 h-4 text-[#133026] fill-[#133026] group-hover:rotate-12 transition-transform duration-300" />
+                    </div>
+                    <h4 className="text-sm sm:text-base font-serif font-bold text-[#133026]">AI Next Best Step</h4>
+                  </div>
+                  <p className="text-xs text-slate-600 leading-relaxed font-normal mb-4">
+                    Environment PYQs show low recall on Wildlife Protection Act amendments. Revise Schedule 1-4 species.
+                  </p>
+                </div>
+                <div className="pt-3 border-t border-[#133026]/10 flex items-center justify-between text-xs font-bold text-[#133026] group-hover:text-[#F59E0B] transition-colors">
+                  <span>Start 15-min MCQ drill</span>
+                  <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
+                </div>
+              </div>
+
+            </div>
           </div>
         </div>
       </div>
