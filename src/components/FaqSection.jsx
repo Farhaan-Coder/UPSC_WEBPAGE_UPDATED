@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ChevronDown, HelpCircle } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext.jsx';
 
 const faqs = [
   {
@@ -25,6 +26,7 @@ const faqs = [
 ];
 
 export default function FaqSection() {
+  const { t } = useLanguage();
   const [openIndex, setOpenIndex] = useState(0);
 
   const toggleAccordion = (idx) => {
@@ -42,7 +44,7 @@ export default function FaqSection() {
             <span>FREQUENTLY ASKED QUESTIONS</span>
           </div>
           <h2 className="font-sans text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight mb-3">
-            Common questions about UPSC ZONE AI.
+            {t('faq.heading')}
           </h2>
           <p className="text-[15px] sm:text-base text-slate-600 max-w-xl mx-auto leading-relaxed font-normal">
             Everything you need to know about our study pedagogy, answer evaluations, and daily preparation workflows.

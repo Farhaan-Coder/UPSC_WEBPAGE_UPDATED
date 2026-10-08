@@ -132,7 +132,7 @@ export default function LoginModal({ isOpen, onClose, initialTab = 'login' }) {
           <button
             type="button"
             onClick={onClose}
-            className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white/80 hover:text-white transition-colors cursor-pointer"
+            className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white/80 hover:text-white transition-colors cursor-pointer"
             aria-label="Close dialog"
           >
             <X className="w-4 h-4" />
@@ -147,7 +147,7 @@ export default function LoginModal({ isOpen, onClose, initialTab = 'login' }) {
               setTab('login');
               setErrors({});
             }}
-            className={`flex-1 py-3 text-xs sm:text-sm font-bold font-sans transition-all cursor-pointer ${
+            className={`flex-1 py-3.5 min-h-[44px] flex items-center justify-center text-xs sm:text-sm font-bold font-sans transition-all cursor-pointer ${
               tab === 'login'
                 ? 'text-[#133026] border-b-2 border-[#133026] bg-white'
                 : 'text-stone-500 hover:text-stone-800'
@@ -161,7 +161,7 @@ export default function LoginModal({ isOpen, onClose, initialTab = 'login' }) {
               setTab('signup');
               setErrors({});
             }}
-            className={`flex-1 py-3 text-xs sm:text-sm font-bold font-sans transition-all cursor-pointer ${
+            className={`flex-1 py-3.5 min-h-[44px] flex items-center justify-center text-xs sm:text-sm font-bold font-sans transition-all cursor-pointer ${
               tab === 'signup'
                 ? 'text-[#133026] border-b-2 border-[#133026] bg-white'
                 : 'text-stone-500 hover:text-stone-800'
@@ -179,7 +179,7 @@ export default function LoginModal({ isOpen, onClose, initialTab = 'login' }) {
           <p className="text-xs text-stone-500 mb-5 font-normal">
             {tab === 'login'
               ? 'Access your daily study planner, active recall deck, and mock metrics.'
-              : `Zero credit card required. Free diagnostic test & ${ROADMAP_LABEL} roadmap.`}
+              : `Zero credit card required. Free diagnostic test & your ${EXAM_YEAR} roadmap.`}
           </p>
 
           {/* Toast Notification Banner */}

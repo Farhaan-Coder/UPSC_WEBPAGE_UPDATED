@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { 
   ArrowRight, 
+  ArrowDown,
   Play, 
   Check, 
   Sparkles, 
@@ -15,10 +16,13 @@ import {
   ChevronRight,
   ShieldCheck,
   Compass,
-  Quote
+  Quote,
+  Layers,
+  Clock
 } from 'lucide-react';
 import { EXAM_YEAR, PRELIMS_DATE, PRELIMS_DATE_LABEL } from '../config/exam.js';
 import { useCountdown } from '../hooks/useCountdown.js';
+import { useLanguage } from '../context/LanguageContext.jsx';
 
 const STOIC_QUOTES = [
   "Discipline is choosing between what you want now and what you want most.", // Sun
@@ -33,20 +37,20 @@ const STOIC_QUOTES = [
 const initialTasks = [
   {
     id: 1,
-    title: 'Polity: Fundamental Rights & Constitutional Remedies',
-    subtitle: 'GS II • Target: 45 Mins • 15 PYQs',
+    title: 'Polity: Fundamental Rights',
+    subtitle: 'GS II - 45 min - 15 PYQs',
     completed: true,
   },
   {
     id: 2,
-    title: 'Environment: Biodiversity & Protected Areas PYQ Drill',
-    subtitle: 'Prelims Focus • 20 Questions Elimination Drill',
+    title: 'Environment: Biodiversity',
+    subtitle: 'Prelims - 20 Qs - Elimination',
     completed: false,
   },
   {
     id: 3,
-    title: 'Daily National Editorial Synthesis & Key Takeaways',
-    subtitle: 'Daily Current Affairs • Spaced Flashcards Recall',
+    title: 'Daily Editorial Brief',
+    subtitle: 'Current Affairs - Flashcards',
     completed: false,
   },
 ];
@@ -54,9 +58,35 @@ const initialTasks = [
 export default function Hero({ onOpenAuth }) {
   const [tasks, setTasks] = useState(initialTasks);
   const timeLeft = useCountdown(PRELIMS_DATE);
+  const { t } = useLanguage();
 
   const toggleTask = (id) => {
     setTasks(tasks.map(t => t.id === id ? { ...t, completed: !t.completed } : t));
+  };
+
+  const handleScrollToSample = (e) => {
+    e?.preventDefault();
+    const target = document.getElementById('sample-drill');
+    if (target) {
+      const navbarHeight = 84;
+      const elementPosition = target.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - navbarHeight;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (!prefersReducedMotion) {
+        target.classList.remove('pulse-amber-active');
+        void target.offsetWidth;
+        target.classList.add('pulse-amber-active');
+        setTimeout(() => {
+          target.classList.remove('pulse-amber-active');
+        }, 1600);
+      }
+    }
   };
 
   const completedCount = tasks.filter(t => t.completed).length;
@@ -73,14 +103,14 @@ export default function Hero({ onOpenAuth }) {
           <div className="lg:col-span-6 max-w-xl">
             <div className="inline-flex items-center gap-2 bg-[#EAF1EB] border border-[#133026]/15 text-[#133026] text-xs font-semibold tracking-wide px-4 py-1.5 rounded-full mb-6 shadow-xs">
               <Sparkles className="w-3.5 h-3.5 text-[#133026] fill-[#133026]" />
-              <span className="uppercase font-sans font-bold text-xs tracking-wider">BUILT FOR SERIOUS UPSC CSE ASPIRANTS</span>
+              <span className="uppercase font-sans font-bold text-xs tracking-wider">{t('hero.pill')}</span>
             </div>
 
             {/* Serif High-Impact Headline with Saffron Underline */}
             <h1 className="text-4xl sm:text-5xl lg:text-[54px] font-serif font-bold text-[#133026] leading-[1.15] tracking-tight mb-5">
-              Your UPSC day,<br />
+              {t('hero.headlinePrefix')}<br />
               <span className="relative inline-block mt-1">
-                <span className="relative z-10">planned to the minute.</span>
+                <span className="relative z-10">{t('hero.headlineUnderline')}</span>
                 <svg 
                   className="absolute -bottom-2.5 left-0 w-full h-3 sm:h-4 text-[#F59E0B] -z-0 overflow-visible" 
                   viewBox="0 0 280 14" 
@@ -100,18 +130,18 @@ export default function Hero({ onOpenAuth }) {
 
             {/* Sub-line */}
             <p className="text-stone-700 text-base sm:text-lg lg:text-[19px] leading-relaxed mb-8 max-w-lg font-normal">
-              AI mock tests, daily current affairs, notes and PYQs in one calm workspace.
+              {t('hero.subline')}
             </p>
 
             {/* Action CTAs */}
-            <div className="flex flex-wrap items-center gap-3.5 mb-8">
+            <div id="hero-cta-container" className="flex flex-wrap items-center gap-3.5 mb-3">
               <button
                 type="button"
                 onClick={() => onOpenAuth ? onOpenAuth('signup') : window.location.assign('#get-started')}
                 className="group relative inline-flex items-center gap-2.5 bg-gradient-to-b from-[#FBBF24] to-[#F59E0B] hover:from-[#F59E0B] hover:to-[#D97706] text-stone-900 font-bold text-sm px-7 py-3.5 rounded-xl shadow-[0_4px_16px_rgba(245,158,11,0.28)] hover:shadow-[0_8px_28px_rgba(245,158,11,0.42)] border border-amber-300/60 transition-all duration-300 ease-out hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98] overflow-hidden cursor-pointer"
               >
                 <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out pointer-events-none" />
-                <span className="relative tracking-tight">Start Free Preparation</span>
+                <span className="relative tracking-tight">{t('hero.primaryCta')}</span>
                 <ArrowRight className="w-4 h-4 stroke-[2.4] transition-transform duration-300 group-hover:translate-x-1" />
               </button>
               
@@ -119,26 +149,43 @@ export default function Hero({ onOpenAuth }) {
                 href="#preparation"
                 className="group inline-flex items-center gap-2.5 bg-white/95 hover:bg-white text-stone-800 hover:text-[#133026] font-semibold text-sm px-6 py-3.5 rounded-xl shadow-[0_2px_8px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_24px_rgba(19,48,38,0.1)] border border-stone-200/90 hover:border-stone-300 transition-all duration-300 ease-out hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98]"
               >
-                <span className="tracking-tight">Explore Live Dashboard</span>
+                <span className="tracking-tight">{t('hero.secondaryCta')}</span>
                 <span className="w-5 h-5 rounded-full bg-stone-100 group-hover:bg-[#133026] flex items-center justify-center transition-colors duration-300">
                   <Play className="w-2.5 h-2.5 fill-stone-700 group-hover:fill-[#F59E0B] text-stone-700 group-hover:text-[#F59E0B] ml-0.5 transition-colors duration-300" />
                 </span>
               </a>
             </div>
 
-            {/* Trust Row - Min 14px Text */}
-            <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6 text-sm text-stone-700 font-medium pt-2">
-              <div className="flex items-center gap-2">
-                <ShieldCheck className="w-4.5 h-4.5 text-[#133026] stroke-[2.4] shrink-0" />
-                <span>Zero Credit Card Required</span>
+            {/* Try a sample question link with down arrow */}
+            <div className="mb-7">
+              <button
+                type="button"
+                onClick={handleScrollToSample}
+                className="group inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-[#133026] hover:text-[#B45309] transition-colors cursor-pointer py-1 underline-offset-4 hover:underline"
+                aria-label={t('hero.sampleQuestion')}
+              >
+                <span>{t('hero.sampleQuestion')}</span>
+                <ArrowDown className="w-4 h-4 text-[#F59E0B] transition-transform duration-300 group-hover:translate-y-0.5" />
+              </button>
+            </div>
+
+            {/* 4-Item Honest UPSC Trust Strip - Min 14px Text & Responsive Wrap */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3 text-sm text-stone-700 font-medium pt-2">
+              <div className="flex items-center gap-2.5 bg-white/60 sm:bg-transparent px-3 sm:px-0 py-1.5 sm:py-0 rounded-lg sm:rounded-none border border-stone-200/60 sm:border-0">
+                <Layers className="w-4.5 h-4.5 text-[#133026] stroke-[2.2] shrink-0" />
+                <span className="text-[14px] leading-tight">{t('trustStrip.stages')}</span>
               </div>
-              <div className="flex items-center gap-2">
-                <BookOpenCheck className="w-4.5 h-4.5 text-[#133026] stroke-[2.4] shrink-0" />
-                <span>Full GS I-IV + CSAT Coverage</span>
+              <div className="flex items-center gap-2.5 bg-white/60 sm:bg-transparent px-3 sm:px-0 py-1.5 sm:py-0 rounded-lg sm:rounded-none border border-stone-200/60 sm:border-0">
+                <Clock className="w-4.5 h-4.5 text-[#133026] stroke-[2.2] shrink-0" />
+                <span className="text-[14px] leading-tight">{t('trustStrip.pyqWindow')}</span>
               </div>
-              <div className="flex items-center gap-2">
-                <Compass className="w-4.5 h-4.5 text-[#133026] stroke-[2.4] shrink-0" />
-                <span>Updated for CSE {EXAM_YEAR}</span>
+              <div className="flex items-center gap-2.5 bg-white/60 sm:bg-transparent px-3 sm:px-0 py-1.5 sm:py-0 rounded-lg sm:rounded-none border border-stone-200/60 sm:border-0">
+                <BookOpenCheck className="w-4.5 h-4.5 text-[#133026] stroke-[2.2] shrink-0" />
+                <span className="text-[14px] leading-tight">{t('trustStrip.coverage')}</span>
+              </div>
+              <div className="flex items-center gap-2.5 bg-white/60 sm:bg-transparent px-3 sm:px-0 py-1.5 sm:py-0 rounded-lg sm:rounded-none border border-stone-200/60 sm:border-0">
+                <ShieldCheck className="w-4.5 h-4.5 text-[#133026] stroke-[2.2] shrink-0" />
+                <span className="text-[14px] leading-tight">{t('trustStrip.freeStart')}</span>
               </div>
             </div>
 
@@ -355,10 +402,10 @@ export default function Hero({ onOpenAuth }) {
                               {task.completed && <Check className="w-3.5 h-3.5 stroke-[3]" />}
                             </div>
                             <div className="flex-1 min-w-0">
-                              <div className={`text-sm font-semibold truncate transition-colors ${task.completed ? 'line-through text-slate-400' : 'text-slate-900'}`}>
+                              <div className={`text-sm font-semibold transition-colors ${task.completed ? 'line-through text-slate-400' : 'text-slate-900'}`}>
                                 {task.title}
                               </div>
-                              <div className="text-xs text-slate-600 font-normal mt-0.5 truncate">{task.subtitle}</div>
+                              <div className="text-xs text-slate-600 font-normal mt-0.5">{task.subtitle}</div>
                             </div>
                             {task.completed ? (
                               <Check className="w-4 h-4 text-[#133026] stroke-[2.5] shrink-0" />
@@ -392,15 +439,6 @@ export default function Hero({ onOpenAuth }) {
                   <ArrowRight className="w-4 h-4 text-[#F59E0B] shrink-0 relative z-10 group-hover:translate-x-1 transition-transform duration-200 ml-2" />
                 </div>
               </div>
-            </div>
-
-            {/* Bottom Flow Caption */}
-            <div className="flex items-center justify-center gap-2.5 text-xs text-stone-600 mt-4 font-medium">
-              <span className="text-[#133026] font-semibold">Syllabus Clarity</span>
-              <span className="text-[#F59E0B]">→</span>
-              <span className="text-[#133026] font-semibold">Daily PYQ Practice</span>
-              <span className="text-[#F59E0B]">→</span>
-              <strong className="text-[#133026] font-sans font-bold">Final Selection</strong>
             </div>
           </div>
 

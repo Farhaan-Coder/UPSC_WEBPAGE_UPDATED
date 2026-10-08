@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { 
   ClipboardCheck, 
   Newspaper, 
@@ -8,24 +8,14 @@ import {
   BarChart3, 
   ArrowUpRight,
   CheckCircle2,
-  XCircle,
   HelpCircle
 } from 'lucide-react';
 import { PYQ_RANGE, PYQ_TOTAL, pyqThemes } from '../data/pyqSample.js';
+import EliminationDrill from './EliminationDrill.jsx';
+import { useLanguage } from '../context/LanguageContext.jsx';
 
 export default function FeaturesGrid({ onOpenLogin }) {
-  // Interactive mini option elimination widget for Card 1
-  const [selectedOption, setSelectedOption] = useState('B');
-  const [eliminatedOptions, setEliminatedOptions] = useState(['A', 'C']);
-
-  const toggleEliminate = (optKey) => {
-    if (eliminatedOptions.includes(optKey)) {
-      setEliminatedOptions(eliminatedOptions.filter(k => k !== optKey));
-    } else {
-      setEliminatedOptions([...eliminatedOptions, optKey]);
-    }
-  };
-
+  const { t } = useLanguage();
   // Top 4 frequency items from unified pyqThemes
   const topPyqThemes = pyqThemes.slice(0, 4);
 
@@ -40,7 +30,7 @@ export default function FeaturesGrid({ onOpenLogin }) {
               STRATEGIC PREPARATION TOOLKIT
             </span>
             <h2 className="text-3xl sm:text-4xl font-serif font-bold text-[#133026] leading-tight">
-              One unified platform.<br />Master Prelims, Mains, and the Interview.
+              {t('features.heading')}
             </h2>
           </div>
           <p className="text-sm sm:text-base text-stone-600 font-normal max-w-sm md:text-right leading-relaxed">
@@ -78,65 +68,8 @@ export default function FeaturesGrid({ onOpenLogin }) {
               </p>
 
               {/* Mini UI Preview Widget: Interactive Option Elimination Box */}
-              <div className="bg-[#FAF6EE] border border-stone-200/90 rounded-xl p-4 sm:p-5 mb-4">
-                <div className="flex items-center justify-between text-xs font-semibold text-[#133026] mb-3 pb-2 border-b border-stone-200/70">
-                  <div className="flex items-center gap-2">
-                    <span className="bg-[#133026] text-white px-2 py-0.5 rounded text-[11px] font-bold">Q.42</span>
-                    <span>Right to Privacy & Art. 21 (Sample Drill)</span>
-                  </div>
-                  <span className="text-xs text-stone-600 font-medium">Click ✗ to eliminate</span>
-                </div>
-
-                <div className="space-y-2 mb-3">
-                  {[
-                    { key: 'A', text: 'Part III provides absolute protection without legislative limits' },
-                    { key: 'B', text: 'Intrinsic part of Art. 21 subject to proportional state action', correct: true },
-                    { key: 'C', text: 'Only enforceable against Central Government actions' },
-                    { key: 'D', text: 'Requires annual parliamentary reaffirmation' },
-                  ].map((opt) => {
-                    const isEliminated = eliminatedOptions.includes(opt.key);
-                    const isSelected = selectedOption === opt.key;
-                    return (
-                      <div
-                        key={opt.key}
-                        className={`flex items-center justify-between p-2.5 rounded-lg border text-xs transition-all duration-150 ${
-                          isEliminated 
-                            ? 'bg-stone-100/80 border-stone-200 text-stone-400 line-through opacity-60' 
-                            : isSelected 
-                            ? 'bg-emerald-50/90 border-emerald-300 text-emerald-950 font-medium' 
-                            : 'bg-white border-stone-200/80 text-stone-700 hover:border-stone-300'
-                        }`}
-                      >
-                        <div 
-                          className="flex items-center gap-2.5 flex-1 cursor-pointer"
-                          onClick={() => !isEliminated && setSelectedOption(opt.key)}
-                        >
-                          <span className={`w-5 h-5 rounded-md flex items-center justify-center font-bold text-xs ${
-                            isSelected ? 'bg-emerald-700 text-white' : 'bg-stone-100 text-stone-600'
-                          }`}>
-                            {opt.key}
-                          </span>
-                          <span className="truncate">{opt.text}</span>
-                        </div>
-                        <button
-                          type="button"
-                          onClick={() => toggleEliminate(opt.key)}
-                          className={`ml-2 p-1 rounded hover:bg-stone-200/60 transition-colors ${
-                            isEliminated ? 'text-red-500 font-bold' : 'text-stone-400 hover:text-stone-700'
-                          }`}
-                          title={isEliminated ? "Restore option" : "Eliminate distractor"}
-                        >
-                          {isEliminated ? <RotateCcw className="w-3.5 h-3.5" /> : <XCircle className="w-3.5 h-3.5" />}
-                        </button>
-                      </div>
-                    );
-                  })}
-                </div>
-
-                <div className="flex items-center justify-between text-xs text-stone-600 pt-1">
-                  <span>{eliminatedOptions.length} distractors eliminated</span>
-                  <span className="text-emerald-700 font-bold">Confidence: High</span>
-                </div>
+              <div className="mb-4">
+                <EliminationDrill />
               </div>
             </div>
 
@@ -271,7 +204,7 @@ export default function FeaturesGrid({ onOpenLogin }) {
               </p>
             </div>
             <div className="pt-3 border-t border-slate-100 text-xs text-slate-600 font-medium">
-              66.7 Marks Qualifying Buffer
+              Qualifying: 33%
             </div>
           </div>
 

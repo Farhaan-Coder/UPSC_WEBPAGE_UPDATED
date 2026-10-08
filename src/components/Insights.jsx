@@ -72,25 +72,147 @@ export default function Insights() {
           {/* Editorial Highlight Card */}
           <div className="lg:col-span-6 bg-white border border-stone-200/80 rounded-2xl overflow-hidden shadow-xs flex flex-col justify-between h-full transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:border-stone-300 cursor-pointer group">
             {/* Premium Image Header */}
-            <div className="relative h-60 sm:h-64 lg:h-72 overflow-hidden bg-slate-900 shrink-0">
-              <img
-                src="https://images.unsplash.com/photo-1515694346937-94d85e41e6f0?auto=format&fit=crop&w=1200&q=80"
-                alt="Urban Watersheds & Infrastructure Resilience"
-                onError={(e) => {
-                  e.currentTarget.onerror = null;
-                  e.currentTarget.src = '/assets/urban_flooding.png';
-                }}
-                className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
-              />
-              {/* Smooth dark gradient overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
+            {/* Original Inline SVG Illustration: City Skyline, River Drainage & Sponge City Green Belt */}
+            <div className="relative h-60 sm:h-64 lg:h-72 overflow-hidden bg-[#0A1D16] shrink-0 select-none">
+              <svg
+                viewBox="0 0 600 320"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                className="w-full h-full object-cover"
+                aria-hidden="true"
+              >
+                <defs>
+                  <linearGradient id="skyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stopColor="#0B1E15" />
+                    <stop offset="50%" stopColor="#133026" />
+                    <stop offset="100%" stopColor="#1E493B" />
+                  </linearGradient>
+
+                  <linearGradient id="riverGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#183C30" />
+                    <stop offset="50%" stopColor="#2A6150" />
+                    <stop offset="100%" stopColor="#1E493B" />
+                  </linearGradient>
+
+                  <linearGradient id="spongeParkGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stopColor="#3A7C67" />
+                    <stop offset="100%" stopColor="#133026" />
+                  </linearGradient>
+
+                  <pattern id="rainPattern" width="40" height="40" patternUnits="userSpaceOnUse" patternTransform="rotate(20)">
+                    <line x1="5" y1="0" x2="5" y2="8" stroke="#BCD3C3" strokeWidth="1.2" strokeOpacity="0.3" strokeLinecap="round" />
+                    <line x1="25" y1="15" x2="25" y2="25" stroke="#F59E0B" strokeWidth="1" strokeOpacity="0.25" strokeLinecap="round" />
+                  </pattern>
+                </defs>
+
+                {/* Sky Backdrop */}
+                <rect width="600" height="320" fill="url(#skyGrad)" />
+
+                {/* Gentle Rain Overlay */}
+                <rect width="600" height="260" fill="url(#rainPattern)" />
+
+                {/* Distant City Skyline Silhouettes */}
+                <g fill="#0F281E" opacity="0.85">
+                  <rect x="40" y="80" width="36" height="150" rx="2" />
+                  <rect x="85" y="60" width="48" height="170" rx="3" />
+                  <rect x="142" y="110" width="32" height="120" rx="2" />
+                  <rect x="182" y="50" width="42" height="180" rx="3" />
+                  <rect x="232" y="90" width="50" height="140" rx="2" />
+                  <rect x="290" y="70" width="38" height="160" rx="3" />
+                  <rect x="336" y="105" width="44" height="125" rx="2" />
+                  <rect x="388" y="45" width="46" height="185" rx="3" />
+                  <rect x="442" y="85" width="34" height="145" rx="2" />
+                  <rect x="484" y="65" width="42" height="165" rx="3" />
+                  <rect x="534" y="100" width="38" height="130" rx="2" />
+                </g>
+
+                {/* Midground City Skyline with Windows */}
+                <g fill="#16382C">
+                  <rect x="65" y="100" width="44" height="130" rx="2" />
+                  <rect x="117" y="75" width="54" height="155" rx="2" />
+                  <rect x="205" y="70" width="48" height="160" rx="2" />
+                  <rect x="260" y="115" width="38" height="115" rx="2" />
+                  <rect x="306" y="90" width="56" height="140" rx="2" />
+                  <rect x="410" y="65" width="50" height="165" rx="2" />
+                  <rect x="506" y="85" width="46" height="145" rx="2" />
+
+                  {/* Window Dot Grids */}
+                  <circle cx="132" cy="95" r="1.5" fill="#F59E0B" opacity="0.8" />
+                  <circle cx="148" cy="95" r="1.5" fill="#F59E0B" opacity="0.6" />
+                  <circle cx="132" cy="115" r="1.5" fill="#FDF9F1" opacity="0.7" />
+                  <circle cx="148" cy="115" r="1.5" fill="#F59E0B" opacity="0.9" />
+                  <circle cx="220" cy="85" r="1.5" fill="#F59E0B" opacity="0.85" />
+                  <circle cx="236" cy="85" r="1.5" fill="#FDF9F1" opacity="0.5" />
+                  <circle cx="220" cy="105" r="1.5" fill="#F59E0B" opacity="0.7" />
+                  <circle cx="324" cy="110" r="1.5" fill="#F59E0B" opacity="0.8" />
+                  <circle cx="340" cy="110" r="1.5" fill="#FDF9F1" opacity="0.6" />
+                  <circle cx="426" cy="80" r="1.5" fill="#F59E0B" opacity="0.9" />
+                  <circle cx="444" cy="80" r="1.5" fill="#FDF9F1" opacity="0.7" />
+                  <circle cx="426" cy="100" r="1.5" fill="#F59E0B" opacity="0.7" />
+                </g>
+
+                {/* Sponge City Bio-Retention Green Belt (Wetlands & Park) */}
+                <path
+                  d="M0 220 Q120 190 260 215 T520 200 Q560 202 600 210 L600 270 L0 270 Z"
+                  fill="url(#spongeParkGrad)"
+                />
+
+                {/* Stylized Sponge City Trees & Vegetation */}
+                <circle cx="90" cy="205" r="10" fill="#3A7C67" />
+                <circle cx="90" cy="200" r="7" fill="#F59E0B" opacity="0.8" />
+                <rect x="88" y="210" width="4" height="12" fill="#0F281E" rx="1" />
+
+                <circle cx="135" cy="202" r="12" fill="#2A6150" />
+                <circle cx="135" cy="198" r="8" fill="#3A7C67" />
+                <rect x="133" y="210" width="4" height="14" fill="#0F281E" rx="1" />
+
+                <circle cx="470" cy="200" r="11" fill="#3A7C67" />
+                <circle cx="470" cy="195" r="8" fill="#F59E0B" opacity="0.7" />
+                <rect x="468" y="208" width="4" height="12" fill="#0F281E" rx="1" />
+
+                <circle cx="510" cy="204" r="9" fill="#2A6150" />
+                <rect x="508" y="210" width="4" height="10" fill="#0F281E" rx="1" />
+
+                {/* Urban Watershed / River with Animated Wave Pattern */}
+                <g className="animate-slow-wave">
+                  <path
+                    d="M-20 245 C80 230 160 265 260 250 C360 235 440 270 540 255 C580 250 630 252 650 255 L650 320 L-20 320 Z"
+                    fill="url(#riverGrad)"
+                    opacity="0.95"
+                  />
+                  <path
+                    d="M-20 258 C80 245 160 278 260 265 C360 252 440 282 540 270 C580 265 630 268 650 270"
+                    stroke="#BCD3C3"
+                    strokeWidth="2.5"
+                    strokeOpacity="0.45"
+                    strokeLinecap="round"
+                    fill="none"
+                  />
+                  <path
+                    d="M-20 275 C90 265 170 292 270 280 C370 268 450 295 550 285 C590 280 630 282 650 285"
+                    stroke="#F59E0B"
+                    strokeWidth="1.8"
+                    strokeOpacity="0.5"
+                    strokeLinecap="round"
+                    fill="none"
+                  />
+                </g>
+
+                {/* Water Retention & Percolation Infiltration Nodes */}
+                <circle cx="180" cy="265" r="3" fill="#BCD3C3" opacity="0.6" />
+                <circle cx="340" cy="275" r="2.5" fill="#F59E0B" opacity="0.5" />
+                <circle cx="460" cy="270" r="3" fill="#BCD3C3" opacity="0.7" />
+              </svg>
+
+              {/* Contrast Gradient Overlay for Text Readability */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent pointer-events-none" />
 
               {/* Bottom Overlay: Orange Badge & White Text */}
-              <div className="absolute bottom-4 left-5 right-5 z-10 flex flex-col items-start">
+              <div className="absolute bottom-4 left-5 right-5 z-10 flex flex-col items-start pointer-events-none">
                 <span className="bg-[#F59E0B] text-stone-950 font-bold text-[11px] sm:text-xs uppercase tracking-wider px-2.5 py-1 rounded shadow-md inline-block mb-1.5">
                   GS III • Disaster Management
                 </span>
-                <span className="text-xs sm:text-sm font-medium text-white/95 tracking-wide drop-shadow-md">
+                <span className="text-xs sm:text-sm font-semibold text-white/95 tracking-wide drop-shadow-md">
                   Urban Watersheds & Infrastructure Resilience
                 </span>
               </div>
@@ -154,10 +276,10 @@ export default function Insights() {
                       <span className="text-xs font-bold text-[#133026] tracking-wider block mb-1 uppercase bg-[#EAF1EB] px-2 py-0.5 rounded w-fit">
                         {note.tag}
                       </span>
-                      <h3 className="text-sm sm:text-base font-sans font-bold text-[#133026] tracking-tight leading-snug mb-1 group-hover:text-[#183C30] transition-colors truncate">
+                      <h3 className="text-sm sm:text-base font-sans font-bold text-[#133026] tracking-tight leading-snug mb-1 group-hover:text-[#183C30] transition-colors">
                         {note.title}
                       </h3>
-                      <p className="text-xs text-stone-600 leading-relaxed mb-2 font-normal line-clamp-2">
+                      <p className="text-xs text-stone-600 leading-relaxed mb-2 font-normal">
                         {note.desc}
                       </p>
                     </div>

@@ -48,8 +48,8 @@ const structuredSteps = [
 
 const tabsData = [
   { id: 'concept', label: 'Concept Breakdown' },
-  { id: 'answer', label: '15-Mark Answer Framework' },
-  { id: 'revise', label: 'PYQ & Model Intro/Conclusion' },
+  { id: 'answer', label: '15-Mark Framework' },
+  { id: 'revise', label: 'Model Intro' },
 ];
 
 export default function DarkSection({ onOpenLogin }) {
@@ -89,7 +89,7 @@ export default function DarkSection({ onOpenLogin }) {
               Not just answers. The art of UPSC Mains Answer Writing.
             </h2>
             <p className="text-sm sm:text-base text-[#D7E5DB] leading-relaxed mb-8 max-w-md font-normal">
-              From tackling nuanced GS II constitutional dilemmas to articulating multi-dimensional GS IV Ethics case studies, bridge the gap between reading reference material and scoring 120+ in Mains.
+              From tackling nuanced GS II constitutional dilemmas to articulating multi-dimensional GS IV Ethics case studies, bridge the gap between reading reference material and scoring higher in Mains.
             </p>
 
             {/* Core Capabilities */}
@@ -153,14 +153,14 @@ export default function DarkSection({ onOpenLogin }) {
               </div>
 
               {/* Filter Tabs */}
-              <div className="flex items-center gap-2 mb-4 overflow-x-auto pb-1" role="tablist">
+              <div className="flex flex-wrap items-center gap-2 mb-4" role="tablist">
                 {tabsData.map((tab) => (
                   <button
                     key={tab.id}
                     role="tab"
                     aria-selected={activeTab === tab.id}
                     onClick={() => setActiveTab(tab.id)}
-                    className={`text-xs px-3.5 py-1.5 rounded-lg font-medium transition-all shrink-0 cursor-pointer ${
+                    className={`flex-1 min-w-[110px] text-[13px] sm:text-sm px-3 py-2 rounded-lg font-medium text-center transition-all cursor-pointer ${
                       activeTab === tab.id
                         ? 'bg-[#133026] text-white shadow-xs'
                         : 'bg-stone-100 text-stone-700 hover:bg-stone-200'

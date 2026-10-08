@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { SlidersHorizontal, PenTool, BookMarked, MessageSquare } from 'lucide-react';
 import JourneyRoadmapCard from './JourneyRoadmapCard';
+import { useLanguage } from '../context/LanguageContext.jsx';
 
 const stagesData = [
   {
@@ -51,6 +52,7 @@ const CARD_TO_STEP = {
 };
 
 export default function StagesCovered() {
+  const { t } = useLanguage();
   const [activeStep, setActiveStep] = useState(1);
   const [hoveredStep, setHoveredStep] = useState(null);
   const [isAutoPlayPaused, setIsAutoPlayPaused] = useState(false);
@@ -106,7 +108,7 @@ export default function StagesCovered() {
               FROM DAY 1 TO FINAL SELECTION
             </span>
             <h2 className="text-3xl sm:text-4xl font-sans font-bold text-[#133026] tracking-tight leading-tight">
-              One goal. Every stage of UPSC covered.
+              {t('journey.heading')}
             </h2>
           </div>
           <p className="text-sm sm:text-base text-stone-600 max-w-sm md:text-right leading-relaxed font-normal font-sans">
@@ -115,10 +117,10 @@ export default function StagesCovered() {
         </div>
 
         {/* Section Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           
           {/* Left Column: Interactive Roadmap Card */}
-          <div className="lg:col-span-5 h-full flex flex-col">
+          <div className="lg:col-span-5 lg:sticky lg:top-24 flex flex-col">
             <JourneyRoadmapCard
               activeStep={activeStep}
               hoveredStep={hoveredStep}
@@ -134,7 +136,7 @@ export default function StagesCovered() {
             id="stages-grid"
             onMouseEnter={handleCardMouseEnter}
             onMouseLeave={handleCardMouseLeave}
-            className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-5 items-stretch"
+            className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-5 items-start"
           >
             {stagesData.map((stage) => {
               const Icon = stage.icon;
@@ -145,11 +147,11 @@ export default function StagesCovered() {
                 <div
                   key={stage.id}
                   onClick={() => handleStepSelect(CARD_TO_STEP[stage.id])}
-                  className={`bg-white rounded-2xl p-6 flex flex-col justify-between cursor-pointer transition-all duration-300 group ${
+                  className={`bg-white rounded-2xl p-6 min-h-[260px] sm:min-h-[270px] flex flex-col justify-between cursor-pointer transition-all duration-300 group ${
                     isMapped
                       ? 'border-2 border-[#F59E0B] ring-4 ring-[#F59E0B]/20 shadow-xl -translate-y-1.5 opacity-100 hover:-translate-y-2 hover:shadow-2xl hover:border-amber-500'
                       : isDimmed
-                      ? 'border border-slate-200/70 opacity-70 shadow-xs translate-y-0 hover:opacity-100 hover:-translate-y-1 hover:shadow-xl hover:border-slate-300'
+                      ? 'border border-slate-200/70 opacity-[0.85] shadow-xs translate-y-0 hover:opacity-100 hover:-translate-y-1 hover:shadow-xl hover:border-slate-300'
                       : 'border border-slate-200/70 opacity-100 shadow-xs hover:-translate-y-1 hover:shadow-xl hover:border-slate-300'
                   }`}
                 >

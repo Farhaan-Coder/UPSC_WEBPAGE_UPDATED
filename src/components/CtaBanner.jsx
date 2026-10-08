@@ -1,8 +1,10 @@
 import React from 'react';
 import { ArrowRight, Sparkles } from 'lucide-react';
 import { EXAM_YEAR, ROADMAP_LABEL } from '../config/exam.js';
+import { useLanguage } from '../context/LanguageContext.jsx';
 
 export default function CtaBanner({ onOpenAuth }) {
+  const { t } = useLanguage();
   return (
     <section className="pt-8 md:pt-12 pb-16 md:pb-20 bg-transparent" id="get-started">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
@@ -21,7 +23,7 @@ export default function CtaBanner({ onOpenAuth }) {
               <span>START YOUR CIVIL SERVICES JOURNEY</span>
             </span>
             <h2 className="text-3xl sm:text-4xl font-serif font-bold text-white tracking-tight leading-tight mb-3">
-              Your ambition deserves a<br className="hidden sm:inline" /> smarter, disciplined plan.
+              {t('cta.heading')}
             </h2>
             <p className="text-sm sm:text-base text-[#D7E5DB] leading-relaxed font-normal">
               Start with a 15-minute diagnostic test to identify your GS strengths, negative marks vulnerabilities, and get a personalized {ROADMAP_LABEL} roadmap.
@@ -36,7 +38,7 @@ export default function CtaBanner({ onOpenAuth }) {
               className="group relative inline-flex items-center gap-3 bg-gradient-to-b from-[#FBBF24] to-[#F59E0B] hover:from-[#F59E0B] hover:to-[#D97706] text-stone-900 font-bold text-sm sm:text-base px-8 py-4 rounded-xl shadow-[0_4px_18px_rgba(245,158,11,0.32)] hover:shadow-[0_8px_30px_rgba(245,158,11,0.5)] border border-amber-300/60 transition-all duration-300 ease-out hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98] overflow-hidden cursor-pointer"
             >
               <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out pointer-events-none" />
-              <span className="relative">Start Free Daily Prep</span>
+              <span className="relative">{t('cta.button')}</span>
               <ArrowRight className="w-5 h-5 stroke-[2.5] transition-transform duration-300 group-hover:translate-x-1.5" />
             </button>
             <a

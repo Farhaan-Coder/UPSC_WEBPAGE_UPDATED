@@ -25,6 +25,7 @@ import {
 } from 'lucide-react';
 import { EXAM_YEAR } from '../config/exam.js';
 import { PYQ_RANGE, PYQ_TOTAL, pyqThemes } from '../data/pyqSample.js';
+import { useLanguage } from '../context/LanguageContext.jsx';
 
 const tabsConfig = [
   {
@@ -98,6 +99,7 @@ const getTrendBadgeClass = (trend) => {
 };
 
 export default function DashboardPreview() {
+  const { t } = useLanguage();
   const [activeTab, setActiveTab] = useState(0);
   const [studyHours, setStudyHours] = useState(6.0);
   const [studyMode, setStudyMode] = useState('fulltime'); // 'working' or 'fulltime'
@@ -122,7 +124,7 @@ export default function DashboardPreview() {
     return Math.min(96, Math.max(35, Math.round(68 + delta)));
   }, [studyHours]);
 
-  const fullPromptText = "Based on your last 3 mock diagnostics, prioritize Environment National Parks & Schedule species. Your accuracy improves +24% when solving elimination drills in 15-minute bursts.";
+  const fullPromptText = "Sample insight: short 15-minute elimination drills help build speed and accuracy. Try one today.";
 
   // Subtle typing animation in AI advice
   useEffect(() => {
@@ -171,7 +173,7 @@ export default function DashboardPreview() {
             DISCIPLINED PREPARATION, OPTIMIZED FOR YOUR DESK
           </span>
           <h2 className="font-sans text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
-            Everything you study today, in one command center.
+            {t('commandCenter.heading')}
           </h2>
           <p className="text-slate-600 text-[17px] leading-relaxed max-w-2xl mx-auto mt-5">
             Eliminate scattered notes, chaotic tabs, and syllabus anxiety. Synchronize syllabus completion, 25-year PYQs, and daily AI answer reviews into a serene daily rhythm.
@@ -478,12 +480,12 @@ export default function DashboardPreview() {
                               {task.completed && <Check className="w-3.5 h-3.5 stroke-[3]" />}
                             </div>
                             <div className="min-w-0">
-                              <div className={`font-sans text-sm font-semibold truncate transition-colors ${
+                              <div className={`font-sans text-sm font-semibold transition-colors ${
                                 task.completed ? 'line-through text-slate-400' : 'text-slate-900'
                               }`}>
                                 {task.title}
                               </div>
-                              <div className="font-sans text-sm text-slate-500 mt-0.5 truncate">
+                              <div className="font-sans text-sm text-slate-500 mt-0.5">
                                 {task.sub}
                               </div>
                             </div>
@@ -561,32 +563,37 @@ export default function DashboardPreview() {
                     </div>
                   </div>
 
-                  {/* Recurrence Heatmap Table: table-fixed with aggressive truncation and perfect vertical/horizontal alignment */}
-                  <div className="w-full max-sm:overflow-x-auto overflow-hidden">
-                    <table className="w-full table-fixed text-left font-sans">
+                  {/* Recurrence Heatmap Table: horizontally scrollable on mobile with subtle fade hint, no clipping */}
+                  <div>
+                    <div className="sm:hidden text-[11px] text-stone-500 font-medium mb-1.5 flex items-center justify-between">
+                      <span>← Swipe table horizontally →</span>
+                      <span className="text-[10px] text-stone-400">6 themes</span>
+                    </div>
+                    <div className="relative w-full overflow-x-auto rounded-xl border border-slate-200/60">
+                      <table className="w-full text-left font-sans min-w-[520px]">
                       <thead>
                         <tr className="border-b border-slate-200">
-                          <th className="align-middle text-[11px] sm:text-xs font-semibold text-slate-500 uppercase tracking-wider pb-3 px-2 sm:px-3 w-[24%]">Theme</th>
-                          <th className="align-middle text-[11px] sm:text-xs font-semibold text-slate-500 uppercase tracking-wider pb-3 px-2 sm:px-3 w-[18%]">Avg Share</th>
-                          <th className="align-middle text-[11px] sm:text-xs font-semibold text-slate-500 uppercase tracking-wider pb-3 pl-2 sm:pl-3 pr-4 sm:pr-5 w-[26%]">Sample Trend</th>
-                          <th className="align-middle text-[11px] sm:text-xs font-semibold text-slate-500 uppercase tracking-wider pb-3 pl-2 sm:pl-3 pr-2 sm:pr-3 w-[32%]">High-Yield Micro-Topics</th>
+                          <th className="align-middle text-[11px] sm:text-xs font-semibold text-slate-500 uppercase tracking-wider pb-3 px-3 w-[22%] min-w-[100px] whitespace-nowrap">Theme</th>
+                          <th className="align-middle text-[11px] sm:text-xs font-semibold text-slate-500 uppercase tracking-wider pb-3 px-3 w-[18%] whitespace-nowrap">Avg Share</th>
+                          <th className="align-middle text-[11px] sm:text-xs font-semibold text-slate-500 uppercase tracking-wider pb-3 px-3 w-[24%] whitespace-nowrap">Sample Trend</th>
+                          <th className="align-middle text-[11px] sm:text-xs font-semibold text-slate-500 uppercase tracking-wider pb-3 px-3 w-[36%]">High-Yield Micro-Topics</th>
                         </tr>
                       </thead>
                       <tbody className="divide-y divide-slate-100">
                         {pyqThemes.map((row, idx) => (
                           <tr key={idx} className="hover:bg-slate-50/80 transition-colors cursor-default">
-                            <td className="align-middle py-3 sm:py-3.5 px-2 sm:px-3 font-semibold text-slate-900 text-xs sm:text-sm truncate" title={row.name}>
-                              {row.name}
+                            <td className="align-middle py-3 sm:py-3.5 px-3 font-semibold text-slate-900 text-xs sm:text-sm whitespace-nowrap">
+                              {row.shortName || row.name}
                             </td>
-                            <td className="align-middle py-3 sm:py-3.5 px-2 sm:px-3 font-bold text-[#133026] text-xs sm:text-sm whitespace-nowrap">
+                            <td className="align-middle py-3 sm:py-3.5 px-3 font-bold text-[#133026] text-xs sm:text-sm whitespace-nowrap">
                               {row.weight} <span className="font-normal text-slate-500 text-[11px] sm:text-xs">({row.count} Qs)</span>
                             </td>
-                            <td className="align-middle py-3 sm:py-3.5 pl-2 sm:pl-3 pr-4 sm:pr-5 whitespace-nowrap">
+                            <td className="align-middle py-3 sm:py-3.5 px-3 whitespace-nowrap">
                               <span className={`px-2.5 py-0.5 rounded-full text-[11px] sm:text-xs font-medium inline-flex items-center ${getTrendBadgeClass(row.trend)}`}>
                                 {row.trend}
                               </span>
                             </td>
-                            <td className="align-middle py-3 sm:py-3.5 pl-2 sm:pl-3 pr-2 sm:pr-3 text-slate-500 text-xs sm:text-sm truncate min-w-0 max-w-[120px] sm:max-w-[170px] md:max-w-[210px]" title={row.highYield}>
+                            <td className="align-middle py-3 sm:py-3.5 px-3 text-slate-600 text-xs sm:text-sm leading-snug">
                               {row.highYield}
                             </td>
                           </tr>
@@ -594,6 +601,7 @@ export default function DashboardPreview() {
                       </tbody>
                     </table>
                   </div>
+                </div>
 
                   {/* High Yield Drill Action Card */}
                   <div className="p-4 rounded-xl bg-[#133026] border border-emerald-900/50 text-white flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-md">

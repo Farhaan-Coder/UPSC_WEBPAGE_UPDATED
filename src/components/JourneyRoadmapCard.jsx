@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route, Info } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext.jsx';
 
 const JOURNEY_STEPS = [
   {
@@ -33,6 +34,7 @@ export default function JourneyRoadmapCard({
   onCardMouseEnter,
   onCardMouseLeave,
 }) {
+  const { t } = useLanguage();
   const currentStep = hoveredStep !== null ? hoveredStep : activeStep;
 
   return (
@@ -54,7 +56,7 @@ export default function JourneyRoadmapCard({
 
         {/* Title & Sub-line */}
         <h3 className="font-sans text-2xl md:text-3xl font-bold text-white tracking-tight leading-snug mb-2">
-          Your UPSC journey, stage by stage.
+          {t('journey.cardTitle')}
         </h3>
         <p className="text-[15px] text-white/80 leading-relaxed font-normal mb-5">
           Know what each stage tests and how we help you clear it.
@@ -117,7 +119,7 @@ export default function JourneyRoadmapCard({
                         isStepActive ? 'text-yellow-400' : 'text-white'
                       }`}
                     >
-                      {stepItem.name}
+                      {stepItem.step === 1 ? t('journey.prelimsStep') : stepItem.step === 2 ? t('journey.mainsStep') : t('journey.interviewStep')}
                     </span>
                     {isStepActive && (
                       <span className="text-[10px] font-bold uppercase tracking-wider text-yellow-300 bg-yellow-500/20 border border-yellow-500/30 px-2 py-0.5 rounded-full shadow-2xs">
@@ -127,13 +129,13 @@ export default function JourneyRoadmapCard({
                   </div>
 
                   <p className="text-[15px] text-white/80 leading-relaxed font-normal mt-1">
-                    {stepItem.whatItIs}
+                    {stepItem.step === 1 ? t('journey.prelimsDesc') : stepItem.step === 2 ? t('journey.mainsDesc') : t('journey.interviewDesc')}
                   </p>
 
                   {/* Premium WE HELP WITH Glassmorphism Card */}
                   <div className="mt-3 bg-white/5 border border-white/10 rounded-lg p-3 backdrop-blur-sm flex items-start gap-3">
                     <span className="text-[11px] font-bold uppercase tracking-widest text-yellow-400 shrink-0 mt-0.5 leading-snug">
-                      WE HELP WITH:
+                      {t('journey.weHelpWith')}:
                     </span>
                     <span className="text-xs sm:text-[13px] font-medium text-white/90 leading-snug">
                       {stepItem.helpWith}
