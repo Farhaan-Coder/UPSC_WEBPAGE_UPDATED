@@ -75,48 +75,73 @@ export default function Insights() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
           
           {/* Editorial Highlight Card */}
-          <div className="lg:col-span-6 bg-white border border-stone-200/80 rounded-2xl overflow-hidden shadow-xs flex flex-col justify-between transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl hover:border-stone-300 cursor-pointer group">
-            <div>
-              {/* Original SVG Illustration Container */}
-              <div className="relative h-48 sm:h-56 bg-gradient-to-br from-[#133026] via-[#1A4235] to-[#0D241C] overflow-hidden flex items-center justify-center p-6">
-                {/* SVG Visual Graphic */}
-                <svg className="absolute inset-0 w-full h-full opacity-20 pointer-events-none" viewBox="0 0 400 200" preserveAspectRatio="none">
-                  <path d="M0,100 C150,180 250,20 400,100 L400,200 L0,200 Z" fill="#F59E0B" />
-                  <path d="M0,130 C120,60 280,180 400,120 L400,200 L0,200 Z" fill="#BCD3C3" />
-                </svg>
+          <div className="lg:col-span-6 bg-white border border-stone-200/80 rounded-2xl overflow-hidden shadow-xs flex flex-col justify-between h-full transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:border-stone-300 cursor-pointer group">
+            <div className="flex flex-col flex-1">
+              {/* Premium Image Header */}
+              <div className="relative h-52 sm:h-60 overflow-hidden bg-slate-900 flex items-center justify-center p-6">
+                <img
+                  src="https://images.unsplash.com/photo-1515694346937-94d85e41e6f0?auto=format&fit=crop&w=1200&q=80"
+                  alt="Urban Watersheds & Infrastructure Resilience"
+                  onError={(e) => {
+                    e.currentTarget.onerror = null;
+                    e.currentTarget.src = '/assets/urban_flooding.png';
+                  }}
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+                />
+                {/* Smooth dark gradient overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
 
+                {/* Center Topic & Icon */}
                 <div className="relative z-10 flex flex-col items-center text-center">
-                  <div className="w-12 h-12 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center text-[#F59E0B] mb-2 group-hover:scale-110 transition-transform">
+                  <div className="w-12 h-12 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-[#F59E0B] mb-2 shadow-lg group-hover:scale-110 transition-transform duration-300">
                     <CloudRain className="w-6 h-6 stroke-[2]" />
                   </div>
-                  <span className="text-xs font-semibold text-white/90">Urban Watersheds & Infrastructure Resilience</span>
+                  <span className="text-xs sm:text-sm font-semibold text-white/95 tracking-wide drop-shadow-sm">
+                    Urban Watersheds & Infrastructure Resilience
+                  </span>
                 </div>
 
-                {/* Clean HTML Text Badge Overlay */}
-                <div className="absolute bottom-3 left-4 z-10">
-                  <span className="bg-[#F59E0B] text-stone-900 font-bold text-xs uppercase tracking-wider px-2.5 py-1 rounded shadow-xs">
+                {/* Orange GS III Badge Overlay */}
+                <div className="absolute bottom-3.5 left-5 z-10">
+                  <span className="bg-[#F59E0B] text-stone-950 font-bold text-[11px] sm:text-xs uppercase tracking-wider px-2.5 py-1 rounded shadow-md inline-block">
                     GS III • Disaster Management
                   </span>
                 </div>
               </div>
 
-              <div className="p-6 sm:p-7">
-                <div className="flex items-center justify-between text-xs font-bold text-[#133026] mb-2.5">
-                  <span className="tracking-wider uppercase bg-[#EAF1EB] px-2 py-0.5 rounded">THE SYLLABUS CONNECTION</span>
-                  <span className="text-stone-500 font-normal">6 min read</span>
+              {/* Text Section */}
+              <div className="p-6 sm:p-7 flex flex-col flex-1">
+                <div className="flex items-center justify-between text-xs font-bold text-[#133026] mb-3">
+                  <span className="tracking-wider uppercase bg-[#EAF1EB] px-2.5 py-1 rounded font-semibold text-[11px]">
+                    THE SYLLABUS CONNECTION
+                  </span>
+                  <span className="text-slate-500 font-normal text-xs">6 min read</span>
                 </div>
-                <h3 className="text-lg sm:text-xl font-sans font-bold text-[#133026] tracking-tight mb-2.5 group-hover:text-[#183C30] transition-colors">
+                <h3 className="font-sans font-bold text-slate-900 text-lg md:text-xl tracking-tight mb-3 group-hover:text-[#183C30] transition-colors leading-snug">
                   Urban Flooding in Metros: Beyond heavy rainfall
                 </h3>
-                <p className="text-xs sm:text-sm text-stone-600 leading-relaxed mb-4 font-normal">
+                <p className="text-[15px] text-slate-600 leading-relaxed font-normal">
                   Connecting wetlands conservation, stormwater engineering, national disaster frameworks, and ecological sponge city solutions. Features Prelims facts and a 15-mark Mains structure.
                 </p>
               </div>
             </div>
 
-            <div className="px-6 sm:px-7 pb-6 pt-3 border-t border-stone-100 flex items-center justify-between text-xs text-stone-600 font-medium">
-              <span>Disaster Resilience • Urban Planning • Climate Adaptation</span>
-              <ArrowUpRight className="w-4 h-4 text-[#F59E0B] group-hover:translate-x-1 group-hover:-translate-y-1 transition-all duration-200" />
+            {/* Modern Footer Tags & Arrow */}
+            <div className="px-6 sm:px-7 py-4 border-t border-slate-100 flex items-center justify-between gap-3 mt-auto">
+              <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
+                <span className="bg-slate-100 text-slate-600 px-2.5 py-1 rounded-md text-xs font-medium">
+                  Disaster Resilience
+                </span>
+                <span className="bg-slate-100 text-slate-600 px-2.5 py-1 rounded-md text-xs font-medium">
+                  Urban Planning
+                </span>
+                <span className="bg-slate-100 text-slate-600 px-2.5 py-1 rounded-md text-xs font-medium">
+                  Climate Adaptation
+                </span>
+              </div>
+              <div className="w-8 h-8 rounded-lg bg-slate-100 flex items-center justify-center text-[#F59E0B] group-hover:bg-[#133026] group-hover:scale-110 transition-all duration-300 shrink-0">
+                <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200" />
+              </div>
             </div>
           </div>
 
