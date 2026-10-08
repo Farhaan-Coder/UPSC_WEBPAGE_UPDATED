@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { 
   Search, 
   SlidersHorizontal, 
@@ -71,11 +71,11 @@ const initialDailyTasks = [
   },
 ];
 
-const syllabusProgress = [
-  { name: 'Indian Polity & Governance', percentage: 82, isCoral: false },
-  { name: 'Modern Indian History', percentage: 68, isCoral: false },
-  { name: 'Geography & Environment', percentage: 56, isCoral: false },
-  { name: 'Economy & Inclusive Growth', percentage: 44, isCoral: true },
+const baseSyllabusProgress = [
+  { name: 'Indian Polity & Governance', base: 82, isCoral: false },
+  { name: 'Modern Indian History', base: 68, isCoral: false },
+  { name: 'Geography & Environment', base: 56, isCoral: false },
+  { name: 'Economy & Inclusive Growth', base: 44, isCoral: true },
 ];
 
 const getTrendBadgeClass = (trend) => {
@@ -103,6 +103,24 @@ export default function DashboardPreview() {
   const [studyMode, setStudyMode] = useState('fulltime'); // 'working' or 'fulltime'
   const [tasks, setTasks] = useState(initialDailyTasks);
   const [typingIndex, setTypingIndex] = useState(0);
+
+  // Interconnected dynamic calculation: studyHours slider drives progress benchmarks proportionally
+  const syllabusProgress = useMemo(() => {
+    return baseSyllabusProgress.map((item) => {
+      const delta = (studyHours - 6.0) * 3.5;
+      const percentage = Math.min(98, Math.max(20, Math.round(item.base + delta)));
+      return {
+        ...item,
+        percentage,
+      };
+    });
+  }, [studyHours]);
+
+  // Overall GS coverage ring scales reactively with study hours
+  const overallCoverage = useMemo(() => {
+    const delta = (studyHours - 6.0) * 3.5;
+    return Math.min(96, Math.max(35, Math.round(68 + delta)));
+  }, [studyHours]);
 
   const fullPromptText = "Based on your last 3 mock diagnostics, prioritize Environment National Parks & Schedule species. Your accuracy improves +24% when solving elimination drills in 15-minute bursts.";
 
@@ -412,19 +430,19 @@ export default function DashboardPreview() {
                             stroke="#133026"
                             strokeWidth="7"
                             strokeDasharray={213.6}
-                            strokeDashoffset={213.6 * (1 - 0.68)}
+                            strokeDashoffset={213.6 * (1 - overallCoverage / 100)}
                             strokeLinecap="round"
                             fill="transparent"
-                            className="transition-all duration-1000 ease-out"
+                            className="transition-all duration-500 ease-out"
                           />
                         </svg>
-                        <span className="absolute font-sans font-extrabold text-xs text-slate-900">
-                          68%
+                        <span className="absolute font-sans font-extrabold text-xs text-slate-900 transition-all duration-300 tabular-nums">
+                          {overallCoverage}%
                         </span>
                       </div>
                       <div className="text-left font-sans">
                         <div className="text-xs font-bold text-slate-900">GS Coverage</div>
-                        <div className="text-xs text-slate-500">68% of {EXAM_YEAR} Core</div>
+                        <div className="text-xs text-slate-500 tabular-nums">{overallCoverage}% of {EXAM_YEAR} Core</div>
                       </div>
                     </div>
                   </div>
@@ -489,11 +507,11 @@ export default function DashboardPreview() {
                         <div key={idx}>
                           <div className="flex justify-between text-xs mb-1.5 font-sans">
                             <span className="font-medium text-slate-700">{item.name}</span>
-                            <span className="font-bold text-[#133026]">{item.percentage}%</span>
+                            <span className="font-bold text-[#133026] tabular-nums transition-all duration-300">{item.percentage}%</span>
                           </div>
                           <div className="w-full h-1.5 bg-slate-200/80 rounded-full overflow-hidden">
                             <div
-                              className={`h-full rounded-full transition-all duration-700 ${
+                              className={`h-full rounded-full transition-all duration-500 ease-out ${
                                 item.isCoral ? 'bg-[#F59E0B]' : 'bg-[#133026]'
                               }`}
                               style={{ width: `${item.percentage}%` }}
