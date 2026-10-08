@@ -543,32 +543,32 @@ export default function DashboardPreview() {
                     </div>
                   </div>
 
-                  {/* Recurrence Heatmap Table: table-fixed with aggressive truncation to prevent horizontal overflow */}
+                  {/* Recurrence Heatmap Table: table-fixed with aggressive truncation and perfect vertical/horizontal alignment */}
                   <div className="w-full max-sm:overflow-x-auto overflow-hidden">
                     <table className="w-full table-fixed text-left font-sans">
                       <thead>
                         <tr className="border-b border-slate-200">
-                          <th className="text-[11px] sm:text-xs font-semibold text-slate-500 uppercase tracking-wider pb-3 px-2 sm:px-3 w-[26%]">Theme</th>
-                          <th className="text-[11px] sm:text-xs font-semibold text-slate-500 uppercase tracking-wider pb-3 px-2 sm:px-3 w-[20%]">Avg Share</th>
-                          <th className="text-[11px] sm:text-xs font-semibold text-slate-500 uppercase tracking-wider pb-3 px-2 sm:px-3 w-[22%]">Sample Trend</th>
-                          <th className="text-[11px] sm:text-xs font-semibold text-slate-500 uppercase tracking-wider pb-3 px-2 sm:px-3 w-[32%]">High-Yield Micro-Topics</th>
+                          <th className="align-middle text-[11px] sm:text-xs font-semibold text-slate-500 uppercase tracking-wider pb-3 px-2 sm:px-3 w-[24%]">Theme</th>
+                          <th className="align-middle text-[11px] sm:text-xs font-semibold text-slate-500 uppercase tracking-wider pb-3 px-2 sm:px-3 w-[18%]">Avg Share</th>
+                          <th className="align-middle text-[11px] sm:text-xs font-semibold text-slate-500 uppercase tracking-wider pb-3 pl-2 sm:pl-3 pr-4 sm:pr-5 w-[26%]">Sample Trend</th>
+                          <th className="align-middle text-[11px] sm:text-xs font-semibold text-slate-500 uppercase tracking-wider pb-3 pl-2 sm:pl-3 pr-2 sm:pr-3 w-[32%]">High-Yield Micro-Topics</th>
                         </tr>
                       </thead>
                       <tbody className="divide-y divide-slate-100">
                         {pyqThemes.map((row, idx) => (
                           <tr key={idx} className="hover:bg-slate-50/80 transition-colors cursor-default">
-                            <td className="py-3 sm:py-3.5 px-2 sm:px-3 font-semibold text-slate-900 text-xs sm:text-sm truncate" title={row.name}>
+                            <td className="align-middle py-3 sm:py-3.5 px-2 sm:px-3 font-semibold text-slate-900 text-xs sm:text-sm truncate" title={row.name}>
                               {row.name}
                             </td>
-                            <td className="py-3 sm:py-3.5 px-2 sm:px-3 font-bold text-[#133026] text-xs sm:text-sm whitespace-nowrap">
+                            <td className="align-middle py-3 sm:py-3.5 px-2 sm:px-3 font-bold text-[#133026] text-xs sm:text-sm whitespace-nowrap">
                               {row.weight} <span className="font-normal text-slate-500 text-[11px] sm:text-xs">({row.count} Qs)</span>
                             </td>
-                            <td className="py-3 sm:py-3.5 px-2 sm:px-3 whitespace-nowrap">
-                              <span className={`px-2 sm:px-2.5 py-0.5 rounded-full text-[11px] sm:text-xs font-medium inline-block ${getTrendBadgeClass(row.trend)}`}>
+                            <td className="align-middle py-3 sm:py-3.5 pl-2 sm:pl-3 pr-4 sm:pr-5 whitespace-nowrap">
+                              <span className={`px-2.5 py-0.5 rounded-full text-[11px] sm:text-xs font-medium inline-flex items-center ${getTrendBadgeClass(row.trend)}`}>
                                 {row.trend}
                               </span>
                             </td>
-                            <td className="py-3 sm:py-3.5 px-2 sm:px-3 text-slate-500 text-xs sm:text-sm truncate min-w-0 max-w-[120px] sm:max-w-[180px] md:max-w-[220px]" title={row.highYield}>
+                            <td className="align-middle py-3 sm:py-3.5 pl-2 sm:pl-3 pr-2 sm:pr-3 text-slate-500 text-xs sm:text-sm truncate min-w-0 max-w-[120px] sm:max-w-[170px] md:max-w-[210px]" title={row.highYield}>
                               {row.highYield}
                             </td>
                           </tr>
