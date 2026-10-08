@@ -117,11 +117,11 @@ export default function DarkSection() {
                     <Sparkles className="w-4.5 h-4.5 fill-[#133026]" />
                   </div>
                   <div>
-                    <div className="text-xs font-serif font-bold text-[#133026]">Sankalp AI • UPSC Answer Lab</div>
-                    <div className="text-[10px] text-stone-500 font-normal">Trained on 10,000+ Topper Answer Copies</div>
+                    <div className="text-sm font-sans font-bold text-slate-800 tracking-tight">Sankalp AI • UPSC Answer Lab</div>
+                    <div className="text-[10px] text-slate-500 font-normal">Trained on 10,000+ Topper Answer Copies</div>
                   </div>
                 </div>
-                <span className="text-[10px] font-semibold bg-[#EAF1EB] text-[#133026] px-2.5 py-1 rounded-full">
+                <span className="text-[10px] sm:text-xs font-bold uppercase tracking-widest text-slate-500 bg-slate-100/80 rounded-md px-2.5 py-1">
                   GS II • Indian Polity
                 </span>
               </div>
@@ -145,10 +145,10 @@ export default function DarkSection() {
 
               {/* User Prompt Box */}
               <div className="bg-[#FBFDFB] border border-stone-200/80 rounded-xl p-3.5 mb-4">
-                <span className="text-[9px] font-bold text-stone-500 tracking-wider block mb-1">
+                <span className="text-[9px] font-bold text-slate-500 tracking-wider block mb-1">
                   YOU (ASPIRANT)
                 </span>
-                <p className="text-xs font-medium text-stone-900 leading-relaxed">
+                <p className="text-xs font-medium text-slate-900 leading-relaxed">
                   "Why is India called a 'quasi-federal' state with a unitary tilt? Frame a 15-mark answer with constitutional provisions & Sarkaria Commission recommendations."
                 </p>
               </div>
@@ -163,7 +163,7 @@ export default function DarkSection() {
                     Score Target: 9.5 / 15
                   </span>
                 </div>
-                <p className="text-xs text-stone-600 leading-relaxed font-normal">
+                <p className="text-xs sm:text-[13px] text-slate-600 leading-relaxed font-normal">
                   Prof. K.C. Wheare described the Indian Constitution as <em>"quasi-federal"</em>. Here is a high-scoring 3-part Mains structure:
                 </p>
 
@@ -173,8 +173,8 @@ export default function DarkSection() {
                     <div key={idx} className="flex items-start gap-2.5">
                       <span className="text-xs font-bold text-[#133026] shrink-0 mt-0.5">{step.num}</span>
                       <div>
-                        <strong className="text-xs font-serif font-bold text-stone-900 block">{step.heading}</strong>
-                        <p className="text-[11px] text-stone-600 leading-snug font-normal">{step.body}</p>
+                        <strong className="text-xs sm:text-[13px] font-sans font-bold text-slate-900 block">{step.heading}</strong>
+                        <p className="text-[11.5px] text-slate-600 leading-snug font-normal">{step.body}</p>
                       </div>
                     </div>
                   ))}

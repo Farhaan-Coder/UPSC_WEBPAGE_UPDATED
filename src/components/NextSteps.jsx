@@ -56,24 +56,24 @@ export default function NextSteps() {
             return (
               <div 
                 key={idx} 
-                className="relative z-10 flex flex-col justify-between p-6 rounded-2xl bg-white border border-stone-200/80 transition-all duration-300 hover:-translate-y-1.5 hover:border-stone-300 hover:shadow-xl cursor-pointer group"
+                className="relative z-10 flex flex-col justify-between p-6 sm:p-7 rounded-2xl bg-white border border-slate-200/70 transition-all duration-300 hover:-translate-y-1 hover:border-slate-300 hover:shadow-xl cursor-default group"
               >
                 <div>
                   {/* Step Bubble */}
-                  <div className="w-12 h-12 rounded-xl bg-[#133026] text-white font-serif font-bold text-base flex items-center justify-center mb-6 shadow-xs transition-transform duration-300 group-hover:scale-105">
+                  <div className="w-12 h-12 rounded-xl bg-[#133026] text-white font-sans font-bold text-base flex items-center justify-center mb-6 shadow-xs transition-transform duration-300 group-hover:scale-105">
                     {item.step}
                   </div>
 
-                  <h3 className="text-lg font-serif font-bold text-[#133026] mb-2.5">
+                  <h3 className="font-sans font-bold text-slate-800 tracking-tight text-lg mb-2.5">
                     {item.title}
                   </h3>
-                  <p className="text-xs sm:text-sm text-stone-600 leading-relaxed mb-6 font-normal">
+                  <p className="text-[15px] text-slate-600 leading-relaxed mb-6 font-normal">
                     {item.description}
                   </p>
                 </div>
 
                 {/* Bottom link feature */}
-                <div className="flex items-center gap-2.5 text-xs font-semibold text-[#133026] border-t border-stone-100 pt-4">
+                <div className="flex items-center gap-2.5 text-xs sm:text-[13px] font-semibold text-slate-700 border-t border-slate-100 pt-4">
                   <Icon className="w-4 h-4 text-[#F59E0B]" />
                   <span>{item.feature}</span>
                 </div>

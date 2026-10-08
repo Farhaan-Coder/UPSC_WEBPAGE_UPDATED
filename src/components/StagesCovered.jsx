@@ -91,26 +91,26 @@ export default function StagesCovered() {
               return (
                 <div
                   key={stage.id}
-                  className="bg-white border border-stone-200/80 rounded-2xl p-6 flex flex-col justify-between shadow-xs transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl hover:border-stone-300 cursor-pointer group"
+                  className="bg-white border border-slate-200/70 rounded-2xl p-6 flex flex-col justify-between shadow-xs transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:border-slate-300 cursor-default group"
                 >
                   <div>
                     <div className="flex items-center justify-between mb-3.5">
-                      <span className="text-[10px] font-bold text-[#133026] tracking-wider uppercase bg-[#EAF1EB] px-2.5 py-1 rounded-md">
+                      <span className="text-[10px] sm:text-xs font-bold uppercase tracking-widest text-slate-500 bg-slate-100/80 rounded-md px-2.5 py-1">
                         {stage.tag}
                       </span>
-                      <div className="w-8 h-8 rounded-lg bg-[#EAF1EB] text-[#133026] flex items-center justify-center transition-colors group-hover:bg-[#133026] group-hover:text-[#F59E0B]">
+                      <div className="w-8 h-8 rounded-lg bg-slate-100 text-slate-600 flex items-center justify-center transition-colors group-hover:bg-[#133026] group-hover:text-[#F59E0B]">
                         <Icon className="w-4 h-4" />
                       </div>
                     </div>
-                    <h3 className="text-base font-serif font-bold text-[#133026] mb-2">
+                    <h3 className="font-sans font-bold text-slate-800 tracking-tight text-base sm:text-lg mb-2">
                       {stage.title}
                     </h3>
-                    <p className="text-xs sm:text-[13px] text-stone-600 leading-relaxed mb-5 font-normal">
+                    <p className="text-[15px] text-slate-600 leading-relaxed mb-5 font-normal">
                       {stage.desc}
                     </p>
                   </div>
 
-                  <div className="pt-3.5 border-t border-stone-100 text-[11px] text-stone-500 font-medium">
+                  <div className="pt-3.5 border-t border-slate-100 text-xs text-slate-500 font-medium">
                     {stage.meta}
                   </div>
                 </div>

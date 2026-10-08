@@ -187,7 +187,7 @@ export default function DashboardPreview() {
                 {/* Workspace Header */}
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6 pb-4 border-b border-slate-100">
                   <div>
-                    <h3 className="text-lg font-serif font-bold text-[#133026]">
+                    <h3 className="text-lg font-sans font-bold text-slate-800 tracking-tight">
                       Welcome back, Ananya. Ready for Day 42?
                     </h3>
                     <p className="text-xs text-slate-500 font-normal mt-0.5">
@@ -234,7 +234,7 @@ export default function DashboardPreview() {
                   {/* Today's Focus Tasks */}
                   <div className="md:col-span-7 space-y-3">
                     <div className="flex items-center justify-between">
-                      <span className="text-xs font-serif font-bold text-[#133026] uppercase tracking-wider">
+                      <span className="text-xs font-sans font-bold text-slate-800 uppercase tracking-wider">
                         Today's Study Checklist
                       </span>
                       <span className="text-[10px] font-bold text-[#133026] bg-[#EAF1EB] px-2.5 py-0.5 rounded-full border border-[#133026]/10">
@@ -283,7 +283,7 @@ export default function DashboardPreview() {
                   <div className="md:col-span-5 space-y-4">
                     <div className="bg-slate-50 hover:bg-white border border-slate-200/60 hover:border-slate-300 rounded-xl p-4 transition-all duration-200 shadow-2xs hover:shadow-xs">
                       <div className="flex items-center justify-between mb-3">
-                        <span className="text-xs font-serif font-bold text-[#133026]">Syllabus Coverage</span>
+                        <span className="text-xs font-sans font-bold text-slate-800">Syllabus Coverage</span>
                         <a href="#" className="text-[11px] font-semibold text-[#133026] hover:text-[#F59E0B] hover:underline inline-flex items-center transition-colors duration-200 cursor-pointer">
                           View all <ArrowUpRight className="w-3 h-3 ml-0.5" />
                         </a>
@@ -320,15 +320,15 @@ export default function DashboardPreview() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
               
               {/* 1. Active Recall Queue */}
-              <div className="h-full flex flex-col justify-between bg-[#EAF1EB]/70 hover:bg-[#EAF1EB] border border-slate-200/70 rounded-2xl p-5 sm:p-6 transition-all duration-300 ease-in-out hover:-translate-y-2 hover:shadow-2xl cursor-pointer group shadow-2xs">
+              <div className="h-full flex flex-col justify-between bg-[#EAF1EB]/70 hover:bg-[#EAF1EB] border border-slate-200/70 rounded-2xl p-5 sm:p-6 transition-all duration-300 ease-in-out hover:-translate-y-1 hover:shadow-xl cursor-default group shadow-2xs">
                 <div>
                   <div className="flex items-center gap-2 mb-3 text-[#133026]">
                     <div className="w-7 h-7 rounded-lg bg-white/80 border border-[#133026]/10 flex items-center justify-center shrink-0 shadow-2xs">
                       <RotateCw className="w-4 h-4 text-[#133026] group-hover:rotate-45 transition-transform duration-300" />
                     </div>
-                    <h4 className="text-sm sm:text-base font-serif font-bold text-[#133026]">Active Recall Queue</h4>
+                    <h4 className="font-sans font-bold text-slate-800 tracking-tight text-sm sm:text-base">Active Recall Queue</h4>
                   </div>
-                  <p className="text-xs text-slate-600 leading-relaxed font-normal mb-4">
+                  <p className="text-[15px] text-slate-600 leading-relaxed font-normal mb-4">
                     14 spaced-revision flashcards on <strong className="font-semibold text-slate-800">Fundamental Rights & Writs</strong> due today.
                   </p>
                 </div>
@@ -339,13 +339,13 @@ export default function DashboardPreview() {
               </div>
 
               {/* 2. Mains Question of the Day (Center Dark Focal Point) */}
-              <div className="h-full flex flex-col justify-between bg-[#133026] hover:bg-[#183C30] border border-[#1e483a] rounded-2xl p-5 sm:p-6 shadow-lg shadow-teal-900/30 transition-all duration-300 ease-in-out hover:-translate-y-2 hover:shadow-2xl hover:shadow-teal-900/50 cursor-pointer group text-white">
+              <div className="h-full flex flex-col justify-between bg-[#133026] hover:bg-[#183C30] border border-[#1e483a] rounded-2xl p-5 sm:p-6 shadow-lg shadow-teal-900/30 transition-all duration-300 ease-in-out hover:-translate-y-1 hover:shadow-2xl hover:shadow-teal-900/50 cursor-default group text-white">
                 <div>
                   <div className="flex items-center gap-2 mb-2.5">
                     <Sparkles className="w-4 h-4 text-[#F59E0B] fill-[#F59E0B] group-hover:rotate-12 transition-transform duration-300 shrink-0" />
-                    <span className="text-[10px] font-bold text-[#F59E0B] tracking-wider uppercase">MAINS QUESTION OF THE DAY • GS II</span>
+                    <span className="text-[10px] sm:text-xs font-bold uppercase tracking-widest text-[#F59E0B]">MAINS QUESTION OF THE DAY • GS II</span>
                   </div>
-                  <h4 className="text-xs sm:text-[13px] font-medium leading-snug line-clamp-2 text-white mb-2">
+                  <h4 className="font-sans font-semibold text-xs sm:text-[13px] leading-snug line-clamp-2 text-white mb-2">
                     Critically examine the role of the Finance Commission in balancing cooperative and competitive federalism in India.
                   </h4>
                   <p className="text-[10.5px] text-[#D7E5DB] font-normal leading-relaxed mb-4">
@@ -359,15 +359,15 @@ export default function DashboardPreview() {
               </div>
 
               {/* 3. AI Next Best Step */}
-              <div className="h-full flex flex-col justify-between bg-[#EAF1EB]/70 hover:bg-[#EAF1EB] border border-slate-200/70 rounded-2xl p-5 sm:p-6 transition-all duration-300 ease-in-out hover:-translate-y-2 hover:shadow-2xl cursor-pointer group shadow-2xs">
+              <div className="h-full flex flex-col justify-between bg-[#EAF1EB]/70 hover:bg-[#EAF1EB] border border-slate-200/70 rounded-2xl p-5 sm:p-6 transition-all duration-300 ease-in-out hover:-translate-y-1 hover:shadow-xl cursor-default group shadow-2xs">
                 <div>
                   <div className="flex items-center gap-2 mb-3 text-[#133026]">
                     <div className="w-7 h-7 rounded-lg bg-white/80 border border-[#133026]/10 flex items-center justify-center shrink-0 shadow-2xs">
                       <Sparkles className="w-4 h-4 text-[#133026] fill-[#133026] group-hover:rotate-12 transition-transform duration-300" />
                     </div>
-                    <h4 className="text-sm sm:text-base font-serif font-bold text-[#133026]">AI Next Best Step</h4>
+                    <h4 className="font-sans font-bold text-slate-800 tracking-tight text-sm sm:text-base">AI Next Best Step</h4>
                   </div>
-                  <p className="text-xs text-slate-600 leading-relaxed font-normal mb-4">
+                  <p className="text-[15px] text-slate-600 leading-relaxed font-normal mb-4">
                     Environment PYQs show low recall on Wildlife Protection Act amendments. Revise Schedule 1-4 species.
                   </p>
                 </div>
