@@ -1,10 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Search, 
   SlidersHorizontal, 
   BookOpen, 
   CheckSquare, 
-  Flame, 
   Check, 
   ArrowRight, 
   Sparkles, 
@@ -16,7 +15,6 @@ import {
   Calendar, 
   FileText, 
   Clock, 
-  TrendingUp,
   Award,
   BarChart3,
   CheckCircle2,
@@ -88,22 +86,12 @@ const pyqTrends = [
 
 export default function DashboardPreview() {
   const [activeTab, setActiveTab] = useState(0);
-  const [isPaused, setIsPaused] = useState(false);
   const [studyHours, setStudyHours] = useState(6.0);
   const [studyMode, setStudyMode] = useState('fulltime'); // 'working' or 'fulltime'
   const [tasks, setTasks] = useState(initialDailyTasks);
   const [typingIndex, setTypingIndex] = useState(0);
 
   const fullPromptText = "Based on your last 3 mock diagnostics, prioritize Environment National Parks & Schedule species. Your accuracy improves +24% when solving elimination drills in 15-minute bursts.";
-
-  // Auto-rotation every 5 seconds unless paused
-  useEffect(() => {
-    if (isPaused) return;
-    const interval = setInterval(() => {
-      setActiveTab((prev) => (prev + 1) % tabsConfig.length);
-    }, 5000);
-    return () => clearInterval(interval);
-  }, [isPaused]);
 
   // Subtle typing animation in AI advice
   useEffect(() => {
@@ -160,22 +148,15 @@ export default function DashboardPreview() {
         </div>
 
         {/* 2-Column Showcase */}
-        <div 
-          className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start"
-          onMouseEnter={() => setIsPaused(true)}
-          onMouseLeave={() => setIsPaused(false)}
-        >
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
           
           {/* Left Column: Interactive Nav Tabs & Plan Your Day Slider */}
           <div className="lg:col-span-5 flex flex-col gap-6">
             
             {/* Clickable Tabs */}
             <div className="bg-white border border-stone-200/80 rounded-2xl p-3 shadow-xs space-y-2">
-              <div className="flex items-center justify-between px-3 py-1.5 text-xs text-stone-400 font-medium">
+              <div className="px-3 py-1.5 text-xs text-stone-400 font-medium">
                 <span>SELECT WORKSPACE VIEW</span>
-                <span className="text-[11px] text-[#133026] font-semibold">
-                  {isPaused ? 'Auto-rotate paused' : 'Auto-switching (5s)'}
-                </span>
               </div>
 
               {tabsConfig.map((tab) => {
@@ -355,28 +336,6 @@ export default function DashboardPreview() {
             {/* Ambient Backing Glow */}
             <div className="absolute -inset-4 bg-gradient-to-r from-teal-700/10 via-amber-500/10 to-emerald-600/10 rounded-3xl blur-2xl pointer-events-none -z-10" />
 
-            {/* Floating Mini Badge 1: Streak Saved */}
-            <div className="hidden sm:flex items-center gap-2.5 absolute -top-4 -left-4 z-20 bg-white border border-stone-200/90 rounded-xl px-3.5 py-2 shadow-lg hover:scale-105 transition-transform duration-200">
-              <div className="w-6 h-6 rounded-lg bg-amber-50 border border-amber-200 flex items-center justify-center text-amber-600">
-                <Flame className="w-4 h-4 fill-amber-500" />
-              </div>
-              <div>
-                <div className="text-xs font-bold text-stone-900">Streak saved: 14 days</div>
-                <div className="text-[10px] text-stone-500">Daily disciplined study</div>
-              </div>
-            </div>
-
-            {/* Floating Mini Badge 2: Score Uplift */}
-            <div className="hidden sm:flex items-center gap-2.5 absolute -bottom-4 -right-4 z-20 bg-[#133026] text-white border border-emerald-900 rounded-xl px-3.5 py-2 shadow-xl hover:scale-105 transition-transform duration-200">
-              <div className="w-6 h-6 rounded-lg bg-emerald-800 flex items-center justify-center text-[#F59E0B]">
-                <TrendingUp className="w-4 h-4" />
-              </div>
-              <div>
-                <div className="text-xs font-bold text-white">+12 marks predicted in GS II</div>
-                <div className="text-[10px] text-emerald-300">Based on recent PYQ drills</div>
-              </div>
-            </div>
-
             {/* Main Interactive Screen Container */}
             <div className="bg-white border border-slate-200/90 rounded-2xl shadow-xl overflow-hidden transition-all duration-300">
               
@@ -387,13 +346,9 @@ export default function DashboardPreview() {
                     <Layers className="w-4 h-4" />
                   </div>
                   <span className="font-sans font-bold text-sm text-[#133026] tracking-tight">UPSC ZONE AI</span>
-                  <span className="text-[10px] font-bold bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full border border-amber-200">
-                    Live Simulator
-                  </span>
                 </div>
 
                 <div className="flex items-center gap-2 text-xs">
-                  <span className="text-stone-400 hidden sm:inline text-[11px] font-medium">Sample data for demonstration</span>
                   <div className="w-7 h-7 rounded-full bg-[#133026] text-[#F59E0B] font-bold text-xs flex items-center justify-center">
                     AS
                   </div>
