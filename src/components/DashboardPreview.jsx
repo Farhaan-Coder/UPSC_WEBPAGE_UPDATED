@@ -151,26 +151,26 @@ export default function DashboardPreview() {
           <div className="grid grid-cols-1 lg:grid-cols-12 min-h-[520px]">
             
             {/* Sidebar */}
-            <div className="lg:col-span-4 bg-slate-50/70 border-r border-slate-100 p-4 flex flex-col justify-between">
+            <div className="lg:col-span-4 bg-slate-50/70 border-r border-slate-100 p-4 sm:p-5 flex flex-col justify-between">
               <div>
-                <span className="text-[10px] font-bold text-slate-400 tracking-wider px-2 block mb-2.5 uppercase font-sans">
+                <span className="text-[11px] font-bold text-slate-400 tracking-wider px-2 block mb-4 uppercase font-sans">
                   PREPARATION ROADMAP
                 </span>
-                <nav className="space-y-1">
+                <nav className="space-y-3">
                   {sidebarNav.map((item, idx) => {
                     const Icon = item.icon;
                     return (
                       <a
                         key={idx}
                         href="#"
-                        className={`flex items-center gap-2.5 text-xs px-3 py-2.5 rounded-xl font-medium transition-all duration-200 cursor-pointer ${
+                        className={`flex items-center gap-3.5 text-sm sm:text-[15px] px-3.5 py-3 sm:py-3.5 rounded-xl font-medium transition-all duration-200 cursor-pointer ${
                           item.active 
                             ? 'bg-[#133026] text-white font-semibold shadow-xs' 
                             : 'text-slate-600 hover:bg-slate-100 hover:text-[#133026]'
                         }`}
                       >
-                        <Icon className={`w-3.5 h-3.5 ${item.active ? 'text-[#F59E0B]' : 'text-slate-400'}`} />
-                        <span>{item.name}</span>
+                        <Icon className={`w-5 h-5 shrink-0 ${item.active ? 'text-[#F59E0B]' : 'text-slate-400'}`} />
+                        <span className="tracking-tight">{item.name}</span>
                       </a>
                     );
                   })}
@@ -178,17 +178,17 @@ export default function DashboardPreview() {
               </div>
 
               {/* Revision Queue Widget */}
-              <div className="bg-[#EAF1EB]/90 hover:bg-[#EAF1EB] border border-[#133026]/10 rounded-xl p-3.5 mt-4 transition-all duration-200 shadow-2xs hover:shadow-xs group cursor-pointer">
-                <div className="flex items-center gap-1.5 mb-1 text-[#133026]">
-                  <RotateCw className="w-4 h-4 text-[#133026] group-hover:rotate-45 transition-transform duration-300" />
+              <div className="bg-[#EAF1EB]/90 hover:bg-[#EAF1EB] border border-[#133026]/10 rounded-xl p-4 mt-6 transition-all duration-200 shadow-2xs hover:shadow-xs group cursor-pointer">
+                <div className="flex items-center gap-2 mb-1.5 text-[#133026]">
+                  <RotateCw className="w-4 h-4 text-[#133026] group-hover:rotate-45 transition-transform duration-300 shrink-0" />
                   <span className="text-xs font-serif font-bold text-[#133026]">Active Recall Queue</span>
                 </div>
-                <p className="text-[11px] text-slate-600 mt-0.5 mb-2.5 leading-relaxed font-normal">
+                <p className="text-[11.5px] text-slate-600 mt-0.5 mb-3 leading-relaxed font-normal">
                   14 spaced-revision flashcards on <strong>Fundamental Rights & Writs</strong> due today.
                 </p>
-                <a href="#" className="inline-flex items-center gap-1 text-[11px] font-bold text-[#133026] hover:text-[#F59E0B] hover:underline transition-colors duration-200 cursor-pointer">
+                <a href="#" className="inline-flex items-center gap-1.5 text-xs font-bold text-[#133026] hover:text-[#F59E0B] hover:underline transition-colors duration-200 cursor-pointer">
                   <span>Start 10-min revision</span>
-                  <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform duration-200" />
+                  <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform duration-200" />
                 </a>
               </div>
             </div>
