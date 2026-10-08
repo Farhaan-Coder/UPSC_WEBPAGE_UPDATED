@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { SlidersHorizontal, PenTool, BookMarked, MessageSquare } from 'lucide-react';
+import JourneyRoadmapCard from './JourneyRoadmapCard';
 
 const stagesData = [
   {
@@ -36,7 +37,57 @@ const stagesData = [
   },
 ];
 
+const STEP_TO_CARD_IDS = {
+  1: ['prelims'],
+  2: ['mains', 'optional'],
+  3: ['interview'],
+};
+
 export default function StagesCovered() {
+  const [activeStep, setActiveStep] = useState(1);
+  const [hoveredStep, setHoveredStep] = useState(null);
+  const [isAutoPlayPaused, setIsAutoPlayPaused] = useState(false);
+  const [userInteracted, setUserInteracted] = useState(false);
+
+  // Auto-play highlights Step 1, 2, 3 in a loop every 4s unless paused, interacted, or prefers-reduced-motion
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (mediaQuery.matches || userInteracted || isAutoPlayPaused) return;
+
+    const timer = setInterval(() => {
+      setActiveStep((prev) => (prev ? (prev % 3) + 1 : 1));
+    }, 4000);
+
+    return () => clearInterval(timer);
+  }, [userInteracted, isAutoPlayPaused]);
+
+  const handleStepSelect = (stepNum) => {
+    setUserInteracted(true);
+    // Clicking again resets everything
+    if (activeStep === stepNum) {
+      setActiveStep(null);
+    } else {
+      setActiveStep(stepNum);
+    }
+  };
+
+  const handleStepHover = (stepNum) => {
+    setHoveredStep(stepNum);
+  };
+
+  const handleCardMouseEnter = () => {
+    setIsAutoPlayPaused(true);
+  };
+
+  const handleCardMouseLeave = () => {
+    setIsAutoPlayPaused(false);
+    setHoveredStep(null);
+  };
+
+  const currentDisplayStep = hoveredStep !== null ? hoveredStep : activeStep;
+  const activeMappedIds = currentDisplayStep ? STEP_TO_CARD_IDS[currentDisplayStep] || [] : [];
+
   return (
     <section className="py-20 lg:py-24 bg-[#FDF9F1] border-b border-stone-200/60" id="stages">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
@@ -59,68 +110,57 @@ export default function StagesCovered() {
         {/* Section Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
           
-          {/* Aspirant Spotlight Card - Original SVG & Gradient Illustration Container */}
-          <div className="lg:col-span-5 rounded-2xl overflow-hidden bg-gradient-to-br from-[#133026] via-[#183C30] to-[#0A1D16] text-white relative shadow-xl min-h-[420px] flex flex-col justify-between p-6 sm:p-8 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl border border-[#1E493B] group">
-            {/* Background Decorative SVG Graphic */}
-            <div className="absolute inset-0 opacity-15 pointer-events-none overflow-hidden">
-              <svg className="w-full h-full" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="200" cy="200" r="160" stroke="#F59E0B" strokeWidth="1" strokeDasharray="4 8" />
-                <circle cx="200" cy="200" r="110" stroke="#FFFFFF" strokeWidth="1" strokeDasharray="2 4" />
-                <path d="M200 40V360M40 200H360" stroke="#BCD3C3" strokeWidth="0.75" />
-              </svg>
-            </div>
-
-            {/* Top Illustration Element */}
-            <div className="relative z-10 flex items-center justify-between">
-              <div className="w-14 h-14 rounded-2xl bg-white/10 border border-white/15 flex items-center justify-center text-[#F59E0B] shadow-inner group-hover:scale-105 transition-transform">
-                <BookMarked className="w-7 h-7 stroke-[2]" />
-              </div>
-              <span className="text-[10px] sm:text-xs font-bold text-[#F59E0B] bg-[#F59E0B]/10 border border-[#F59E0B]/20 px-3 py-1 rounded-full uppercase tracking-wider">
-                Full CSE Cycle Coverage
-              </span>
-            </div>
-
-            {/* Mid Graphic: Progression Nodes */}
-            <div className="relative z-10 my-auto py-6">
-              <div className="flex items-center justify-between text-xs font-semibold text-[#D7E5DB] mb-2 px-1">
-                <span>Prelims Foundation</span>
-                <span>Mains Synthesis</span>
-                <span>Interview Board</span>
-              </div>
-              <div className="w-full h-2 bg-white/10 rounded-full overflow-hidden p-0.5">
-                <div className="h-full bg-gradient-to-r from-[#F59E0B] via-emerald-400 to-[#F59E0B] rounded-full w-full animate-pulse" />
-              </div>
-            </div>
-
-            {/* HTML / Tailwind Text Content Overlay */}
-            <div className="relative z-10 mt-auto flex flex-col justify-end">
-              <span className="text-[11px] font-semibold text-[#F59E0B] tracking-wider block mb-2 uppercase">
-                COMMITTED TO EVERY ASPIRANT'S AMBITION
-              </span>
-              <h3 className="text-xl sm:text-2xl font-sans font-bold text-white tracking-tight leading-tight mb-2.5">
-                From foundation to final selection.
-              </h3>
-              <p className="text-xs sm:text-sm text-[#D7E5DB] leading-relaxed font-normal">
-                Stay consistent through every phase. We provide the strategic roadmap; you bring the dedication.
-              </p>
-            </div>
+          {/* Left Column: Interactive Roadmap Card */}
+          <div className="lg:col-span-5 h-full flex flex-col">
+            <JourneyRoadmapCard
+              activeStep={activeStep}
+              hoveredStep={hoveredStep}
+              onStepSelect={handleStepSelect}
+              onStepHover={handleStepHover}
+              onCardMouseEnter={handleCardMouseEnter}
+              onCardMouseLeave={handleCardMouseLeave}
+            />
           </div>
 
-          {/* Preparation Stages Grid */}
-          <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-5">
+          {/* Right Column: Preparation Stages Grid */}
+          <div
+            id="stages-grid"
+            className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-5 items-stretch"
+          >
             {stagesData.map((stage) => {
               const Icon = stage.icon;
+              const isMapped = currentDisplayStep !== null && activeMappedIds.includes(stage.id);
+              const isDimmed = currentDisplayStep !== null && !isMapped;
+
               return (
                 <div
                   key={stage.id}
-                  className="bg-white border border-slate-200/70 rounded-2xl p-6 flex flex-col justify-between shadow-xs transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:border-slate-300 cursor-default group"
+                  className={`bg-white rounded-2xl p-6 flex flex-col justify-between cursor-default transition-all duration-300 ${
+                    isMapped
+                      ? 'border-2 border-[#F59E0B] ring-4 ring-[#F59E0B]/20 shadow-xl -translate-y-1.5 opacity-100'
+                      : isDimmed
+                      ? 'border border-slate-200/70 opacity-70 shadow-xs translate-y-0'
+                      : 'border border-slate-200/70 opacity-100 shadow-xs hover:-translate-y-1 hover:shadow-xl hover:border-slate-300'
+                  }`}
                 >
                   <div>
                     <div className="flex items-center justify-between mb-3.5">
-                      <span className="text-[10px] sm:text-xs font-bold uppercase tracking-widest text-slate-500 bg-slate-100/80 rounded-md px-2.5 py-1">
+                      <span
+                        className={`text-[10px] sm:text-xs font-bold uppercase tracking-widest px-2.5 py-1 rounded-md transition-colors ${
+                          isMapped
+                            ? 'text-amber-800 bg-amber-100/90'
+                            : 'text-slate-500 bg-slate-100/80'
+                        }`}
+                      >
                         {stage.tag}
                       </span>
-                      <div className="w-8 h-8 rounded-lg bg-slate-100 text-slate-600 flex items-center justify-center transition-colors group-hover:bg-[#133026] group-hover:text-[#F59E0B]">
+                      <div
+                        className={`w-8 h-8 rounded-lg flex items-center justify-center transition-colors ${
+                          isMapped
+                            ? 'bg-[#133026] text-[#F59E0B]'
+                            : 'bg-slate-100 text-slate-600'
+                        }`}
+                      >
                         <Icon className="w-4 h-4" />
                       </div>
                     </div>
