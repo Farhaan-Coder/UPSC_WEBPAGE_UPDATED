@@ -135,7 +135,6 @@ export default function DashboardPreview() {
                   placeholder="Search Article 21, Kesavananda Bharati, or Budget 2025..."
                   className="w-full bg-transparent border-none p-0 text-xs text-slate-700 placeholder-slate-400 focus:outline-none focus:ring-0"
                 />
-                <kbd className="bg-slate-100 border border-slate-300 text-slate-500 text-[10px] px-2 py-0.5 rounded-md shadow-sm font-mono shrink-0 select-none">⌘ K</kbd>
               </div>
 
               <div className="flex items-center gap-2 sm:gap-3 shrink-0">
