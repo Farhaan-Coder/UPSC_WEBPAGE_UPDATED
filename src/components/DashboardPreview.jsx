@@ -20,7 +20,8 @@ import {
   CheckCircle2, 
   AlertCircle, 
   Briefcase, 
-  GraduationCap 
+  GraduationCap,
+  Plus
 } from 'lucide-react';
 import { EXAM_YEAR } from '../config/exam.js';
 import { PYQ_RANGE, PYQ_TOTAL, pyqThemes } from '../data/pyqSample.js';
@@ -330,7 +331,7 @@ export default function DashboardPreview() {
             <div className="absolute -inset-4 bg-gradient-to-r from-teal-700/10 via-amber-500/10 to-emerald-600/10 rounded-3xl blur-2xl pointer-events-none -z-10" />
 
             {/* Main Interactive Screen Container */}
-            <div className="bg-white border border-slate-200/90 rounded-2xl shadow-xl overflow-hidden transition-all duration-300">
+            <div className="bg-white border border-slate-200/90 rounded-2xl shadow-md hover:shadow-lg overflow-hidden transition-all duration-300">
               
               {/* Top Screen App Bar */}
               <div className="px-5 py-3.5 border-b border-slate-100 flex items-center justify-between bg-slate-50/70">
@@ -579,66 +580,72 @@ export default function DashboardPreview() {
               {/* TAB 3: AI ANSWER FEEDBACK VIEW (Honest rubric labels) */}
               {activeTab === 2 && (
                 <div className="p-5 sm:p-6 space-y-4 animate-fadeIn">
-                  <div className="flex items-center justify-between pb-3 border-b border-stone-200/60">
+                  <div className="flex items-start sm:items-center justify-between gap-3 pb-3.5 border-b border-slate-100">
                     <div>
-                      <span className="text-xs font-bold text-[#F59E0B] bg-[#133026] px-2 py-0.5 rounded-full uppercase tracking-wider">
+                      <span className="text-[11px] font-bold text-[#F59E0B] bg-[#133026] px-2.5 py-0.5 rounded-full uppercase tracking-wider inline-block">
                         GS II MAINS EVALUATION
                       </span>
-                      <h4 className="text-sm sm:text-base font-sans font-bold text-stone-900 mt-1">
+                      <h4 className="font-sans text-lg font-semibold text-slate-800 leading-snug mt-1.5">
                         Question: "Evaluate the role of the Finance Commission in balancing fiscal federalism."
                       </h4>
                     </div>
                     <div className="text-right shrink-0">
-                      <div className="text-xl font-sans font-extrabold text-[#133026]">6.5 / 10</div>
+                      <div className="font-sans font-extrabold text-2xl text-slate-900 tracking-tight">6.5 / 10</div>
                       <div className="text-xs font-semibold text-emerald-700">Sample score</div>
                     </div>
                   </div>
 
                   {/* Rubric Breakdown */}
-                  <div className="grid grid-cols-3 gap-2.5 text-xs text-center">
-                    <div className="p-2.5 bg-stone-50 border border-stone-200/70 rounded-xl">
-                      <div className="font-semibold text-stone-600 text-xs">Introduction</div>
-                      <div className="font-bold text-stone-800 text-sm mt-0.5">1.5 / 2.0</div>
-                      <div className="text-xs text-emerald-600 font-medium">Clear Article citation</div>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 text-xs text-center">
+                    <div className="p-3 bg-slate-50/50 border border-slate-100 shadow-sm rounded-xl">
+                      <div className="font-sans font-medium text-slate-500 text-xs">Introduction</div>
+                      <div className="font-sans font-bold text-slate-800 text-base mt-0.5">1.5 / 2.0</div>
+                      <div className="font-sans text-xs text-emerald-700 font-medium mt-0.5">Clear Article citation</div>
                     </div>
-                    <div className="p-2.5 bg-stone-50 border border-stone-200/70 rounded-xl">
-                      <div className="font-semibold text-stone-600 text-xs">Core Body Arguments</div>
-                      <div className="font-bold text-stone-800 text-sm mt-0.5">3.5 / 5.0</div>
-                      <div className="text-xs text-amber-600 font-medium">Good cooperative points</div>
+                    <div className="p-3 bg-slate-50/50 border border-slate-100 shadow-sm rounded-xl">
+                      <div className="font-sans font-medium text-slate-500 text-xs">Core Body Arguments</div>
+                      <div className="font-sans font-bold text-slate-800 text-base mt-0.5">3.5 / 5.0</div>
+                      <div className="font-sans text-xs text-amber-700 font-medium mt-0.5">Good cooperative points</div>
                     </div>
-                    <div className="p-2.5 bg-stone-50 border border-stone-200/70 rounded-xl">
-                      <div className="font-semibold text-stone-600 text-xs">Way Forward</div>
-                      <div className="font-bold text-stone-800 text-sm mt-0.5">1.5 / 3.0</div>
-                      <div className="text-xs text-red-600 font-medium">Needs institutional reform</div>
+                    <div className="p-3 bg-slate-50/50 border border-slate-100 shadow-sm rounded-xl">
+                      <div className="font-sans font-medium text-slate-500 text-xs">Way Forward</div>
+                      <div className="font-sans font-bold text-slate-800 text-base mt-0.5">1.5 / 3.0</div>
+                      <div className="font-sans text-xs text-rose-600 font-medium mt-0.5">Needs institutional reform</div>
                     </div>
                   </div>
 
                   {/* Commonly Used Keywords Tag Cloud */}
                   <div>
-                    <div className="text-xs font-bold text-stone-800 mb-1.5 flex items-center justify-between">
-                      <span>Keywords to Integrate (Rubric standard):</span>
-                      <span className="text-xs text-stone-500 font-normal">Commonly used keywords</span>
+                    <div className="text-xs font-bold text-slate-700 mb-2 flex items-center justify-between">
+                      <span className="font-sans">Keywords to Integrate (Rubric standard):</span>
+                      <span className="text-xs text-slate-400 font-normal">Commonly used keywords</span>
                     </div>
-                    <div className="flex flex-wrap gap-1.5">
-                      <span className="bg-emerald-50 text-emerald-800 border border-emerald-200 text-xs px-2.5 py-1 rounded-md font-medium">
-                        ✓ Article 280 Mandate (Included)
+                    <div className="flex flex-wrap gap-2">
+                      <span className="inline-flex items-center gap-1.5 bg-slate-100 text-slate-700 px-3 py-1.5 rounded-md text-sm font-medium">
+                        <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0 stroke-[2.5]" />
+                        <span>Article 280 Mandate (Included)</span>
                       </span>
-                      <span className="bg-emerald-50 text-emerald-800 border border-emerald-200 text-xs px-2.5 py-1 rounded-md font-medium">
-                        ✓ Vertical Devolution 41% (Included)
+                      <span className="inline-flex items-center gap-1.5 bg-slate-100 text-slate-700 px-3 py-1.5 rounded-md text-sm font-medium">
+                        <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0 stroke-[2.5]" />
+                        <span>Vertical Devolution 41% (Included)</span>
                       </span>
-                      <span className="bg-red-50 text-red-800 border border-red-200 text-xs px-2.5 py-1 rounded-md font-medium">
-                        + Missing: Horizontal Equity Criteria
+                      <span className="inline-flex items-center gap-1.5 bg-white border border-dashed border-slate-300 text-slate-500 px-3 py-1.5 rounded-md text-sm font-medium">
+                        <Plus className="w-3.5 h-3.5 text-slate-400 shrink-0 stroke-[2.5]" />
+                        <span>Missing: Horizontal Equity Criteria</span>
                       </span>
-                      <span className="bg-red-50 text-red-800 border border-red-200 text-xs px-2.5 py-1 rounded-md font-medium">
-                        + Missing: Cess & Surcharge Erosion
+                      <span className="inline-flex items-center gap-1.5 bg-white border border-dashed border-slate-300 text-slate-500 px-3 py-1.5 rounded-md text-sm font-medium">
+                        <Plus className="w-3.5 h-3.5 text-slate-400 shrink-0 stroke-[2.5]" />
+                        <span>Missing: Cess & Surcharge Erosion</span>
                       </span>
                     </div>
                   </div>
 
-                  {/* Evaluator Summary */}
-                  <div className="p-3.5 bg-emerald-50/60 border border-emerald-200/70 rounded-xl text-xs text-stone-700">
-                    <div className="font-bold text-[#133026] mb-1">AI Evaluator Feedback (Sample for Demonstration):</div>
-                    <p className="leading-relaxed">
+                  {/* Mentor-Style Evaluator Feedback Box */}
+                  <div className="bg-slate-50 border-l-4 border-slate-800 p-4 rounded-r-lg">
+                    <div className="font-sans font-semibold text-xs uppercase tracking-wider text-slate-800 mb-1 flex items-center gap-1.5">
+                      <span>AI Evaluator Feedback (Sample for Demonstration):</span>
+                    </div>
+                    <p className="font-sans italic text-slate-600 leading-relaxed text-[15px]">
                       "Strong contextual opening with balanced arguments. To jump from 6.5 to 8.0, incorporate a simple 3-tier flowchart illustrating statutory grants under Article 275 versus tax sharing."
                     </p>
                   </div>
