@@ -32,7 +32,7 @@ export default function FaqSection() {
   };
 
   return (
-    <section className="pt-8 md:pt-10 pb-16 md:pb-20 bg-transparent border-b border-stone-200/60 font-sans" id="faq">
+    <section className="pt-8 md:pt-10 pb-8 md:pb-12 bg-transparent border-b border-stone-200/60 font-sans" id="faq">
       <div className="max-w-4xl mx-auto px-4 sm:px-6">
         
         {/* Section Header */}
@@ -91,7 +91,7 @@ export default function FaqSection() {
         </div>
 
         {/* Support Note */}
-        <div className="mt-8 text-center text-xs text-stone-500">
+        <div className="text-center text-sm text-slate-500 mt-6 mb-8">
           Have additional queries about syllabus strategy?{' '}
           <a href="#get-started" className="font-semibold text-[#133026] hover:text-[#F59E0B] underline">
             Start a free diagnostic test
