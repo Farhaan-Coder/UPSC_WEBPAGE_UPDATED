@@ -120,28 +120,32 @@ export default function DashboardPreview() {
           <div className="bg-white/95 backdrop-blur-sm border border-slate-200/50 rounded-2xl shadow-2xl shadow-teal-900/10 hover:shadow-teal-900/15 transition-all duration-300 overflow-hidden" id="dashboard-demo">
             
             {/* Top Bar */}
-            <div className="px-5 py-4 border-b border-slate-100 flex flex-wrap items-center justify-between gap-4 bg-white/90 backdrop-blur-xs">
-              <div className="flex items-center gap-2.5">
-                <div className="w-8 h-8 rounded-lg bg-[#133026] flex items-center justify-center text-[#F59E0B] shadow-2xs">
+            <div className="px-4 sm:px-6 py-3.5 sm:py-4 border-b border-slate-200 shadow-sm flex items-center justify-between gap-2 md:gap-4 bg-white/95 backdrop-blur-md">
+              <div className="flex items-center gap-2.5 shrink-0">
+                <div className="w-8 h-8 rounded-lg bg-[#133026] hover:bg-[#183C30] hover:scale-105 active:scale-95 flex items-center justify-center text-[#F59E0B] shadow-2xs transition-all duration-200 cursor-pointer">
                   <Layers className="w-4 h-4" />
                 </div>
                 <span className="font-serif font-bold text-sm text-[#133026] tracking-tight">SANKALP IAS</span>
               </div>
 
-              <div className="flex-1 max-w-md hidden md:flex items-center gap-2 bg-slate-50 hover:bg-slate-100 border border-slate-200/80 rounded-lg px-3.5 py-2 text-xs text-slate-600 transition-colors duration-200 cursor-text">
-                <Search className="w-3.5 h-3.5 text-slate-400" />
-                <span className="flex-1 text-slate-400">Search Article 21, Kesavananda Bharati, or Budget 2025...</span>
-                <kbd className="bg-white border border-slate-200 text-slate-500 text-[10px] px-2 py-0.5 rounded shadow-2xs font-mono">⌘ K</kbd>
+              <div className="flex-1 max-w-md hidden md:flex items-center gap-2.5 bg-slate-50 hover:bg-white border border-slate-200/80 rounded-xl px-3.5 py-2 text-xs text-slate-600 focus-within:ring-2 focus-within:ring-teal-700 focus-within:bg-white focus-within:shadow-md transition-all duration-300 cursor-text group">
+                <Search className="w-3.5 h-3.5 text-slate-400 group-focus-within:text-teal-700 transition-colors shrink-0" />
+                <input
+                  type="text"
+                  placeholder="Search Article 21, Kesavananda Bharati, or Budget 2025..."
+                  className="w-full bg-transparent border-none p-0 text-xs text-slate-700 placeholder-slate-400 focus:outline-none focus:ring-0"
+                />
+                <kbd className="bg-slate-100 border border-slate-300 text-slate-500 text-[10px] px-2 py-0.5 rounded-md shadow-sm font-mono shrink-0 select-none">⌘ K</kbd>
               </div>
 
-              <div className="flex items-center gap-3">
-                <span className="bg-[#EAF1EB] border border-[#133026]/10 text-[#133026] text-xs font-semibold px-3 py-1.5 rounded-full shadow-2xs">
+              <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+                <span className="bg-[#EAF1EB] border border-green-200 hover:border-green-400 hover:bg-green-50 text-[#133026] text-xs font-semibold px-3 py-1.5 rounded-full shadow-2xs hover:shadow-xs transition-colors cursor-pointer whitespace-nowrap">
                   Target: CSE 2026 (AIR &lt; 50)
                 </span>
-                <div className="w-8 h-8 rounded-full bg-slate-50 hover:bg-slate-100 border border-slate-200/80 flex items-center justify-center text-slate-600 hover:text-[#133026] cursor-pointer transition-colors duration-200 shadow-2xs">
+                <div className="w-8 h-8 rounded-full bg-slate-50 hover:bg-slate-100 hover:scale-105 active:scale-95 border border-slate-200/80 flex items-center justify-center text-slate-600 hover:text-[#133026] cursor-pointer transition-all duration-200 shadow-2xs">
                   <Bell className="w-3.5 h-3.5" />
                 </div>
-                <div className="w-8 h-8 rounded-full bg-[#133026] hover:bg-[#183C30] text-white font-bold text-xs flex items-center justify-center shadow-xs cursor-pointer transition-colors duration-200 ring-2 ring-[#EAF1EB]">
+                <div className="w-8 h-8 rounded-full bg-[#133026] hover:bg-[#183C30] hover:scale-105 active:scale-95 text-white font-bold text-xs flex items-center justify-center shadow-xs cursor-pointer transition-all duration-200 ring-2 ring-[#EAF1EB]">
                   AS
                 </div>
               </div>
