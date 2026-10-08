@@ -49,7 +49,7 @@ const fieldNotes = [
 
 export default function Insights() {
   return (
-    <section className="py-12 md:py-16 lg:py-20 bg-[#EAF1EB]/70 border-b border-stone-200/60 scroll-mt-20" id="resources">
+    <section className="py-12 md:py-16 lg:py-20 bg-transparent border-b border-stone-200/60 scroll-mt-20" id="resources">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         
         {/* Split Header */}

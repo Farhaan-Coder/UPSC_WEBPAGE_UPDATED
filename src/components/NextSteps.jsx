@@ -27,7 +27,7 @@ const stepsData = [
 
 export default function NextSteps() {
   return (
-    <section className="py-20 lg:py-24 bg-[#EAF1EB]/70 border-b border-stone-200/60" id="how-it-works">
+    <section className="py-20 lg:py-24 bg-transparent border-b border-stone-200/60" id="how-it-works">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         
         {/* Split Header */}

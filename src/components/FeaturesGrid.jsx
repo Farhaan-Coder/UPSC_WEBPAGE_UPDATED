@@ -30,7 +30,7 @@ export default function FeaturesGrid({ onOpenLogin }) {
   const topPyqThemes = pyqThemes.slice(0, 4);
 
   return (
-    <section className="py-20 md:py-24 bg-[#EAF1EB]/70 border-b border-stone-200/60 scroll-mt-20" id="features">
+    <section className="py-20 md:py-24 bg-transparent border-b border-stone-200/60 scroll-mt-20" id="features">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         
         {/* Split Section Header */}
