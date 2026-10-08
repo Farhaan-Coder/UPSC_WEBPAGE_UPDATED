@@ -376,19 +376,19 @@ export default function DashboardPreview() {
                 <div className="p-5 sm:p-6 space-y-5 animate-fadeIn">
                   
                   {/* Top Welcome & Circular Progress Ring */}
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-xl bg-gradient-to-r from-emerald-50/50 to-stone-50 border border-slate-200/70">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 sm:p-5 rounded-xl bg-gradient-to-r from-emerald-50/40 via-stone-50/50 to-slate-50 border border-slate-200/80">
                     <div>
                       <div className="flex items-center gap-2">
-                        <span className="text-xs font-bold uppercase tracking-wider text-[#133026]">DAY 42 OF 365</span>
-                        <span className="text-xs bg-red-50 text-red-700 border border-red-200 font-bold px-2 py-0.5 rounded-full flex items-center gap-1">
-                          <AlertCircle className="w-3 h-3" />
-                          Focus: Environment Wetlands
+                        <span className="font-sans text-xs font-bold uppercase tracking-wider text-[#133026]">DAY 42 OF 365</span>
+                        <span className="font-sans text-xs bg-indigo-50 text-indigo-700 border border-indigo-200 font-semibold px-2.5 py-0.5 rounded-full flex items-center gap-1.5 shadow-2xs">
+                          <span className="w-1.5 h-1.5 rounded-full bg-indigo-500 animate-pulse shrink-0" />
+                          <span>Focus: Environment Wetlands</span>
                         </span>
                       </div>
-                      <h4 className="text-base sm:text-lg font-sans font-bold text-stone-900 mt-1">
+                      <h4 className="font-sans text-base sm:text-lg font-bold text-slate-900 mt-1 tracking-tight">
                         Today's Targeted Syllabus Focus
                       </h4>
-                      <p className="text-xs text-stone-600 mt-0.5">
+                      <p className="font-sans text-xs sm:text-sm text-slate-600 mt-0.5">
                         Planned session: {studyHours} hours • Paced to complete GS II revision
                       </p>
                     </div>
@@ -418,24 +418,24 @@ export default function DashboardPreview() {
                             className="transition-all duration-1000 ease-out"
                           />
                         </svg>
-                        <span className="absolute font-sans font-extrabold text-xs text-stone-900">
+                        <span className="absolute font-sans font-extrabold text-xs text-slate-900">
                           68%
                         </span>
                       </div>
-                      <div className="text-left">
-                        <div className="text-xs font-bold text-stone-900">GS Coverage</div>
-                        <div className="text-xs text-stone-600">68% of {EXAM_YEAR} Core</div>
+                      <div className="text-left font-sans">
+                        <div className="text-xs font-bold text-slate-900">GS Coverage</div>
+                        <div className="text-xs text-slate-500">68% of {EXAM_YEAR} Core</div>
                       </div>
                     </div>
                   </div>
 
                   {/* Priority Checklist */}
                   <div>
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="text-xs font-bold text-stone-800 uppercase tracking-wider">
+                    <div className="flex items-center justify-between mb-2.5">
+                      <span className="font-sans text-xs font-bold text-slate-800 uppercase tracking-wider">
                         Today's Action Items
                       </span>
-                      <span className="text-xs font-semibold text-[#133026] bg-[#EAF1EB] px-2 py-0.5 rounded-full">
+                      <span className="font-sans text-xs font-semibold text-[#133026] bg-[#EAF1EB] px-2.5 py-0.5 rounded-full border border-green-200/60">
                         {completedCount} of 3 tasks checked
                       </span>
                     </div>
@@ -445,32 +445,32 @@ export default function DashboardPreview() {
                         <div
                           key={task.id}
                           onClick={() => toggleTask(task.id)}
-                          className={`p-3 rounded-xl border transition-all duration-200 cursor-pointer flex items-center justify-between gap-3 ${
+                          className={`group p-3 sm:p-3.5 rounded-xl border transition-all duration-200 cursor-pointer flex items-center justify-between gap-3 hover:bg-slate-50 hover:shadow-sm hover:-translate-y-0.5 ${
                             task.completed
-                              ? 'bg-stone-50 border-stone-200 opacity-70'
-                              : 'bg-white hover:bg-slate-50 border-slate-200/80 shadow-xs'
+                              ? 'bg-slate-50/70 border-slate-200/70 opacity-75'
+                              : 'bg-white border-slate-200/80 shadow-2xs hover:border-slate-300'
                           }`}
                         >
                           <div className="flex items-center gap-3 min-w-0">
-                            <div className={`w-5 h-5 rounded-md flex items-center justify-center border transition-colors shrink-0 ${
+                            <div className={`w-5 h-5 rounded-md flex items-center justify-center border transition-all duration-200 shrink-0 group-hover:ring-2 group-hover:ring-slate-200 ${
                               task.completed 
-                                ? 'bg-[#133026] border-[#133026] text-white' 
-                                : 'border-stone-300 bg-white'
+                                ? 'bg-[#133026] border-[#133026] text-white shadow-2xs' 
+                                : 'border-slate-300 bg-white group-hover:border-slate-400'
                             }`}>
                               {task.completed && <Check className="w-3.5 h-3.5 stroke-[3]" />}
                             </div>
                             <div className="min-w-0">
-                              <div className={`text-sm font-semibold truncate ${
-                                task.completed ? 'line-through text-stone-400' : 'text-stone-900'
+                              <div className={`font-sans text-sm font-semibold truncate transition-colors ${
+                                task.completed ? 'line-through text-slate-400' : 'text-slate-900'
                               }`}>
                                 {task.title}
                               </div>
-                              <div className="text-xs text-stone-600 mt-0.5 truncate">
+                              <div className="font-sans text-sm text-slate-500 mt-0.5 truncate">
                                 {task.sub}
                               </div>
                             </div>
                           </div>
-                          <span className="text-xs font-medium text-stone-500 shrink-0">
+                          <span className="font-sans text-xs font-medium text-slate-500 shrink-0">
                             {task.time}
                           </span>
                         </div>
@@ -480,18 +480,18 @@ export default function DashboardPreview() {
 
                   {/* Syllabus Bars Breakdown */}
                   <div className="bg-slate-50/60 border border-slate-200/70 rounded-xl p-4">
-                    <div className="flex items-center justify-between text-xs font-bold text-stone-800 mb-3">
+                    <div className="flex items-center justify-between text-xs font-bold text-slate-800 mb-3 font-sans">
                       <span>Subject Completion Benchmarks</span>
-                      <span className="text-stone-500 font-normal">Target: 85% pacing</span>
+                      <span className="text-slate-500 font-normal">Target: 85% pacing</span>
                     </div>
-                    <div className="space-y-2.5">
+                    <div className="space-y-3">
                       {syllabusProgress.map((item, idx) => (
                         <div key={idx}>
-                          <div className="flex justify-between text-xs mb-1">
-                            <span className="font-medium text-stone-700">{item.name}</span>
+                          <div className="flex justify-between text-xs mb-1.5 font-sans">
+                            <span className="font-medium text-slate-700">{item.name}</span>
                             <span className="font-bold text-[#133026]">{item.percentage}%</span>
                           </div>
-                          <div className="w-full h-1.5 bg-slate-200 rounded-full overflow-hidden">
+                          <div className="w-full h-1.5 bg-slate-200/80 rounded-full overflow-hidden">
                             <div
                               className={`h-full rounded-full transition-all duration-700 ${
                                 item.isCoral ? 'bg-[#F59E0B]' : 'bg-[#133026]'
