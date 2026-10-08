@@ -183,8 +183,8 @@ export default function Footer({ onOpenLogin }) {
           </div>
         </div>
 
-        {/* Official Legal & Content Safety Disclaimer */}
-        <p className="text-[11px] text-[#D7E5DB]/60 leading-relaxed font-normal text-center sm:text-left pt-2 border-t border-white/5">
+        {/* Legal & Content Safety Disclaimer */}
+        <p className="text-xs text-[#D7E5DB]/75 leading-relaxed font-normal text-center sm:text-left pt-2 border-t border-white/5">
           UPSC ZONE AI is an independent preparation platform and is not affiliated with or endorsed by the Union Public Service Commission or any government body.
         </p>
 

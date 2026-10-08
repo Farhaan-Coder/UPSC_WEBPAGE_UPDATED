@@ -1,5 +1,5 @@
 import React from 'react';
-import { RotateCw, BookOpen, ArrowUpRight, ArrowRight, CloudRain } from 'lucide-react';
+import { RotateCw, BarChart3, Scale, ArrowUpRight, ArrowRight, CloudRain } from 'lucide-react';
 
 const fieldNotes = [
   {
@@ -9,24 +9,51 @@ const fieldNotes = [
     title: 'How to structure Polity revisions before Prelims',
     desc: 'Build a disciplined 1-7-30 day spaced repetition cycle without letting fresh current affairs pile up.',
     meta: 'Study Framework • 5 min read',
+    svgPattern: (
+      <svg className="absolute inset-0 w-full h-full opacity-20 pointer-events-none" viewBox="0 0 64 64">
+        <circle cx="32" cy="32" r="24" stroke="#F59E0B" strokeWidth="1" strokeDasharray="3 3" fill="none" />
+        <circle cx="32" cy="32" r="14" stroke="#FFFFFF" strokeWidth="0.75" fill="none" />
+      </svg>
+    ),
   },
   {
     id: 'pyq-playbook',
-    icon: BookOpen,
+    icon: BarChart3,
     tag: 'PYQ INTELLIGENCE',
-    title: 'Reverse-engineering the UPSC Mindset from 10-Yr PYQs',
-    desc: 'How the Commission frames tricky options with extreme keywords and how to identify repeating themes in GS I.',
+    title: 'Deconstructing Exam Framing from 25-Year PYQs',
+    desc: 'How questions frame distractors with extreme qualifiers and how to spot repeating syllabus themes.',
     meta: 'Prelims Strategy • 8 min read',
+    svgPattern: (
+      <svg className="absolute inset-0 w-full h-full opacity-20 pointer-events-none" viewBox="0 0 64 64">
+        <path d="M12 48 L24 36 L36 42 L52 20" stroke="#F59E0B" strokeWidth="1.5" strokeLinecap="round" fill="none" />
+        <circle cx="52" cy="20" r="3" fill="#F59E0B" />
+      </svg>
+    ),
+  },
+  {
+    id: 'polity-notes',
+    icon: Scale,
+    tag: 'POLITY & GOVERNANCE',
+    title: 'Seventh Schedule & Fiscal Autonomy Frameworks',
+    desc: 'Constitutional articles, Finance Commission formulas, and inter-state mechanisms in one structured brief.',
+    meta: 'Mains GS II • 6 min read',
+    svgPattern: (
+      <svg className="absolute inset-0 w-full h-full opacity-20 pointer-events-none" viewBox="0 0 64 64">
+        <line x1="16" y1="20" x2="48" y2="20" stroke="#F59E0B" strokeWidth="1.5" />
+        <line x1="32" y1="20" x2="32" y2="48" stroke="#FFFFFF" strokeWidth="1.5" />
+        <line x1="20" y1="48" x2="44" y2="48" stroke="#FFFFFF" strokeWidth="1.5" />
+      </svg>
+    ),
   },
 ];
 
 export default function Insights() {
   return (
-    <section className="py-20 lg:py-24 bg-[#EAF1EB]/70 border-b border-stone-200/60 scroll-mt-20" id="resources">
+    <section className="py-12 md:py-16 lg:py-20 bg-[#EAF1EB]/70 border-b border-stone-200/60 scroll-mt-20" id="resources">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         
         {/* Split Header */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-14">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10 md:mb-12">
           <div>
             <span className="text-xs font-bold text-[#133026] tracking-wider block mb-2 uppercase">
               EDITORIALS & CURATED FIELD NOTES
@@ -67,7 +94,7 @@ export default function Insights() {
 
                 {/* Clean HTML Text Badge Overlay */}
                 <div className="absolute bottom-3 left-4 z-10">
-                  <span className="bg-[#F59E0B] text-stone-900 font-bold text-[10px] uppercase tracking-wider px-2.5 py-1 rounded shadow-xs">
+                  <span className="bg-[#F59E0B] text-stone-900 font-bold text-xs uppercase tracking-wider px-2.5 py-1 rounded shadow-xs">
                     GS III • Disaster Management
                   </span>
                 </div>
@@ -93,38 +120,36 @@ export default function Insights() {
             </div>
           </div>
 
-          {/* Field Notes Grid */}
-          <div className="lg:col-span-6 flex flex-col justify-between gap-6">
-            {fieldNotes.map((note) => {
+          {/* Field Notes Grid with Original Inline SVG Illustration Tiles */}
+          <div className="lg:col-span-6 flex flex-col justify-between gap-4 sm:gap-5">
+            {fieldNotes.map((note, idx) => {
               const Icon = note.icon;
               return (
                 <div
                   key={note.id}
-                  className="bg-white border border-stone-200/80 rounded-2xl p-6 flex items-stretch gap-5 shadow-xs transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl hover:border-stone-300 cursor-pointer flex-1 group"
+                  className="bg-white border border-stone-200/80 rounded-2xl p-5 sm:p-6 flex items-stretch gap-4 sm:gap-5 shadow-xs transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:border-stone-300 cursor-pointer flex-1 group"
                 >
-                  {/* Category Badge */}
-                  <div className="w-20 bg-[#133026] rounded-xl p-3 flex flex-col items-center justify-center text-center text-white shrink-0 shadow-xs">
-                    <Icon className="w-5 h-5 text-[#F59E0B] mb-1.5" />
-                    <span className="text-[9px] font-bold tracking-wider leading-tight text-[#D7E5DB] uppercase">
-                      ZONE<br />NOTES
-                    </span>
+                  {/* Original SVG Illustration Card: 56-72px rounded dark-green tile with amber icon */}
+                  <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-br from-[#133026] via-[#1a4235] to-[#0c1f18] flex flex-col items-center justify-center text-center text-white shrink-0 shadow-sm relative overflow-hidden group-hover:scale-105 transition-transform duration-300 border border-[#1e493b]">
+                    {note.svgPattern}
+                    <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-[#F59E0B] relative z-10" />
                   </div>
 
                   {/* Note Details */}
-                  <div className="flex-1 flex flex-col justify-between">
+                  <div className="flex-1 flex flex-col justify-between min-w-0">
                     <div>
-                      <span className="text-[10px] font-bold text-[#133026] tracking-wider block mb-1 uppercase bg-[#EAF1EB] px-2 py-0.5 rounded w-fit">
+                      <span className="text-xs font-bold text-[#133026] tracking-wider block mb-1 uppercase bg-[#EAF1EB] px-2 py-0.5 rounded w-fit">
                         {note.tag}
                       </span>
-                      <h3 className="text-base font-sans font-bold text-[#133026] tracking-tight leading-snug mb-1.5 group-hover:text-[#183C30] transition-colors">
+                      <h3 className="text-sm sm:text-base font-sans font-bold text-[#133026] tracking-tight leading-snug mb-1 group-hover:text-[#183C30] transition-colors truncate">
                         {note.title}
                       </h3>
-                      <p className="text-xs text-stone-600 leading-relaxed mb-3 font-normal">
+                      <p className="text-xs text-stone-600 leading-relaxed mb-2 font-normal line-clamp-2">
                         {note.desc}
                       </p>
                     </div>
 
-                    <div className="flex items-center justify-between text-xs text-stone-500 border-t border-stone-100 pt-3 font-medium">
+                    <div className="flex items-center justify-between text-xs text-stone-500 border-t border-stone-100 pt-2 font-medium">
                       <span>{note.meta}</span>
                       <ArrowUpRight className="w-4 h-4 text-[#F59E0B] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
                     </div>

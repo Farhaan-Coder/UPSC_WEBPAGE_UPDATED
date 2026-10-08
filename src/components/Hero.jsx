@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { 
   ArrowRight, 
   Play, 
@@ -14,13 +14,11 @@ import {
   Bot, 
   ChevronRight,
   ShieldCheck,
-  CheckCircle2,
-  Clock,
   Compass,
   Quote
 } from 'lucide-react';
-
-export const PRELIMS_DATE = '2026-05-24T09:30:00';
+import { EXAM_YEAR, PRELIMS_DATE, PRELIMS_DATE_LABEL } from '../config/exam.js';
+import { useCountdown } from '../hooks/useCountdown.js';
 
 const STOIC_QUOTES = [
   "Discipline is choosing between what you want now and what you want most.", // Sun
@@ -55,36 +53,7 @@ const initialTasks = [
 
 export default function Hero({ onOpenAuth }) {
   const [tasks, setTasks] = useState(initialTasks);
-  const [timeLeft, setTimeLeft] = useState({
-    days: 0,
-    hours: 0,
-    minutes: 0,
-    seconds: 0
-  });
-
-  useEffect(() => {
-    const calculateTime = () => {
-      let target = new Date(PRELIMS_DATE).getTime();
-      const now = new Date().getTime();
-      let diff = target - now;
-      if (diff <= 0) {
-        // Next cycle fallback for forward compatibility
-        target = new Date('2027-05-23T09:30:00').getTime();
-        diff = target - now;
-      }
-      
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-      
-      setTimeLeft({ days, hours, minutes, seconds });
-    };
-
-    calculateTime();
-    const timer = setInterval(calculateTime, 1000);
-    return () => clearInterval(timer);
-  }, []);
+  const timeLeft = useCountdown(PRELIMS_DATE);
 
   const toggleTask = (id) => {
     setTasks(tasks.map(t => t.id === id ? { ...t, completed: !t.completed } : t));
@@ -104,7 +73,7 @@ export default function Hero({ onOpenAuth }) {
           <div className="lg:col-span-6 max-w-xl">
             <div className="inline-flex items-center gap-2 bg-[#EAF1EB] border border-[#133026]/15 text-[#133026] text-xs font-semibold tracking-wide px-4 py-1.5 rounded-full mb-6 shadow-xs">
               <Sparkles className="w-3.5 h-3.5 text-[#133026] fill-[#133026]" />
-              <span className="uppercase font-sans font-bold text-[11px] tracking-wider">BUILT FOR SERIOUS UPSC CSE ASPIRANTS</span>
+              <span className="uppercase font-sans font-bold text-xs tracking-wider">BUILT FOR SERIOUS UPSC CSE ASPIRANTS</span>
             </div>
 
             {/* Serif High-Impact Headline with Saffron Underline */}
@@ -169,7 +138,7 @@ export default function Hero({ onOpenAuth }) {
               </div>
               <div className="flex items-center gap-2">
                 <Compass className="w-4.5 h-4.5 text-[#133026] stroke-[2.4] shrink-0" />
-                <span>Updated for CSE 2026</span>
+                <span>Updated for CSE {EXAM_YEAR}</span>
               </div>
             </div>
 
@@ -181,11 +150,11 @@ export default function Hero({ onOpenAuth }) {
                     <span className="absolute inset-0 rounded-full bg-emerald-500 animate-ping opacity-75" />
                   </div>
                   <span className="font-sans font-bold text-xs uppercase tracking-wider text-[#133026]">
-                    Prelims 2026 Live Countdown
+                    PRELIMS {EXAM_YEAR} LIVE COUNTDOWN
                   </span>
                 </div>
-                <span className="text-[11px] font-semibold text-amber-700 bg-amber-50 px-2 py-0.5 rounded-full border border-amber-200">
-                  24 May 2026 • 09:30 AM
+                <span className="text-xs font-semibold text-amber-800 bg-amber-50 px-2.5 py-0.5 rounded-full border border-amber-200">
+                  {PRELIMS_DATE_LABEL}
                 </span>
               </div>
 
@@ -195,7 +164,7 @@ export default function Hero({ onOpenAuth }) {
                   <div className="text-xl sm:text-2xl font-sans font-extrabold text-[#133026] tracking-tight">
                     {timeLeft.days}
                   </div>
-                  <div className="text-[10px] sm:text-[11px] font-semibold uppercase tracking-wider text-stone-500 mt-0.5">
+                  <div className="text-xs font-semibold uppercase tracking-wider text-stone-600 mt-0.5">
                     Days
                   </div>
                 </div>
@@ -204,7 +173,7 @@ export default function Hero({ onOpenAuth }) {
                   <div className="text-xl sm:text-2xl font-sans font-extrabold text-[#133026] tracking-tight">
                     {String(timeLeft.hours).padStart(2, '0')}
                   </div>
-                  <div className="text-[10px] sm:text-[11px] font-semibold uppercase tracking-wider text-stone-500 mt-0.5">
+                  <div className="text-xs font-semibold uppercase tracking-wider text-stone-600 mt-0.5">
                     Hours
                   </div>
                 </div>
@@ -213,7 +182,7 @@ export default function Hero({ onOpenAuth }) {
                   <div className="text-xl sm:text-2xl font-sans font-extrabold text-[#133026] tracking-tight">
                     {String(timeLeft.minutes).padStart(2, '0')}
                   </div>
-                  <div className="text-[10px] sm:text-[11px] font-semibold uppercase tracking-wider text-stone-500 mt-0.5">
+                  <div className="text-xs font-semibold uppercase tracking-wider text-stone-600 mt-0.5">
                     Mins
                   </div>
                 </div>
@@ -222,7 +191,7 @@ export default function Hero({ onOpenAuth }) {
                   <div className="text-xl sm:text-2xl font-sans font-extrabold text-amber-800 tracking-tight animate-pulse">
                     {String(timeLeft.seconds).padStart(2, '0')}
                   </div>
-                  <div className="text-[10px] sm:text-[11px] font-semibold uppercase tracking-wider text-amber-700 mt-0.5">
+                  <div className="text-xs font-semibold uppercase tracking-wider text-amber-700 mt-0.5">
                     Secs
                   </div>
                 </div>
@@ -244,7 +213,7 @@ export default function Hero({ onOpenAuth }) {
             {/* Meta Tag */}
             <div className="flex items-center justify-between text-xs font-semibold text-stone-500 mb-3 px-2">
               <span className="tracking-wider text-[#133026]/80 uppercase font-sans font-bold">LESS GUESSWORK. MORE DIRECTION.</span>
-              <span className="text-stone-400 font-medium text-[11px]">• Sample workspace</span>
+              <span className="text-stone-500 font-medium text-xs">• Sample data for demonstration</span>
             </div>
 
             {/* Dashboard Container */}
@@ -257,7 +226,9 @@ export default function Hero({ onOpenAuth }) {
                     <BookOpenCheck className="w-4 h-4" />
                   </div>
                   <span className="font-sans font-bold text-sm text-[#133026] tracking-tight">UPSC ZONE AI</span>
-                  <span className="bg-[#EAF1EB] text-[#133026] border border-green-200/80 text-[10px] font-bold px-2 py-0.5 rounded-full shadow-2xs">CSE 2026</span>
+                  <span className="bg-[#EAF1EB] text-[#133026] border border-green-200/80 text-xs font-bold px-2.5 py-0.5 rounded-full shadow-2xs">
+                    CSE {EXAM_YEAR}
+                  </span>
                 </div>
                 
                 <div className="flex items-center gap-2.5">
@@ -274,76 +245,76 @@ export default function Hero({ onOpenAuth }) {
                 </div>
               </div>
 
-              {/* Workspace Layout */}
-              <div className="grid grid-cols-1 md:grid-cols-12 min-h-[380px]">
-                {/* Navigation Sidebar */}
-                <div className="md:col-span-4 bg-slate-50/60 border-r border-slate-100 p-4 sm:p-5 flex flex-col justify-start">
+              {/* Workspace Layout: Responsive flex structure with widened sidebar to prevent truncation */}
+              <div className="flex flex-col md:flex-row min-h-[380px]">
+                {/* Navigation Sidebar: Widened to 176px (w-44) on desktop so all labels fit on ONE line */}
+                <div className="w-full md:w-44 lg:w-48 shrink-0 bg-slate-50/70 border-r border-slate-100 p-3 sm:p-4 flex flex-col justify-start">
                   <div>
-                    <span className="text-[10px] font-bold text-slate-400 tracking-wider px-2 block mb-3.5 uppercase font-sans">
+                    <span className="text-xs font-bold text-slate-500 tracking-wider px-2 block mb-3 uppercase font-sans">
                       STUDY DESK
                     </span>
-                    <ul className="space-y-3 sm:space-y-3.5">
-                      <li className="flex items-center gap-3 text-xs sm:text-[13px] font-bold bg-[#133026] text-white px-3 py-2.5 rounded-xl shadow-xs transition-all duration-200 cursor-pointer">
+                    <ul className="space-y-2 sm:space-y-2.5">
+                      <li className="flex items-center gap-2.5 text-xs font-bold bg-[#133026] text-white px-3 py-2.5 rounded-xl shadow-xs transition-all duration-200 cursor-pointer whitespace-nowrap">
                         <LayoutDashboard className="w-4 h-4 text-[#F59E0B] shrink-0" />
                         <span className="tracking-tight">Daily Schedule</span>
                       </li>
-                      <li className="flex items-center gap-3 text-xs sm:text-[13px] font-medium text-slate-600 px-3 py-2.5 rounded-xl hover:bg-slate-100 hover:text-slate-900 transition-all duration-200 cursor-pointer group">
-                        <Calendar className="w-4 h-4 text-slate-400 group-hover:text-slate-600 transition-colors shrink-0" />
+                      <li className="flex items-center gap-2.5 text-xs font-medium text-slate-700 px-3 py-2 rounded-xl hover:bg-slate-100 hover:text-slate-900 transition-all duration-200 cursor-pointer group whitespace-nowrap">
+                        <Calendar className="w-4 h-4 text-slate-500 group-hover:text-slate-700 transition-colors shrink-0" />
                         <span className="tracking-tight">Prelims Revision</span>
                       </li>
-                      <li className="flex items-center gap-3 text-xs sm:text-[13px] font-medium text-slate-600 px-3 py-2.5 rounded-xl hover:bg-slate-100 hover:text-slate-900 transition-all duration-200 cursor-pointer group">
-                        <FileText className="w-4 h-4 text-slate-400 group-hover:text-slate-600 transition-colors shrink-0" />
+                      <li className="flex items-center gap-2.5 text-xs font-medium text-slate-700 px-3 py-2 rounded-xl hover:bg-slate-100 hover:text-slate-900 transition-all duration-200 cursor-pointer group whitespace-nowrap">
+                        <FileText className="w-4 h-4 text-slate-500 group-hover:text-slate-700 transition-colors shrink-0" />
                         <span className="tracking-tight">Mains Writing</span>
                       </li>
-                      <li className="flex items-center gap-3 text-xs sm:text-[13px] font-medium text-slate-600 px-3 py-2.5 rounded-xl hover:bg-slate-100 hover:text-slate-900 transition-all duration-200 cursor-pointer group">
-                        <Newspaper className="w-4 h-4 text-slate-400 group-hover:text-slate-600 transition-colors shrink-0" />
+                      <li className="flex items-center gap-2.5 text-xs font-medium text-slate-700 px-3 py-2 rounded-xl hover:bg-slate-100 hover:text-slate-900 transition-all duration-200 cursor-pointer group whitespace-nowrap">
+                        <Newspaper className="w-4 h-4 text-slate-500 group-hover:text-slate-700 transition-colors shrink-0" />
                         <span className="tracking-tight">Daily Editorial</span>
                       </li>
-                      <li className="flex items-center gap-3 text-xs sm:text-[13px] font-medium text-slate-600 px-3 py-2.5 rounded-xl hover:bg-slate-100 hover:text-slate-900 transition-all duration-200 cursor-pointer group">
-                        <BookMarked className="w-4 h-4 text-slate-400 group-hover:text-slate-600 transition-colors shrink-0" />
+                      <li className="flex items-center gap-2.5 text-xs font-medium text-slate-700 px-3 py-2 rounded-xl hover:bg-slate-100 hover:text-slate-900 transition-all duration-200 cursor-pointer group whitespace-nowrap">
+                        <BookMarked className="w-4 h-4 text-slate-500 group-hover:text-slate-700 transition-colors shrink-0" />
                         <span className="tracking-tight">NCERT Library</span>
                       </li>
-                      <li className="flex items-center gap-3 text-xs sm:text-[13px] font-medium text-slate-600 px-3 py-2.5 rounded-xl hover:bg-slate-100 hover:text-slate-900 transition-all duration-200 cursor-pointer group">
-                        <Bot className="w-4 h-4 text-slate-400 group-hover:text-slate-600 transition-colors shrink-0" />
-                        <span className="tracking-tight">AIR Mentor AI</span>
+                      <li className="flex items-center gap-2.5 text-xs font-medium text-slate-700 px-3 py-2 rounded-xl hover:bg-slate-100 hover:text-slate-900 transition-all duration-200 cursor-pointer group whitespace-nowrap">
+                        <Bot className="w-4 h-4 text-slate-500 group-hover:text-slate-700 transition-colors shrink-0" />
+                        <span className="tracking-tight">AI Mentor</span>
                       </li>
                     </ul>
                   </div>
                 </div>
 
                 {/* Main Workspace */}
-                <div className="md:col-span-8 p-4 sm:p-5 flex flex-col justify-start bg-white">
+                <div className="flex-1 min-w-0 p-4 sm:p-5 flex flex-col justify-start bg-white">
                   <div>
                     {/* Welcome Header */}
                     <div className="mb-4">
                       <h3 className="text-base sm:text-lg font-sans font-bold tracking-tight text-slate-900">
                         Welcome back, Ananya
                       </h3>
-                      <p className="text-[11.5px] text-slate-500 font-normal mt-0.5">
+                      <p className="text-xs text-slate-600 font-normal mt-0.5">
                         Consistency drives top ranks. Here is your strategic plan for today.
                       </p>
                     </div>
 
-                    {/* Performance Metrics */}
+                    {/* Performance Metrics: Min 12px labels with high contrast */}
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 mb-4">
-                      <div className="border border-slate-200/80 rounded-xl px-3.5 py-3 bg-white hover:-translate-y-0.5 hover:shadow-md transition-all duration-200 cursor-pointer group shadow-2xs flex flex-col items-start justify-center">
+                      <div className="border border-slate-200/90 rounded-xl px-3.5 py-3 bg-white hover:-translate-y-0.5 hover:shadow-md transition-all duration-200 cursor-pointer group shadow-2xs flex flex-col items-start justify-center">
                         <div className="text-lg font-sans font-bold tracking-tight text-slate-800 group-hover:text-[#133026] transition-colors whitespace-nowrap">
                           68%
                         </div>
-                        <div className="text-[10px] text-slate-500 font-medium mt-0.5">GS Syllabus Complete</div>
+                        <div className="text-xs text-stone-600 font-medium mt-1">Syllabus done</div>
                       </div>
-                      <div className="border border-slate-200/80 rounded-xl px-3.5 py-3 bg-white hover:-translate-y-0.5 hover:shadow-md transition-all duration-200 cursor-pointer group shadow-2xs flex flex-col items-start justify-center">
+                      <div className="border border-slate-200/90 rounded-xl px-3.5 py-3 bg-white hover:-translate-y-0.5 hover:shadow-md transition-all duration-200 cursor-pointer group shadow-2xs flex flex-col items-start justify-center">
                         <div className="text-lg font-sans font-bold tracking-tight text-slate-800 group-hover:text-[#133026] transition-colors whitespace-nowrap flex items-baseline gap-1">
                           <span>118</span>
                           <span className="text-xs font-semibold text-slate-500">/ 200</span>
                         </div>
-                        <div className="text-[10px] text-slate-500 font-medium mt-0.5">GS I Mock Score</div>
+                        <div className="text-xs text-stone-600 font-medium mt-1">Mock score</div>
                       </div>
-                      <div className="border border-slate-200/80 rounded-xl px-3.5 py-3 bg-white hover:-translate-y-0.5 hover:shadow-md transition-all duration-200 cursor-pointer group shadow-2xs flex flex-col items-start justify-center">
+                      <div className="border border-slate-200/90 rounded-xl px-3.5 py-3 bg-white hover:-translate-y-0.5 hover:shadow-md transition-all duration-200 cursor-pointer group shadow-2xs flex flex-col items-start justify-center">
                         <div className="text-lg font-sans font-bold tracking-tight text-slate-800 group-hover:text-[#133026] transition-colors whitespace-nowrap">
                           6h 15m
                         </div>
-                        <div className="text-[10px] text-slate-500 font-medium mt-0.5">Study This Week</div>
+                        <div className="text-xs text-stone-600 font-medium mt-1">This week</div>
                       </div>
                     </div>
 
@@ -371,10 +342,10 @@ export default function Hero({ onOpenAuth }) {
                               {task.completed && <Check className="w-3.5 h-3.5 stroke-[3]" />}
                             </div>
                             <div className="flex-1 min-w-0">
-                              <div className={`text-[13px] font-semibold truncate transition-colors ${task.completed ? 'line-through text-slate-400' : 'text-slate-900'}`}>
+                              <div className={`text-sm font-semibold truncate transition-colors ${task.completed ? 'line-through text-slate-400' : 'text-slate-900'}`}>
                                 {task.title}
                               </div>
-                              <div className="text-[11px] text-slate-500 font-normal mt-0.5 truncate">{task.subtitle}</div>
+                              <div className="text-xs text-slate-600 font-normal mt-0.5 truncate">{task.subtitle}</div>
                             </div>
                             {task.completed ? (
                               <Check className="w-4 h-4 text-[#133026] stroke-[2.5] shrink-0" />
@@ -389,18 +360,18 @@ export default function Hero({ onOpenAuth }) {
                 </div>
               </div>
 
-              {/* Bottom Section: Perfectly Aligned Target Milestone & Action Banner */}
+              {/* Bottom Section: Target Milestone & Action Banner */}
               <div className="p-3.5 sm:p-4 border-t border-slate-100 bg-slate-50/40">
                 <div className="flex flex-col md:flex-row items-stretch md:items-center gap-4">
                   {/* Target Milestone Card with Live Days Left */}
                   <div className="md:w-60 shrink-0 bg-gradient-to-br from-slate-50 to-green-50/30 border border-slate-200 rounded-xl p-3 shadow-sm hover:shadow-md transition-all duration-200 cursor-pointer group">
-                    <span className="text-[10px] font-bold text-slate-500 tracking-wider block mb-0.5 uppercase">
+                    <span className="text-xs font-bold text-slate-500 tracking-wider block mb-0.5 uppercase">
                       TARGET MILESTONE
                     </span>
                     <span className="text-sm font-sans font-bold text-slate-800 block group-hover:text-[#133026] transition-colors tracking-tight">
-                      Prelims 2026 Target
+                      Prelims {EXAM_YEAR} Target
                     </span>
-                    <span className="text-xs text-slate-500 font-medium block mt-0.5">
+                    <span className="text-xs text-slate-600 font-medium block mt-0.5">
                       {timeLeft.days} Days Remaining • Consistent
                     </span>
                   </div>
@@ -415,8 +386,8 @@ export default function Hero({ onOpenAuth }) {
                         <div className="text-xs sm:text-[13px] font-sans font-bold text-white tracking-tight leading-snug">
                           Accelerate focus on Environment PYQs.
                         </div>
-                        <div className="text-[10px] text-[#D7E5DB] mt-0.5 font-normal leading-normal">
-                          Diagnosis recommends a 15-minute targeted revision drill. (Sample demo)
+                        <div className="text-xs text-stone-200 mt-0.5 font-normal leading-normal">
+                          Sample drill: 15-minute targeted revision recommendation.
                         </div>
                       </div>
                     </div>
@@ -427,7 +398,7 @@ export default function Hero({ onOpenAuth }) {
             </div>
 
             {/* Bottom Flow Caption */}
-            <div className="flex items-center justify-center gap-2.5 text-xs text-stone-500 mt-4 font-medium">
+            <div className="flex items-center justify-center gap-2.5 text-xs text-stone-600 mt-4 font-medium">
               <span className="text-[#133026] font-semibold">Syllabus Clarity</span>
               <span className="text-[#F59E0B]">→</span>
               <span className="text-[#133026] font-semibold">Daily PYQ Practice</span>

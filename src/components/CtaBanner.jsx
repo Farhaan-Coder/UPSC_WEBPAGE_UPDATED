@@ -1,9 +1,10 @@
 import React from 'react';
 import { ArrowRight, Sparkles } from 'lucide-react';
+import { EXAM_YEAR, ROADMAP_LABEL } from '../config/exam.js';
 
 export default function CtaBanner({ onOpenAuth }) {
   return (
-    <section className="py-20 bg-[#FDF9F1]" id="get-started">
+    <section className="py-16 md:py-20 bg-[#FDF9F1]" id="get-started">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="relative bg-[#133026] rounded-3xl p-8 sm:p-12 lg:p-16 overflow-hidden shadow-2xl hover:shadow-3xl transition-all duration-300 flex flex-col md:flex-row md:items-center justify-between gap-8 border border-[#183C30]">
           
@@ -17,13 +18,13 @@ export default function CtaBanner({ onOpenAuth }) {
           <div className="relative z-10 max-w-lg">
             <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#F59E0B] tracking-wider mb-3 uppercase bg-white/10 px-3 py-1 rounded-full border border-white/10 font-sans">
               <Sparkles className="w-3.5 h-3.5 fill-[#F59E0B]" />
-              <span>ACCELERATE YOUR JOURNEY TO LBSNAA</span>
+              <span>START YOUR CIVIL SERVICES JOURNEY</span>
             </span>
             <h2 className="text-3xl sm:text-4xl font-serif font-bold text-white tracking-tight leading-tight mb-3">
               Your ambition deserves a<br className="hidden sm:inline" /> smarter, disciplined plan.
             </h2>
             <p className="text-sm sm:text-base text-[#D7E5DB] leading-relaxed font-normal">
-              Start with a 15-minute diagnostic test to identify your GS strengths, negative marks vulnerabilities, and get a personalized 2026/27 roadmap.
+              Start with a 15-minute diagnostic test to identify your GS strengths, negative marks vulnerabilities, and get a personalized {ROADMAP_LABEL} roadmap.
             </p>
           </div>
 
@@ -45,8 +46,8 @@ export default function CtaBanner({ onOpenAuth }) {
               <span>Explore live preparation dashboard</span>
               <span className="transition-transform duration-200 group-hover:translate-x-1">→</span>
             </a>
-            <span className="text-[11px] text-[#D7E5DB]/70 font-normal">
-              Free to start • No credit card required • Aligned with CSE 2026
+            <span className="text-xs text-[#D7E5DB]/80 font-normal">
+              Free to start • No credit card required • Aligned with CSE {EXAM_YEAR}
             </span>
           </div>
 

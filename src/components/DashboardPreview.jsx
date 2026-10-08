@@ -15,31 +15,33 @@ import {
   Calendar, 
   FileText, 
   Clock, 
-  Award,
-  BarChart3,
-  CheckCircle2,
-  AlertCircle,
-  Briefcase,
-  GraduationCap
+  Award, 
+  BarChart3, 
+  CheckCircle2, 
+  AlertCircle, 
+  Briefcase, 
+  GraduationCap 
 } from 'lucide-react';
+import { EXAM_YEAR } from '../config/exam.js';
+import { PYQ_RANGE, PYQ_TOTAL, pyqThemes } from '../data/pyqSample.js';
 
 const tabsConfig = [
   {
     id: 0,
     title: 'Daily Study Plan',
-    subtitle: 'Spaced repetition, syllabus pacing & study hours',
+    subtitle: 'Spaced revision and study pacing',
     icon: Calendar,
   },
   {
     id: 1,
     title: 'PYQ Insights',
-    subtitle: '25-Year trend weightage & high-yield topic heatmaps',
+    subtitle: '25-year topic trends and heatmaps',
     icon: BarChart3,
   },
   {
     id: 2,
     title: 'AI Answer Feedback',
-    subtitle: 'Mains structure rubric, topper benchmarking & missing points',
+    subtitle: 'Structure, keywords and rubric score',
     icon: Award,
   },
 ];
@@ -73,15 +75,6 @@ const syllabusProgress = [
   { name: 'Modern Indian History', percentage: 68, isCoral: false },
   { name: 'Geography & Environment', percentage: 56, isCoral: false },
   { name: 'Economy & Inclusive Growth', percentage: 44, isCoral: true },
-];
-
-const pyqTrends = [
-  { subject: 'Polity & Governance', weight: '18%', trend: '+3% YoY', questions: '15-18 Qs', highYield: 'Fundamental Rights, Federalism, Judiciary' },
-  { subject: 'Environment & Ecology', weight: '22%', trend: 'High Weight', questions: '18-22 Qs', highYield: 'Protected Areas, Climate Treaties, Species' },
-  { subject: 'Economy & Development', weight: '20%', trend: 'Stable', questions: '16-19 Qs', highYield: 'Monetary Policy, Inflation, Balance of Payments' },
-  { subject: 'Science & Emerging Tech', weight: '14%', trend: 'Rising', questions: '11-14 Qs', highYield: 'Biotech, AI, Space Missions, Vaccines' },
-  { subject: 'Modern & Ancient History', weight: '14%', trend: 'Moderate', questions: '12-15 Qs', highYield: 'Freedom Movement, Art & Architecture' },
-  { subject: 'Geography & Agriculture', weight: '12%', trend: 'Application-based', questions: '10-12 Qs', highYield: 'Monsoon Patterns, Soil, Cropping Systems' },
 ];
 
 export default function DashboardPreview() {
@@ -153,9 +146,9 @@ export default function DashboardPreview() {
           {/* Left Column: Interactive Nav Tabs & Plan Your Day Slider */}
           <div className="lg:col-span-5 flex flex-col gap-6">
             
-            {/* Clickable Tabs */}
+            {/* Clickable Tabs with clean typography without truncation */}
             <div className="bg-white border border-stone-200/80 rounded-2xl p-3 shadow-xs space-y-2">
-              <div className="px-3 py-1.5 text-xs text-stone-400 font-medium">
+              <div className="px-3 py-1.5 text-xs text-stone-500 font-medium">
                 <span>SELECT WORKSPACE VIEW</span>
               </div>
 
@@ -187,8 +180,8 @@ export default function DashboardPreview() {
                       }`}>
                         {tab.title}
                       </div>
-                      <div className={`text-xs mt-0.5 line-clamp-1 ${
-                        isActive ? 'text-[#D7E5DB]' : 'text-stone-500'
+                      <div className={`text-xs mt-0.5 ${
+                        isActive ? 'text-[#D7E5DB]' : 'text-stone-600'
                       }`}>
                         {tab.subtitle}
                       </div>
@@ -242,7 +235,7 @@ export default function DashboardPreview() {
 
               {/* Interactive Range Slider */}
               <div className="mb-4">
-                <div className="flex justify-between text-[11px] text-stone-400 mb-1.5 font-medium">
+                <div className="flex justify-between text-xs text-stone-500 mb-1.5 font-medium">
                   <span>1 Hour (Light revision)</span>
                   <span>8 Hours (Intensive marathon)</span>
                 </div>
@@ -292,37 +285,37 @@ export default function DashboardPreview() {
                 <div className="p-2.5 bg-stone-50 rounded-xl border border-stone-200/60">
                   <div className="flex items-center gap-1.5 text-stone-600 mb-0.5">
                     <span className="w-2 h-2 rounded-full bg-[#133026]" />
-                    <span className="font-medium text-[11px]">Core GS Textbooks</span>
+                    <span className="font-medium text-xs">Core GS Textbooks</span>
                   </div>
                   <div className="font-bold text-stone-900 text-sm">{staticHours} hrs</div>
-                  <div className="text-[10px] text-stone-500">Target: 2 Standard Chapters</div>
+                  <div className="text-xs text-stone-500">Target: 2 Standard Chapters</div>
                 </div>
 
                 <div className="p-2.5 bg-stone-50 rounded-xl border border-stone-200/60">
                   <div className="flex items-center gap-1.5 text-stone-600 mb-0.5">
                     <span className="w-2 h-2 rounded-full bg-[#F59E0B]" />
-                    <span className="font-medium text-[11px]">Editorials & Current</span>
+                    <span className="font-medium text-xs">Editorials & Current</span>
                   </div>
                   <div className="font-bold text-stone-900 text-sm">{currentAffairsHours} hrs</div>
-                  <div className="text-[10px] text-stone-500">2 National Papers Digest</div>
+                  <div className="text-xs text-stone-500">2 National Papers Digest</div>
                 </div>
 
                 <div className="p-2.5 bg-stone-50 rounded-xl border border-stone-200/60">
                   <div className="flex items-center gap-1.5 text-stone-600 mb-0.5">
                     <span className="w-2 h-2 rounded-full bg-emerald-600" />
-                    <span className="font-medium text-[11px]">PYQ Practice</span>
+                    <span className="font-medium text-xs">PYQ Practice</span>
                   </div>
                   <div className="font-bold text-stone-900 text-sm">{pyqHours} hrs</div>
-                  <div className="text-[10px] text-stone-500">{mcqCount} MCQs + Elimination</div>
+                  <div className="text-xs text-stone-500">{mcqCount} MCQs + Elimination</div>
                 </div>
 
                 <div className="p-2.5 bg-stone-50 rounded-xl border border-stone-200/60">
                   <div className="flex items-center gap-1.5 text-stone-600 mb-0.5">
                     <span className="w-2 h-2 rounded-full bg-stone-400" />
-                    <span className="font-medium text-[11px]">Spaced Revision</span>
+                    <span className="font-medium text-xs">Spaced Revision</span>
                   </div>
                   <div className="font-bold text-stone-900 text-sm">{flashcardsMin} mins</div>
-                  <div className="text-[10px] text-stone-500">Active Recall Deck</div>
+                  <div className="text-xs text-stone-500">Active Recall Deck</div>
                 </div>
               </div>
 
@@ -330,7 +323,7 @@ export default function DashboardPreview() {
 
           </div>
 
-          {/* Right Column: Dynamic Mockup & Floating Badges */}
+          {/* Right Column: Dynamic Mockup */}
           <div className="lg:col-span-7 relative">
             
             {/* Ambient Backing Glow */}
@@ -348,7 +341,10 @@ export default function DashboardPreview() {
                   <span className="font-sans font-bold text-sm text-[#133026] tracking-tight">UPSC ZONE AI</span>
                 </div>
 
-                <div className="flex items-center gap-2 text-xs">
+                <div className="flex items-center gap-3 text-xs">
+                  <span className="text-stone-500 font-medium text-xs hidden sm:inline">
+                    • Sample data for demonstration
+                  </span>
                   <div className="w-7 h-7 rounded-full bg-[#133026] text-[#F59E0B] font-bold text-xs flex items-center justify-center">
                     AS
                   </div>
@@ -364,15 +360,15 @@ export default function DashboardPreview() {
                     <div>
                       <div className="flex items-center gap-2">
                         <span className="text-xs font-bold uppercase tracking-wider text-[#133026]">DAY 42 OF 365</span>
-                        <span className="text-[10px] bg-red-50 text-red-700 border border-red-200 font-bold px-2 py-0.5 rounded-full flex items-center gap-1">
+                        <span className="text-xs bg-red-50 text-red-700 border border-red-200 font-bold px-2 py-0.5 rounded-full flex items-center gap-1">
                           <AlertCircle className="w-3 h-3" />
-                          Weak Area: Environment Wetlands
+                          Focus: Environment Wetlands
                         </span>
                       </div>
                       <h4 className="text-base sm:text-lg font-sans font-bold text-stone-900 mt-1">
                         Today's Targeted Syllabus Focus
                       </h4>
-                      <p className="text-xs text-stone-500 mt-0.5">
+                      <p className="text-xs text-stone-600 mt-0.5">
                         Planned session: {studyHours} hours • Paced to complete GS II revision
                       </p>
                     </div>
@@ -408,7 +404,7 @@ export default function DashboardPreview() {
                       </div>
                       <div className="text-left">
                         <div className="text-xs font-bold text-stone-900">GS Coverage</div>
-                        <div className="text-[10px] text-stone-500">68% of 2026 Core</div>
+                        <div className="text-xs text-stone-600">68% of {EXAM_YEAR} Core</div>
                       </div>
                     </div>
                   </div>
@@ -444,17 +440,17 @@ export default function DashboardPreview() {
                               {task.completed && <Check className="w-3.5 h-3.5 stroke-[3]" />}
                             </div>
                             <div className="min-w-0">
-                              <div className={`text-xs sm:text-[13px] font-semibold truncate ${
+                              <div className={`text-sm font-semibold truncate ${
                                 task.completed ? 'line-through text-stone-400' : 'text-stone-900'
                               }`}>
                                 {task.title}
                               </div>
-                              <div className="text-[10px] text-stone-500 mt-0.5 truncate">
+                              <div className="text-xs text-stone-600 mt-0.5 truncate">
                                 {task.sub}
                               </div>
                             </div>
                           </div>
-                          <span className="text-xs font-medium text-stone-400 shrink-0">
+                          <span className="text-xs font-medium text-stone-500 shrink-0">
                             {task.time}
                           </span>
                         </div>
@@ -466,12 +462,12 @@ export default function DashboardPreview() {
                   <div className="bg-slate-50/60 border border-slate-200/70 rounded-xl p-4">
                     <div className="flex items-center justify-between text-xs font-bold text-stone-800 mb-3">
                       <span>Subject Completion Benchmarks</span>
-                      <span className="text-stone-400 font-normal">Target: 85% by January</span>
+                      <span className="text-stone-500 font-normal">Target: 85% pacing</span>
                     </div>
                     <div className="space-y-2.5">
                       {syllabusProgress.map((item, idx) => (
                         <div key={idx}>
-                          <div className="flex justify-between text-[11px] mb-1">
+                          <div className="flex justify-between text-xs mb-1">
                             <span className="font-medium text-stone-700">{item.name}</span>
                             <span className="font-bold text-[#133026]">{item.percentage}%</span>
                           </div>
@@ -492,8 +488,8 @@ export default function DashboardPreview() {
                   <div className="p-3.5 rounded-xl bg-[#133026] text-white flex items-start gap-3">
                     <Sparkles className="w-4 h-4 text-[#F59E0B] shrink-0 mt-0.5" />
                     <div className="min-w-0 text-xs">
-                      <div className="font-bold text-[#F59E0B] text-[11px] uppercase tracking-wider mb-0.5">
-                        AIR Mentor Next Best Step
+                      <div className="font-bold text-[#F59E0B] text-xs uppercase tracking-wider mb-0.5">
+                        AI Mentor Next Best Step
                       </div>
                       <p className="text-stone-200 leading-relaxed font-normal">
                         {fullPromptText.slice(0, typingIndex)}
@@ -505,41 +501,48 @@ export default function DashboardPreview() {
                 </div>
               )}
 
-              {/* TAB 2: PYQ INSIGHTS VIEW */}
+              {/* TAB 2: PYQ INSIGHTS VIEW (Unified with pyqThemes from pyqSample.js) */}
               {activeTab === 1 && (
                 <div className="p-5 sm:p-6 space-y-5 animate-fadeIn">
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-stone-200/60">
                     <div>
                       <h4 className="text-base font-sans font-bold text-stone-900">
-                        25-Year UPSC CSE Prelims Topic Recurrence Heatmap
+                        25-Year UPSC CSE Prelims Topic Recurrence Heatmap ({PYQ_RANGE})
                       </h4>
-                      <p className="text-xs text-stone-500">
-                        Analyzing 2,500+ official questions (2000 – 2025) categorized by syllabus micro-themes.
+                      <p className="text-xs text-stone-600">
+                        Analyzing 2,500 sample questions ({PYQ_RANGE}) categorized by syllabus micro-themes.
                       </p>
                     </div>
-                    <span className="text-xs font-semibold text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200 self-start sm:self-auto">
-                      Official Trends
-                    </span>
+                    <div className="flex items-center gap-2 self-start sm:self-auto">
+                      <span className="text-xs font-semibold text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200">
+                        Sample trends
+                      </span>
+                      <span className="text-xs text-stone-500 font-medium hidden sm:inline">
+                        • Illustrative sample data
+                      </span>
+                    </div>
                   </div>
 
                   {/* Recurrence Heatmap Table */}
                   <div className="overflow-x-auto">
                     <table className="w-full text-left text-xs">
                       <thead>
-                        <tr className="border-b border-stone-200 text-stone-500 font-medium">
+                        <tr className="border-b border-stone-200 text-stone-600 font-medium">
                           <th className="pb-2">Theme</th>
                           <th className="pb-2">Avg Share</th>
-                          <th className="pb-2">Trend</th>
+                          <th className="pb-2">Sample Trend</th>
                           <th className="pb-2">High-Yield Micro-Topics</th>
                         </tr>
                       </thead>
                       <tbody className="divide-y divide-stone-100">
-                        {pyqTrends.map((row, idx) => (
+                        {pyqThemes.map((row, idx) => (
                           <tr key={idx} className="hover:bg-slate-50/70 transition-colors">
-                            <td className="py-2.5 font-semibold text-stone-900">{row.subject}</td>
-                            <td className="py-2.5 font-bold text-[#133026]">{row.weight}</td>
+                            <td className="py-2.5 font-semibold text-stone-900">{row.name}</td>
+                            <td className="py-2.5 font-bold text-[#133026]">
+                              {row.weight} <span className="font-normal text-stone-500">({row.count} Qs)</span>
+                            </td>
                             <td className="py-2.5">
-                              <span className="bg-amber-50 text-amber-800 font-semibold text-[10px] px-2 py-0.5 rounded-full border border-amber-200">
+                              <span className="bg-amber-50 text-amber-800 font-semibold text-xs px-2 py-0.5 rounded-full border border-amber-200">
                                 {row.trend}
                               </span>
                             </td>
@@ -559,8 +562,8 @@ export default function DashboardPreview() {
                       <div className="text-sm font-bold text-white mt-0.5">
                         Practice 25 Most Repeated Polity Articles & Schedules
                       </div>
-                      <div className="text-[11px] text-emerald-200 mt-0.5">
-                        Tested 42 times across 2011–2024. Average aspirant accuracy: 61%.
+                      <div className="text-xs text-emerald-200 mt-0.5">
+                        Sample drill: 25 most repeated Polity articles and schedules
                       </div>
                     </div>
                     <button 
@@ -573,12 +576,12 @@ export default function DashboardPreview() {
                 </div>
               )}
 
-              {/* TAB 3: AI ANSWER FEEDBACK VIEW */}
+              {/* TAB 3: AI ANSWER FEEDBACK VIEW (Honest rubric labels) */}
               {activeTab === 2 && (
                 <div className="p-5 sm:p-6 space-y-4 animate-fadeIn">
                   <div className="flex items-center justify-between pb-3 border-b border-stone-200/60">
                     <div>
-                      <span className="text-[10px] font-bold text-[#F59E0B] bg-[#133026] px-2 py-0.5 rounded-full uppercase tracking-wider">
+                      <span className="text-xs font-bold text-[#F59E0B] bg-[#133026] px-2 py-0.5 rounded-full uppercase tracking-wider">
                         GS II MAINS EVALUATION
                       </span>
                       <h4 className="text-sm sm:text-base font-sans font-bold text-stone-900 mt-1">
@@ -587,34 +590,34 @@ export default function DashboardPreview() {
                     </div>
                     <div className="text-right shrink-0">
                       <div className="text-xl font-sans font-extrabold text-[#133026]">6.5 / 10</div>
-                      <div className="text-[10px] font-semibold text-emerald-700">Top 15% Percentile</div>
+                      <div className="text-xs font-semibold text-emerald-700">Sample score</div>
                     </div>
                   </div>
 
                   {/* Rubric Breakdown */}
                   <div className="grid grid-cols-3 gap-2.5 text-xs text-center">
                     <div className="p-2.5 bg-stone-50 border border-stone-200/70 rounded-xl">
-                      <div className="font-semibold text-stone-500 text-[11px]">Introduction</div>
+                      <div className="font-semibold text-stone-600 text-xs">Introduction</div>
                       <div className="font-bold text-stone-800 text-sm mt-0.5">1.5 / 2.0</div>
-                      <div className="text-[10px] text-emerald-600 font-medium">Clear Article citation</div>
+                      <div className="text-xs text-emerald-600 font-medium">Clear Article citation</div>
                     </div>
                     <div className="p-2.5 bg-stone-50 border border-stone-200/70 rounded-xl">
-                      <div className="font-semibold text-stone-500 text-[11px]">Core Body Arguments</div>
+                      <div className="font-semibold text-stone-600 text-xs">Core Body Arguments</div>
                       <div className="font-bold text-stone-800 text-sm mt-0.5">3.5 / 5.0</div>
-                      <div className="text-[10px] text-amber-600 font-medium">Good cooperative points</div>
+                      <div className="text-xs text-amber-600 font-medium">Good cooperative points</div>
                     </div>
                     <div className="p-2.5 bg-stone-50 border border-stone-200/70 rounded-xl">
-                      <div className="font-semibold text-stone-500 text-[11px]">Way Forward</div>
+                      <div className="font-semibold text-stone-600 text-xs">Way Forward</div>
                       <div className="font-bold text-stone-800 text-sm mt-0.5">1.5 / 3.0</div>
-                      <div className="text-[10px] text-red-600 font-medium">Needs institutional reform</div>
+                      <div className="text-xs text-red-600 font-medium">Needs institutional reform</div>
                     </div>
                   </div>
 
-                  {/* Missing High-Yield Keywords Tag Cloud */}
+                  {/* Commonly Used Keywords Tag Cloud */}
                   <div>
                     <div className="text-xs font-bold text-stone-800 mb-1.5 flex items-center justify-between">
-                      <span>High-Scoring Keywords to Integrate:</span>
-                      <span className="text-[10px] text-stone-400 font-normal">Present in topper copies</span>
+                      <span>Keywords to Integrate (Rubric standard):</span>
+                      <span className="text-xs text-stone-500 font-normal">Commonly used keywords</span>
                     </div>
                     <div className="flex flex-wrap gap-1.5">
                       <span className="bg-emerald-50 text-emerald-800 border border-emerald-200 text-xs px-2.5 py-1 rounded-md font-medium">
@@ -634,7 +637,7 @@ export default function DashboardPreview() {
 
                   {/* Evaluator Summary */}
                   <div className="p-3.5 bg-emerald-50/60 border border-emerald-200/70 rounded-xl text-xs text-stone-700">
-                    <div className="font-bold text-[#133026] mb-1">AI Evaluator Feedback:</div>
+                    <div className="font-bold text-[#133026] mb-1">AI Evaluator Feedback (Sample for Demonstration):</div>
                     <p className="leading-relaxed">
                       "Strong contextual opening with balanced arguments. To jump from 6.5 to 8.0, incorporate a simple 3-tier flowchart illustrating statutory grants under Article 275 versus tax sharing."
                     </p>
@@ -643,10 +646,10 @@ export default function DashboardPreview() {
               )}
 
               {/* Bottom Workspace Status Bar */}
-              <div className="px-5 py-3 border-t border-slate-100 bg-slate-50/50 flex items-center justify-between text-xs text-stone-500">
+              <div className="px-5 py-3 border-t border-slate-100 bg-slate-50/50 flex items-center justify-between text-xs text-stone-600">
                 <div className="flex items-center gap-2">
                   <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
-                  <span>Synchronized with UPSC CSE 2026 Notification Standards</span>
+                  <span>Aligned with the latest UPSC CSE syllabus</span>
                 </div>
                 <span className="font-semibold text-[#133026]">Command Center Active</span>
               </div>
@@ -657,7 +660,7 @@ export default function DashboardPreview() {
 
         </div>
 
-        {/* Consolidated Compact Feature Highlights (Phase 3 micro-polish) */}
+        {/* Consolidated Compact Feature Highlights */}
         <div className="mt-12 pt-8 border-t border-stone-200/60">
           <div className="flex flex-col md:flex-row flex-wrap justify-center items-center gap-5 sm:gap-6 md:gap-10">
             <div className="flex items-center gap-2.5">
@@ -681,7 +684,7 @@ export default function DashboardPreview() {
           </div>
 
           <div className="text-xs sm:text-[13px] text-slate-500 mt-3 text-center font-normal">
-            Curated with real UPSC CSE trends, topper notes & verified syllabus mappings.
+            Built around the UPSC CSE syllabus structure
           </div>
         </div>
 

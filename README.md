@@ -16,15 +16,15 @@ Built with **React 18**, **Vite**, **Tailwind CSS**, and **Lucide React**.
 
 ## 🌟 Key Features & Signature Interactive Elements
 
-1. **Live Prelims 2026 Countdown Ticker & Stoic Quotes**:
-   - Real-time countdown to Prelims 2026 (`2026-05-24T09:30:00`) with ticking seconds and pulse indicator.
+1. **Live Prelims Countdown Ticker & Stoic Quotes**:
+   - Real-time countdown to Prelims (`src/config/exam.js`) with ticking seconds and pulse indicator.
    - Rotates through 7 stoic quotes for aspirants based on the day of the week.
 
 2. **Interactive 2-Column Command Center Showcase**:
-   - 3 Auto-rotating synchronized workspace tabs:
-     - **Daily Study Plan**: Spaced repetition, circular syllabus progress ring (68%), and interactive checklist.
-     - **PYQ Insights**: 25-Year official Prelims trend weightage heatmap and high-yield elimination drill.
-     - **AI Answer Feedback**: Mains question evaluation rubric (6.5/10), missing keyword cloud, and structured examiner feedback.
+   - 3 Synchronized workspace tabs:
+     - **Daily Study Plan**: Spaced revision and study pacing, circular syllabus progress ring (68%), and interactive checklist.
+     - **PYQ Insights**: 25-Year (2000-2024) topic trends and heatmaps.
+     - **AI Answer Feedback**: Structure, keywords and rubric score.
 
 3. **Interactive "Plan Your Day" Study Hours Slider**:
    - Real-time 1–8 hour allocation slider with animated stacked visual bar.

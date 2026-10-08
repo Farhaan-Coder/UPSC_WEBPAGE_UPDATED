@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { X, Check, Lock, Mail, User, BookOpenCheck, ArrowRight, Sparkles, CheckCircle2 } from 'lucide-react';
+import { EXAM_YEAR, ROADMAP_LABEL, TARGET_YEAR_OPTIONS } from '../config/exam.js';
 
 export default function LoginModal({ isOpen, onClose, initialTab = 'login' }) {
   const [tab, setTab] = useState(initialTab); // 'login' or 'signup'
@@ -7,7 +8,7 @@ export default function LoginModal({ isOpen, onClose, initialTab = 'login' }) {
     name: '',
     email: '',
     password: '',
-    targetYear: '2026',
+    targetYear: String(EXAM_YEAR),
     optionalSubject: 'Political Science & IR',
   });
   const [errors, setErrors] = useState({});
@@ -178,7 +179,7 @@ export default function LoginModal({ isOpen, onClose, initialTab = 'login' }) {
           <p className="text-xs text-stone-500 mb-5 font-normal">
             {tab === 'login'
               ? 'Access your daily study planner, active recall deck, and mock metrics.'
-              : 'Zero credit card required. Free diagnostic test & 2026/27 roadmap.'}
+              : `Zero credit card required. Free diagnostic test & ${ROADMAP_LABEL} roadmap.`}
           </p>
 
           {/* Toast Notification Banner */}
@@ -298,9 +299,11 @@ export default function LoginModal({ isOpen, onClose, initialTab = 'login' }) {
                     onChange={(e) => setFormData({ ...formData, targetYear: e.target.value })}
                     className="w-full px-2.5 py-2 text-xs rounded-xl border border-stone-200 focus:outline-none focus:ring-2 focus:ring-[#133026] text-stone-800 bg-white"
                   >
-                    <option value="2026">CSE 2026 (May 24)</option>
-                    <option value="2027">CSE 2027</option>
-                    <option value="2028">CSE 2028</option>
+                    {TARGET_YEAR_OPTIONS.map((year) => (
+                      <option key={year} value={String(year)}>
+                        CSE {year} (Prelims: expected May {year})
+                      </option>
+                    ))}
                   </select>
                 </div>
                 <div>

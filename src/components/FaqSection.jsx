@@ -8,7 +8,7 @@ const faqs = [
   },
   {
     question: "How does the AI Answer Evaluator analyze Mains answers?",
-    answer: "Our evaluation model assesses your answers against official UPSC scoring dimensions: contextual introduction, multidimensional core body arguments, integration of constitutional articles and commission recommendations, and a balanced way forward. It identifies missing keywords, flags structural gaps, and benchmarks your attempt against top-percentile copies."
+    answer: "Our evaluation model assesses your answers across standard UPSC scoring dimensions: contextual introduction, multidimensional core body arguments, integration of constitutional articles and commission recommendations, and a balanced way forward. It identifies missing keywords, flags structural gaps, and benchmarks your attempt against rubric standards."
   },
   {
     question: "Are the Prelims mock questions and PYQ banks updated for the latest exam trends?",

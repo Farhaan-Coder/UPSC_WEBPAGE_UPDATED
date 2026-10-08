@@ -24,7 +24,7 @@ const darkBullets = [
   {
     icon: PenTool,
     title: 'Constitutional Precedents & Reports',
-    desc: 'Automatically integrate official commission recommendations, Administrative Reforms Commission insights, and landmark judicial principles into your arguments.',
+    desc: 'Automatically integrate relevant commission recommendations, Administrative Reforms Commission insights, and landmark judicial principles into your arguments.',
   },
 ];
 
@@ -251,7 +251,7 @@ export default function DarkSection({ onOpenLogin }) {
             </div>
 
             <p className="text-center text-xs text-[#D7E5DB]/80 mt-3.5 font-normal">
-              Sample analysis for demonstration. Evaluated against official UPSC CSE syllabus criteria.
+              Sample analysis for demonstration. AI feedback is illustrative.
             </p>
           </div>
 

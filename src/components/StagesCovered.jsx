@@ -45,7 +45,7 @@ export default function StagesCovered() {
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-14">
           <div>
             <span className="text-xs font-semibold text-[#133026] tracking-wider block mb-2 uppercase">
-              FROM DAY 1 TO LBSNAA MUSSOORIE
+              FROM DAY 1 TO FINAL SELECTION
             </span>
             <h2 className="text-3xl sm:text-4xl font-sans font-bold text-[#133026] tracking-tight leading-tight">
               One goal. Every stage of UPSC covered.
@@ -98,7 +98,7 @@ export default function StagesCovered() {
                 COMMITTED TO EVERY ASPIRANT'S AMBITION
               </span>
               <h3 className="text-xl sm:text-2xl font-sans font-bold text-white tracking-tight leading-tight mb-2.5">
-                From foundational preparation to the academy halls of LBSNAA.
+                From foundation to final selection.
               </h3>
               <p className="text-xs sm:text-sm text-[#D7E5DB] leading-relaxed font-normal">
                 Stay consistent through every phase. We provide the strategic roadmap; you bring the dedication.
