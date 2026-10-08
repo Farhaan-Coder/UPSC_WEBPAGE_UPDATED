@@ -32,7 +32,7 @@ export default function FaqSection() {
   };
 
   return (
-    <section className="pt-8 md:pt-10 pb-16 md:pb-20 bg-[#FDF9F1] border-b border-stone-200/60 font-sans" id="faq">
+    <section className="pt-8 md:pt-10 pb-16 md:pb-20 bg-transparent border-b border-stone-200/60 font-sans" id="faq">
       <div className="max-w-4xl mx-auto px-4 sm:px-6">
         
         {/* Section Header */}

@@ -63,7 +63,7 @@ export default function Hero({ onOpenAuth }) {
   const currentQuote = STOIC_QUOTES[new Date().getDay()];
 
   return (
-    <section className="pt-8 pb-16 md:pt-14 md:pb-20 bg-[#FDF9F1] bg-grid-pattern overflow-hidden relative">
+    <section className="pt-8 pb-16 md:pt-14 md:pb-20 bg-transparent overflow-hidden relative">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         
         {/* Top Eyebrow & Headline Grid */}

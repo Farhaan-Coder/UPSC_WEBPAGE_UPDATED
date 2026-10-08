@@ -33,7 +33,7 @@ const testimonialsData = [
 
 export default function Testimonials() {
   return (
-    <section className="pt-12 md:pt-16 pb-8 md:pb-10 bg-[#FDF9F1] border-b border-stone-200/60 scroll-mt-20 font-sans" id="testimonials">
+    <section className="pt-12 md:pt-16 pb-8 md:pb-10 bg-transparent border-b border-stone-200/60 scroll-mt-20 font-sans" id="testimonials">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         
         {/* Section Header */}

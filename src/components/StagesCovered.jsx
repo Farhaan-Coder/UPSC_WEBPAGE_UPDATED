@@ -96,7 +96,7 @@ export default function StagesCovered() {
   const activeMappedIds = currentDisplayStep ? STEP_TO_CARD_IDS[currentDisplayStep] || [] : [];
 
   return (
-    <section className="py-20 lg:py-24 bg-[#FDF9F1] border-b border-stone-200/60 font-sans" id="stages">
+    <section className="py-20 lg:py-24 bg-transparent border-b border-stone-200/60 font-sans" id="stages">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         
         {/* Split Header */}

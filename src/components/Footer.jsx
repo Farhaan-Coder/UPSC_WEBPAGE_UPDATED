@@ -53,7 +53,7 @@ export default function Footer({ onOpenLogin }) {
   };
 
   return (
-    <footer className="bg-[#133026] text-white border-t border-[#183C30] pt-16 pb-12" role="contentinfo">
+    <footer className="bg-[#133026] bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] text-white border-t border-[#183C30] pt-16 pb-12" role="contentinfo">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         
         {/* Top Grid: Brand + 3 Nav Columns + Newsletter */}

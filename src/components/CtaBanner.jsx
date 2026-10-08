@@ -4,9 +4,9 @@ import { EXAM_YEAR, ROADMAP_LABEL } from '../config/exam.js';
 
 export default function CtaBanner({ onOpenAuth }) {
   return (
-    <section className="py-16 md:py-20 bg-[#FDF9F1]" id="get-started">
+    <section className="py-16 md:py-20 bg-transparent" id="get-started">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        <div className="relative bg-[#133026] rounded-3xl p-8 sm:p-12 lg:p-16 overflow-hidden shadow-2xl hover:shadow-3xl transition-all duration-300 flex flex-col md:flex-row md:items-center justify-between gap-8 border border-[#183C30]">
+        <div className="relative bg-[#133026] bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] rounded-3xl p-8 sm:p-12 lg:p-16 overflow-hidden shadow-2xl hover:shadow-3xl transition-all duration-300 flex flex-col md:flex-row md:items-center justify-between gap-8 border border-[#183C30]">
           
           {/* Concentric background rings */}
           <div className="absolute -right-20 -top-20 w-96 h-96 rounded-full border border-white/5 pointer-events-none" />

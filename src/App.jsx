@@ -29,9 +29,9 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FDF9F1] text-slate-900 font-sans selection:bg-amber-200 selection:text-amber-950">
+    <div className="min-h-screen bg-[#FDF9F1] bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] text-slate-900 font-sans selection:bg-amber-200 selection:text-amber-950">
       <Navbar onOpenAuth={handleOpenAuth} />
-      <main>
+      <main className="bg-transparent">
         <Hero onOpenAuth={handleOpenAuth} />
         <ValueStrip />
         <FeaturesGrid />

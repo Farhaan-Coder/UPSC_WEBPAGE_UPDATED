@@ -67,7 +67,7 @@ export default function DarkSection({ onOpenLogin }) {
 
   return (
     <section 
-      className="py-20 lg:py-28 bg-[#133026] text-white relative overflow-hidden scroll-mt-20" 
+      className="py-20 lg:py-28 bg-[#133026] bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] text-white relative overflow-hidden scroll-mt-20" 
       id="ai-tools"
     >
       {/* Anchor for #ai-assistant */}

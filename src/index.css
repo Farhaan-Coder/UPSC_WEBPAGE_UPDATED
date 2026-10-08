@@ -11,7 +11,7 @@
 
 .bg-grid-pattern {
   background-image: 
-    linear-gradient(to right, rgba(19, 48, 38, 0.05) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(19, 48, 38, 0.05) 1px, transparent 1px);
-  background-size: 28px 28px;
+    linear-gradient(to right, #80808012 1px, transparent 1px),
+    linear-gradient(to bottom, #80808012 1px, transparent 1px);
+  background-size: 24px 24px;
 }

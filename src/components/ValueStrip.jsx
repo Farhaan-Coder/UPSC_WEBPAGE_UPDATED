@@ -21,7 +21,7 @@ const valueProps = [
 
 export default function ValueStrip() {
   return (
-    <section className="bg-[#133026] text-white py-14 sm:py-16 border-y border-[#183C30] relative overflow-hidden" aria-label="Core Principles">
+    <section className="bg-[#133026] bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] text-white py-14 sm:py-16 border-y border-[#183C30] relative overflow-hidden" aria-label="Core Principles">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-8 items-start">
           
