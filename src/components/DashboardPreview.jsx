@@ -544,30 +544,37 @@ export default function DashboardPreview() {
                   </div>
 
                   {/* Recurrence Heatmap Table */}
-                  <div className="overflow-x-auto">
-                    <table className="w-full text-left font-sans">
+                  <div className="w-full overflow-hidden max-sm:overflow-x-auto">
+                    <table className="w-full table-fixed text-left font-sans">
                       <thead>
                         <tr className="border-b border-slate-200">
-                          <th className="text-xs font-semibold text-slate-500 uppercase tracking-wider pb-3">Theme</th>
-                          <th className="text-xs font-semibold text-slate-500 uppercase tracking-wider pb-3">Avg Share</th>
-                          <th className="text-xs font-semibold text-slate-500 uppercase tracking-wider pb-3">Sample Trend</th>
-                          <th className="text-xs font-semibold text-slate-500 uppercase tracking-wider pb-3">High-Yield Micro-Topics</th>
+                          <th className="w-[28%] text-xs font-semibold text-slate-500 uppercase tracking-wider pb-3 pr-2 sm:pr-3">Theme</th>
+                          <th className="w-[19%] text-xs font-semibold text-slate-500 uppercase tracking-wider pb-3 px-2 sm:px-3">Avg Share</th>
+                          <th className="w-[21%] text-xs font-semibold text-slate-500 uppercase tracking-wider pb-3 px-2 sm:px-3">Sample Trend</th>
+                          <th className="w-[32%] text-xs font-semibold text-slate-500 uppercase tracking-wider pb-3 pl-2 sm:pl-3">High-Yield Micro-Topics</th>
                         </tr>
                       </thead>
                       <tbody className="divide-y divide-slate-100">
                         {pyqThemes.map((row, idx) => (
                           <tr key={idx} className="hover:bg-slate-50/80 transition-colors cursor-default">
-                            <td className="py-3.5 sm:py-4 font-semibold text-slate-900 text-sm whitespace-nowrap">{row.name}</td>
-                            <td className="py-3.5 sm:py-4 font-bold text-[#133026] text-sm whitespace-nowrap">
+                            <td className="py-3.5 sm:py-4 pr-2 sm:pr-3 font-semibold text-slate-900 text-sm truncate">
+                              {row.name}
+                            </td>
+                            <td className="py-3.5 sm:py-4 px-2 sm:px-3 font-bold text-[#133026] text-sm whitespace-nowrap">
                               {row.weight} <span className="font-normal text-slate-500 text-xs">({row.count} Qs)</span>
                             </td>
-                            <td className="py-3.5 sm:py-4 whitespace-nowrap">
+                            <td className="py-3.5 sm:py-4 px-2 sm:px-3 whitespace-nowrap">
                               <span className={`px-2.5 py-0.5 rounded-full text-xs font-medium inline-block ${getTrendBadgeClass(row.trend)}`}>
                                 {row.trend}
                               </span>
                             </td>
-                            <td className="py-3.5 sm:py-4 text-slate-500 text-sm truncate max-w-[200px]" title={row.highYield}>
-                              {row.highYield}
+                            <td className="py-3.5 sm:py-4 pl-2 sm:pl-3 min-w-0 overflow-hidden">
+                              <span 
+                                className="block text-slate-500 text-sm truncate min-w-0 max-w-[120px] sm:max-w-[200px] md:max-w-xs" 
+                                title={row.highYield}
+                              >
+                                {row.highYield}
+                              </span>
                             </td>
                           </tr>
                         ))}
