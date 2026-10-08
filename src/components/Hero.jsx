@@ -140,9 +140,9 @@ export default function Hero() {
               </div>
 
               {/* Workspace Layout */}
-              <div className="grid grid-cols-1 md:grid-cols-12 min-h-[420px]">
+              <div className="grid grid-cols-1 md:grid-cols-12 min-h-[380px]">
                 {/* Navigation Sidebar */}
-                <div className="md:col-span-4 bg-slate-50/60 border-r border-slate-100 p-4 sm:p-5 flex flex-col justify-between h-full">
+                <div className="md:col-span-4 bg-slate-50/60 border-r border-slate-100 p-4 sm:p-5 flex flex-col justify-start">
                   <div>
                     <span className="text-[10px] font-bold text-slate-400 tracking-wider px-2 block mb-3.5 uppercase font-sans">
                       STUDY DESK
@@ -174,17 +174,10 @@ export default function Hero() {
                       </li>
                     </ul>
                   </div>
-
-                  {/* Target Milestone */}
-                  <div className="bg-[#EAF1EB] border border-[#133026]/10 rounded-xl p-3.5 mt-5 hover:bg-[#E2EBE3] transition-colors cursor-pointer group">
-                    <span className="text-[8.5px] font-bold text-[#133026] tracking-wider block mb-0.5 uppercase">TARGET MILESTONE</span>
-                    <span className="text-xs font-sans font-bold text-[#133026] block group-hover:text-emerald-950 transition-colors">Prelims 2026 Target</span>
-                    <span className="text-[10px] text-slate-600 font-medium block">246 Days Remaining • Consistent Progress</span>
-                  </div>
                 </div>
 
                 {/* Main Workspace */}
-                <div className="md:col-span-8 p-4 sm:p-5 flex flex-col justify-between bg-white">
+                <div className="md:col-span-8 p-4 sm:p-5 flex flex-col justify-start bg-white">
                   <div>
                     {/* Welcome Header */}
                     <div className="mb-4">
@@ -225,7 +218,7 @@ export default function Hero() {
                         <span className="text-slate-400 text-[10.5px] font-medium">{completedCount} of 3 complete</span>
                       </div>
 
-                      <div className="space-y-2 mb-4">
+                      <div className="space-y-2 mb-1">
                         {tasks.map((task) => (
                           <div
                             key={task.id}
@@ -255,17 +248,39 @@ export default function Hero() {
                       </div>
                     </div>
                   </div>
+                </div>
+              </div>
 
-                  {/* Focus Recommendation Action Banner */}
-                  <div className="relative overflow-hidden bg-gradient-to-r from-[#133026] to-[#1c4537] hover:from-[#16382c] hover:to-[#225342] border border-emerald-950/20 rounded-xl p-3 sm:p-3.5 text-white flex items-center justify-between shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer group">
+              {/* Bottom Section: Perfectly Aligned Target Milestone & Action Banner */}
+              <div className="p-3.5 sm:p-4 border-t border-slate-100 bg-slate-50/40">
+                <div className="flex flex-col md:flex-row items-stretch md:items-center gap-4">
+                  {/* Target Milestone Card */}
+                  <div className="md:w-64 shrink-0 bg-gradient-to-br from-slate-50 to-green-50/30 border border-slate-200 rounded-xl p-3 sm:p-3.5 shadow-sm hover:shadow-md transition-all duration-200 cursor-pointer group">
+                    <span className="text-[8.5px] font-bold text-[#133026] tracking-wider block mb-0.5 uppercase">
+                      TARGET MILESTONE
+                    </span>
+                    <span className="text-xs font-sans font-bold text-[#133026] block group-hover:text-emerald-950 transition-colors">
+                      Prelims 2026 Target
+                    </span>
+                    <span className="text-[10px] text-slate-600 font-medium block">
+                      246 Days Remaining • Consistent Progress
+                    </span>
+                  </div>
+
+                  {/* Accelerate Focus Dark Banner */}
+                  <div className="flex-1 bg-gradient-to-r from-[#133026] to-[#1b4234] hover:from-[#16382c] hover:to-[#225342] border border-emerald-900/40 rounded-xl p-3 sm:p-3.5 text-white flex items-center justify-between shadow-lg shadow-teal-900/20 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer group relative overflow-hidden">
                     {/* Subtle radial inner glow */}
                     <div className="absolute top-0 right-0 -mr-6 -mt-6 w-24 h-24 bg-emerald-400/10 rounded-full blur-xl pointer-events-none" />
                     
                     <div className="flex items-center gap-2.5 relative z-10 min-w-0">
                       <Sparkles className="w-4 h-4 text-[#F59E0B] shrink-0 fill-[#F59E0B] group-hover:rotate-12 transition-transform duration-300" />
-                      <div className="truncate">
-                        <div className="text-[11.5px] font-semibold leading-tight text-white truncate">Accelerate focus on Environment PYQs.</div>
-                        <div className="text-[10px] text-[#D7E5DB] mt-0.5 font-normal truncate">Recent mock test diagnosis recommends a 15-minute targeted revision drill.</div>
+                      <div>
+                        <div className="text-[11.5px] font-semibold leading-tight text-white">
+                          Accelerate focus on Environment PYQs.
+                        </div>
+                        <div className="text-[10px] text-[#D7E5DB] mt-0.5 font-normal leading-normal">
+                          Recent mock test diagnosis recommends a 15-minute targeted revision drill.
+                        </div>
                       </div>
                     </div>
                     <ArrowRight className="w-4 h-4 text-[#F59E0B] shrink-0 relative z-10 group-hover:translate-x-1 transition-transform duration-200 ml-2" />
