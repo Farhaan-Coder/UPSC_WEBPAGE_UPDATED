@@ -142,41 +142,41 @@ export default function Hero() {
               {/* Workspace Layout */}
               <div className="grid grid-cols-1 md:grid-cols-12 min-h-[420px]">
                 {/* Navigation Sidebar */}
-                <div className="md:col-span-4 bg-slate-50/60 border-r border-slate-100 p-3.5 sm:p-4 flex flex-col justify-between">
+                <div className="md:col-span-4 bg-slate-50/60 border-r border-slate-100 p-4 sm:p-5 flex flex-col justify-between h-full">
                   <div>
-                    <span className="text-[9.5px] font-bold text-slate-400 tracking-wider px-2 block mb-2.5 uppercase font-sans">
+                    <span className="text-[10px] font-bold text-slate-400 tracking-wider px-2 block mb-3.5 uppercase font-sans">
                       STUDY DESK
                     </span>
-                    <ul className="space-y-1">
-                      <li className="flex items-center gap-2.5 text-xs font-bold bg-[#133026] hover:bg-[#183C30] text-white px-3 py-2 rounded-lg shadow-xs transition-colors cursor-pointer">
-                        <LayoutDashboard className="w-3.5 h-3.5 text-[#F59E0B]" />
-                        <span>Daily Schedule</span>
+                    <ul className="space-y-3.5 sm:space-y-4">
+                      <li className="flex items-center gap-3 text-[13px] sm:text-sm font-bold bg-[#133026] hover:bg-[#183C30] text-white px-3.5 py-3 rounded-xl shadow-xs transition-all duration-200 cursor-pointer">
+                        <LayoutDashboard className="w-4 h-4 text-[#F59E0B] shrink-0" />
+                        <span className="tracking-tight">Daily Schedule</span>
                       </li>
-                      <li className="flex items-center gap-2.5 text-xs font-medium text-slate-600 px-3 py-2 rounded-lg hover:bg-slate-100 hover:text-slate-900 transition-colors cursor-pointer group">
-                        <Calendar className="w-3.5 h-3.5 text-slate-400 group-hover:text-slate-600 transition-colors" />
-                        <span>Prelims Revision</span>
+                      <li className="flex items-center gap-3 text-[13px] sm:text-sm font-medium text-slate-600 px-3.5 py-3 rounded-xl hover:bg-slate-100 hover:text-slate-900 transition-all duration-200 cursor-pointer group">
+                        <Calendar className="w-4 h-4 text-slate-400 group-hover:text-slate-600 transition-colors shrink-0" />
+                        <span className="tracking-tight">Prelims Revision</span>
                       </li>
-                      <li className="flex items-center gap-2.5 text-xs font-medium text-slate-600 px-3 py-2 rounded-lg hover:bg-slate-100 hover:text-slate-900 transition-colors cursor-pointer group">
-                        <FileText className="w-3.5 h-3.5 text-slate-400 group-hover:text-slate-600 transition-colors" />
-                        <span>Mains Writing</span>
+                      <li className="flex items-center gap-3 text-[13px] sm:text-sm font-medium text-slate-600 px-3.5 py-3 rounded-xl hover:bg-slate-100 hover:text-slate-900 transition-all duration-200 cursor-pointer group">
+                        <FileText className="w-4 h-4 text-slate-400 group-hover:text-slate-600 transition-colors shrink-0" />
+                        <span className="tracking-tight">Mains Writing</span>
                       </li>
-                      <li className="flex items-center gap-2.5 text-xs font-medium text-slate-600 px-3 py-2 rounded-lg hover:bg-slate-100 hover:text-slate-900 transition-colors cursor-pointer group">
-                        <Newspaper className="w-3.5 h-3.5 text-slate-400 group-hover:text-slate-600 transition-colors" />
-                        <span>Daily Editorial</span>
+                      <li className="flex items-center gap-3 text-[13px] sm:text-sm font-medium text-slate-600 px-3.5 py-3 rounded-xl hover:bg-slate-100 hover:text-slate-900 transition-all duration-200 cursor-pointer group">
+                        <Newspaper className="w-4 h-4 text-slate-400 group-hover:text-slate-600 transition-colors shrink-0" />
+                        <span className="tracking-tight">Daily Editorial</span>
                       </li>
-                      <li className="flex items-center gap-2.5 text-xs font-medium text-slate-600 px-3 py-2 rounded-lg hover:bg-slate-100 hover:text-slate-900 transition-colors cursor-pointer group">
-                        <BookMarked className="w-3.5 h-3.5 text-slate-400 group-hover:text-slate-600 transition-colors" />
-                        <span>NCERT Library</span>
+                      <li className="flex items-center gap-3 text-[13px] sm:text-sm font-medium text-slate-600 px-3.5 py-3 rounded-xl hover:bg-slate-100 hover:text-slate-900 transition-all duration-200 cursor-pointer group">
+                        <BookMarked className="w-4 h-4 text-slate-400 group-hover:text-slate-600 transition-colors shrink-0" />
+                        <span className="tracking-tight">NCERT Library</span>
                       </li>
-                      <li className="flex items-center gap-2.5 text-xs font-medium text-slate-600 px-3 py-2 rounded-lg hover:bg-slate-100 hover:text-slate-900 transition-colors cursor-pointer group">
-                        <Bot className="w-3.5 h-3.5 text-slate-400 group-hover:text-slate-600 transition-colors" />
-                        <span>AIR Mentor AI</span>
+                      <li className="flex items-center gap-3 text-[13px] sm:text-sm font-medium text-slate-600 px-3.5 py-3 rounded-xl hover:bg-slate-100 hover:text-slate-900 transition-all duration-200 cursor-pointer group">
+                        <Bot className="w-4 h-4 text-slate-400 group-hover:text-slate-600 transition-colors shrink-0" />
+                        <span className="tracking-tight">AIR Mentor AI</span>
                       </li>
                     </ul>
                   </div>
 
                   {/* Target Milestone */}
-                  <div className="bg-[#EAF1EB] border border-[#133026]/10 rounded-xl p-3 mt-4 hover:bg-[#E2EBE3] transition-colors cursor-pointer group">
+                  <div className="bg-[#EAF1EB] border border-[#133026]/10 rounded-xl p-3.5 mt-5 hover:bg-[#E2EBE3] transition-colors cursor-pointer group">
                     <span className="text-[8.5px] font-bold text-[#133026] tracking-wider block mb-0.5 uppercase">TARGET MILESTONE</span>
                     <span className="text-xs font-sans font-bold text-[#133026] block group-hover:text-emerald-950 transition-colors">Prelims 2026 Target</span>
                     <span className="text-[10px] text-slate-600 font-medium block">246 Days Remaining • Consistent Progress</span>
