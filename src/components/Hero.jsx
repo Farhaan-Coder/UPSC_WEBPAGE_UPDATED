@@ -111,130 +111,144 @@ export default function Hero() {
             </div>
 
             {/* Dashboard Container */}
-            <div className="bg-white border border-stone-200/90 rounded-2xl shadow-xl hover:shadow-2xl transition-shadow duration-300 overflow-hidden">
+            <div className="bg-white border border-slate-200/60 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden">
               
               {/* Top Navigation */}
-              <div className="px-5 py-3.5 border-b border-stone-100 flex items-center justify-between bg-white">
+              <div className="px-4 sm:px-5 py-3 border-b border-slate-100 flex items-center justify-between bg-white/95">
                 <div className="flex items-center gap-2.5">
-                  <div className="w-7 h-7 rounded-lg bg-[#133026] flex items-center justify-center text-[#F59E0B]">
+                  <div className="w-7 h-7 rounded-lg bg-[#133026] flex items-center justify-center text-[#F59E0B] shadow-2xs hover:scale-105 active:scale-95 transition-all cursor-pointer">
                     <BookOpenCheck className="w-4 h-4" />
                   </div>
-                  <span className="font-serif font-bold text-sm text-[#133026] tracking-tight">UPSC ZONE</span>
-                  <span className="bg-[#EAF1EB] text-[#133026] text-[9.5px] font-bold px-2 py-0.5 rounded">CSE 2026</span>
+                  <span className="font-sans font-bold text-sm text-[#133026] tracking-tight">UPSC ZONE</span>
+                  <span className="bg-[#EAF1EB] text-[#133026] border border-green-200/80 text-[10px] font-bold px-2 py-0.5 rounded-full shadow-2xs">CSE 2026</span>
                 </div>
                 
-                <div className="flex items-center gap-3">
-                  <div className="w-7 h-7 rounded-full bg-stone-100 flex items-center justify-center text-stone-500">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-7 h-7 rounded-full bg-slate-50 hover:bg-slate-100 hover:scale-105 active:scale-95 border border-slate-200/80 flex items-center justify-center text-slate-500 hover:text-slate-800 transition-all duration-200 cursor-pointer shadow-2xs">
                     <Bell className="w-3.5 h-3.5" />
                   </div>
                   {/* User Profile */}
-                  <div className="flex items-center gap-2 pl-1 border-l border-stone-200">
+                  <div className="flex items-center gap-2 pl-1.5 border-l border-slate-200 hover:scale-105 active:scale-95 transition-all duration-200 cursor-pointer">
                     <img 
                       src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=90&h=90&q=80" 
                       alt="Ananya Sharma"
-                      className="w-7 h-7 rounded-full object-cover ring-2 ring-stone-200"
+                      className="w-7 h-7 rounded-full object-cover ring-2 ring-slate-200"
                     />
-                    <span className="text-xs font-bold text-stone-900 hidden sm:inline">Ananya S.</span>
+                    <span className="text-xs font-bold text-slate-800 hidden sm:inline">Ananya S.</span>
                   </div>
                 </div>
               </div>
 
               {/* Workspace Layout */}
-              <div className="grid grid-cols-1 sm:grid-cols-12 min-h-[390px]">
+              <div className="grid grid-cols-1 md:grid-cols-12 min-h-[420px]">
                 {/* Navigation Sidebar */}
-                <div className="sm:col-span-4 bg-[#FBFDFB] border-r border-stone-100 p-3.5 flex flex-col justify-between">
+                <div className="md:col-span-4 bg-slate-50/60 border-r border-slate-100 p-3.5 sm:p-4 flex flex-col justify-between">
                   <div>
-                    <span className="text-[9px] font-bold text-stone-400 tracking-wider px-2 block mb-2 uppercase">
+                    <span className="text-[9.5px] font-bold text-slate-400 tracking-wider px-2 block mb-2.5 uppercase font-sans">
                       STUDY DESK
                     </span>
                     <ul className="space-y-1">
-                      <li className="flex items-center gap-2 text-xs font-bold bg-[#133026] text-white px-3 py-2 rounded-lg shadow-2xs">
+                      <li className="flex items-center gap-2.5 text-xs font-bold bg-[#133026] hover:bg-[#183C30] text-white px-3 py-2 rounded-lg shadow-xs transition-colors cursor-pointer">
                         <LayoutDashboard className="w-3.5 h-3.5 text-[#F59E0B]" />
                         <span>Daily Schedule</span>
                       </li>
-                      <li className="flex items-center gap-2 text-xs font-medium text-stone-600 px-3 py-1.5 rounded-lg hover:bg-stone-100 transition-colors">
-                        <Calendar className="w-3.5 h-3.5 text-stone-400" />
+                      <li className="flex items-center gap-2.5 text-xs font-medium text-slate-600 px-3 py-2 rounded-lg hover:bg-slate-100 hover:text-slate-900 transition-colors cursor-pointer group">
+                        <Calendar className="w-3.5 h-3.5 text-slate-400 group-hover:text-slate-600 transition-colors" />
                         <span>Prelims Revision</span>
                       </li>
-                      <li className="flex items-center gap-2 text-xs font-medium text-stone-600 px-3 py-1.5 rounded-lg hover:bg-stone-100 transition-colors">
-                        <FileText className="w-3.5 h-3.5 text-stone-400" />
+                      <li className="flex items-center gap-2.5 text-xs font-medium text-slate-600 px-3 py-2 rounded-lg hover:bg-slate-100 hover:text-slate-900 transition-colors cursor-pointer group">
+                        <FileText className="w-3.5 h-3.5 text-slate-400 group-hover:text-slate-600 transition-colors" />
                         <span>Mains Writing</span>
                       </li>
-                      <li className="flex items-center gap-2 text-xs font-medium text-stone-600 px-3 py-1.5 rounded-lg hover:bg-stone-100 transition-colors">
-                        <Newspaper className="w-3.5 h-3.5 text-stone-400" />
+                      <li className="flex items-center gap-2.5 text-xs font-medium text-slate-600 px-3 py-2 rounded-lg hover:bg-slate-100 hover:text-slate-900 transition-colors cursor-pointer group">
+                        <Newspaper className="w-3.5 h-3.5 text-slate-400 group-hover:text-slate-600 transition-colors" />
                         <span>Daily Editorial</span>
                       </li>
-                      <li className="flex items-center gap-2 text-xs font-medium text-stone-600 px-3 py-1.5 rounded-lg hover:bg-stone-100 transition-colors">
-                        <BookMarked className="w-3.5 h-3.5 text-stone-400" />
+                      <li className="flex items-center gap-2.5 text-xs font-medium text-slate-600 px-3 py-2 rounded-lg hover:bg-slate-100 hover:text-slate-900 transition-colors cursor-pointer group">
+                        <BookMarked className="w-3.5 h-3.5 text-slate-400 group-hover:text-slate-600 transition-colors" />
                         <span>NCERT Library</span>
                       </li>
-                      <li className="flex items-center gap-2 text-xs font-medium text-stone-600 px-3 py-1.5 rounded-lg hover:bg-stone-100 transition-colors">
-                        <Bot className="w-3.5 h-3.5 text-stone-400" />
+                      <li className="flex items-center gap-2.5 text-xs font-medium text-slate-600 px-3 py-2 rounded-lg hover:bg-slate-100 hover:text-slate-900 transition-colors cursor-pointer group">
+                        <Bot className="w-3.5 h-3.5 text-slate-400 group-hover:text-slate-600 transition-colors" />
                         <span>AIR Mentor AI</span>
                       </li>
                     </ul>
                   </div>
 
                   {/* Target Milestone */}
-                  <div className="bg-[#EAF1EB] border border-[#133026]/10 rounded-xl p-3 mt-3">
+                  <div className="bg-[#EAF1EB] border border-[#133026]/10 rounded-xl p-3 mt-4 hover:bg-[#E2EBE3] transition-colors cursor-pointer group">
                     <span className="text-[8.5px] font-bold text-[#133026] tracking-wider block mb-0.5 uppercase">TARGET MILESTONE</span>
-                    <span className="text-xs font-serif font-bold text-[#133026] block">Prelims 2026 Target</span>
-                    <span className="text-[10px] text-stone-600 font-medium block">246 Days Remaining • Consistent Progress</span>
+                    <span className="text-xs font-sans font-bold text-[#133026] block group-hover:text-emerald-950 transition-colors">Prelims 2026 Target</span>
+                    <span className="text-[10px] text-slate-600 font-medium block">246 Days Remaining • Consistent Progress</span>
                   </div>
                 </div>
 
                 {/* Main Workspace */}
-                <div className="sm:col-span-8 p-4 sm:p-5 flex flex-col justify-between bg-white">
+                <div className="md:col-span-8 p-4 sm:p-5 flex flex-col justify-between bg-white">
                   <div>
                     {/* Welcome Header */}
                     <div className="mb-4">
-                      <h3 className="text-base font-serif font-bold text-[#133026]">Welcome back, Ananya</h3>
-                      <p className="text-[11px] text-stone-500 font-normal">Consistency drives top ranks. Here is your strategic plan for today.</p>
+                      <h3 className="text-base sm:text-lg font-sans font-bold tracking-tight text-slate-900">
+                        Welcome back, Ananya
+                      </h3>
+                      <p className="text-[11.5px] text-slate-500 font-normal mt-0.5">
+                        Consistency drives top ranks. Here is your strategic plan for today.
+                      </p>
                     </div>
 
                     {/* Performance Metrics */}
-                    <div className="grid grid-cols-3 gap-2.5 mb-4">
-                      <div className="border border-stone-100 rounded-xl p-2.5 bg-[#FBFDFB]">
-                        <div className="text-base sm:text-lg font-serif font-bold text-[#133026]">68%</div>
-                        <div className="text-[9.5px] text-stone-500 font-medium">GS Syllabus Complete</div>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4 mb-4">
+                      <div className="border border-slate-200/80 rounded-xl p-3 sm:p-3.5 bg-white hover:-translate-y-1 hover:shadow-md transition-all duration-200 cursor-pointer group shadow-2xs">
+                        <div className="text-xl sm:text-2xl font-sans font-bold tracking-tight text-slate-800 group-hover:text-[#133026] transition-colors">
+                          68%
+                        </div>
+                        <div className="text-[10px] text-slate-500 font-medium mt-0.5">GS Syllabus Complete</div>
                       </div>
-                      <div className="border border-stone-100 rounded-xl p-2.5 bg-[#FBFDFB]">
-                        <div className="text-base sm:text-lg font-serif font-bold text-[#133026]">118 / 200</div>
-                        <div className="text-[9.5px] text-stone-500 font-medium">GS I Mock Score</div>
+                      <div className="border border-slate-200/80 rounded-xl p-3 sm:p-3.5 bg-white hover:-translate-y-1 hover:shadow-md transition-all duration-200 cursor-pointer group shadow-2xs">
+                        <div className="text-xl sm:text-2xl font-sans font-bold tracking-tight text-slate-800 group-hover:text-[#133026] transition-colors">
+                          118 / 200
+                        </div>
+                        <div className="text-[10px] text-slate-500 font-medium mt-0.5">GS I Mock Score</div>
                       </div>
-                      <div className="border border-stone-100 rounded-xl p-2.5 bg-[#FBFDFB]">
-                        <div className="text-base sm:text-lg font-serif font-bold text-[#133026]">6h 15m</div>
-                        <div className="text-[9.5px] text-stone-500 font-medium">Self Study This Week</div>
+                      <div className="border border-slate-200/80 rounded-xl p-3 sm:p-3.5 bg-white hover:-translate-y-1 hover:shadow-md transition-all duration-200 cursor-pointer group shadow-2xs">
+                        <div className="text-xl sm:text-2xl font-sans font-bold tracking-tight text-slate-800 group-hover:text-[#133026] transition-colors">
+                          6h 15m
+                        </div>
+                        <div className="text-[10px] text-slate-500 font-medium mt-0.5">Self Study This Week</div>
                       </div>
                     </div>
 
                     {/* Today's Checklist */}
                     <div>
                       <div className="flex items-center justify-between text-xs mb-2">
-                        <span className="font-serif font-bold text-[#133026]">Daily Priority Checklist</span>
-                        <span className="text-stone-400 text-[10.5px] font-medium">{completedCount} of 3 complete</span>
+                        <span className="font-sans font-bold text-slate-800">Daily Priority Checklist</span>
+                        <span className="text-slate-400 text-[10.5px] font-medium">{completedCount} of 3 complete</span>
                       </div>
 
-                      <div className="space-y-1.5 mb-3.5">
+                      <div className="space-y-2 mb-4">
                         {tasks.map((task) => (
                           <div
                             key={task.id}
                             onClick={() => toggleTask(task.id)}
-                            className="flex items-center gap-2.5 p-2 rounded-lg border border-stone-200/80 bg-white hover:bg-stone-50/70 transition-colors cursor-pointer shadow-2xs"
+                            className="flex items-center gap-2.5 p-2.5 rounded-xl border border-slate-200/80 bg-white hover:bg-slate-50 hover:shadow-sm transition-all duration-200 cursor-pointer group"
                           >
-                            <div className={`w-4 h-4 rounded flex items-center justify-center border transition-colors ${
-                              task.completed ? 'bg-[#133026] border-[#133026] text-white' : 'border-stone-300 bg-white'
+                            <div className={`w-4.5 h-4.5 rounded-md flex items-center justify-center border transition-all duration-200 shrink-0 ${
+                              task.completed 
+                                ? 'bg-[#133026] border-[#133026] text-white shadow-2xs' 
+                                : 'border-slate-300 bg-white group-hover:border-slate-400'
                             }`}>
-                              {task.completed && <Check className="w-2.5 h-2.5 stroke-[3]" />}
+                              {task.completed && <Check className="w-3 h-3 stroke-[3]" />}
                             </div>
                             <div className="flex-1 min-w-0">
-                              <div className="text-[11.5px] font-semibold text-stone-900 truncate">{task.title}</div>
-                              <div className="text-[9.5px] text-stone-500 font-normal">{task.subtitle}</div>
+                              <div className={`text-xs font-semibold truncate transition-colors ${task.completed ? 'line-through text-slate-400' : 'text-slate-900'}`}>
+                                {task.title}
+                              </div>
+                              <div className="text-[10px] text-slate-500 font-normal">{task.subtitle}</div>
                             </div>
                             {task.completed ? (
-                              <Check className="w-3.5 h-3.5 text-[#133026] stroke-[2.5]" />
+                              <Check className="w-3.5 h-3.5 text-[#133026] stroke-[2.5] shrink-0" />
                             ) : (
-                              <ChevronRight className="w-3.5 h-3.5 text-stone-400" />
+                              <ChevronRight className="w-3.5 h-3.5 text-slate-400 group-hover:translate-x-0.5 group-hover:text-slate-600 transition-all duration-200 shrink-0" />
                             )}
                           </div>
                         ))}
@@ -242,16 +256,19 @@ export default function Hero() {
                     </div>
                   </div>
 
-                  {/* Focus Recommendation */}
-                  <div className="bg-[#133026] rounded-xl p-3 text-white flex items-center justify-between shadow-xs">
-                    <div className="flex items-center gap-2.5">
-                      <Sparkles className="w-4 h-4 text-[#F59E0B] shrink-0 fill-[#F59E0B]" />
-                      <div>
-                        <div className="text-[11px] font-semibold leading-tight text-white">Accelerate focus on Environment PYQs.</div>
-                        <div className="text-[9.5px] text-[#D7E5DB]">Recent mock test diagnosis recommends a 15-minute targeted revision drill.</div>
+                  {/* Focus Recommendation Action Banner */}
+                  <div className="relative overflow-hidden bg-gradient-to-r from-[#133026] to-[#1c4537] hover:from-[#16382c] hover:to-[#225342] border border-emerald-950/20 rounded-xl p-3 sm:p-3.5 text-white flex items-center justify-between shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer group">
+                    {/* Subtle radial inner glow */}
+                    <div className="absolute top-0 right-0 -mr-6 -mt-6 w-24 h-24 bg-emerald-400/10 rounded-full blur-xl pointer-events-none" />
+                    
+                    <div className="flex items-center gap-2.5 relative z-10 min-w-0">
+                      <Sparkles className="w-4 h-4 text-[#F59E0B] shrink-0 fill-[#F59E0B] group-hover:rotate-12 transition-transform duration-300" />
+                      <div className="truncate">
+                        <div className="text-[11.5px] font-semibold leading-tight text-white truncate">Accelerate focus on Environment PYQs.</div>
+                        <div className="text-[10px] text-[#D7E5DB] mt-0.5 font-normal truncate">Recent mock test diagnosis recommends a 15-minute targeted revision drill.</div>
                       </div>
                     </div>
-                    <ArrowRight className="w-3.5 h-3.5 text-[#F59E0B] shrink-0" />
+                    <ArrowRight className="w-4 h-4 text-[#F59E0B] shrink-0 relative z-10 group-hover:translate-x-1 transition-transform duration-200 ml-2" />
                   </div>
                 </div>
               </div>
@@ -263,7 +280,7 @@ export default function Hero() {
               <span className="text-[#F59E0B]">→</span>
               <span className="text-[#133026] font-semibold">Daily PYQ Practice</span>
               <span className="text-[#F59E0B]">→</span>
-              <strong className="text-[#133026] font-serif font-bold">Final Selection</strong>
+              <strong className="text-[#133026] font-sans font-bold">Final Selection</strong>
             </div>
           </div>
 
