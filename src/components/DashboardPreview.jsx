@@ -162,18 +162,18 @@ export default function DashboardPreview() {
   const flashcardsMin = Math.round(studyHours * 0.10 * 60);
 
   return (
-    <section className="py-20 lg:py-24 bg-transparent border-b border-stone-200/60" id="preparation">
+    <section className="pt-12 sm:pt-16 pb-20 lg:pb-24 bg-transparent border-b border-stone-200/60" id="preparation">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-14">
-          <span className="text-xs font-semibold text-[#133026] tracking-wider block mb-2 uppercase font-sans">
+          <span className="text-xs font-bold tracking-widest text-slate-500 uppercase mb-4 block">
             DISCIPLINED PREPARATION, OPTIMIZED FOR YOUR DESK
           </span>
-          <h2 className="text-3xl sm:text-4xl lg:text-[44px] font-serif font-bold text-[#133026] tracking-tight leading-tight mb-3">
+          <h2 className="font-sans text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
             Everything you study today, in one command center.
           </h2>
-          <p className="text-sm sm:text-base text-stone-600 leading-relaxed font-normal">
+          <p className="text-slate-600 text-[17px] leading-relaxed max-w-2xl mx-auto mt-5">
             Eliminate scattered notes, chaotic tabs, and syllabus anxiety. Synchronize syllabus completion, 25-year PYQs, and daily AI answer reviews into a serene daily rhythm.
           </p>
         </div>
