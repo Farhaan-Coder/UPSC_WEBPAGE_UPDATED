@@ -201,28 +201,26 @@ export default function DashboardPreview() {
                 </div>
 
                 {/* Metrics Cards (Hierarchy & Accent Colors) */}
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5 mb-6">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5 sm:gap-4 mb-6">
                   {metrics.map((m, idx) => {
                     const Icon = m.icon;
                     return (
                       <div
                         key={idx}
-                        className="bg-slate-50 hover:bg-white border border-slate-200/60 hover:border-slate-300 rounded-xl p-4 transition-all duration-200 hover:-translate-y-1 hover:shadow-md cursor-pointer group shadow-2xs"
+                        className="bg-white border border-slate-200 shadow-sm rounded-xl p-4 sm:p-5 hover:shadow-md transition-shadow duration-200 cursor-pointer group"
                       >
                         <div className="flex items-center justify-between mb-2">
-                          <span className="text-[11.5px] font-medium text-slate-500 group-hover:text-slate-700 transition-colors">
+                          <span className="text-sm text-slate-500 font-medium group-hover:text-slate-700 transition-colors">
                             {m.label}
                           </span>
-                          <div className="w-6 h-6 rounded-md bg-white border border-slate-200/60 group-hover:bg-[#EAF1EB] flex items-center justify-center transition-colors">
-                            <Icon className="w-3.5 h-3.5 text-[#133026] group-hover:scale-110 transition-transform" />
+                          <div className="w-7 h-7 rounded-lg bg-slate-50 border border-slate-200/80 group-hover:bg-[#EAF1EB] group-hover:text-[#133026] flex items-center justify-center text-slate-600 transition-colors">
+                            <Icon className="w-4 h-4 group-hover:scale-105 transition-transform" />
                           </div>
                         </div>
-                        <div className={`text-2xl sm:text-3xl font-serif font-bold tracking-tight mb-1 transition-colors ${
-                          idx === 2 ? 'text-[#F59E0B]' : 'text-[#133026]'
-                        }`}>
+                        <div className="font-sans font-bold tracking-tight text-3xl md:text-4xl text-slate-800 my-1.5 transition-colors">
                           {m.value}
                         </div>
-                        <div className="text-[10px] text-slate-500 font-normal leading-tight">
+                        <div className="text-xs sm:text-[13px] text-slate-500 font-normal leading-relaxed">
                           {m.footer}
                         </div>
                       </div>
