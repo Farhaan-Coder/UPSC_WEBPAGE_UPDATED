@@ -162,7 +162,7 @@ export default function DashboardPreview() {
   const flashcardsMin = Math.round(studyHours * 0.10 * 60);
 
   return (
-    <section className="pt-8 sm:pt-12 pb-20 lg:pb-24 bg-transparent border-b border-stone-200/60" id="preparation">
+    <section className="pt-8 sm:pt-12 pb-8 sm:pb-10 bg-transparent border-b border-stone-200/60" id="preparation">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         
         {/* Section Header */}
@@ -709,29 +709,29 @@ export default function DashboardPreview() {
         </div>
 
         {/* Consolidated Compact Feature Highlights */}
-        <div className="mt-12 pt-8 border-t border-stone-200/60">
-          <div className="flex flex-col md:flex-row flex-wrap justify-center items-center gap-5 sm:gap-6 md:gap-10">
-            <div className="flex items-center gap-2.5">
+        <div className="mt-6 pt-6 border-t border-stone-200/60">
+          <div className="flex flex-col md:flex-row flex-wrap justify-center items-center gap-x-8 gap-y-3">
+            <div className="flex items-center gap-2">
               <Check className="w-4 h-4 text-[#133026] stroke-[2.5] shrink-0" />
-              <span className="font-sans font-medium text-xs sm:text-[13px] lg:text-sm text-slate-800 tracking-tight whitespace-normal md:whitespace-nowrap">
+              <span className="font-sans text-sm text-slate-700 font-medium">
                 Personalized for working aspirants & full-time students
               </span>
             </div>
-            <div className="flex items-center gap-2.5">
+            <div className="flex items-center gap-2">
               <Check className="w-4 h-4 text-[#133026] stroke-[2.5] shrink-0" />
-              <span className="font-sans font-medium text-xs sm:text-[13px] lg:text-sm text-slate-800 tracking-tight whitespace-normal md:whitespace-nowrap">
+              <span className="font-sans text-sm text-slate-700 font-medium">
                 Prelims MCQs + Mains Answer Writing in one view
               </span>
             </div>
-            <div className="flex items-center gap-2.5">
+            <div className="flex items-center gap-2">
               <Check className="w-4 h-4 text-[#133026] stroke-[2.5] shrink-0" />
-              <span className="font-sans font-medium text-xs sm:text-[13px] lg:text-sm text-slate-800 tracking-tight whitespace-normal md:whitespace-nowrap">
+              <span className="font-sans text-sm text-slate-700 font-medium">
                 Spaced repetition engine engineered for long-term syllabus retention
               </span>
             </div>
           </div>
 
-          <div className="text-xs sm:text-[13px] text-slate-500 mt-3 text-center font-normal">
+          <div className="text-[13px] text-slate-500 mt-3 text-center w-full">
             Built around the UPSC CSE syllabus structure
           </div>
         </div>
