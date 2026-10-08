@@ -199,19 +199,19 @@ export default function Hero() {
                     {/* Performance Metrics */}
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4 mb-4">
                       <div className="border border-slate-200/80 rounded-xl p-3 sm:p-3.5 bg-white hover:-translate-y-1 hover:shadow-md transition-all duration-200 cursor-pointer group shadow-2xs">
-                        <div className="text-xl sm:text-2xl font-sans font-bold tracking-tight text-slate-800 group-hover:text-[#133026] transition-colors">
+                        <div className="text-xl sm:text-2xl font-sans font-bold tracking-tight text-slate-800 group-hover:text-[#133026] transition-colors whitespace-nowrap">
                           68%
                         </div>
                         <div className="text-[10px] text-slate-500 font-medium mt-0.5">GS Syllabus Complete</div>
                       </div>
                       <div className="border border-slate-200/80 rounded-xl p-3 sm:p-3.5 bg-white hover:-translate-y-1 hover:shadow-md transition-all duration-200 cursor-pointer group shadow-2xs">
-                        <div className="text-xl sm:text-2xl font-sans font-bold tracking-tight text-slate-800 group-hover:text-[#133026] transition-colors">
+                        <div className="text-xl sm:text-2xl font-sans font-bold tracking-tight text-slate-800 group-hover:text-[#133026] transition-colors whitespace-nowrap flex flex-row items-baseline">
                           118 / 200
                         </div>
                         <div className="text-[10px] text-slate-500 font-medium mt-0.5">GS I Mock Score</div>
                       </div>
                       <div className="border border-slate-200/80 rounded-xl p-3 sm:p-3.5 bg-white hover:-translate-y-1 hover:shadow-md transition-all duration-200 cursor-pointer group shadow-2xs">
-                        <div className="text-xl sm:text-2xl font-sans font-bold tracking-tight text-slate-800 group-hover:text-[#133026] transition-colors">
+                        <div className="text-xl sm:text-2xl font-sans font-bold tracking-tight text-slate-800 group-hover:text-[#133026] transition-colors whitespace-nowrap">
                           6h 15m
                         </div>
                         <div className="text-[10px] text-slate-500 font-medium mt-0.5">Self Study This Week</div>
