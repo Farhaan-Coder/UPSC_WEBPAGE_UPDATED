@@ -7,7 +7,7 @@ const stagesData = [
     id: 'prelims',
     tag: 'ELIMINATION & SPEED',
     title: 'Prelims (GS I & CSAT)',
-    desc: 'Master option elimination techniques, statement verification, and CSAT mental ability & comprehension drills.',
+    desc: 'Master option elimination techniques, statement verification drills, and CSAT mental ability with 25-year PYQ patterns.',
     meta: 'GS Paper I • CSAT • 25-Yr Topic-wise PYQs',
     icon: SlidersHorizontal,
   },
@@ -15,7 +15,7 @@ const stagesData = [
     id: 'mains',
     tag: 'DEPTH & MULTI-DIMENSIONALITY',
     title: 'Mains (GS I-IV & Essay)',
-    desc: 'Develop intro-body-conclusion flow, incorporate judicial principles & national development data, and solve GS IV Ethics case studies.',
+    desc: 'Craft clear intro-body-conclusion flows, cite constitutional articles & socio-economic data, and tackle realistic GS IV ethics case studies.',
     meta: 'GS I-IV • Essay • Daily Answer Evaluation',
     icon: PenTool,
   },
@@ -23,7 +23,7 @@ const stagesData = [
     id: 'optional',
     tag: 'THE RANK DECIDER (500 MARKS)',
     title: 'Optional Subjects',
-    desc: 'Paper-wise thinkers, PYQ trends, and comprehensive syllabus planning for PSIR, Sociology, Geography, History, Anthro & more.',
+    desc: 'Deep-dive into paper-wise thinkers, recurring question trends, and structured syllabus planning for PSIR, Sociology, Geography, and more.',
     meta: 'PSIR • Sociology • Pub Ad • History • Geography',
     icon: BookMarked,
   },
@@ -31,7 +31,7 @@ const stagesData = [
     id: 'interview',
     tag: 'ADMINISTRATIVE APTITUDE',
     title: 'Personality Test (Interview)',
-    desc: 'In-depth DAF analysis, state & hobby questionnaire prompts, national policy debates, and mock panel simulations.',
+    desc: 'Line-by-line DAF analysis, personalized state & hobby prompts, contemporary policy debates, and realistic mock board simulations.',
     meta: 'Detailed Application Form (DAF) • Mock Q&A',
     icon: MessageSquare,
   },
@@ -41,6 +41,13 @@ const STEP_TO_CARD_IDS = {
   1: ['prelims'],
   2: ['mains', 'optional'],
   3: ['interview'],
+};
+
+const CARD_TO_STEP = {
+  prelims: 1,
+  mains: 2,
+  optional: 2,
+  interview: 3,
 };
 
 export default function StagesCovered() {
@@ -89,20 +96,20 @@ export default function StagesCovered() {
   const activeMappedIds = currentDisplayStep ? STEP_TO_CARD_IDS[currentDisplayStep] || [] : [];
 
   return (
-    <section className="py-20 lg:py-24 bg-[#FDF9F1] border-b border-stone-200/60" id="stages">
+    <section className="py-20 lg:py-24 bg-[#FDF9F1] border-b border-stone-200/60 font-sans" id="stages">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         
         {/* Split Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-14">
           <div>
-            <span className="text-xs font-semibold text-[#133026] tracking-wider block mb-2 uppercase">
+            <span className="text-xs font-semibold text-[#133026] tracking-wider block mb-2 uppercase font-sans">
               FROM DAY 1 TO FINAL SELECTION
             </span>
             <h2 className="text-3xl sm:text-4xl font-sans font-bold text-[#133026] tracking-tight leading-tight">
               One goal. Every stage of UPSC covered.
             </h2>
           </div>
-          <p className="text-sm sm:text-base text-stone-600 max-w-sm md:text-right leading-relaxed font-normal">
+          <p className="text-sm sm:text-base text-stone-600 max-w-sm md:text-right leading-relaxed font-normal font-sans">
             Civil Services is a 3-tier mental marathon spanning 12 months. Your platform grows with you at each stage.
           </p>
         </div>
@@ -125,6 +132,8 @@ export default function StagesCovered() {
           {/* Right Column: Preparation Stages Grid */}
           <div
             id="stages-grid"
+            onMouseEnter={handleCardMouseEnter}
+            onMouseLeave={handleCardMouseLeave}
             className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-5 items-stretch"
           >
             {stagesData.map((stage) => {
@@ -135,21 +144,22 @@ export default function StagesCovered() {
               return (
                 <div
                   key={stage.id}
-                  className={`bg-white rounded-2xl p-6 flex flex-col justify-between cursor-default transition-all duration-300 ${
+                  onClick={() => handleStepSelect(CARD_TO_STEP[stage.id])}
+                  className={`bg-white rounded-2xl p-6 flex flex-col justify-between cursor-pointer transition-all duration-300 group ${
                     isMapped
-                      ? 'border-2 border-[#F59E0B] ring-4 ring-[#F59E0B]/20 shadow-xl -translate-y-1.5 opacity-100'
+                      ? 'border-2 border-[#F59E0B] ring-4 ring-[#F59E0B]/20 shadow-xl -translate-y-1.5 opacity-100 hover:-translate-y-2 hover:shadow-2xl hover:border-amber-500'
                       : isDimmed
-                      ? 'border border-slate-200/70 opacity-70 shadow-xs translate-y-0'
+                      ? 'border border-slate-200/70 opacity-70 shadow-xs translate-y-0 hover:opacity-100 hover:-translate-y-1 hover:shadow-xl hover:border-slate-300'
                       : 'border border-slate-200/70 opacity-100 shadow-xs hover:-translate-y-1 hover:shadow-xl hover:border-slate-300'
                   }`}
                 >
                   <div>
                     <div className="flex items-center justify-between mb-3.5">
                       <span
-                        className={`text-[10px] sm:text-xs font-bold uppercase tracking-widest px-2.5 py-1 rounded-md transition-colors ${
+                        className={`font-sans text-[10px] sm:text-xs font-bold uppercase tracking-widest px-2.5 py-1 rounded-md transition-colors ${
                           isMapped
                             ? 'text-amber-800 bg-amber-100/90'
-                            : 'text-slate-500 bg-slate-100/80'
+                            : 'text-slate-500 bg-slate-100/80 group-hover:bg-slate-200/80 group-hover:text-slate-700'
                         }`}
                       >
                         {stage.tag}
@@ -158,21 +168,21 @@ export default function StagesCovered() {
                         className={`w-8 h-8 rounded-lg flex items-center justify-center transition-colors ${
                           isMapped
                             ? 'bg-[#133026] text-[#F59E0B]'
-                            : 'bg-slate-100 text-slate-600'
+                            : 'bg-slate-100 text-slate-600 group-hover:bg-[#133026] group-hover:text-[#F59E0B]'
                         }`}
                       >
                         <Icon className="w-4 h-4" />
                       </div>
                     </div>
-                    <h3 className="font-sans font-bold text-slate-800 tracking-tight text-base sm:text-lg mb-2">
+                    <h3 className="font-sans font-bold text-slate-800 text-lg tracking-tight mb-2 group-hover:text-slate-900 transition-colors">
                       {stage.title}
                     </h3>
-                    <p className="text-[15px] text-slate-600 leading-relaxed mb-5 font-normal">
+                    <p className="font-sans text-[15px] text-slate-600 leading-relaxed mb-5 font-normal">
                       {stage.desc}
                     </p>
                   </div>
 
-                  <div className="pt-3.5 border-t border-slate-100 text-xs text-slate-500 font-medium">
+                  <div className="pt-3.5 border-t border-slate-100 text-xs text-slate-500 font-medium font-sans">
                     {stage.meta}
                   </div>
                 </div>
