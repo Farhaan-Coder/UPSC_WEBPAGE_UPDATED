@@ -162,7 +162,7 @@ export default function DashboardPreview() {
   const flashcardsMin = Math.round(studyHours * 0.10 * 60);
 
   return (
-    <section className="pt-12 sm:pt-16 pb-20 lg:pb-24 bg-transparent border-b border-stone-200/60" id="preparation">
+    <section className="pt-8 sm:pt-12 pb-20 lg:pb-24 bg-transparent border-b border-stone-200/60" id="preparation">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         
         {/* Section Header */}

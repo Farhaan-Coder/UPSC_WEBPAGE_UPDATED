@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Info } from 'lucide-react';
 
-export const JOURNEY_STEPS = [
+const JOURNEY_STEPS = [
   {
     step: 1,
     name: 'Prelims',
