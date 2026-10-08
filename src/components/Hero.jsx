@@ -143,12 +143,10 @@ export default function Hero({ onOpenAuth }) {
             </div>
 
             {/* Signature Element 1: Live Prelims Countdown Widget */}
-            <div className="mt-8 bg-white/90 backdrop-blur-sm border border-stone-200/90 rounded-2xl p-5 shadow-sm hover:shadow-md transition-shadow">
-              <div className="flex items-center justify-between mb-3.5 pb-2.5 border-b border-stone-100">
+            <div className="mt-8 bg-white/95 backdrop-blur-sm border border-slate-200/90 rounded-2xl p-5 sm:p-6 shadow-sm hover:shadow-md transition-shadow duration-300">
+              <div className="flex items-center justify-between mb-4 pb-3 border-b border-slate-100">
                 <div className="flex items-center gap-2">
-                  <div className="w-2.5 h-2.5 rounded-full bg-[#133026] relative">
-                    <span className="absolute inset-0 rounded-full bg-emerald-500 animate-ping opacity-75" />
-                  </div>
+                  <div className="w-2.5 h-2.5 rounded-full bg-emerald-600 animate-pulse shrink-0" />
                   <span className="font-sans font-bold text-xs uppercase tracking-wider text-[#133026]">
                     PRELIMS {EXAM_YEAR} LIVE COUNTDOWN
                   </span>
@@ -159,48 +157,48 @@ export default function Hero({ onOpenAuth }) {
               </div>
 
               {/* Countdown Digits */}
-              <div className="grid grid-cols-4 gap-2.5 text-center mb-3.5">
-                <div className="bg-stone-50/90 border border-stone-200/60 rounded-xl py-2 px-1">
-                  <div className="text-xl sm:text-2xl font-sans font-extrabold text-[#133026] tracking-tight">
+              <div className="grid grid-cols-4 gap-2.5 sm:gap-3 text-center mb-4">
+                <div className="bg-slate-50 border border-slate-200 shadow-sm rounded-xl py-3 px-1.5 flex flex-col items-center justify-center">
+                  <div className="font-sans font-extrabold text-3xl md:text-4xl text-slate-800 tracking-tighter">
                     {timeLeft.days}
                   </div>
-                  <div className="text-xs font-semibold uppercase tracking-wider text-stone-600 mt-0.5">
+                  <div className="text-xs font-semibold uppercase tracking-wider text-slate-500 mt-1">
                     Days
                   </div>
                 </div>
 
-                <div className="bg-stone-50/90 border border-stone-200/60 rounded-xl py-2 px-1">
-                  <div className="text-xl sm:text-2xl font-sans font-extrabold text-[#133026] tracking-tight">
+                <div className="bg-slate-50 border border-slate-200 shadow-sm rounded-xl py-3 px-1.5 flex flex-col items-center justify-center">
+                  <div className="font-sans font-extrabold text-3xl md:text-4xl text-slate-800 tracking-tighter">
                     {String(timeLeft.hours).padStart(2, '0')}
                   </div>
-                  <div className="text-xs font-semibold uppercase tracking-wider text-stone-600 mt-0.5">
+                  <div className="text-xs font-semibold uppercase tracking-wider text-slate-500 mt-1">
                     Hours
                   </div>
                 </div>
 
-                <div className="bg-stone-50/90 border border-stone-200/60 rounded-xl py-2 px-1">
-                  <div className="text-xl sm:text-2xl font-sans font-extrabold text-[#133026] tracking-tight">
+                <div className="bg-slate-50 border border-slate-200 shadow-sm rounded-xl py-3 px-1.5 flex flex-col items-center justify-center">
+                  <div className="font-sans font-extrabold text-3xl md:text-4xl text-slate-800 tracking-tighter">
                     {String(timeLeft.minutes).padStart(2, '0')}
                   </div>
-                  <div className="text-xs font-semibold uppercase tracking-wider text-stone-600 mt-0.5">
+                  <div className="text-xs font-semibold uppercase tracking-wider text-slate-500 mt-1">
                     Mins
                   </div>
                 </div>
 
-                <div className="bg-amber-50/80 border border-amber-200/80 rounded-xl py-2 px-1 relative overflow-hidden">
-                  <div className="text-xl sm:text-2xl font-sans font-extrabold text-amber-800 tracking-tight animate-pulse">
+                <div className="bg-orange-50 border border-orange-200 shadow-sm rounded-xl py-3 px-1.5 flex flex-col items-center justify-center">
+                  <div className="font-sans font-extrabold text-3xl md:text-4xl text-orange-700 tracking-tighter">
                     {String(timeLeft.seconds).padStart(2, '0')}
                   </div>
-                  <div className="text-xs font-semibold uppercase tracking-wider text-amber-700 mt-0.5">
+                  <div className="text-xs font-bold uppercase tracking-wider text-orange-700 mt-1">
                     Secs
                   </div>
                 </div>
               </div>
 
               {/* Day-of-week Stoic Quote */}
-              <div className="flex items-start gap-2 pt-2 text-stone-600">
-                <Quote className="w-3.5 h-3.5 text-[#F59E0B] shrink-0 mt-0.5" />
-                <p className="text-xs sm:text-[13px] font-serif italic text-stone-700 leading-snug">
+              <div className="flex items-start gap-2.5 pt-3 border-t border-slate-100/90 text-slate-500">
+                <Quote className="w-3.5 h-3.5 text-amber-500/70 shrink-0 mt-0.5" />
+                <p className="font-sans italic text-sm text-slate-500 leading-relaxed">
                   "{currentQuote}"
                 </p>
               </div>
