@@ -80,14 +80,9 @@ export default function Navbar({ onOpenAuth }) {
           <div className="w-9 h-9 rounded-xl bg-[#133026] flex items-center justify-center text-[#F59E0B] shadow-xs transition-transform duration-300 group-hover:scale-105">
             <BookOpenCheck className="w-5 h-5 stroke-[2.2]" />
           </div>
-          <div className="flex items-center gap-1.5">
-            <span className="font-sans font-extrabold text-lg sm:text-xl tracking-tight text-[#133026]">
-              UPSC ZONE AI
-            </span>
-            <span className="hidden sm:inline-block bg-[#EAF1EB] text-[#133026] border border-green-200 text-[9px] font-bold px-1.5 py-0.5 rounded uppercase tracking-wider">
-              PRO
-            </span>
-          </div>
+          <span className="font-sans font-extrabold text-lg sm:text-xl tracking-tight text-[#133026]">
+            UPSC ZONE AI
+          </span>
         </a>
 
         {/* Center: Desktop Navigation Links */}
