@@ -6,7 +6,8 @@ import {
   ArrowRight, 
   Sparkles, 
   BookOpen, 
-  ArrowUp,
+  Plus,
+  Loader2,
   CheckCircle2
 } from 'lucide-react';
 
@@ -28,23 +29,74 @@ const darkBullets = [
   },
 ];
 
-const structuredSteps = [
-  {
-    num: '01',
-    heading: 'Federal Foundations (Basic Structure)',
-    body: 'Written Constitution, clear Seventh Schedule distribution of legislative powers, and judicial review safeguards.',
+const tabContentMap = {
+  concept: {
+    target: 'Score Target: 9.5 / 15',
+    summary: 'Scholars often characterize the Indian framework as "quasi-federal with a unitary bias". Here is an evaluated 3-part Mains structure:',
+    steps: [
+      {
+        num: '01',
+        heading: 'Federal Foundations (Basic Structure)',
+        body: 'Written Constitution, clear Seventh Schedule distribution of legislative powers, and judicial review safeguards.',
+      },
+      {
+        num: '02',
+        heading: 'Unitary Tilt for National Integrity',
+        body: 'Single integrated judiciary, All-India Services (Art. 312), and emergency powers (Art. 352/356) establish Union primacy in exceptional circumstances.',
+      },
+      {
+        num: '03',
+        heading: 'Cooperative & Competitive Federalism',
+        body: 'Inter-State Council mechanisms, GST Council consensus model, and performance-linked fiscal transfers.',
+      },
+    ],
+    reference: 'Standard Polity Reference; Inter-State Council Reports; Article 246 & 356.',
   },
-  {
-    num: '02',
-    heading: 'Unitary Tilt for National Integrity',
-    body: 'Single integrated judiciary, All-India Services (Art. 312), and emergency powers (Art. 352/356) establish Union primacy in exceptional circumstances.',
+  answer: {
+    target: '15-Mark Structure Blueprint',
+    summary: 'High-scoring 3-stage Mains answer framework designed to cover institutional, legal, and operational dimensions:',
+    steps: [
+      {
+        num: '01',
+        heading: 'Introduction: Conceptual Anchor (30 words)',
+        body: 'Define "quasi-federal" character citing K.C. Wheare & B.R. Ambedkar; quote Article 1 ("Union of States").',
+      },
+      {
+        num: '02',
+        heading: 'Body: Asymmetry & Centralizing Tendencies (170 words)',
+        body: 'Contrast Seventh Schedule federal division with emergency powers (Arts. 352, 356) and appointment of Governors.',
+      },
+      {
+        num: '03',
+        heading: 'Way Forward & Commission Recommendations (50 words)',
+        body: 'Incorporate Sarkaria Commission (1988) on Art. 356 and Punchhi Commission (2010) on cooperative federal dispute resolution.',
+      },
+    ],
+    reference: 'Sarkaria Commission (1988); Punchhi Commission (2010); S.R. Bommai v. Union of India (1994).',
   },
-  {
-    num: '03',
-    heading: 'Cooperative & Competitive Federalism',
-    body: 'Inter-State Council mechanisms, GST Council consensus model, and performance-linked fiscal transfers.',
+  revise: {
+    target: 'Opening Hook & Definition',
+    summary: 'Model opening lines designed to establish intellectual depth within the first 30 seconds of evaluation:',
+    steps: [
+      {
+        num: '01',
+        heading: 'Constitutional Assembly Perspective',
+        body: '"The Indian Constitution is federal in form, but unitary in spirit." — Dr. B.R. Ambedkar highlighting unity amid diversity.',
+      },
+      {
+        num: '02',
+        heading: 'Granville Austin Formulation',
+        body: '"The Constitution was designed to produce a strong central government without depriving states of their constitutional vitality."',
+      },
+      {
+        num: '03',
+        heading: 'Contemporary Federalism Synthesis',
+        body: 'Shift from classic bargaining federalism to cooperative and competitive federalism anchored in fiscal transparency and NITI Aayog.',
+      },
+    ],
+    reference: 'Granville Austin, "The Indian Constitution: Cornerstone of a Nation"; Constituent Assembly Debates.',
   },
-];
+};
 
 const tabsData = [
   { id: 'concept', label: 'Concept Breakdown' },
@@ -55,15 +107,22 @@ const tabsData = [
 export default function DarkSection({ onOpenLogin }) {
   const [activeTab, setActiveTab] = useState('concept');
   const [promptInput, setPromptInput] = useState('');
+  const [isGenerating, setIsGenerating] = useState(false);
   const [inputSubmitted, setInputSubmitted] = useState(false);
 
   const handlePromptSubmit = (e) => {
-    e.preventDefault();
-    if (promptInput.trim()) {
+    if (e) e.preventDefault();
+    if (isGenerating) return;
+    setIsGenerating(true);
+    setInputSubmitted(false);
+
+    setTimeout(() => {
+      setIsGenerating(false);
       setInputSubmitted(true);
-      setTimeout(() => setInputSubmitted(false), 3500);
-    }
+    }, 1500);
   };
+
+  const currentTabContent = tabContentMap[activeTab] || tabContentMap.concept;
 
   return (
     <section 
@@ -181,23 +240,23 @@ export default function DarkSection({ onOpenLogin }) {
                 </p>
               </div>
 
-              {/* AI Response Area */}
-              <div className="space-y-3">
+              {/* AI Response Area with smooth tab transition */}
+              <div key={activeTab} className="space-y-3 animate-fadeIn">
                 <div className="flex items-center justify-between">
                   <span className="text-[10px] font-bold text-[#133026] tracking-wider block uppercase">
                     UPSC ZONE AI STRUCTURED BREAKDOWN
                   </span>
                   <span className="text-xs font-semibold text-[#133026] bg-[#EAF1EB] px-2.5 py-0.5 rounded-full">
-                    Score Target: 9.5 / 15
+                    {currentTabContent.target}
                   </span>
                 </div>
                 <p className="text-xs sm:text-[13px] text-slate-600 leading-relaxed font-normal">
-                  Scholars often characterize the Indian framework as <em>"quasi-federal with a unitary bias"</em>. Here is an evaluated 3-part Mains structure:
+                  {currentTabContent.summary}
                 </p>
 
                 {/* Structured Answer Breakdown */}
                 <div className="space-y-2.5 my-3">
-                  {structuredSteps.map((step, idx) => (
+                  {currentTabContent.steps.map((step, idx) => (
                     <div key={idx} className="flex items-start gap-2.5">
                       <span className="text-xs font-bold text-[#133026] shrink-0 mt-0.5 w-5 h-5 rounded-full bg-[#EAF1EB] flex items-center justify-center">
                         {step.num}
@@ -218,35 +277,60 @@ export default function DarkSection({ onOpenLogin }) {
                 <div className="bg-[#EAF1EB] border border-[#133026]/10 rounded-xl p-3 flex items-center gap-2.5 text-xs text-[#133026]">
                   <BookOpen className="w-4 h-4 text-[#133026] shrink-0" />
                   <span>
-                    <strong>Recommended Study Reference:</strong> Standard Polity Reference; Inter-State Council Reports; Article 246 & 356.
+                    <strong>Recommended Study Reference:</strong> {currentTabContent.reference}
                   </span>
                 </div>
-
-                {/* Question Input form */}
-                <form onSubmit={handlePromptSubmit} className="mt-4 flex items-center justify-between border border-stone-200 rounded-full px-3.5 py-1.5 bg-white shadow-2xs">
-                  <input
-                    type="text"
-                    value={promptInput}
-                    onChange={(e) => setPromptInput(e.target.value)}
-                    placeholder='Ask: "Add a crisp 25-word conclusion on constitutional morality"'
-                    className="w-full text-xs text-stone-700 placeholder:text-stone-400 outline-none bg-transparent mr-2"
-                  />
-                  <button 
-                    type="submit" 
-                    aria-label="Send follow up prompt"
-                    className="w-7 h-7 rounded-full bg-[#F59E0B] text-stone-900 flex items-center justify-center shrink-0 hover:bg-amber-500 transition-colors cursor-pointer"
-                  >
-                    <ArrowUp className="w-3.5 h-3.5 stroke-[2.5]" />
-                  </button>
-                </form>
-
-                {inputSubmitted && (
-                  <div className="text-[11px] text-emerald-700 bg-emerald-50 rounded-lg p-2 text-center flex items-center justify-center gap-1.5">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
-                    <span>Sample response generated: Conclusion framed using constitutional morality framework!</span>
-                  </div>
-                )}
               </div>
+
+              {/* Question Input form - Single Seamless Pill */}
+              <form 
+                onSubmit={handlePromptSubmit} 
+                className="mt-4 flex items-center w-full bg-white border border-slate-300 rounded-full p-1 pl-4 shadow-sm focus-within:border-orange-400 focus-within:ring-1 focus-within:ring-orange-400 transition-all"
+              >
+                <input
+                  type="text"
+                  value={promptInput}
+                  disabled={isGenerating}
+                  onChange={(e) => setPromptInput(e.target.value)}
+                  placeholder='Ask: "Add a crisp 25-word conclusion on constitutional morality"'
+                  className="bg-transparent border-none outline-none focus:ring-0 focus:outline-none flex-1 w-full text-xs sm:text-sm text-slate-700 placeholder:text-stone-400 disabled:opacity-60 disabled:cursor-not-allowed pr-2"
+                />
+                <button 
+                  type="submit" 
+                  disabled={isGenerating}
+                  aria-label="Generate sample AI answer breakdown"
+                  className="w-8 h-8 rounded-full bg-orange-500 hover:bg-orange-600 active:scale-95 text-white flex items-center justify-center shrink-0 transition-all cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
+                >
+                  {isGenerating ? (
+                    <Loader2 className="w-4 h-4 animate-spin text-white" />
+                  ) : (
+                    <Plus className="w-4 h-4 stroke-[2.5]" />
+                  )}
+                </button>
+              </form>
+
+              {/* AI Generating Indicator */}
+              {isGenerating && (
+                <div className="mt-2.5 text-[11px] text-amber-800 bg-amber-50/90 border border-amber-200/80 rounded-lg p-2.5 text-center flex items-center justify-center gap-2 animate-fadeIn shadow-2xs">
+                  <Loader2 className="w-3.5 h-3.5 animate-spin text-amber-600 shrink-0" />
+                  <span className="font-medium">Synthesizing Mains evaluation rubric</span>
+                  <span className="inline-flex gap-1 items-center ml-0.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-bounce [animation-delay:-0.3s]"></span>
+                    <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-bounce [animation-delay:-0.15s]"></span>
+                    <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-bounce"></span>
+                  </span>
+                </div>
+              )}
+
+              {/* Sample Response Generated with Smooth Reveal */}
+              {inputSubmitted && !isGenerating && (
+                <div className="mt-2.5 text-[11px] text-emerald-800 bg-emerald-50 border border-emerald-200/70 rounded-lg p-2.5 text-center flex items-center justify-center gap-2 animate-in fade-in slide-in-from-bottom-2 duration-500 animate-response-reveal shadow-2xs">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                  <span>
+                    <strong>Sample response generated:</strong> Conclusion framed using constitutional morality framework!
+                  </span>
+                </div>
+              )}
 
             </div>
 

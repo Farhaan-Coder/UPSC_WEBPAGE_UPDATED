@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { ChevronDown, HelpCircle } from 'lucide-react';
-import { useLanguage } from '../context/LanguageContext.jsx';
 
 const faqs = [
   {
@@ -25,8 +24,7 @@ const faqs = [
   }
 ];
 
-export default function FaqSection() {
-  const { t } = useLanguage();
+export default function FaqSection({ onOpenAuth }) {
   const [openIndex, setOpenIndex] = useState(0);
 
   const toggleAccordion = (idx) => {
@@ -44,7 +42,7 @@ export default function FaqSection() {
             <span>FREQUENTLY ASKED QUESTIONS</span>
           </div>
           <h2 className="font-sans text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight mb-3">
-            {t('faq.heading')}
+            Common questions about UPSC ZONE AI.
           </h2>
           <p className="text-[15px] sm:text-base text-slate-600 max-w-xl mx-auto leading-relaxed font-normal">
             Everything you need to know about our study pedagogy, answer evaluations, and daily preparation workflows.
@@ -95,9 +93,13 @@ export default function FaqSection() {
         {/* Support Note */}
         <div className="text-center text-sm text-slate-500 mt-6 mb-8">
           Have additional queries about syllabus strategy?{' '}
-          <a href="#get-started" className="font-semibold text-[#133026] hover:text-[#F59E0B] underline">
+          <button
+            type="button"
+            onClick={() => onOpenAuth ? onOpenAuth('signup') : null}
+            className="font-semibold text-[#133026] hover:text-[#F59E0B] underline cursor-pointer"
+          >
             Start a free diagnostic test
-          </a>{' '}
+          </button>{' '}
           or talk to our mentoring team.
         </div>
 

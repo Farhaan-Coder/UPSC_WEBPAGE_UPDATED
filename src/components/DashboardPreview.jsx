@@ -25,7 +25,6 @@ import {
 } from 'lucide-react';
 import { EXAM_YEAR } from '../config/exam.js';
 import { PYQ_RANGE, PYQ_TOTAL, pyqThemes } from '../data/pyqSample.js';
-import { useLanguage } from '../context/LanguageContext.jsx';
 
 const tabsConfig = [
   {
@@ -99,7 +98,6 @@ const getTrendBadgeClass = (trend) => {
 };
 
 export default function DashboardPreview() {
-  const { t } = useLanguage();
   const [activeTab, setActiveTab] = useState(0);
   const [studyHours, setStudyHours] = useState(6.0);
   const [studyMode, setStudyMode] = useState('fulltime'); // 'working' or 'fulltime'
@@ -173,7 +171,7 @@ export default function DashboardPreview() {
             DISCIPLINED PREPARATION, OPTIMIZED FOR YOUR DESK
           </span>
           <h2 className="font-sans text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
-            {t('commandCenter.heading')}
+            Everything you study today, in one command center.
           </h2>
           <p className="text-slate-600 text-[17px] leading-relaxed max-w-2xl mx-auto mt-5">
             Eliminate scattered notes, chaotic tabs, and syllabus anxiety. Synchronize syllabus completion, 25-year PYQs, and daily AI answer reviews into a serene daily rhythm.
@@ -524,12 +522,12 @@ export default function DashboardPreview() {
                     </div>
                   </div>
 
-                  {/* AI Next Best Step with Typing Animation */}
+                  {/* AI Next Recommended Step with Typing Animation */}
                   <div className="p-3.5 rounded-xl bg-[#133026] text-white flex items-start gap-3">
                     <Sparkles className="w-4 h-4 text-[#F59E0B] shrink-0 mt-0.5" />
                     <div className="min-w-0 text-xs">
                       <div className="font-bold text-[#F59E0B] text-xs uppercase tracking-wider mb-0.5">
-                        AI Mentor Next Best Step
+                        AI Mentor Recommended Step
                       </div>
                       <p className="text-stone-200 leading-relaxed font-normal">
                         {fullPromptText.slice(0, typingIndex)}

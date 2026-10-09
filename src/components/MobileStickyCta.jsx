@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { ArrowRight } from 'lucide-react';
-import { useLanguage } from '../context/LanguageContext';
 
 export default function MobileStickyCta({
   onOpenSignup,
   isModalOpen = false,
   isMobileMenuOpen = false,
 }) {
-  const { t } = useLanguage();
   const [heroCtaOut, setHeroCtaOut] = useState(false);
   const [bottomInView, setBottomInView] = useState(false);
 
@@ -95,7 +93,7 @@ export default function MobileStickyCta({
           onClick={() => onOpenSignup && onOpenSignup()}
           className="flex-1 inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[#FBBF24] to-[#F59E0B] active:from-[#F59E0B] active:to-[#D97706] text-stone-900 font-bold text-xs sm:text-sm py-2.5 px-3.5 rounded-xl shadow-md transition-all active:scale-[0.98] cursor-pointer min-h-[44px]"
         >
-          <span>{t('hero.primaryCta')}</span>
+          <span>Start Free Prep</span>
           <ArrowRight className="w-4 h-4 stroke-[2.5]" />
         </button>
 

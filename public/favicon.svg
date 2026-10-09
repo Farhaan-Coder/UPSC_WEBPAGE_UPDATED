@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <rect width="32" height="32" rx="7" fill="#133026" />
+  <!-- Open Book in Amber -->
+  <path d="M5.5 9.5C8 8.5 11.5 8.5 15.2 10V24.5C11.5 23 8 23 5.5 24V9.5Z" fill="#F59E0B" />
+  <path d="M26.5 9.5C24 8.5 20.5 8.5 16.8 10V24.5C20.5 23 24 23 26.5 24V9.5Z" fill="#F59E0B" />
+  <!-- Spine Line -->
+  <line x1="16" y1="10" x2="16" y2="24.5" stroke="#FDF9F1" stroke-width="1.2" stroke-linecap="round" />
+</svg>

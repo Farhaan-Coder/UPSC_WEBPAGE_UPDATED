@@ -44,7 +44,7 @@ const fieldNotes = [
 
 export default function Insights() {
   return (
-    <section className="py-12 md:py-16 lg:py-20 bg-transparent border-b border-stone-200/60 scroll-mt-20" id="resources">
+    <section className="pt-10 md:pt-12 pb-16 md:pb-20 bg-transparent border-b border-stone-200/60 scroll-mt-20" id="resources">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         
         {/* Split Header */}
@@ -210,7 +210,7 @@ export default function Insights() {
               {/* Bottom Overlay: Orange Badge & White Text */}
               <div className="absolute bottom-4 left-5 right-5 z-10 flex flex-col items-start pointer-events-none">
                 <span className="bg-[#F59E0B] text-stone-950 font-bold text-[11px] sm:text-xs uppercase tracking-wider px-2.5 py-1 rounded shadow-md inline-block mb-1.5">
-                  GS III • Disaster Management
+                  GS III - Disaster Management
                 </span>
                 <span className="text-xs sm:text-sm font-semibold text-white/95 tracking-wide drop-shadow-md">
                   Urban Watersheds & Infrastructure Resilience

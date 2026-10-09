@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { X, RotateCcw, CheckCircle2, AlertTriangle, XCircle } from 'lucide-react';
+import { X, RotateCcw, CheckCircle2, AlertTriangle, XCircle, Check } from 'lucide-react';
 
-const DRILL_CONFIG = {
+export const DRILL_CONFIG = {
   headerChip: "Q.1 • Polity • Sample drill",
   question: "Which of the following statements about the Right to Privacy in India is correct?",
   correctId: "B",
@@ -120,18 +120,47 @@ export default function EliminationDrill() {
           const isCorrect = opt.id === DRILL_CONFIG.correctId;
           const isSelected = selectedAnswer === opt.id;
 
+          // Compute style classes based strictly on state
+          let cardStyle = "bg-white border-stone-200 hover:border-stone-300 hover:bg-stone-50/80 shadow-2xs";
+          let badgeStyle = "bg-stone-100 text-stone-700";
+          let textStyle = "font-normal text-slate-800";
+
+          if (selectedAnswer) {
+            if (isCorrect) {
+              // ONLY the correct answer turns green after user selects a final answer
+              cardStyle = "bg-emerald-50/90 border-emerald-400 text-emerald-950 shadow-xs ring-1 ring-emerald-400/50";
+              badgeStyle = "bg-emerald-700 text-white font-bold";
+              textStyle = "font-semibold text-emerald-950";
+            } else if (isSelected) {
+              // Wrongly chosen answer turns red
+              cardStyle = "bg-red-50/90 border-red-300 text-red-950 shadow-xs ring-1 ring-red-300/50";
+              badgeStyle = "bg-red-600 text-white font-bold";
+              textStyle = "font-medium text-red-950 line-through";
+            } else if (isElim) {
+              cardStyle = "bg-stone-100/70 border-stone-200/80 opacity-60";
+              badgeStyle = "bg-stone-200 text-stone-500";
+              textStyle = "line-through text-stone-500";
+            } else {
+              cardStyle = "bg-stone-50/50 border-stone-200/80 opacity-60";
+              badgeStyle = "bg-stone-100 text-stone-400";
+              textStyle = "text-stone-500";
+            }
+          } else if (isElim) {
+            if (isCorrect) {
+              cardStyle = "bg-amber-50/70 border-amber-300/80";
+              badgeStyle = "bg-amber-200 text-amber-800";
+              textStyle = "line-through text-amber-900";
+            } else {
+              cardStyle = "bg-stone-100/70 border-stone-200/80";
+              badgeStyle = "bg-stone-200 text-stone-500";
+              textStyle = "line-through text-stone-500";
+            }
+          }
+
           return (
             <div
               key={opt.id}
-              className={`rounded-xl border transition-all duration-200 overflow-hidden ${
-                isElim
-                  ? isCorrect
-                    ? 'bg-amber-50/70 border-amber-300/80'
-                    : 'bg-stone-100/70 border-stone-200/80'
-                  : isSelected
-                  ? 'bg-emerald-50 border-emerald-500 shadow-xs'
-                  : 'bg-white border-stone-200 hover:border-stone-300 shadow-2xs'
-              }`}
+              className={`rounded-xl border transition-all duration-200 overflow-hidden ${cardStyle}`}
             >
               <div className="p-3 flex items-start justify-between gap-2.5">
                 {/* Selectable Option Row Button */}
@@ -140,37 +169,23 @@ export default function EliminationDrill() {
                   disabled={isElim || !!selectedAnswer}
                   onClick={() => handleSelectAnswer(opt.id)}
                   aria-label={`Select option ${opt.id} as final answer`}
-                  className={`flex items-start gap-3 flex-1 text-left cursor-pointer disabled:cursor-not-allowed focus:outline-none focus-visible:ring-2 focus-visible:ring-[#133026] rounded-lg p-0.5 transition-opacity ${
-                    isElim ? 'opacity-60' : 'opacity-100'
+                  className={`flex items-start gap-3 flex-1 text-left cursor-pointer disabled:cursor-not-allowed focus:outline-none focus-visible:ring-2 focus-visible:ring-[#133026] focus-visible:ring-offset-1 rounded-lg p-0.5 transition-opacity ${
+                    isElim ? 'opacity-70' : 'opacity-100'
                   }`}
                 >
                   <span
-                    className={`w-6 h-6 rounded-md flex items-center justify-center font-bold text-xs shrink-0 mt-0.5 transition-colors ${
-                      isElim
-                        ? 'bg-stone-200 text-stone-500'
-                        : isSelected
-                        ? 'bg-emerald-700 text-white'
-                        : 'bg-stone-100 text-stone-700'
-                    }`}
+                    className={`w-6 h-6 rounded-md flex items-center justify-center font-bold text-xs shrink-0 mt-0.5 transition-colors ${badgeStyle}`}
                   >
                     {opt.id}
                   </span>
 
                   <div className="flex-1 min-w-0">
-                    <p
-                      className={`text-xs sm:text-[13px] leading-relaxed ${
-                        isElim
-                          ? 'line-through text-stone-500'
-                          : isSelected
-                          ? 'font-semibold text-emerald-950'
-                          : 'font-normal text-slate-800'
-                      }`}
-                    >
+                    <p className={`text-xs sm:text-[13px] leading-relaxed ${textStyle}`}>
                       {opt.text}
                     </p>
 
                     {/* Eliminated Feedback */}
-                    {isElim && (
+                    {isElim && !selectedAnswer && (
                       <div className="mt-1.5">
                         {isCorrect ? (
                           <span className="inline-flex items-center gap-1 bg-amber-100 border border-amber-300 text-amber-900 text-[11px] font-semibold px-2 py-0.5 rounded-md shadow-2xs">
@@ -178,7 +193,7 @@ export default function EliminationDrill() {
                             Careful - that was the correct option.
                           </span>
                         ) : (
-                          <p className="text-[11px] text-red-600/90 font-medium leading-tight">
+                          <p className="text-[11px] text-stone-500 font-medium leading-tight">
                             {opt.why}
                           </p>
                         )}
@@ -195,9 +210,9 @@ export default function EliminationDrill() {
                     aria-label={`Eliminate option ${opt.id}`}
                     aria-pressed={isElim}
                     title={isElim ? `Restore option ${opt.id}` : `Eliminate option ${opt.id}`}
-                    className={`p-1.5 rounded-lg border transition-all duration-150 shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#133026] cursor-pointer ${
+                    className={`p-1.5 rounded-lg border transition-all duration-150 shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#133026] focus-visible:ring-offset-1 cursor-pointer min-h-[32px] min-w-[32px] flex items-center justify-center ${
                       isElim
-                        ? 'bg-red-50 border-red-200 text-red-600 hover:bg-red-100'
+                        ? 'bg-stone-200 border-stone-300 text-stone-700 hover:bg-stone-300'
                         : 'bg-stone-50 border-stone-200/90 text-stone-400 hover:text-stone-700 hover:bg-stone-100'
                     }`}
                   >
@@ -224,7 +239,11 @@ export default function EliminationDrill() {
         }`}
       >
         <div className="flex items-center gap-2 font-medium">
-          <span className="inline-block w-2 h-2 rounded-full bg-emerald-600 shrink-0" />
+          <span
+            className={`inline-block w-2 h-2 rounded-full shrink-0 ${
+              isCorrectEliminated ? 'bg-red-500' : 'bg-emerald-600'
+            }`}
+          />
           <span>
             {wrongEliminatedCount} {wrongEliminatedCount === 1 ? 'wrong option' : 'wrong options'} eliminated
           </span>
@@ -262,20 +281,20 @@ export default function EliminationDrill() {
               <h4 className="font-bold text-sm sm:text-base font-sans">
                 {selectedAnswer === DRILL_CONFIG.correctId ? 'Correct!' : 'Not quite.'}
               </h4>
-              <p className="text-xs sm:text-sm mt-1 leading-relaxed">
+              <div className="text-xs sm:text-sm mt-1 leading-relaxed space-y-1">
                 {selectedAnswer === DRILL_CONFIG.correctId ? (
-                  correctOptObj?.why
+                  <p>{correctOptObj?.why}</p>
                 ) : (
                   <>
-                    <span className="block mb-1 text-red-900">
+                    <p className="text-red-900">
                       <strong>Option {selectedAnswer}:</strong> {selectedOptObj?.why}
-                    </span>
-                    <span className="block text-emerald-900">
+                    </p>
+                    <p className="text-emerald-900 font-medium">
                       <strong>Correct Answer (Option {DRILL_CONFIG.correctId}):</strong> {correctOptObj?.why}
-                    </span>
+                    </p>
                   </>
                 )}
-              </p>
+              </div>
             </div>
           </div>
 

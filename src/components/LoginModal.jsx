@@ -3,7 +3,8 @@ import { X, Check, Lock, Mail, User, BookOpenCheck, ArrowRight, Sparkles, CheckC
 import { EXAM_YEAR, ROADMAP_LABEL, TARGET_YEAR_OPTIONS } from '../config/exam.js';
 
 export default function LoginModal({ isOpen, onClose, initialTab = 'login' }) {
-  const [tab, setTab] = useState(initialTab); // 'login' or 'signup'
+  // Single state variable controlling BOTH tab highlight and visible form panel
+  const [activeTab, setActiveTab] = useState(initialTab);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -17,11 +18,13 @@ export default function LoginModal({ isOpen, onClose, initialTab = 'login' }) {
 
   const modalRef = useRef(null);
   const firstInputRef = useRef(null);
+  const previousActiveElement = useRef(null);
 
-  // Sync initialTab when modal opens
+  // Sync initialTab and manage focus / scroll lock when modal opens/closes
   useEffect(() => {
     if (isOpen) {
-      setTab(initialTab);
+      previousActiveElement.current = document.activeElement;
+      setActiveTab(initialTab);
       setErrors({});
       setToastMessage(null);
       // Lock body scroll
@@ -32,19 +35,47 @@ export default function LoginModal({ isOpen, onClose, initialTab = 'login' }) {
       }, 100);
     } else {
       document.body.style.overflow = 'unset';
+      if (previousActiveElement.current && typeof previousActiveElement.current.focus === 'function') {
+        previousActiveElement.current.focus();
+      }
     }
     return () => {
       document.body.style.overflow = 'unset';
     };
   }, [isOpen, initialTab]);
 
-  // ESC key handler
+  // ESC key & focus trap handlers
   useEffect(() => {
+    if (!isOpen) return;
+
     const handleKeyDown = (e) => {
-      if (e.key === 'Escape' && isOpen) {
+      if (e.key === 'Escape') {
         onClose();
+        return;
+      }
+
+      if (e.key === 'Tab' && modalRef.current) {
+        const focusable = modalRef.current.querySelectorAll(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        );
+        if (focusable.length === 0) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+
+        if (e.shiftKey) {
+          if (document.activeElement === first) {
+            e.preventDefault();
+            last.focus();
+          }
+        } else {
+          if (document.activeElement === last) {
+            e.preventDefault();
+            first.focus();
+          }
+        }
       }
     };
+
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [isOpen, onClose]);
@@ -67,7 +98,7 @@ export default function LoginModal({ isOpen, onClose, initialTab = 'login' }) {
       errs.password = 'Password must be at least 6 characters.';
     }
 
-    if (tab === 'signup' && !formData.name.trim()) {
+    if (activeTab === 'signup' && !formData.name.trim()) {
       errs.name = 'Full name is required.';
     }
 
@@ -83,7 +114,7 @@ export default function LoginModal({ isOpen, onClose, initialTab = 'login' }) {
     setTimeout(() => {
       setIsLoading(false);
       setToastMessage(
-        tab === 'signup'
+        activeTab === 'signup'
           ? 'Demo Mode: Account initialized! Welcome to UPSC ZONE AI.'
           : 'Demo Mode: Successfully authenticated as demo aspirant!'
       );
@@ -139,16 +170,20 @@ export default function LoginModal({ isOpen, onClose, initialTab = 'login' }) {
           </button>
         </div>
 
-        {/* Tab Switcher */}
-        <div className="flex border-b border-stone-200 bg-stone-50/70">
+        {/* Tab Switcher - Single activeTab state controls both tabs and panel */}
+        <div className="flex border-b border-stone-200 bg-stone-50/70" role="tablist" aria-label="Account Access Options">
           <button
             type="button"
+            role="tab"
+            id="tab-login"
+            aria-selected={activeTab === 'login'}
+            aria-controls="panel-auth"
             onClick={() => {
-              setTab('login');
+              setActiveTab('login');
               setErrors({});
             }}
             className={`flex-1 py-3.5 min-h-[44px] flex items-center justify-center text-xs sm:text-sm font-bold font-sans transition-all cursor-pointer ${
-              tab === 'login'
+              activeTab === 'login'
                 ? 'text-[#133026] border-b-2 border-[#133026] bg-white'
                 : 'text-stone-500 hover:text-stone-800'
             }`}
@@ -157,12 +192,16 @@ export default function LoginModal({ isOpen, onClose, initialTab = 'login' }) {
           </button>
           <button
             type="button"
+            role="tab"
+            id="tab-signup"
+            aria-selected={activeTab === 'signup'}
+            aria-controls="panel-auth"
             onClick={() => {
-              setTab('signup');
+              setActiveTab('signup');
               setErrors({});
             }}
             className={`flex-1 py-3.5 min-h-[44px] flex items-center justify-center text-xs sm:text-sm font-bold font-sans transition-all cursor-pointer ${
-              tab === 'signup'
+              activeTab === 'signup'
                 ? 'text-[#133026] border-b-2 border-[#133026] bg-white'
                 : 'text-stone-500 hover:text-stone-800'
             }`}
@@ -171,14 +210,19 @@ export default function LoginModal({ isOpen, onClose, initialTab = 'login' }) {
           </button>
         </div>
 
-        {/* Modal Body */}
-        <div className="p-6">
+        {/* Modal Body - role="tabpanel" linked to activeTab */}
+        <div
+          id="panel-auth"
+          role="tabpanel"
+          aria-labelledby={activeTab === 'login' ? 'tab-login' : 'tab-signup'}
+          className="p-6"
+        >
           <h2 id="modal-title" className="text-xl font-serif font-bold text-[#133026] tracking-tight mb-1">
-            {tab === 'login' ? 'Welcome Back, Future Officer' : 'Begin Your Disciplined Preparation'}
+            {activeTab === 'login' ? 'Welcome Back, Future Officer' : 'Begin Your Disciplined Preparation'}
           </h2>
           <p className="text-xs text-stone-500 mb-5 font-normal">
-            {tab === 'login'
-              ? 'Access your daily study planner, active recall deck, and mock metrics.'
+            {activeTab === 'login'
+              ? 'Access your daily study planner, smart flashcards deck, and mock metrics.'
               : `Zero credit card required. Free diagnostic test & your ${EXAM_YEAR} roadmap.`}
           </p>
 
@@ -195,9 +239,8 @@ export default function LoginModal({ isOpen, onClose, initialTab = 'login' }) {
             type="button"
             onClick={handleGoogleAuth}
             disabled={isLoading}
-            className="w-full flex items-center justify-center gap-3 py-2.5 px-4 rounded-xl border border-stone-200 bg-white hover:bg-stone-50 text-xs font-semibold text-stone-700 transition-colors shadow-2xs mb-4 cursor-pointer"
+            className="w-full flex items-center justify-center gap-3 py-2.5 px-4 rounded-xl border border-stone-200 bg-white hover:bg-stone-50 text-xs font-semibold text-stone-700 transition-colors shadow-2xs mb-4 cursor-pointer min-h-[44px]"
           >
-            {/* Google G SVG */}
             <svg className="w-4 h-4" viewBox="0 0 24 24">
               <path
                 fill="#4285F4"
@@ -227,7 +270,7 @@ export default function LoginModal({ isOpen, onClose, initialTab = 'login' }) {
 
           {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-3.5">
-            {tab === 'signup' && (
+            {activeTab === 'signup' && (
               <div>
                 <label className="block text-xs font-semibold text-stone-700 mb-1">
                   Full Name
@@ -239,7 +282,7 @@ export default function LoginModal({ isOpen, onClose, initialTab = 'login' }) {
                     type="text"
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    placeholder="e.g. Ananya Sharma"
+                    placeholder="Your Full Name"
                     className={`w-full pl-9 pr-3 py-2 text-xs rounded-xl border ${
                       errors.name ? 'border-red-400 bg-red-50/20' : 'border-stone-200'
                     } focus:outline-none focus:ring-2 focus:ring-[#133026] text-stone-800`}
@@ -256,11 +299,11 @@ export default function LoginModal({ isOpen, onClose, initialTab = 'login' }) {
               <div className="relative">
                 <Mail className="w-4 h-4 text-stone-400 absolute left-3 top-1/2 -translate-y-1/2" />
                 <input
-                  ref={tab === 'login' ? firstInputRef : null}
+                  ref={activeTab === 'login' ? firstInputRef : null}
                   type="email"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  placeholder="aspirant@upsczone.ai"
+                  placeholder="you@example.com"
                   className={`w-full pl-9 pr-3 py-2 text-xs rounded-xl border ${
                     errors.email ? 'border-red-400 bg-red-50/20' : 'border-stone-200'
                   } focus:outline-none focus:ring-2 focus:ring-[#133026] text-stone-800`}
@@ -288,7 +331,7 @@ export default function LoginModal({ isOpen, onClose, initialTab = 'login' }) {
               {errors.password && <p className="text-[11px] text-red-600 mt-1">{errors.password}</p>}
             </div>
 
-            {tab === 'signup' && (
+            {activeTab === 'signup' && (
               <div className="grid grid-cols-2 gap-3 pt-1">
                 <div>
                   <label className="block text-xs font-semibold text-stone-700 mb-1">
@@ -327,7 +370,7 @@ export default function LoginModal({ isOpen, onClose, initialTab = 'login' }) {
               </div>
             )}
 
-            {tab === 'login' && (
+            {activeTab === 'login' && (
               <div className="flex items-center justify-between text-xs pt-1">
                 <label className="flex items-center gap-2 text-stone-600 cursor-pointer">
                   <input type="checkbox" defaultChecked className="rounded text-[#133026] focus:ring-[#133026]" />
@@ -336,7 +379,7 @@ export default function LoginModal({ isOpen, onClose, initialTab = 'login' }) {
                 <button
                   type="button"
                   onClick={() => alert('Demo Mode: In production, a secure password reset link is dispatched to your email.')}
-                  className="text-xs font-semibold text-[#133026] hover:text-[#F59E0B] transition-colors"
+                  className="text-xs font-semibold text-[#133026] hover:text-[#F59E0B] transition-colors cursor-pointer"
                 >
                   Forgot password?
                 </button>
@@ -346,11 +389,11 @@ export default function LoginModal({ isOpen, onClose, initialTab = 'login' }) {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full mt-4 flex items-center justify-center gap-2 bg-[#133026] hover:bg-[#183C30] text-white font-bold text-xs sm:text-sm py-3 rounded-xl shadow-md transition-all active:scale-[0.98] cursor-pointer"
+              className="w-full mt-4 flex items-center justify-center gap-2 bg-[#133026] hover:bg-[#183C30] text-white font-bold text-xs sm:text-sm py-3 rounded-xl shadow-md transition-all active:scale-[0.98] cursor-pointer min-h-[44px]"
             >
               {isLoading ? (
                 <span>Authenticating...</span>
-              ) : tab === 'login' ? (
+              ) : activeTab === 'login' ? (
                 <>
                   <span>Enter Aspirant Workspace</span>
                   <ArrowRight className="w-4 h-4" />
@@ -364,9 +407,38 @@ export default function LoginModal({ isOpen, onClose, initialTab = 'login' }) {
             </button>
           </form>
 
-          <p className="text-[11px] text-stone-400 text-center mt-4">
-            By proceeding, you agree to our Terms of Service & Privacy Policy. UPSC ZONE AI is an independent prep tool.
-          </p>
+          {/* Footer Subtext */}
+          <div className="mt-5 text-center">
+            {activeTab === 'login' ? (
+              <p className="text-xs text-stone-500">
+                New aspirant?{' '}
+                <button
+                  type="button"
+                  onClick={() => {
+                    setActiveTab('signup');
+                    setErrors({});
+                  }}
+                  className="font-bold text-[#133026] hover:text-[#F59E0B] transition-colors cursor-pointer"
+                >
+                  Start free prep today
+                </button>
+              </p>
+            ) : (
+              <p className="text-xs text-stone-500">
+                Already preparing with us?{' '}
+                <button
+                  type="button"
+                  onClick={() => {
+                    setActiveTab('login');
+                    setErrors({});
+                  }}
+                  className="font-bold text-[#133026] hover:text-[#F59E0B] transition-colors cursor-pointer"
+                >
+                  Log into workspace
+                </button>
+              </p>
+            )}
+          </div>
         </div>
       </div>
     </div>

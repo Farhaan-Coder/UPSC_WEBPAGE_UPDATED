@@ -4,7 +4,7 @@ import { Star } from 'lucide-react';
 const testimonialsData = [
   {
     id: 1,
-    quote: "“I wasted months drowning in dozens of unorganized channels and conflicting PDFs. UPSC ZONE AI's structured daily schedule gave me the calm confidence of finishing core Polity modules and 10 years of PYQs systematically.”",
+    quote: "“I wasted months drowning in dozens of unorganized channels and conflicting PDFs. UPSC ZONE AI's structured daily schedule gave me the calm confidence of finishing core Polity modules and topic-wise PYQs systematically.”",
     initial: 'AS',
     name: 'Ananya S.',
     role: 'Full-Time Aspirant • 2nd Attempt',

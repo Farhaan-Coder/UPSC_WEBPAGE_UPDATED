@@ -25,7 +25,7 @@ const footerSections = [
     links: [
       { name: 'Daily Editorial Takeaways', href: '#resources' },
       { name: '25-Year Topic-Wise PYQs', href: '#resources' },
-      { name: 'Spaced Active Recall Cards', href: '#features' },
+      { name: 'Notes & Flashcards', href: '#features' },
       { name: 'Frequently Asked Questions', href: '#faq' },
     ],
   },
@@ -143,7 +143,7 @@ export default function Footer({ onOpenLogin }) {
                     type="email"
                     value={newsletterEmail}
                     onChange={(e) => setNewsletterEmail(e.target.value)}
-                    placeholder="aspirant@upsc.in"
+                    placeholder="you@example.com"
                     required
                     aria-label="Email address for daily editorial digest"
                     className="w-full bg-white/10 border border-white/15 focus:border-[#F59E0B] focus:ring-1 focus:ring-[#F59E0B] rounded-xl px-3.5 py-2.5 text-xs text-white placeholder:text-stone-400 outline-none transition-all"

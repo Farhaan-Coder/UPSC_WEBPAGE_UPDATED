@@ -6,16 +6,15 @@ import {
   PenLine, 
   Sparkles, 
   BarChart3, 
+  Radar,
   ArrowUpRight,
   CheckCircle2,
   HelpCircle
 } from 'lucide-react';
 import { PYQ_RANGE, PYQ_TOTAL, pyqThemes } from '../data/pyqSample.js';
 import EliminationDrill from './EliminationDrill.jsx';
-import { useLanguage } from '../context/LanguageContext.jsx';
 
 export default function FeaturesGrid({ onOpenLogin }) {
-  const { t } = useLanguage();
   // Top 4 frequency items from unified pyqThemes
   const topPyqThemes = pyqThemes.slice(0, 4);
 
@@ -30,7 +29,7 @@ export default function FeaturesGrid({ onOpenLogin }) {
               STRATEGIC PREPARATION TOOLKIT
             </span>
             <h2 className="text-3xl sm:text-4xl font-serif font-bold text-[#133026] leading-tight">
-              {t('features.heading')}
+              One unified platform. Master Prelims, Mains, and the Interview.
             </h2>
           </div>
           <p className="text-sm sm:text-base text-stone-600 font-normal max-w-sm md:text-right leading-relaxed">
@@ -80,12 +79,12 @@ export default function FeaturesGrid({ onOpenLogin }) {
           </div>
 
           {/* BENTO CARD 2 (Large - 5 cols): 25-Year PYQ Intelligence with Mini Frequency Chart */}
-          <div className="lg:col-span-5 bg-white border border-slate-200/90 rounded-2xl p-6 sm:p-8 flex flex-col justify-between shadow-xs hover:shadow-xl hover:border-slate-300 transition-all duration-300 group">
+          <div className="lg:col-span-5 h-fit self-start bg-white border border-slate-200/90 rounded-2xl p-6 sm:p-8 flex flex-col shadow-xs hover:shadow-xl hover:border-slate-300 transition-all duration-300 group">
             <div>
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-3">
                   <div className="w-12 h-12 rounded-xl bg-[#EAF1EB] text-[#133026] flex items-center justify-center group-hover:bg-[#133026] group-hover:text-[#F59E0B] transition-colors duration-200 shadow-2xs">
-                    <RotateCcw className="w-6 h-6 stroke-[2]" />
+                    <Radar className="w-6 h-6 stroke-[2]" />
                   </div>
                   <div>
                     <span className="inline-block px-2.5 py-0.5 rounded-md bg-amber-50 border border-amber-200/60 text-xs font-bold uppercase tracking-wider text-amber-800">
@@ -106,7 +105,7 @@ export default function FeaturesGrid({ onOpenLogin }) {
               </p>
 
               {/* Mini UI Preview Widget: Subject Frequency Bar Chart using pyqSample */}
-              <div className="bg-[#FAF6EE] border border-stone-200/90 rounded-xl p-4 sm:p-5 mb-4">
+              <div className="bg-[#FAF6EE] border border-stone-200/90 rounded-xl p-5 sm:p-6 mb-5">
                 <div className="flex items-center justify-between text-xs font-semibold text-[#133026] mb-3 pb-2 border-b border-stone-200/70">
                   <span>Topic Recurrence Index</span>
                   <div className="flex items-center gap-1.5 text-xs text-stone-600 font-medium">
@@ -115,20 +114,31 @@ export default function FeaturesGrid({ onOpenLogin }) {
                   </div>
                 </div>
 
-                <div className="space-y-3">
+                <div className="space-y-2">
                   {topPyqThemes.map((bar, bIdx) => {
                     const relativeWidth = Math.round((bar.count / topPyqThemes[0].count) * 100);
                     return (
-                      <div key={bIdx} className="space-y-1">
+                      <div 
+                        key={bIdx} 
+                        className="space-y-1.5 p-2 -mx-2 rounded-lg hover:bg-white/60 hover:shadow-sm transition-all duration-200 cursor-pointer group/row"
+                      >
                         <div className="flex justify-between text-xs font-medium text-slate-700">
-                          <span>{bar.name}</span>
+                          <span className="font-semibold text-slate-800 group-hover/row:text-[#133026] transition-colors">{bar.name}</span>
                           <span className="font-bold text-[#133026]">
                             {bar.count} Qs ({bar.share}%)
                           </span>
                         </div>
-                        <div className="w-full h-2 bg-stone-200 rounded-full overflow-hidden">
+                        <div className="w-full h-2 bg-stone-200/90 rounded-full overflow-hidden">
                           <div 
-                            className={`h-full ${bIdx === 0 ? 'bg-[#133026]' : bIdx === 1 ? 'bg-emerald-700' : bIdx === 2 ? 'bg-[#F59E0B]' : 'bg-amber-800'} rounded-full transition-all duration-500`}
+                            className={`h-full ${
+                              bIdx === 0 
+                                ? 'bg-[#133026]' 
+                                : bIdx === 1 
+                                  ? 'bg-emerald-700' 
+                                  : bIdx === 2 
+                                    ? 'bg-[#F59E0B]' 
+                                    : 'bg-amber-800'
+                            } rounded-full transition-all duration-1000 ease-out`}
                             style={{ width: `${relativeWidth}%` }}
                           />
                         </div>
@@ -139,9 +149,15 @@ export default function FeaturesGrid({ onOpenLogin }) {
               </div>
             </div>
 
-            <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-600 font-medium">
+            <div className="pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-600 font-medium">
               <span>Mapped to UPSC Syllabus Micro-Themes</span>
-              <span className="text-emerald-800 font-bold">Sample mapping</span>
+              <a 
+                href="#resources"
+                className="inline-flex items-center gap-1 text-emerald-800 hover:text-emerald-700 hover:underline transition-all font-semibold group/link cursor-pointer"
+              >
+                <span>Sample mapping</span>
+                <ArrowUpRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" />
+              </a>
             </div>
           </div>
 
@@ -166,7 +182,7 @@ export default function FeaturesGrid({ onOpenLogin }) {
             </div>
           </div>
 
-          {/* BENTO CARD 4: Active Recall & Spaced Repetition (3 cols) */}
+          {/* BENTO CARD 4: Smart Notes & Flashcards (3 cols) */}
           <div className="md:col-span-1 lg:col-span-3 bg-white border border-slate-200/90 rounded-2xl p-6 flex flex-col justify-between shadow-xs hover:shadow-xl hover:border-slate-300 transition-all duration-300 hover:-translate-y-1 cursor-pointer group">
             <div>
               <div className="w-10 h-10 rounded-xl bg-[#EAF1EB] text-[#133026] flex items-center justify-center group-hover:bg-[#133026] group-hover:text-[#F59E0B] transition-colors duration-200 mb-4">
@@ -176,10 +192,10 @@ export default function FeaturesGrid({ onOpenLogin }) {
                 RETENTION ENGINE
               </span>
               <h4 className="font-sans font-bold text-base text-slate-800 tracking-tight mb-2 group-hover:text-[#133026] transition-colors">
-                Active Recall & Spaced Cards
+                Smart Notes & Flashcards
               </h4>
               <p className="text-xs sm:text-[13px] text-slate-600 leading-relaxed font-normal mb-4">
-                Never re-read the same chapter passively. High-yield flashcards schedule your reviews right when memory begins to fade.
+                Turn each chapter into short, revision-friendly notes and spaced flashcards, so you revise at the right time instead of rereading.
               </p>
             </div>
             <div className="pt-3 border-t border-slate-100 text-xs text-slate-600 font-medium">

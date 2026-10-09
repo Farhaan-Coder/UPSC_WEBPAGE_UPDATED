@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { LanguageProvider } from './context/LanguageContext.jsx';
 import Navbar from './components/Navbar.jsx';
 import Hero from './components/Hero.jsx';
 import ValueStrip from './components/ValueStrip.jsx';
@@ -32,44 +31,42 @@ export default function App() {
   };
 
   return (
-    <LanguageProvider>
-      <div className="min-h-screen bg-[#FDF9F1] bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] text-slate-900 font-sans selection:bg-amber-200 selection:text-amber-950 pb-16 md:pb-0">
-        <Navbar 
-          onOpenAuth={handleOpenAuth} 
-          onMobileMenuToggle={setMobileMenuOpen}
-        />
-        <main className="bg-transparent">
-          <Hero onOpenAuth={handleOpenAuth} />
-          <ValueStrip />
-          <FeaturesGrid />
-          <DashboardPreview />
-          <DarkSection />
-          <NextSteps />
-          <StagesCovered />
-          <Insights />
-          <Testimonials />
-          <FaqSection />
-          <CtaBanner onOpenAuth={handleOpenAuth} />
-        </main>
-        <Footer />
+    <div className="min-h-screen bg-[#FDF9F1] bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] text-slate-900 font-sans selection:bg-amber-200 selection:text-amber-950 pb-16 md:pb-0">
+      <Navbar 
+        onOpenAuth={handleOpenAuth} 
+        onMobileMenuToggle={setMobileMenuOpen}
+      />
+      <main className="bg-transparent">
+        <Hero onOpenAuth={handleOpenAuth} />
+        <ValueStrip />
+        <FeaturesGrid onOpenLogin={() => handleOpenAuth('login')} />
+        <DashboardPreview />
+        <DarkSection />
+        <NextSteps />
+        <StagesCovered />
+        <Insights />
+        <Testimonials />
+        <FaqSection onOpenAuth={handleOpenAuth} />
+        <CtaBanner onOpenAuth={handleOpenAuth} />
+      </main>
+      <Footer onOpenLogin={() => handleOpenAuth('login')} />
 
-        {/* Floating Back to Top Button */}
-        <BackToTop />
+      {/* Floating Back to Top Button */}
+      <BackToTop />
 
-        {/* Mobile Sticky CTA Bar (< 768px) */}
-        <MobileStickyCta
-          onOpenSignup={() => handleOpenAuth('signup')}
-          isModalOpen={authModalOpen}
-          isMobileMenuOpen={mobileMenuOpen}
-        />
+      {/* Mobile Sticky CTA Bar (< 768px) */}
+      <MobileStickyCta
+        onOpenSignup={() => handleOpenAuth('signup')}
+        isModalOpen={authModalOpen}
+        isMobileMenuOpen={mobileMenuOpen}
+      />
 
-        {/* Accessible Auth Modal */}
-        <LoginModal
-          isOpen={authModalOpen}
-          onClose={handleCloseAuth}
-          initialTab={authModalTab}
-        />
-      </div>
-    </LanguageProvider>
+      {/* Accessible Auth Modal */}
+      <LoginModal
+        isOpen={authModalOpen}
+        onClose={handleCloseAuth}
+        initialTab={authModalTab}
+      />
+    </div>
   );
 }

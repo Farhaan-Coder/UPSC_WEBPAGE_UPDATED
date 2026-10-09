@@ -27,14 +27,14 @@ const stepsData = [
 
 export default function NextSteps() {
   return (
-    <section className="py-20 lg:py-24 bg-transparent border-b border-stone-200/60" id="how-it-works">
+    <section className="pt-16 lg:pt-20 pb-10 lg:pb-12 bg-transparent border-b border-stone-200/60" id="how-it-works">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         
         {/* Split Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
           <div>
             <span className="text-xs font-semibold text-[#133026] tracking-wider block mb-2 uppercase">
-              YOUR BATTLE-TESTED ROADMAP
+              YOUR STEP-BY-STEP ROADMAP
             </span>
             <h2 className="text-3xl sm:text-4xl font-sans font-bold text-[#133026] tracking-tight leading-tight">
               Your next step doesn't have to be<br className="hidden sm:inline" /> guesswork.
