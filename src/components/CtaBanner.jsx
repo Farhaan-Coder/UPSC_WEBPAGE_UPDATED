@@ -1,56 +1,42 @@
 import React from 'react';
-import { ArrowRight, Sparkles } from 'lucide-react';
-import { EXAM_YEAR, ROADMAP_LABEL } from '../config/exam.js';
+import { ArrowRight, ShieldCheck } from 'lucide-react';
 
 export default function CtaBanner({ onOpenAuth }) {
   return (
-    <section className="pt-8 md:pt-12 pb-16 md:pb-20 bg-transparent" id="get-started">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        <div className="relative bg-[#133026] bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] rounded-3xl p-8 sm:p-12 lg:p-16 overflow-hidden shadow-2xl hover:shadow-3xl transition-all duration-300 flex flex-col md:flex-row md:items-center justify-between gap-8 border border-[#183C30]">
-          
-          {/* Concentric background rings */}
-          <div className="absolute -right-20 -top-20 w-96 h-96 rounded-full border border-white/5 pointer-events-none" />
-          <div className="absolute -right-10 -top-10 w-80 h-80 rounded-full border border-white/5 pointer-events-none" />
-          <div className="absolute right-0 top-0 w-64 h-64 rounded-full border border-white/5 pointer-events-none" />
-          <div className="absolute left-1/3 bottom-0 w-72 h-72 bg-[#F59E0B]/5 rounded-full blur-3xl pointer-events-none" />
+    <section className="py-20 bg-[#0B1E19] relative overflow-hidden" id="get-started">
+      {/* Subtle geometric depth */}
+      <div className="absolute inset-0 bg-[radial-gradient(#133026_1px,transparent_1px)] [background-size:24px_24px] opacity-40 pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-emerald-950/40 rounded-full blur-3xl pointer-events-none" />
 
-          {/* Banner Copy */}
-          <div className="relative z-10 max-w-lg">
-            <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#F59E0B] tracking-wider mb-3 uppercase bg-white/10 px-3 py-1 rounded-full border border-white/10 font-sans">
-              <Sparkles className="w-3.5 h-3.5 fill-[#F59E0B]" />
-              <span>START YOUR CIVIL SERVICES JOURNEY</span>
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-serif font-bold text-white tracking-tight leading-tight mb-3">
-              Your ambition deserves a smarter, disciplined plan.
-            </h2>
-            <p className="text-sm sm:text-base text-[#D7E5DB] leading-relaxed font-normal">
-              Start with a 15-minute diagnostic test to identify your GS strengths, negative marks vulnerabilities, and get a personalized {ROADMAP_LABEL} roadmap.
-            </p>
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 relative z-10 text-center">
+        {/* Accent Bar */}
+        <div className="w-10 h-1 bg-gradient-to-r from-amber-400 to-orange-500 rounded-full mx-auto mb-6" />
+
+        {/* Heading */}
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-tight leading-tight">
+          Your UPSC Journey Starts Today
+        </h2>
+
+        {/* Subtitle */}
+        <p className="text-slate-300 text-base sm:text-lg max-w-2xl mx-auto mt-4 leading-relaxed font-normal">
+          You don't need the perfect plan to begin. Take your first mock, discover your next step, and build momentum with AI.
+        </p>
+
+        {/* Action Button & Trust Indicator */}
+        <div className="mt-8 flex flex-col items-center">
+          <button
+            type="button"
+            onClick={() => onOpenAuth ? onOpenAuth('signup') : null}
+            className="group inline-flex items-center gap-2.5 bg-orange-500 hover:bg-orange-600 text-white font-bold text-base px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 cursor-pointer active:scale-[0.98]"
+          >
+            <span>Start Free Mock Test</span>
+            <ArrowRight className="w-5 h-5 stroke-[2.5] transition-transform duration-200 group-hover:translate-x-1" />
+          </button>
+
+          <div className="flex items-center gap-1.5 text-slate-400 text-sm mt-4">
+            <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0 stroke-[2.2]" />
+            <span>No credit card. Just your next step.</span>
           </div>
-
-          {/* Call to Action Actions */}
-          <div className="relative z-10 flex flex-col items-start md:items-center gap-3.5">
-            <button
-              type="button"
-              onClick={() => onOpenAuth ? onOpenAuth('signup') : null}
-              className="group relative inline-flex items-center gap-3 bg-gradient-to-b from-[#FBBF24] to-[#F59E0B] hover:from-[#F59E0B] hover:to-[#D97706] text-stone-900 font-bold text-sm sm:text-base px-8 py-4 rounded-xl shadow-[0_4px_18px_rgba(245,158,11,0.32)] hover:shadow-[0_8px_30px_rgba(245,158,11,0.5)] border border-amber-300/60 transition-all duration-300 ease-out hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98] overflow-hidden cursor-pointer"
-            >
-              <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out pointer-events-none" />
-              <span className="relative">Start Free Daily Prep</span>
-              <ArrowRight className="w-5 h-5 stroke-[2.5] transition-transform duration-300 group-hover:translate-x-1.5" />
-            </button>
-            <a
-              href="#preparation"
-              className="group inline-flex items-center gap-1.5 text-xs font-semibold text-[#D7E5DB] hover:text-white transition-colors duration-200"
-            >
-              <span>Explore live preparation dashboard</span>
-              <span className="transition-transform duration-200 group-hover:translate-x-1">→</span>
-            </a>
-            <span className="text-xs text-[#D7E5DB]/80 font-normal">
-              Free to start • No credit card required • Aligned with CSE {EXAM_YEAR}
-            </span>
-          </div>
-
         </div>
       </div>
     </section>
