@@ -37,9 +37,11 @@ export default function FaqSection({ onOpenAuth }) {
         
         {/* Section Header */}
         <div className="text-center mb-10 sm:mb-12">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-green-50 border border-green-200 text-sm font-bold uppercase tracking-widest text-green-800 mb-4 font-sans shadow-2xs">
-            <HelpCircle className="w-4 h-4 text-green-700" />
-            <span>FREQUENTLY ASKED QUESTIONS</span>
+          <div className="inline-flex items-center gap-2 bg-white border border-slate-200 shadow-xs px-4 py-1.5 rounded-full mb-4">
+            <HelpCircle className="w-3.5 h-3.5 text-[#133026]" />
+            <span className="text-xs font-bold tracking-widest uppercase text-[#133026]">
+              FREQUENTLY ASKED QUESTIONS
+            </span>
           </div>
           <h2 className="font-sans text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight mb-3">
             Common questions about UPSC ZONE AI.
