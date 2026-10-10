@@ -1,209 +1,195 @@
 import React, { useState } from 'react';
-import { BookOpenCheck, Sparkles, CheckCircle2 } from 'lucide-react';
+import { BookOpenCheck, Youtube, Linkedin, Instagram, ArrowRight, CheckCircle2 } from 'lucide-react';
+
+const footerSections = [
+  {
+    title: 'Platform',
+    links: [
+      { name: 'Core Features', href: '#features' },
+      { name: 'AI Answer Writing Lab', href: '#ai-tools' },
+      { name: 'Interactive Study Desk', href: '#preparation' },
+      { name: 'Prelims Readiness Drill', href: '#get-started' },
+    ],
+  },
+  {
+    title: 'Exam Stages',
+    links: [
+      { name: 'Prelims GS & CSAT', href: '#stages' },
+      { name: 'Mains GS I-IV & Essay', href: '#stages' },
+      { name: 'Optional Papers', href: '#stages' },
+      { name: 'Personality Test (Interview)', href: '#stages' },
+    ],
+  },
+  {
+    title: 'Study Modules',
+    links: [
+      { name: 'Daily Editorial Takeaways', href: '#resources' },
+      { name: '25-Year Topic-Wise PYQs', href: '#resources' },
+      { name: 'Notes & Flashcards', href: '#features' },
+      { name: 'Frequently Asked Questions', href: '#faq' },
+    ],
+  },
+];
+
+const legalLinks = [
+  { name: 'Privacy Policy', href: '#faq' },
+  { name: 'Terms of Service', href: '#faq' },
+  { name: 'Pedagogy & AI Ethics', href: '#faq' },
+];
 
 export default function Footer({ onOpenLogin }) {
-  const [email, setEmail] = useState('');
-  const [subscribed, setSubscribed] = useState(false);
+  const [newsletterEmail, setNewsletterEmail] = useState('');
+  const [newsletterSubscribed, setNewsletterSubscribed] = useState(false);
 
-  const handleSubscribe = (e) => {
+  const handleNewsletterSubmit = (e) => {
     e.preventDefault();
-    if (email.trim()) {
-      setSubscribed(true);
+    if (newsletterEmail.trim()) {
+      setNewsletterSubscribed(true);
       setTimeout(() => {
-        setEmail('');
-        setSubscribed(false);
+        setNewsletterEmail('');
+        setNewsletterSubscribed(false);
       }, 4000);
     }
   };
 
   return (
-    <footer className="bg-[#FDFBF7] border-t border-slate-200 py-12 text-slate-700" role="contentinfo">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <footer 
+      className="bg-[#FDFBF7] bg-[linear-gradient(to_right,#e5e7eb_1px,transparent_1px),linear-gradient(to_bottom,#e5e7eb_1px,transparent_1px)] bg-[size:2rem_2rem] text-slate-700 border-t border-slate-200 pt-16 pb-12" 
+      role="contentinfo"
+    >
+      <div className="max-w-6xl mx-auto px-4 sm:px-6">
         
-        {/* Main Grid: Brand + 3 Link Columns + Newsletter */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-y-10 gap-x-8 lg:gap-x-10 mb-12">
+        {/* Top Grid: Brand + 3 Nav Columns + Newsletter */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-y-10 gap-x-10 lg:gap-x-12 mb-12">
           
-          {/* Brand Column (lg:col-span-4) */}
+          {/* Brand & Mission Column */}
           <div className="lg:col-span-4 max-w-sm">
-            <a 
-              href="#" 
-              className="inline-flex items-center gap-2.5 mb-4 group focus:outline-none focus:ring-2 focus:ring-[#133026] rounded-xl p-0.5" 
-              aria-label="UPSC ZONE AI Homepage"
-            >
-              <div className="w-8 h-8 rounded-xl bg-[#133026] flex items-center justify-center text-[#F59E0B] shadow-xs transition-transform duration-200 group-hover:scale-105 shrink-0">
-                <BookOpenCheck className="w-4 h-4 stroke-[2.2]" />
+            <a href="#" className="flex items-center gap-2.5 mb-4 group focus:outline-none focus:ring-2 focus:ring-[#133026] rounded-xl p-0.5 inline-flex" aria-label="UPSC ZONE AI Home">
+              <div className="w-9 h-9 rounded-xl bg-[#133026] flex items-center justify-center text-[#F59E0B] shadow-xs group-hover:scale-105 transition-transform duration-200">
+                <BookOpenCheck className="w-5 h-5 stroke-[2.2]" />
               </div>
-              <span className="font-sans font-extrabold text-xl tracking-tight text-slate-900 whitespace-nowrap">
-                UPSC ZONE <span className="text-xs bg-[#133026] text-white px-1.5 py-0.5 rounded font-bold uppercase ml-0.5 tracking-wider">AI</span>
+              <span className="font-sans font-extrabold text-xl text-slate-900 group-hover:text-emerald-800 transition-colors duration-200 tracking-tight">
+                UPSC ZONE AI
               </span>
             </a>
-
-            <p className="text-sm text-slate-600 leading-relaxed mb-4">
-              A clearer path through UPSC preparation. Powered by AI.
+            
+            <p className="text-sm text-slate-600 leading-relaxed mb-6 font-normal">
+              A calm, intelligent workspace engineered for UPSC Civil Services aspirants. Synchronize syllabus completion, previous-year trends, and daily answer evaluation.
             </p>
 
-            <div className="flex items-center gap-2 text-slate-900 font-bold text-sm">
-              <Sparkles className="w-4 h-4 text-orange-500 fill-orange-500" />
-              <span>Learn with purpose.</span>
+            {/* Social Media Buttons */}
+            <div className="flex items-center gap-3 text-slate-600">
+              <a 
+                href="#resources" 
+                aria-label="Visit UPSC ZONE AI on YouTube for video walkthroughs" 
+                className="w-9 h-9 rounded-full bg-white flex items-center justify-center hover:bg-orange-500 hover:text-white transition-all duration-200 border border-slate-200 shadow-2xs hover:border-orange-500 cursor-pointer"
+              >
+                <Youtube className="w-4.5 h-4.5" />
+              </a>
+              <a 
+                href="#resources" 
+                aria-label="Connect with UPSC ZONE AI on LinkedIn" 
+                className="w-9 h-9 rounded-full bg-white flex items-center justify-center hover:bg-orange-500 hover:text-white transition-all duration-200 border border-slate-200 shadow-2xs hover:border-orange-500 cursor-pointer"
+              >
+                <Linkedin className="w-4.5 h-4.5" />
+              </a>
+              <a 
+                href="#resources" 
+                aria-label="Follow UPSC ZONE AI on Instagram for daily infographics" 
+                className="w-9 h-9 rounded-full bg-white flex items-center justify-center hover:bg-orange-500 hover:text-white transition-all duration-200 border border-slate-200 shadow-2xs hover:border-orange-500 cursor-pointer"
+              >
+                <Instagram className="w-4.5 h-4.5" />
+              </a>
             </div>
           </div>
 
-          {/* 3 Link Columns (lg:col-span-5) */}
-          <div className="lg:col-span-5 grid grid-cols-3 gap-6 sm:gap-8">
-            {/* Platform Column */}
-            <div>
-              <h3 className="text-xs font-bold text-slate-900 uppercase tracking-wider mb-3">
-                Platform
-              </h3>
-              <ul className="space-y-2.5">
-                <li>
-                  <a href="#features" className="text-sm text-slate-500 hover:text-emerald-700 transition-colors duration-200">
-                    Features
-                  </a>
-                </li>
-                <li>
-                  <a href="#features" className="text-sm text-slate-500 hover:text-emerald-700 transition-colors duration-200">
-                    Mock Tests
-                  </a>
-                </li>
-                <li>
-                  <a href="#pricing" className="text-sm text-slate-500 hover:text-emerald-700 transition-colors duration-200">
-                    Plans
-                  </a>
-                </li>
-                <li>
-                  <a href="#ai-tools" className="text-sm text-slate-500 hover:text-emerald-700 transition-colors duration-200">
-                    Smart Notes
-                  </a>
-                </li>
-                <li>
-                  <a href="#preparation" className="text-sm text-slate-500 hover:text-emerald-700 transition-colors duration-200">
-                    Study Planner
-                  </a>
-                </li>
-              </ul>
-            </div>
-
-            {/* Resources Column */}
-            <div>
-              <h3 className="text-xs font-bold text-slate-900 uppercase tracking-wider mb-3">
-                Resources
-              </h3>
-              <ul className="space-y-2.5">
-                <li>
-                  <a href="#resources" className="text-sm text-slate-500 hover:text-emerald-700 transition-colors duration-200">
-                    Current Affairs
-                  </a>
-                </li>
-                <li>
-                  <a href="#resources" className="text-sm text-slate-500 hover:text-emerald-700 transition-colors duration-200">
-                    PYQs
-                  </a>
-                </li>
-                <li>
-                  <a href="#resources" className="text-sm text-slate-500 hover:text-emerald-700 transition-colors duration-200">
-                    Study Guides
-                  </a>
-                </li>
-                <li>
-                  <a href="#faq" className="text-sm text-slate-500 hover:text-emerald-700 transition-colors duration-200">
-                    Help Centre
-                  </a>
-                </li>
-              </ul>
-            </div>
-
-            {/* Company Column */}
-            <div>
-              <h3 className="text-xs font-bold text-slate-900 uppercase tracking-wider mb-3">
-                Company
-              </h3>
-              <ul className="space-y-2.5">
-                <li>
-                  <a href="#faq" className="text-sm text-slate-500 hover:text-emerald-700 transition-colors duration-200">
-                    About us
-                  </a>
-                </li>
-                <li>
-                  <a href="#faq" className="text-sm text-slate-500 hover:text-emerald-700 transition-colors duration-200">
-                    Privacy
-                  </a>
-                </li>
-                <li>
-                  <a href="#faq" className="text-sm text-slate-500 hover:text-emerald-700 transition-colors duration-200">
-                    Terms
-                  </a>
-                </li>
-                <li>
-                  <button 
-                    type="button" 
-                    onClick={() => onOpenLogin ? onOpenLogin() : null}
-                    className="text-sm text-slate-500 hover:text-emerald-700 transition-colors duration-200 text-left cursor-pointer"
-                  >
-                    Aspirant Login
-                  </button>
-                </li>
-              </ul>
-            </div>
+          {/* Navigation Links Columns */}
+          <div className="lg:col-span-5 grid grid-cols-2 sm:grid-cols-3 gap-y-8 gap-x-6 sm:gap-x-8">
+            {footerSections.map((section, idx) => (
+              <div key={idx}>
+                <h4 className="text-xs font-bold text-orange-600 uppercase tracking-wider mb-4">
+                  {section.title}
+                </h4>
+                <ul className="space-y-3">
+                  {section.links.map((link, lIdx) => (
+                    <li key={lIdx}>
+                      <a
+                        href={link.href}
+                        className="text-sm text-slate-600 hover:text-emerald-700 transition-colors duration-200 font-normal inline-block"
+                      >
+                        {link.name}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </div>
 
-          {/* Newsletter Column (lg:col-span-3) */}
+          {/* Newsletter Column */}
           <div className="lg:col-span-3">
-            <h3 className="text-base font-bold text-slate-900 mb-1">
-              A little clarity in your inbox.
-            </h3>
-            <p className="text-xs text-slate-500 leading-relaxed mb-3">
-              Study tips, useful updates and revision prompts.
+            <h4 className="text-xs font-bold text-orange-600 uppercase tracking-wider mb-4">
+              Daily Editorial Digest
+            </h4>
+            <p className="text-xs text-slate-600 leading-relaxed mb-3">
+              Receive a 5-minute morning brief connecting current affairs to the static syllabus.
             </p>
-
-            {subscribed ? (
+            {newsletterSubscribed ? (
               <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-3 text-xs text-emerald-800 flex items-center gap-2">
                 <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                <span>Subscribed! Check your inbox for upcoming updates.</span>
+                <span>Subscribed! Check your inbox tomorrow at 7:00 AM.</span>
               </div>
             ) : (
-              <form onSubmit={handleSubscribe} className="space-y-2">
-                <div>
-                  <label htmlFor="newsletter-email" className="block text-[11px] font-bold text-slate-700 mb-1">
-                    Email address
-                  </label>
-                  <div className="flex gap-2">
-                    <input
-                      id="newsletter-email"
-                      type="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      placeholder="you@example.com"
-                      required
-                      aria-label="Email address for revision updates"
-                      className="w-full bg-white border border-slate-300 focus:border-emerald-700 focus:ring-1 focus:ring-emerald-700 rounded-xl px-3 py-2 text-xs text-slate-900 placeholder:text-slate-400 outline-none transition-all shadow-2xs"
-                    />
-                    <button
-                      type="submit"
-                      className="bg-[#133026] hover:bg-[#0B1E19] text-white font-bold text-xs px-4 py-2 rounded-xl transition-all duration-200 shrink-0 shadow-xs cursor-pointer active:scale-95"
-                    >
-                      Subscribe
-                    </button>
-                  </div>
+              <form onSubmit={handleNewsletterSubmit} className="space-y-2">
+                <div className="relative">
+                  <input
+                    type="email"
+                    value={newsletterEmail}
+                    onChange={(e) => setNewsletterEmail(e.target.value)}
+                    placeholder="you@example.com"
+                    required
+                    aria-label="Email address for daily editorial digest"
+                    className="w-full bg-white border border-slate-300 focus:border-emerald-700 focus:ring-1 focus:ring-emerald-700 rounded-xl px-3.5 py-2.5 text-xs text-slate-900 placeholder:text-slate-400 outline-none transition-all shadow-2xs"
+                  />
                 </div>
-                <p className="text-[11px] text-slate-400 leading-tight">
-                  By subscribing, you agree to our Privacy Policy. Unsubscribe anytime.
-                </p>
+                <button
+                  type="submit"
+                  className="w-full bg-gradient-to-b from-[#FBBF24] to-[#F59E0B] hover:from-[#F59E0B] hover:to-[#D97706] text-stone-950 font-bold text-xs px-4 py-2.5 rounded-xl transition-all duration-200 flex items-center justify-center gap-1.5 shadow-sm active:scale-[0.98] cursor-pointer"
+                >
+                  <span>Subscribe Free</span>
+                  <ArrowRight className="w-3.5 h-3.5 stroke-[2.2]" />
+                </button>
               </form>
             )}
           </div>
 
         </div>
 
-        {/* Bottom Bar: Copyright & Disclaimer */}
-        <div className="border-t border-slate-200 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-400">
+        {/* Divider */}
+        <div className="h-px bg-slate-200 mb-6" />
+
+        {/* Bottom Row */}
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-600 mb-4 font-normal">
           <div>
-            © 2026 UPSC ZONE AI
+            © {new Date().getFullYear()} UPSC ZONE AI. Built for civil services aspirants.
           </div>
-          <div className="sm:pr-14">
-            Not affiliated with any government body
+          <div className="flex items-center gap-6">
+            {legalLinks.map((item, idx) => (
+              <a
+                key={idx}
+                href={item.href}
+                className="hover:text-emerald-700 transition-colors duration-200"
+              >
+                {item.name}
+              </a>
+            ))}
           </div>
         </div>
+
+        {/* Legal & Content Safety Disclaimer */}
+        <p className="text-xs text-slate-500 leading-relaxed font-normal text-center sm:text-left pt-3 border-t border-slate-200">
+          UPSC ZONE AI is an independent preparation platform and is not affiliated with or endorsed by the Union Public Service Commission or any government body.
+        </p>
 
       </div>
     </footer>
