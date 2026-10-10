@@ -1,8 +1,62 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
-  <rect width="32" height="32" rx="7" fill="#133026" />
-  <!-- Open Book in Amber -->
-  <path d="M5.5 9.5C8 8.5 11.5 8.5 15.2 10V24.5C11.5 23 8 23 5.5 24V9.5Z" fill="#F59E0B" />
-  <path d="M26.5 9.5C24 8.5 20.5 8.5 16.8 10V24.5C20.5 23 24 23 26.5 24V9.5Z" fill="#F59E0B" />
-  <!-- Spine Line -->
-  <line x1="16" y1="10" x2="16" y2="24.5" stroke="#FDF9F1" stroke-width="1.2" stroke-linecap="round" />
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <style>
+    :root {
+      --book-fill: #104C38;
+      --book-edge: #34D399;
+      --gold-spine: #F59E0B;
+      --gold-spark: #FBBF24;
+      --outline: rgba(255, 255, 255, 0.45);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --book-fill: #0F5132;
+        --book-edge: #4ADE80;
+        --gold-spine: #FBBF24;
+        --gold-spark: #FDE047;
+        --outline: rgba(255, 255, 255, 0.7);
+      }
+    }
+  </style>
+
+  <!-- Left Page (Curved Open Knowledge Leaf) -->
+  <path d="M 8 20 C 16 15 25 16 31 20 V 52 C 25 48 16 47 8 52 Z" 
+        fill="var(--book-fill)" 
+        stroke="var(--book-edge)" 
+        stroke-width="1.8" 
+        stroke-linejoin="round" />
+
+  <!-- Left Page Interior Line -->
+  <path d="M 13 28 C 18 24.5 24 25.5 27 28" 
+        stroke="var(--book-edge)" 
+        stroke-width="1.5" 
+        stroke-linecap="round" 
+        opacity="0.8" />
+  <path d="M 13 36 C 18 32.5 24 33.5 27 36" 
+        stroke="var(--book-edge)" 
+        stroke-width="1.5" 
+        stroke-linecap="round" 
+        opacity="0.8" />
+
+  <!-- Right Page (Curved Open Knowledge Leaf) -->
+  <path d="M 56 20 C 48 15 39 16 33 20 V 52 C 39 48 48 47 56 52 Z" 
+        fill="var(--book-fill)" 
+        stroke="var(--book-edge)" 
+        stroke-width="1.8" 
+        stroke-linejoin="round" />
+
+  <!-- Center Golden Bookmark Spine (Pillar of Wisdom) -->
+  <path d="M 30.5 17 H 33.5 V 45 L 32 43.5 L 30.5 45 Z" 
+        fill="var(--gold-spine)" />
+
+  <!-- Star of Apex Achievement / Excellence -->
+  <path d="M 32 3 L 34.8 11.2 L 42.8 14 L 34.8 16.8 L 32 25 L 29.2 16.8 L 21.2 14 L 29.2 11.2 Z" 
+        fill="var(--gold-spark)" 
+        filter="drop-shadow(0px 1px 2px rgba(0,0,0,0.3))" />
+
+  <!-- High-Precision Verified Accuracy Checkmark -->
+  <path d="M 39 34 L 44.5 39.5 L 53 29" 
+        stroke="var(--gold-spark)" 
+        stroke-width="3.6" 
+        stroke-linecap="round" 
+        stroke-linejoin="round" />
 </svg>
