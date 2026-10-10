@@ -3,11 +3,10 @@ import { ArrowRight, ShieldCheck } from 'lucide-react';
 
 export default function CtaBanner({ onOpenAuth }) {
   return (
-    <section className="py-20 bg-[#0B1E19] relative overflow-hidden" id="get-started">
-      {/* Subtle geometric depth */}
-      <div className="absolute inset-0 bg-[radial-gradient(#133026_1px,transparent_1px)] [background-size:24px_24px] opacity-40 pointer-events-none" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-emerald-950/40 rounded-full blur-3xl pointer-events-none" />
-
+    <section 
+      className="py-20 bg-[#0B1E19] bg-[linear-gradient(to_right,#ffffff0a_1px,transparent_1px),linear-gradient(to_bottom,#ffffff0a_1px,transparent_1px)] bg-[size:2rem_2rem] relative overflow-hidden" 
+      id="get-started"
+    >
       <div className="max-w-4xl mx-auto px-4 sm:px-6 relative z-10 text-center">
         {/* Accent Bar */}
         <div className="w-10 h-1 bg-gradient-to-r from-amber-400 to-orange-500 rounded-full mx-auto mb-6" />
