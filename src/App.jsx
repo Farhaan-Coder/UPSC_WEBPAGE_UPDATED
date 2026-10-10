@@ -9,6 +9,7 @@ import NextSteps from './components/NextSteps.jsx';
 import StagesCovered from './components/StagesCovered.jsx';
 import Insights from './components/Insights.jsx';
 import Testimonials from './components/Testimonials.jsx';
+import Pricing from './components/Pricing.jsx';
 import FaqSection from './components/FaqSection.jsx';
 import CtaBanner from './components/CtaBanner.jsx';
 import Footer from './components/Footer.jsx';
@@ -46,6 +47,7 @@ export default function App() {
         <StagesCovered />
         <Insights />
         <Testimonials />
+        <Pricing onOpenAuth={handleOpenAuth} />
         <FaqSection onOpenAuth={handleOpenAuth} />
         <CtaBanner onOpenAuth={handleOpenAuth} />
       </main>
