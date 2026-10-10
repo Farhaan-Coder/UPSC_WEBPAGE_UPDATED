@@ -211,15 +211,15 @@ export default function DarkSection({ onOpenLogin }) {
                 </span>
               </div>
 
-              {/* Filter Tabs */}
-              <div className="flex flex-wrap items-center gap-2 mb-4" role="tablist">
+              {/* Filter Tabs - Equal Width Segmented Control */}
+              <div className="grid grid-cols-3 gap-2 w-full mb-4" role="tablist">
                 {tabsData.map((tab) => (
                   <button
                     key={tab.id}
                     role="tab"
                     aria-selected={activeTab === tab.id}
                     onClick={() => setActiveTab(tab.id)}
-                    className={`flex-1 min-w-[110px] text-[13px] sm:text-sm px-3 py-2 rounded-lg font-medium text-center transition-all cursor-pointer ${
+                    className={`w-full flex items-center justify-center text-center text-[11px] sm:text-[13px] md:text-sm px-1.5 sm:px-3 py-2.5 rounded-lg font-medium transition-all duration-200 cursor-pointer ${
                       activeTab === tab.id
                         ? 'bg-[#133026] text-white shadow-xs'
                         : 'bg-stone-100 text-stone-700 hover:bg-stone-200'
