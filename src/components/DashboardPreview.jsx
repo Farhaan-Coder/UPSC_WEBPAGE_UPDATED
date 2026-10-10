@@ -53,21 +53,18 @@ const initialDailyTasks = [
     title: 'Polity: Parliamentary Committees & Legislative Procedures',
     sub: 'GS II • Standard Reference • Active Recall Drill',
     time: '45 min',
-    completed: true,
   },
   {
     id: 2,
     title: 'Environment: Biosphere Reserves & Ramsar Wetlands (2014-2024)',
     sub: 'Prelims GS I • 25 MCQs Elimination Practice',
     time: '35 min',
-    completed: false,
   },
   {
     id: 3,
     title: 'Governance & Economy: Fiscal Federalism & Tax Devolutions',
     sub: 'GS III • National Editorial Synthesis + 5 flashcards',
     time: '30 min',
-    completed: false,
   },
 ];
 
@@ -101,7 +98,7 @@ export default function DashboardPreview() {
   const [activeTab, setActiveTab] = useState(0);
   const [studyHours, setStudyHours] = useState(6.0);
   const [studyMode, setStudyMode] = useState('fulltime'); // 'working' or 'fulltime'
-  const [tasks, setTasks] = useState(initialDailyTasks);
+  const [completedTasks, setCompletedTasks] = useState([]);
   const [typingIndex, setTypingIndex] = useState(0);
 
   // Interconnected dynamic calculation: studyHours slider drives progress benchmarks proportionally
@@ -140,7 +137,9 @@ export default function DashboardPreview() {
   }, [activeTab]);
 
   const toggleTask = (id) => {
-    setTasks(tasks.map(t => t.id === id ? { ...t, completed: !t.completed } : t));
+    setCompletedTasks((prev) => 
+      prev.includes(id) ? prev.filter((taskId) => taskId !== id) : [...prev, id]
+    );
   };
 
   const handleModeChange = (mode) => {
@@ -152,7 +151,7 @@ export default function DashboardPreview() {
     }
   };
 
-  const completedCount = tasks.filter(t => t.completed).length;
+  const completedCount = completedTasks.length;
 
   // Real-time calculation based on study hours slider
   const staticHours = (studyHours * 0.45).toFixed(1);
@@ -454,45 +453,52 @@ export default function DashboardPreview() {
                         Today's Action Items
                       </span>
                       <span className="font-sans text-xs font-semibold text-[#133026] bg-[#EAF1EB] px-2.5 py-0.5 rounded-full border border-green-200/60">
-                        {completedCount} of 3 tasks checked
+                        {completedTasks.length} of 3 tasks checked
                       </span>
                     </div>
 
                     <div className="space-y-2">
-                      {tasks.map((task) => (
-                        <div
-                          key={task.id}
-                          onClick={() => toggleTask(task.id)}
-                          className={`group p-3 sm:p-3.5 rounded-xl border transition-all duration-200 cursor-pointer flex items-center justify-between gap-3 hover:bg-slate-50 hover:shadow-sm hover:-translate-y-0.5 ${
-                            task.completed
-                              ? 'bg-slate-50/70 border-slate-200/70 opacity-75'
-                              : 'bg-white border-slate-200/80 shadow-2xs hover:border-slate-300'
-                          }`}
-                        >
-                          <div className="flex items-center gap-3 min-w-0">
-                            <div className={`w-5 h-5 rounded-md flex items-center justify-center border transition-all duration-200 shrink-0 group-hover:ring-2 group-hover:ring-slate-200 ${
-                              task.completed 
-                                ? 'bg-[#133026] border-[#133026] text-white shadow-2xs' 
-                                : 'border-slate-300 bg-white group-hover:border-slate-400'
-                            }`}>
-                              {task.completed && <Check className="w-3.5 h-3.5 stroke-[3]" />}
-                            </div>
-                            <div className="min-w-0">
-                              <div className={`font-sans text-sm font-semibold transition-colors ${
-                                task.completed ? 'line-through text-slate-400' : 'text-slate-900'
+                      {initialDailyTasks.map((task) => {
+                        const isCompleted = completedTasks.includes(task.id);
+                        return (
+                          <div
+                            key={task.id}
+                            onClick={() => toggleTask(task.id)}
+                            className={`group p-3 sm:p-3.5 rounded-xl border transition-all duration-300 cursor-pointer active:scale-[0.98] flex items-center justify-between gap-3 ${
+                              isCompleted
+                                ? 'bg-slate-50 border-slate-200/70 opacity-60'
+                                : 'bg-white border-slate-200/80 shadow-2xs hover:border-slate-300 hover:bg-slate-50/60 hover:-translate-y-0.5'
+                            }`}
+                          >
+                            <div className="flex items-center gap-3 min-w-0">
+                              <div className={`w-5 h-5 rounded-md flex items-center justify-center border transition-all duration-300 shrink-0 group-hover:ring-2 group-hover:ring-slate-200 ${
+                                isCompleted 
+                                  ? 'bg-[#133026] border-[#133026] text-white shadow-2xs' 
+                                  : 'border-slate-300 bg-white group-hover:border-slate-400'
                               }`}>
-                                {task.title}
+                                {isCompleted && <Check className="w-3.5 h-3.5 stroke-[3]" />}
                               </div>
-                              <div className="font-sans text-sm text-slate-500 mt-0.5">
-                                {task.sub}
+                              <div className="min-w-0">
+                                <div className={`font-sans text-sm font-semibold transition-all duration-300 ${
+                                  isCompleted ? 'line-through text-slate-400' : 'text-slate-900'
+                                }`}>
+                                  {task.title}
+                                </div>
+                                <div className={`font-sans text-xs sm:text-sm mt-0.5 transition-all duration-300 ${
+                                  isCompleted ? 'line-through text-slate-400 opacity-80' : 'text-slate-500'
+                                }`}>
+                                  {task.sub}
+                                </div>
                               </div>
                             </div>
+                            <span className={`font-sans text-xs font-medium shrink-0 transition-all duration-300 ${
+                              isCompleted ? 'text-slate-400' : 'text-slate-500'
+                            }`}>
+                              {task.time}
+                            </span>
                           </div>
-                          <span className="font-sans text-xs font-medium text-slate-500 shrink-0">
-                            {task.time}
-                          </span>
-                        </div>
-                      ))}
+                        );
+                      })}
                     </div>
                   </div>
 
