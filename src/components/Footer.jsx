@@ -54,10 +54,10 @@ export default function Footer({ onOpenLogin }) {
 
   return (
     <footer 
-      className="bg-[#FDFBF7] bg-[linear-gradient(to_right,#e5e7eb_1px,transparent_1px),linear-gradient(to_bottom,#e5e7eb_1px,transparent_1px)] bg-[size:2rem_2rem] text-slate-700 border-t border-slate-200 pt-16 pb-12" 
+      className="bg-[#FCFBF8] bg-[linear-gradient(to_right,rgba(0,0,0,0.04)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.04)_1px,transparent_1px)] bg-[size:2rem_2rem] text-slate-700 border-t border-slate-200 pt-16 pb-12 relative overflow-hidden" 
       role="contentinfo"
     >
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
         
         {/* Top Grid: Brand + 3 Nav Columns + Newsletter */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-y-10 gap-x-10 lg:gap-x-12 mb-12">
