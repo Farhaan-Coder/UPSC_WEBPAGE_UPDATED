@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowRight, Check } from 'lucide-react';
+import { ArrowRight, Check, Lock } from 'lucide-react';
 
 export default function Pricing({ onOpenAuth }) {
   const plans = [
@@ -68,7 +68,7 @@ export default function Pricing({ onOpenAuth }) {
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
-          <span className="inline-block text-orange-600 text-xs sm:text-sm font-bold tracking-wider uppercase mb-3">
+          <span className="inline-block text-emerald-800 text-xs sm:text-sm font-bold tracking-wider uppercase mb-3">
             INVEST IN YOUR PREPARATION
           </span>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight mb-4">
@@ -77,9 +77,10 @@ export default function Pricing({ onOpenAuth }) {
           <p className="text-base sm:text-lg text-slate-600 leading-relaxed">
             Start free, then choose the depth of support that fits your preparation.
           </p>
-          <div className="mt-4">
-            <span className="inline-block text-xs font-medium text-stone-500 bg-stone-100/80 px-3 py-1 rounded-full border border-stone-200/60">
-              Indicative sample pricing • paid plans billed monthly in INR
+          <div className="mt-4 flex justify-center">
+            <span className="inline-flex items-center gap-1.5 text-xs font-medium text-slate-600 tracking-wide bg-slate-100/70 px-3.5 py-1.5 rounded-full border border-slate-200/80 shadow-2xs">
+              <Lock className="w-3.5 h-3.5 text-slate-500 shrink-0 stroke-[2.2]" />
+              <span>Transparent pricing • No hidden fees • Billed monthly in INR</span>
             </span>
           </div>
         </div>
