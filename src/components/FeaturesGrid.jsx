@@ -94,11 +94,11 @@ export default function FeaturesGrid({ onOpenLogin }) {
             return (
               <div
                 key={idx}
-                className="group bg-white rounded-2xl border border-slate-200 shadow-sm p-6 cursor-pointer transition-all duration-300 ease-in-out hover:-translate-y-2 hover:shadow-xl hover:ring-2 hover:ring-orange-500 hover:ring-offset-2 flex flex-col justify-between"
+                className="group bg-white rounded-2xl border border-slate-200 shadow-sm p-6 cursor-pointer transition-all duration-300 hover:-translate-y-1 hover:shadow-md flex flex-col justify-between"
               >
                 <div>
                   {/* Top-left icon inside soft tinted square with hover inversion */}
-                  <div className="bg-emerald-50 text-emerald-800 group-hover:bg-[#133026] group-hover:text-white transition-colors duration-300 p-2.5 rounded-lg w-fit mb-4">
+                  <div className="bg-emerald-50 text-emerald-800 transition-colors duration-300 group-hover:bg-[#0B1E19] group-hover:text-orange-500 p-2.5 rounded-lg w-fit mb-4">
                     <Icon className="w-5 h-5 stroke-[2.2]" />
                   </div>
 
