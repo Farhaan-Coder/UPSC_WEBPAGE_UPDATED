@@ -15,7 +15,7 @@ export default function FeaturesGrid({ onOpenLogin }) {
       icon: ClipboardCheck,
       overline: 'PRELIMS & CSAT',
       title: 'Targeted AI Mock Tests',
-      description: 'Adaptive sectional and full-length test series with real-time negative marking diagnostics, speed benchmarks, and option elimination simulation.',
+      description: 'Practice with tests that adapt to your weaknesses. Get clear explanations that actually teach you the concept, not just the right answer.',
       meta: 'Negative Marking Guard',
       linkText: 'Explore mocks',
       href: '#sample-drill',
@@ -24,7 +24,7 @@ export default function FeaturesGrid({ onOpenLogin }) {
       icon: Newspaper,
       overline: 'DAILY BRIEF',
       title: 'Daily Editorial & GS Mapping',
-      description: '10-minute morning brief distilling national editorials into high-yield syllabus points mapped directly across GS Papers I, II, and III.',
+      description: 'Cut through newspaper clutter in 10 minutes. Get curated editorial takeaways linked straight to GS Papers I, II, and III every morning.',
       meta: 'Curated Daily • 7:00 AM',
       linkText: 'Read brief',
       href: '#resources',
@@ -33,7 +33,7 @@ export default function FeaturesGrid({ onOpenLogin }) {
       icon: PenLine,
       overline: 'RETENTION ENGINE',
       title: 'Smart Notes & Revision Cards',
-      description: 'Transform exhaustive NCERT and standard references into revision-friendly bullet notes and active recall summaries before exam day.',
+      description: 'Turn bulky textbooks into crisp, revision-ready cards. Review essential high-yield concepts in minutes instead of re-reading hundreds of pages.',
       meta: 'Micro-Topic Summaries',
       linkText: 'Browse notes',
       href: '#pricing',
@@ -42,7 +42,7 @@ export default function FeaturesGrid({ onOpenLogin }) {
       icon: RotateCcw,
       overline: '25-YEAR ARCHIVE',
       title: 'Topic-Wise PYQ Intelligence',
-      description: 'Deconstruct 25 years of UPSC Prelims and Mains questions categorized by micro-theme, with distractor breakdown and recurring pattern insights.',
+      description: 'Stop guessing the UPSC pattern. Master recurring themes with our neatly organized, topic-wise previous year questions.',
       meta: 'Prelims & Mains Mapped',
       linkText: 'Explore PYQs',
       href: '#resources',
@@ -51,7 +51,7 @@ export default function FeaturesGrid({ onOpenLogin }) {
       icon: BarChart3,
       overline: 'PERFORMANCE RADAR',
       title: 'Detailed Subject Analytics',
-      description: 'Pinpoint exact syllabus blind spots, subject accuracy rates, time spent per question, and historical elimination success ratios.',
+      description: 'See exactly where you are losing marks. Track your accuracy, pacing, and blind spots so you can fix weak topics before exam day.',
       meta: 'Granular Score Insights',
       linkText: 'View metrics',
       href: '#preparation',
@@ -60,7 +60,7 @@ export default function FeaturesGrid({ onOpenLogin }) {
       icon: CalendarCheck,
       overline: 'ADAPTIVE SCHEDULE',
       title: 'Adaptive Daily Study Planner',
-      description: 'Dynamic preparation roadmap that recalibrates your revision frequency and target hours automatically based on your mock test performance.',
+      description: 'A realistic daily study schedule that flexes with you. It automatically adjusts your revision priorities whenever your mock test scores shift.',
       meta: 'Personalized CSE Roadmap',
       linkText: 'Build plan',
       href: '#preparation',
@@ -94,7 +94,7 @@ export default function FeaturesGrid({ onOpenLogin }) {
             return (
               <div
                 key={idx}
-                className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 hover:-translate-y-1 transition-transform duration-300 flex flex-col justify-between"
+                className="group bg-white rounded-2xl border border-slate-200 shadow-sm p-6 hover:-translate-y-1.5 hover:shadow-lg hover:border-emerald-200 transition-all duration-300 ease-in-out cursor-pointer flex flex-col justify-between"
               >
                 <div>
                   {/* Top-left icon inside soft tinted square */}
@@ -133,7 +133,7 @@ export default function FeaturesGrid({ onOpenLogin }) {
                       className="text-xs font-semibold text-emerald-700 hover:text-emerald-800 bg-emerald-50 px-2 py-1 rounded transition-colors duration-150 inline-flex items-center gap-1 cursor-pointer"
                     >
                       <span>{feature.linkText}</span>
-                      <span className="text-[11px]">↗</span>
+                      <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">↗</span>
                     </a>
                   </div>
                 </div>
