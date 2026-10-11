@@ -2,27 +2,76 @@ import React from 'react';
 import { 
   ClipboardCheck, 
   Newspaper, 
-  RotateCcw, 
   PenLine, 
-  Sparkles, 
+  RotateCcw, 
   BarChart3, 
-  Radar,
-  ArrowUpRight,
-  CheckCircle2,
-  HelpCircle
+  CalendarCheck 
 } from 'lucide-react';
-import { PYQ_RANGE, PYQ_TOTAL, pyqThemes } from '../data/pyqSample.js';
 import EliminationDrill from './EliminationDrill.jsx';
 
 export default function FeaturesGrid({ onOpenLogin }) {
-  // Top 4 frequency items from unified pyqThemes
-  const topPyqThemes = pyqThemes.slice(0, 4);
+  const features = [
+    {
+      icon: ClipboardCheck,
+      overline: 'PRELIMS & CSAT',
+      title: 'Targeted AI Mock Tests',
+      description: 'Adaptive sectional and full-length test series with real-time negative marking diagnostics, speed benchmarks, and option elimination simulation.',
+      meta: 'Negative Marking Guard',
+      linkText: 'Explore mocks',
+      href: '#sample-drill',
+    },
+    {
+      icon: Newspaper,
+      overline: 'DAILY BRIEF',
+      title: 'Daily Editorial & GS Mapping',
+      description: '10-minute morning brief distilling national editorials into high-yield syllabus points mapped directly across GS Papers I, II, and III.',
+      meta: 'Curated Daily • 7:00 AM',
+      linkText: 'Read brief',
+      href: '#resources',
+    },
+    {
+      icon: PenLine,
+      overline: 'RETENTION ENGINE',
+      title: 'Smart Notes & Revision Cards',
+      description: 'Transform exhaustive NCERT and standard references into revision-friendly bullet notes and active recall summaries before exam day.',
+      meta: 'Micro-Topic Summaries',
+      linkText: 'Browse notes',
+      href: '#pricing',
+    },
+    {
+      icon: RotateCcw,
+      overline: '25-YEAR ARCHIVE',
+      title: 'Topic-Wise PYQ Intelligence',
+      description: 'Deconstruct 25 years of UPSC Prelims and Mains questions categorized by micro-theme, with distractor breakdown and recurring pattern insights.',
+      meta: 'Prelims & Mains Mapped',
+      linkText: 'Explore PYQs',
+      href: '#resources',
+    },
+    {
+      icon: BarChart3,
+      overline: 'PERFORMANCE RADAR',
+      title: 'Detailed Subject Analytics',
+      description: 'Pinpoint exact syllabus blind spots, subject accuracy rates, time spent per question, and historical elimination success ratios.',
+      meta: 'Granular Score Insights',
+      linkText: 'View metrics',
+      href: '#preparation',
+    },
+    {
+      icon: CalendarCheck,
+      overline: 'ADAPTIVE SCHEDULE',
+      title: 'Adaptive Daily Study Planner',
+      description: 'Dynamic preparation roadmap that recalibrates your revision frequency and target hours automatically based on your mock test performance.',
+      meta: 'Personalized CSE Roadmap',
+      linkText: 'Build plan',
+      href: '#preparation',
+    },
+  ];
 
   return (
-    <section className="pt-16 md:pt-20 pb-8 md:pb-10 bg-transparent border-b border-stone-200/60 scroll-mt-20" id="features">
+    <section className="pt-16 md:pt-20 pb-12 md:pb-16 bg-transparent border-b border-stone-200/60 scroll-mt-20" id="features">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         
-        {/* Split Section Header */}
+        {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
           <div>
             <span className="text-xs font-bold text-[#133026] tracking-wider block mb-2 uppercase">
@@ -37,214 +86,85 @@ export default function FeaturesGrid({ onOpenLogin }) {
           </p>
         </div>
 
-        {/* Bento Grid: 2 Large Cards (with Mini UI Previews) + 4 Smaller Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-6 items-stretch">
-          
-          {/* BENTO CARD 1 (Large - 7 cols): AI Mock Tests & Option Elimination with Interactive Widget */}
-          <div className="lg:col-span-7 bg-white border border-slate-200/90 rounded-2xl p-6 sm:p-8 flex flex-col justify-between shadow-xs hover:shadow-xl hover:border-slate-300 transition-all duration-300 group">
-            <div>
-              <div className="flex items-center justify-between mb-4">
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-xl bg-[#EAF1EB] text-[#133026] flex items-center justify-center group-hover:bg-[#133026] group-hover:text-[#F59E0B] transition-colors duration-200 shadow-2xs">
-                    <ClipboardCheck className="w-6 h-6 stroke-[2]" />
-                  </div>
-                  <div>
-                    <span className="inline-block px-2.5 py-0.5 rounded-md bg-green-50 border border-green-200/60 text-xs font-bold uppercase tracking-wider text-green-800">
-                      PRELIMS GS + CSAT
-                    </span>
-                    <h3 className="font-sans font-bold text-lg sm:text-xl text-slate-800 tracking-tight mt-0.5">
-                      Targeted Mock Drills with Elimination Simulator
-                    </h3>
-                  </div>
-                </div>
-                <div className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 group-hover:bg-[#F59E0B] group-hover:text-slate-900 transition-all duration-200">
-                  <ArrowUpRight className="w-4 h-4" />
-                </div>
-              </div>
+        {/* 6-Card Feature Grid (3 Columns on Desktop) */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {features.map((feature, idx) => {
+            const Icon = feature.icon;
 
-              <p className="text-sm text-slate-600 leading-relaxed font-normal mb-6">
-                Train your instincts for the exam hall. Move beyond blind guesses with structured option elimination, negative-marks diagnosis, and precision speed drills.
-              </p>
-
-              {/* Mini UI Preview Widget: Interactive Option Elimination Box */}
-              <div className="mb-4">
-                <EliminationDrill />
-              </div>
-            </div>
-
-            <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-600 font-medium">
-              <span>Polity & Governance Module • 25 Topic PYQs</span>
-              <span className="text-[#133026] font-bold">Sample drill active</span>
-            </div>
-          </div>
-
-          {/* BENTO CARD 2 (Large - 5 cols): 25-Year PYQ Intelligence with Mini Frequency Chart */}
-          <div className="lg:col-span-5 h-fit self-start bg-white border border-slate-200/90 rounded-2xl p-6 sm:p-8 flex flex-col shadow-xs hover:shadow-xl hover:border-slate-300 transition-all duration-300 group">
-            <div>
-              <div className="flex items-center justify-between mb-4">
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-xl bg-[#EAF1EB] text-[#133026] flex items-center justify-center group-hover:bg-[#133026] group-hover:text-[#F59E0B] transition-colors duration-200 shadow-2xs">
-                    <Radar className="w-6 h-6 stroke-[2]" />
-                  </div>
-                  <div>
-                    <span className="inline-block px-2.5 py-0.5 rounded-md bg-amber-50 border border-amber-200/60 text-xs font-bold uppercase tracking-wider text-amber-800">
-                      EXAM TREND RADAR
-                    </span>
-                    <h3 className="font-sans font-bold text-lg sm:text-xl text-slate-800 tracking-tight mt-0.5">
-                      25-Year PYQ Intelligence
-                    </h3>
-                  </div>
-                </div>
-                <div className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 group-hover:bg-[#F59E0B] group-hover:text-slate-900 transition-all duration-200">
-                  <ArrowUpRight className="w-4 h-4" />
-                </div>
-              </div>
-
-              <p className="text-sm text-slate-600 leading-relaxed font-normal mb-6">
-                Understand what the Commission tests. Categorize recurring question patterns across 25 years of Prelims and Mains.
-              </p>
-
-              {/* Mini UI Preview Widget: Subject Frequency Bar Chart using pyqSample */}
-              <div className="bg-[#FAF6EE] border border-stone-200/90 rounded-xl p-5 sm:p-6 mb-5">
-                <div className="flex items-center justify-between text-xs font-semibold text-[#133026] mb-3 pb-2 border-b border-stone-200/70">
-                  <span>Topic Recurrence Index</span>
-                  <div className="flex items-center gap-1.5 text-xs text-stone-600 font-medium">
-                    <span>{PYQ_RANGE} Trends</span>
-                    <span className="hidden sm:inline">• Illustrative sample data</span>
-                  </div>
-                </div>
-
-                <div className="space-y-2">
-                  {topPyqThemes.map((bar, bIdx) => {
-                    const relativeWidth = Math.round((bar.count / topPyqThemes[0].count) * 100);
-                    return (
-                      <div 
-                        key={bIdx} 
-                        className="space-y-1.5 p-2 -mx-2 rounded-lg hover:bg-white/60 hover:shadow-sm transition-all duration-200 cursor-pointer group/row"
-                      >
-                        <div className="flex justify-between text-xs font-medium text-slate-700">
-                          <span className="font-semibold text-slate-800 group-hover/row:text-[#133026] transition-colors">{bar.name}</span>
-                          <span className="font-bold text-[#133026]">
-                            {bar.count} Qs ({bar.share}%)
-                          </span>
-                        </div>
-                        <div className="w-full h-2 bg-stone-200/90 rounded-full overflow-hidden">
-                          <div 
-                            className={`h-full ${
-                              bIdx === 0 
-                                ? 'bg-[#133026]' 
-                                : bIdx === 1 
-                                  ? 'bg-emerald-700' 
-                                  : bIdx === 2 
-                                    ? 'bg-[#F59E0B]' 
-                                    : 'bg-amber-800'
-                            } rounded-full transition-all duration-1000 ease-out`}
-                            style={{ width: `${relativeWidth}%` }}
-                          />
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            </div>
-
-            <div className="pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-600 font-medium">
-              <span>Mapped to UPSC Syllabus Micro-Themes</span>
-              <a 
-                href="#resources"
-                className="inline-flex items-center gap-1 text-emerald-800 hover:text-emerald-700 hover:underline transition-all font-semibold group/link cursor-pointer"
+            return (
+              <div
+                key={idx}
+                className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 hover:-translate-y-1 transition-transform duration-300 flex flex-col justify-between"
               >
-                <span>Sample mapping</span>
-                <ArrowUpRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" />
-              </a>
-            </div>
-          </div>
+                <div>
+                  {/* Top-left icon inside soft tinted square */}
+                  <div className="bg-emerald-50 text-emerald-800 p-2.5 rounded-lg w-fit mb-4">
+                    <Icon className="w-5 h-5 stroke-[2.2]" />
+                  </div>
 
-          {/* BENTO CARD 3: Daily Editorial & Syllabus Mapping (3 cols) */}
-          <div className="md:col-span-1 lg:col-span-3 bg-white border border-slate-200/90 rounded-2xl p-6 flex flex-col justify-between shadow-xs hover:shadow-xl hover:border-slate-300 transition-all duration-300 hover:-translate-y-1 cursor-pointer group">
-            <div>
-              <div className="w-10 h-10 rounded-xl bg-[#EAF1EB] text-[#133026] flex items-center justify-center group-hover:bg-[#133026] group-hover:text-[#F59E0B] transition-colors duration-200 mb-4">
-                <Newspaper className="w-5 h-5 stroke-[2]" />
+                  {/* Overline categorical tag */}
+                  <div className="text-[10px] font-bold tracking-widest uppercase text-slate-500 bg-slate-100 px-2 py-1 rounded w-fit mb-3">
+                    {feature.overline}
+                  </div>
+
+                  {/* Title */}
+                  <h3 className="text-lg font-bold text-slate-900 mb-2">
+                    {feature.title}
+                  </h3>
+
+                  {/* Description */}
+                  <p className="text-sm text-slate-600 leading-relaxed font-normal">
+                    {feature.description}
+                  </p>
+                </div>
+
+                {/* Footer Section */}
+                <div>
+                  {/* Divider */}
+                  <div className="border-t border-slate-100 my-4" />
+
+                  {/* Card Footer: Meta-text on left, thematic link on right */}
+                  <div className="flex items-center justify-between text-xs">
+                    <span className="text-slate-500 font-medium">
+                      {feature.meta}
+                    </span>
+                    <a
+                      href={feature.href}
+                      className="text-xs font-semibold text-emerald-700 hover:text-emerald-800 bg-emerald-50 px-2 py-1 rounded transition-colors duration-150 inline-flex items-center gap-1 cursor-pointer"
+                    >
+                      <span>{feature.linkText}</span>
+                      <span className="text-[11px]">↗</span>
+                    </a>
+                  </div>
+                </div>
               </div>
-              <span className="inline-block px-2 py-0.5 rounded bg-slate-100 text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">
-                DAILY BRIEF
+            );
+          })}
+        </div>
+
+        {/* Live Interactive Option Elimination Preview */}
+        <div className="mt-12 bg-white border border-slate-200/90 rounded-2xl p-6 sm:p-8 shadow-sm">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-100">
+            <div>
+              <span className="text-[10px] font-bold tracking-widest uppercase text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded inline-block mb-1.5">
+                INTERACTIVE PREVIEW
               </span>
-              <h4 className="font-sans font-bold text-base text-slate-800 tracking-tight mb-2 group-hover:text-[#133026] transition-colors">
-                Daily Editorial & GS Mapping
-              </h4>
-              <p className="text-xs sm:text-[13px] text-slate-600 leading-relaxed font-normal mb-4">
-                Condense national news into 10-minute syllabus takeaways. Connect issues to GS I, II, and III topics without clutter.
+              <h3 className="text-xl font-bold text-slate-900">
+                Option Elimination & Negative Marks Simulator
+              </h3>
+              <p className="text-sm text-slate-600 mt-0.5">
+                Practice structured distractor elimination with live confidence and chance calculation.
               </p>
             </div>
-            <div className="pt-3 border-t border-slate-100 text-xs text-slate-600 font-medium">
-              Curated Every Morning • 7:00 AM
-            </div>
+            <button
+              type="button"
+              onClick={() => onOpenLogin ? onOpenLogin() : null}
+              className="text-xs font-bold text-emerald-800 bg-emerald-50 hover:bg-emerald-100 px-3.5 py-2 rounded-xl transition-colors shrink-0 self-start sm:self-auto cursor-pointer"
+            >
+              Unlock Full Drill Bank →
+            </button>
           </div>
-
-          {/* BENTO CARD 4: Smart Notes & Flashcards (3 cols) */}
-          <div className="md:col-span-1 lg:col-span-3 bg-white border border-slate-200/90 rounded-2xl p-6 flex flex-col justify-between shadow-xs hover:shadow-xl hover:border-slate-300 transition-all duration-300 hover:-translate-y-1 cursor-pointer group">
-            <div>
-              <div className="w-10 h-10 rounded-xl bg-[#EAF1EB] text-[#133026] flex items-center justify-center group-hover:bg-[#133026] group-hover:text-[#F59E0B] transition-colors duration-200 mb-4">
-                <PenLine className="w-5 h-5 stroke-[2]" />
-              </div>
-              <span className="inline-block px-2 py-0.5 rounded bg-slate-100 text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">
-                RETENTION ENGINE
-              </span>
-              <h4 className="font-sans font-bold text-base text-slate-800 tracking-tight mb-2 group-hover:text-[#133026] transition-colors">
-                Smart Notes & Flashcards
-              </h4>
-              <p className="text-xs sm:text-[13px] text-slate-600 leading-relaxed font-normal mb-4">
-                Turn each chapter into short, revision-friendly notes and spaced flashcards, so you revise at the right time instead of rereading.
-              </p>
-            </div>
-            <div className="pt-3 border-t border-slate-100 text-xs text-slate-600 font-medium">
-              Daily 15-Minute Spaced Intervals
-            </div>
-          </div>
-
-          {/* BENTO CARD 5: CSAT Speed & Accuracy Drills (3 cols) */}
-          <div className="md:col-span-1 lg:col-span-3 bg-white border border-slate-200/90 rounded-2xl p-6 flex flex-col justify-between shadow-xs hover:shadow-xl hover:border-slate-300 transition-all duration-300 hover:-translate-y-1 cursor-pointer group">
-            <div>
-              <div className="w-10 h-10 rounded-xl bg-[#EAF1EB] text-[#133026] flex items-center justify-center group-hover:bg-[#133026] group-hover:text-[#F59E0B] transition-colors duration-200 mb-4">
-                <BarChart3 className="w-5 h-5 stroke-[2]" />
-              </div>
-              <span className="inline-block px-2 py-0.5 rounded bg-slate-100 text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">
-                PAPER II SAFETY
-              </span>
-              <h4 className="font-sans font-bold text-base text-slate-800 tracking-tight mb-2 group-hover:text-[#133026] transition-colors">
-                CSAT Speed & Accuracy Lab
-              </h4>
-              <p className="text-xs sm:text-[13px] text-slate-600 leading-relaxed font-normal mb-4">
-                Clear the qualifying cutoff with confidence. Daily micro-drills targeting reading comprehension and quantitative reasoning.
-              </p>
-            </div>
-            <div className="pt-3 border-t border-slate-100 text-xs text-slate-600 font-medium">
-              Qualifying: 33%
-            </div>
-          </div>
-
-          {/* BENTO CARD 6: Interactive Syllabus Tracker (3 cols) */}
-          <div className="md:col-span-1 lg:col-span-3 bg-white border border-slate-200/90 rounded-2xl p-6 flex flex-col justify-between shadow-xs hover:shadow-xl hover:border-slate-300 transition-all duration-300 hover:-translate-y-1 cursor-pointer group">
-            <div>
-              <div className="w-10 h-10 rounded-xl bg-[#EAF1EB] text-[#133026] flex items-center justify-center group-hover:bg-[#133026] group-hover:text-[#F59E0B] transition-colors duration-200 mb-4">
-                <Sparkles className="w-5 h-5 stroke-[2]" />
-              </div>
-              <span className="inline-block px-2 py-0.5 rounded bg-slate-100 text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">
-                SYLLABUS COVERAGE
-              </span>
-              <h4 className="font-sans font-bold text-base text-slate-800 tracking-tight mb-2 group-hover:text-[#133026] transition-colors">
-                GS Micro-Theme Checklist
-              </h4>
-              <p className="text-xs sm:text-[13px] text-slate-600 leading-relaxed font-normal mb-4">
-                Map every standard chapter to its official notification keyword. Track real progress across General Studies I through IV.
-              </p>
-            </div>
-            <div className="pt-3 border-t border-slate-100 text-xs text-slate-600 font-medium">
-              GS I–IV Micro-Topic Granularity
-            </div>
-          </div>
-
+          <EliminationDrill />
         </div>
 
       </div>
