@@ -507,6 +507,99 @@ export default function Hero({ onOpenAuth }) {
                         ))}
                       </div>
                     </div>
+
+                    {/* Mock Test Performance Graph */}
+                    <div className="bg-white rounded-xl border border-slate-100 p-4 mt-4 shadow-sm">
+                      {/* Header */}
+                      <div className="flex items-center justify-between">
+                        <span className="text-sm font-bold text-slate-900">Mock test performance</span>
+                        <span className="text-[10px] font-bold bg-orange-100 text-orange-700 px-2 py-0.5 rounded">
+                          GS I
+                        </span>
+                      </div>
+                      <p className="text-xs text-slate-500 mt-1">Last 6 full-length mocks</p>
+
+                      {/* SVG Line Graph */}
+                      <div className="mt-3 w-full">
+                        <svg
+                          className="w-full h-24 overflow-visible"
+                          viewBox="0 0 300 90"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                          aria-label="Mock test score progression graph"
+                        >
+                          <defs>
+                            <linearGradient id="greenGradient" x1="0" y1="0" x2="0" y2="1">
+                              <stop offset="0%" stopColor="#10b981" stopOpacity="0.25" />
+                              <stop offset="100%" stopColor="#10b981" stopOpacity="0" />
+                            </linearGradient>
+                          </defs>
+
+                          {/* Subtle horizontal grid lines & y-axis labels */}
+                          <line x1="28" y1="15" x2="295" y2="15" stroke="#f1f5f9" strokeWidth="1" />
+                          <text x="5" y="18" className="fill-slate-400 text-[9px] font-medium">150</text>
+
+                          <line x1="28" y1="45" x2="295" y2="45" stroke="#f1f5f9" strokeWidth="1" />
+                          <text x="5" y="48" className="fill-slate-400 text-[9px] font-medium">110</text>
+
+                          <line x1="28" y1="75" x2="295" y2="75" stroke="#f1f5f9" strokeWidth="1" />
+                          <text x="8" y="78" className="fill-slate-400 text-[9px] font-medium">70</text>
+
+                          {/* Soft gradient fill under line */}
+                          <path
+                            d="M 38 67 L 88 58 L 138 49 L 188 39 L 238 30 L 288 20 L 288 75 L 38 75 Z"
+                            fill="url(#greenGradient)"
+                          />
+
+                          {/* Upward trending line */}
+                          <path
+                            d="M 38 67 L 88 58 L 138 49 L 188 39 L 238 30 L 288 20"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            className="text-emerald-600"
+                          />
+
+                          {/* 6 data point circles */}
+                          {[
+                            { x: 38, y: 67 },
+                            { x: 88, y: 58 },
+                            { x: 138, y: 49 },
+                            { x: 188, y: 39 },
+                            { x: 238, y: 30 },
+                            { x: 288, y: 20 },
+                          ].map((pt, i) => (
+                            <circle
+                              key={i}
+                              cx={pt.x}
+                              cy={pt.y}
+                              r="3"
+                              fill="white"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                              className="text-emerald-600"
+                            />
+                          ))}
+                        </svg>
+
+                        {/* X-axis labels M1 to M6 */}
+                        <div className="flex justify-between pl-8 pr-1 text-[10px] text-slate-400 font-medium mt-1">
+                          <span>M1</span>
+                          <span>M2</span>
+                          <span>M3</span>
+                          <span>M4</span>
+                          <span>M5</span>
+                          <span>M6</span>
+                        </div>
+                      </div>
+
+                      {/* Footer trend text */}
+                      <div className="text-xs font-semibold text-emerald-700 mt-3">
+                        86 → 134 marks - steady, measurable progress
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
