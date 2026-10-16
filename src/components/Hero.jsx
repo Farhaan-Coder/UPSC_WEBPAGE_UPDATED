@@ -55,9 +55,19 @@ const initialTasks = [
   },
 ];
 
+const MOCK_DATA = [
+  { label: 'M1', score: 86, x: 38, y: 67 },
+  { label: 'M2', score: 95, x: 88, y: 58 },
+  { label: 'M3', score: 104, x: 138, y: 49 },
+  { label: 'M4', score: 114, x: 188, y: 39 },
+  { label: 'M5', score: 125, x: 238, y: 30 },
+  { label: 'M6', score: 134, x: 288, y: 20 },
+];
+
 export default function Hero({ onOpenAuth }) {
   const [tasks, setTasks] = useState(initialTasks);
   const [toastMessage, setToastMessage] = useState(null);
+  const [hoveredMockPoint, setHoveredMockPoint] = useState(null);
   const toastTimeoutRef = useRef(null);
   const timeLeft = useCountdown(PRELIMS_DATE);
 
@@ -353,66 +363,66 @@ export default function Hero({ onOpenAuth }) {
               <div className="flex flex-col md:flex-row">
                 {/* Navigation Sidebar: semantic <aside> with flex flex-col justify-between to anchor milestone card at bottom */}
                 <aside 
-                  className="w-full md:w-48 lg:w-52 shrink-0 bg-slate-50/70 border-r border-slate-100 p-3 sm:p-4 flex flex-col justify-between"
+                  className="w-full md:w-52 lg:w-56 shrink-0 bg-slate-50/70 border-r border-slate-100 p-3.5 sm:p-4.5 flex flex-col justify-between"
                   aria-label="Study Desk Navigation"
                 >
-                  <div>
-                    <span className="text-xs font-bold text-slate-500 tracking-wider px-2 block mb-3 uppercase font-sans">
+                  <div className="flex flex-col">
+                    <span className="text-xs font-bold text-slate-500 tracking-wider px-2 block mb-3.5 uppercase font-sans">
                       STUDY DESK
                     </span>
-                    <ul className="space-y-3.5 sm:space-y-4">
-                      <li className="flex items-center gap-2.5 text-xs sm:text-sm font-bold bg-[#133026] text-white px-3 sm:px-3.5 py-3 rounded-xl shadow-xs transition-all duration-200 cursor-pointer whitespace-nowrap">
-                        <LayoutDashboard className="w-4 h-4 text-[#F59E0B] shrink-0" />
+                    <ul className="flex flex-col gap-4 sm:gap-4.5">
+                      <li className="flex items-center gap-3 text-[14px] sm:text-[15px] font-bold bg-[#133026] text-white px-3.5 sm:px-4 py-3 sm:py-3.5 rounded-xl shadow-xs transition-all duration-200 cursor-pointer whitespace-nowrap">
+                        <LayoutDashboard className="w-5 h-5 text-[#F59E0B] shrink-0" />
                         <span className="tracking-tight">Daily Schedule</span>
                       </li>
                       <li 
                         onClick={handleInactiveNavClick}
-                        className="flex items-center gap-2.5 text-xs sm:text-sm font-medium text-slate-700 px-3 sm:px-3.5 py-3 rounded-xl hover:bg-slate-100 hover:text-slate-900 active:scale-95 transition-all duration-200 cursor-pointer group whitespace-nowrap"
+                        className="flex items-center gap-3 text-[14px] sm:text-[15px] font-medium text-slate-700 px-3.5 sm:px-4 py-3 sm:py-3.5 rounded-xl hover:bg-slate-100 hover:text-slate-900 active:scale-95 transition-all duration-200 cursor-pointer group whitespace-nowrap"
                       >
-                        <Calendar className="w-4 h-4 text-slate-500 group-hover:text-slate-700 transition-colors shrink-0" />
+                        <Calendar className="w-5 h-5 text-slate-500 group-hover:text-slate-700 transition-colors shrink-0" />
                         <span className="tracking-tight">Prelims Revision</span>
                       </li>
                       <li 
                         onClick={handleInactiveNavClick}
-                        className="flex items-center gap-2.5 text-xs sm:text-sm font-medium text-slate-700 px-3 sm:px-3.5 py-3 rounded-xl hover:bg-slate-100 hover:text-slate-900 active:scale-95 transition-all duration-200 cursor-pointer group whitespace-nowrap"
+                        className="flex items-center gap-3 text-[14px] sm:text-[15px] font-medium text-slate-700 px-3.5 sm:px-4 py-3 sm:py-3.5 rounded-xl hover:bg-slate-100 hover:text-slate-900 active:scale-95 transition-all duration-200 cursor-pointer group whitespace-nowrap"
                       >
-                        <FileText className="w-4 h-4 text-slate-500 group-hover:text-slate-700 transition-colors shrink-0" />
+                        <FileText className="w-5 h-5 text-slate-500 group-hover:text-slate-700 transition-colors shrink-0" />
                         <span className="tracking-tight">Mains Writing</span>
                       </li>
                       <li 
                         onClick={handleInactiveNavClick}
-                        className="flex items-center gap-2.5 text-xs sm:text-sm font-medium text-slate-700 px-3 sm:px-3.5 py-3 rounded-xl hover:bg-slate-100 hover:text-slate-900 active:scale-95 transition-all duration-200 cursor-pointer group whitespace-nowrap"
+                        className="flex items-center gap-3 text-[14px] sm:text-[15px] font-medium text-slate-700 px-3.5 sm:px-4 py-3 sm:py-3.5 rounded-xl hover:bg-slate-100 hover:text-slate-900 active:scale-95 transition-all duration-200 cursor-pointer group whitespace-nowrap"
                       >
-                        <Newspaper className="w-4 h-4 text-slate-500 group-hover:text-slate-700 transition-colors shrink-0" />
+                        <Newspaper className="w-5 h-5 text-slate-500 group-hover:text-slate-700 transition-colors shrink-0" />
                         <span className="tracking-tight">Daily Editorial</span>
                       </li>
                       <li 
                         onClick={handleInactiveNavClick}
-                        className="flex items-center gap-2.5 text-xs sm:text-sm font-medium text-slate-700 px-3 sm:px-3.5 py-3 rounded-xl hover:bg-slate-100 hover:text-slate-900 active:scale-95 transition-all duration-200 cursor-pointer group whitespace-nowrap"
+                        className="flex items-center gap-3 text-[14px] sm:text-[15px] font-medium text-slate-700 px-3.5 sm:px-4 py-3 sm:py-3.5 rounded-xl hover:bg-slate-100 hover:text-slate-900 active:scale-95 transition-all duration-200 cursor-pointer group whitespace-nowrap"
                       >
-                        <BookMarked className="w-4 h-4 text-slate-500 group-hover:text-slate-700 transition-colors shrink-0" />
+                        <BookMarked className="w-5 h-5 text-slate-500 group-hover:text-slate-700 transition-colors shrink-0" />
                         <span className="tracking-tight">NCERT Library</span>
                       </li>
                       <li 
                         onClick={handleInactiveNavClick}
-                        className="flex items-center gap-2.5 text-xs sm:text-sm font-medium text-slate-700 px-3 sm:px-3.5 py-3 rounded-xl hover:bg-slate-100 hover:text-slate-900 active:scale-95 transition-all duration-200 cursor-pointer group whitespace-nowrap"
+                        className="flex items-center gap-3 text-[14px] sm:text-[15px] font-medium text-slate-700 px-3.5 sm:px-4 py-3 sm:py-3.5 rounded-xl hover:bg-slate-100 hover:text-slate-900 active:scale-95 transition-all duration-200 cursor-pointer group whitespace-nowrap"
                       >
-                        <Bot className="w-4 h-4 text-slate-500 group-hover:text-slate-700 transition-colors shrink-0" />
+                        <Bot className="w-5 h-5 text-slate-500 group-hover:text-slate-700 transition-colors shrink-0" />
                         <span className="tracking-tight">AI Mentor</span>
                       </li>
                     </ul>
                   </div>
 
                   {/* Target Milestone Card: Anchored naturally at the bottom baseline with zero dead space below */}
-                  <div className="mt-auto pt-4">
-                    <div className="bg-white border border-slate-200/90 rounded-xl p-3 shadow-2xs hover:shadow-xs transition-all cursor-pointer group">
-                      <span className="text-[10px] font-bold text-slate-500 tracking-wider block mb-0.5 uppercase font-sans">
+                  <div className="mt-auto pt-6">
+                    <div className="bg-white border border-slate-200/90 rounded-xl p-3.5 sm:p-4 shadow-2xs hover:shadow-xs transition-all cursor-pointer group">
+                      <span className="text-[10px] font-bold text-slate-500 tracking-wider block mb-1 uppercase font-sans">
                         TARGET MILESTONE
                       </span>
                       <span className="text-xs sm:text-sm font-sans font-bold text-slate-800 block group-hover:text-[#133026] transition-colors tracking-tight">
                         Prelims {EXAM_YEAR} Target
                       </span>
-                      <span className="text-[11px] text-slate-600 font-medium block mt-0.5">
+                      <span className="text-[11px] text-slate-600 font-medium block mt-1">
                         {timeLeft.days} Days Remaining • Consistent
                       </span>
                     </div>
@@ -520,7 +530,7 @@ export default function Hero({ onOpenAuth }) {
                       <p className="text-xs text-slate-500 mt-1">Last 6 full-length mocks</p>
 
                       {/* SVG Line Graph */}
-                      <div className="mt-3 w-full">
+                      <div className="mt-3 w-full relative">
                         <svg
                           className="w-full h-24 overflow-visible"
                           viewBox="0 0 300 90"
@@ -529,23 +539,25 @@ export default function Hero({ onOpenAuth }) {
                           aria-label="Mock test score progression graph"
                         >
                           <defs>
+                            {/* Richer Gradient Fill fading from emerald to transparent */}
                             <linearGradient id="greenGradient" x1="0" y1="0" x2="0" y2="1">
-                              <stop offset="0%" stopColor="#10b981" stopOpacity="0.25" />
-                              <stop offset="100%" stopColor="#10b981" stopOpacity="0" />
+                              <stop offset="0%" stopColor="#10b981" stopOpacity="0.45" />
+                              <stop offset="50%" stopColor="#34d399" stopOpacity="0.18" />
+                              <stop offset="100%" stopColor="#10b981" stopOpacity="0.0" />
                             </linearGradient>
                           </defs>
 
-                          {/* Subtle horizontal grid lines & y-axis labels */}
-                          <line x1="28" y1="15" x2="295" y2="15" stroke="#f1f5f9" strokeWidth="1" />
-                          <text x="5" y="18" className="fill-slate-400 text-[9px] font-medium">150</text>
+                          {/* Subtle horizontal dashed grid lines & y-axis labels */}
+                          <line x1="28" y1="15" x2="295" y2="15" stroke="#e2e8f0" strokeWidth="1" strokeDasharray="4 4" />
+                          <text x="5" y="18" className="fill-slate-400 text-[9px] font-medium font-sans">150</text>
 
-                          <line x1="28" y1="45" x2="295" y2="45" stroke="#f1f5f9" strokeWidth="1" />
-                          <text x="5" y="48" className="fill-slate-400 text-[9px] font-medium">110</text>
+                          <line x1="28" y1="45" x2="295" y2="45" stroke="#e2e8f0" strokeWidth="1" strokeDasharray="4 4" />
+                          <text x="5" y="48" className="fill-slate-400 text-[9px] font-medium font-sans">110</text>
 
-                          <line x1="28" y1="75" x2="295" y2="75" stroke="#f1f5f9" strokeWidth="1" />
-                          <text x="8" y="78" className="fill-slate-400 text-[9px] font-medium">70</text>
+                          <line x1="28" y1="75" x2="295" y2="75" stroke="#e2e8f0" strokeWidth="1" strokeDasharray="4 4" />
+                          <text x="8" y="78" className="fill-slate-400 text-[9px] font-medium font-sans">70</text>
 
-                          {/* Soft gradient fill under line */}
+                          {/* Soft rich gradient fill under line */}
                           <path
                             d="M 38 67 L 88 58 L 138 49 L 188 39 L 238 30 L 288 20 L 288 75 L 38 75 Z"
                             fill="url(#greenGradient)"
@@ -556,48 +568,125 @@ export default function Hero({ onOpenAuth }) {
                             d="M 38 67 L 88 58 L 138 49 L 188 39 L 238 30 L 288 20"
                             fill="none"
                             stroke="currentColor"
-                            strokeWidth="2"
+                            strokeWidth="2.5"
                             strokeLinecap="round"
                             strokeLinejoin="round"
                             className="text-emerald-600"
                           />
 
-                          {/* 6 data point circles */}
-                          {[
-                            { x: 38, y: 67 },
-                            { x: 88, y: 58 },
-                            { x: 138, y: 49 },
-                            { x: 188, y: 39 },
-                            { x: 238, y: 30 },
-                            { x: 288, y: 20 },
-                          ].map((pt, i) => (
-                            <circle
-                              key={i}
-                              cx={pt.x}
-                              cy={pt.y}
-                              r="3"
-                              fill="white"
-                              stroke="currentColor"
-                              strokeWidth="2"
-                              className="text-emerald-600"
-                            />
-                          ))}
+                          {/* 6 Interactive data point nodes */}
+                          {MOCK_DATA.map((pt, i) => {
+                            const isLatest = i === MOCK_DATA.length - 1;
+                            const isHovered = hoveredMockPoint?.label === pt.label;
+                            return (
+                              <g key={pt.label} className="group/node">
+                                {/* Active Pulse on Current Progress (M6 circle) */}
+                                {isLatest && (
+                                  <g className="pointer-events-none">
+                                    <circle
+                                      cx={pt.x}
+                                      cy={pt.y}
+                                      r="9"
+                                      className="fill-emerald-400/30 animate-ping"
+                                      style={{ transformOrigin: `${pt.x}px ${pt.y}px`, animationDuration: '2.4s' }}
+                                    />
+                                    <circle
+                                      cx={pt.x}
+                                      cy={pt.y}
+                                      r="6.5"
+                                      className="fill-emerald-500/25 animate-pulse"
+                                    />
+                                  </g>
+                                )}
+
+                                {/* Hit area for smooth interaction */}
+                                <circle
+                                  cx={pt.x}
+                                  cy={pt.y}
+                                  r="14"
+                                  fill="transparent"
+                                  className="cursor-pointer"
+                                  onMouseEnter={() => setHoveredMockPoint(pt)}
+                                  onMouseLeave={() => setHoveredMockPoint(null)}
+                                />
+
+                                {/* Interactive Visual Node */}
+                                <circle
+                                  cx={pt.x}
+                                  cy={pt.y}
+                                  r={isHovered ? 5.5 : 3.5}
+                                  fill={isHovered ? '#F59E0B' : 'white'}
+                                  stroke={isHovered ? '#133026' : '#059669'}
+                                  strokeWidth={isHovered ? 2.5 : 2}
+                                  className="cursor-pointer transition-all duration-300 pointer-events-none hover:r-[6px] hover:fill-[#F59E0B] hover:stroke-[#133026]"
+                                />
+                              </g>
+                            );
+                          })}
+
+                          {/* Floating Tooltip displaying exact mock score */}
+                          {hoveredMockPoint && (
+                            <g className="transition-all duration-200 pointer-events-none">
+                              <rect
+                                x={Math.min(Math.max(hoveredMockPoint.x - 22, 28), 248)}
+                                y={hoveredMockPoint.y - 25}
+                                width="44"
+                                height="18"
+                                rx="4"
+                                fill="#133026"
+                                className="drop-shadow-md"
+                              />
+                              <polygon
+                                points={`
+                                  ${hoveredMockPoint.x - 3.5},${hoveredMockPoint.y - 7} 
+                                  ${hoveredMockPoint.x + 3.5},${hoveredMockPoint.y - 7} 
+                                  ${hoveredMockPoint.x},${hoveredMockPoint.y - 3}
+                                `}
+                                fill="#133026"
+                              />
+                              <text
+                                x={Math.min(Math.max(hoveredMockPoint.x - 22, 28), 248) + 22}
+                                y={hoveredMockPoint.y - 15}
+                                textAnchor="middle"
+                                dominantBaseline="central"
+                                fill="#F59E0B"
+                                className="text-[10px] font-sans font-bold tracking-tight"
+                              >
+                                {hoveredMockPoint.score} m
+                              </text>
+                            </g>
+                          )}
                         </svg>
 
-                        {/* X-axis labels M1 to M6 */}
+                        {/* X-axis labels M1 to M6 with synchronized hover */}
                         <div className="flex justify-between pl-8 pr-1 text-[10px] text-slate-400 font-medium mt-1">
-                          <span>M1</span>
-                          <span>M2</span>
-                          <span>M3</span>
-                          <span>M4</span>
-                          <span>M5</span>
-                          <span>M6</span>
+                          {MOCK_DATA.map((pt) => {
+                            const isHovered = hoveredMockPoint?.label === pt.label;
+                            const isLatest = pt.label === 'M6';
+                            return (
+                              <span
+                                key={pt.label}
+                                className={`transition-all duration-200 cursor-pointer ${
+                                  isHovered
+                                    ? 'text-[#133026] font-bold scale-110'
+                                    : isLatest
+                                    ? 'text-emerald-700 font-bold'
+                                    : 'hover:text-slate-700'
+                                }`}
+                                onMouseEnter={() => setHoveredMockPoint(pt)}
+                                onMouseLeave={() => setHoveredMockPoint(null)}
+                              >
+                                {pt.label}
+                              </span>
+                            );
+                          })}
                         </div>
                       </div>
 
-                      {/* Footer trend text */}
-                      <div className="text-xs font-semibold text-emerald-700 mt-3">
-                        86 → 134 marks - steady, measurable progress
+                      {/* Footer trend text with active pulse indicator */}
+                      <div className="text-xs font-semibold text-emerald-700 mt-3 flex items-center gap-1.5">
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse shrink-0" />
+                        <span>86 → 134 marks - steady, measurable progress</span>
                       </div>
                     </div>
                   </div>
