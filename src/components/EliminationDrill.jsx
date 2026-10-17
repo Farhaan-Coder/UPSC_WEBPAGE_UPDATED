@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { X, RotateCcw, CheckCircle2, AlertTriangle, XCircle, Check } from 'lucide-react';
+import { motion, useReducedMotion } from 'framer-motion';
+import { triggerConfetti } from './motion/MotionUtils.jsx';
 
 export const DRILL_CONFIG = {
   headerChip: "Q.1 • Polity • Sample drill",
@@ -32,6 +34,8 @@ export const DRILL_CONFIG = {
 export default function EliminationDrill() {
   const [eliminated, setEliminated] = useState(new Set());
   const [selectedAnswer, setSelectedAnswer] = useState(null);
+  const [lastSelectedWrong, setLastSelectedWrong] = useState(null);
+  const shouldReduceMotion = useReducedMotion();
 
   const toggleEliminate = (id) => {
     if (selectedAnswer) return;
@@ -49,11 +53,18 @@ export default function EliminationDrill() {
   const handleSelectAnswer = (id) => {
     if (eliminated.has(id)) return;
     setSelectedAnswer(id);
+    if (id === DRILL_CONFIG.correctId) {
+      setLastSelectedWrong(null);
+      triggerConfetti();
+    } else {
+      setLastSelectedWrong(id);
+    }
   };
 
   const handleReset = () => {
     setEliminated(new Set());
     setSelectedAnswer(null);
+    setLastSelectedWrong(null);
   };
 
   const remainingCount = DRILL_CONFIG.options.length - eliminated.size;
@@ -157,9 +168,20 @@ export default function EliminationDrill() {
             }
           }
 
+          const isShaking = !shouldReduceMotion && lastSelectedWrong === opt.id;
+          const isPulseGreen = !shouldReduceMotion && isCorrect && selectedAnswer;
+
           return (
-            <div
+            <motion.div
               key={opt.id}
+              animate={
+                isShaking
+                  ? { x: [-8, 8, -6, 6, -3, 3, 0] }
+                  : isPulseGreen
+                  ? { scale: [1, 1.025, 1], boxShadow: ['0 0 0 0 rgba(16, 185, 129, 0.4)', '0 0 0 8px rgba(16, 185, 129, 0)', '0 0 0 0 rgba(16, 185, 129, 0)'] }
+                  : {}
+              }
+              transition={isShaking ? { duration: 0.45, ease: 'easeInOut' } : { duration: 0.6 }}
               className={`rounded-xl border transition-all duration-200 overflow-hidden ${cardStyle}`}
             >
               <div className="p-3 flex items-start justify-between gap-2.5">
@@ -224,40 +246,70 @@ export default function EliminationDrill() {
                   </button>
                 )}
               </div>
-            </div>
+            </motion.div>
           );
         })}
       </div>
 
-      {/* Dynamic Status Bar */}
+      {/* Dynamic Status Bar with Animated Meter */}
       <div
         aria-live="polite"
-        className={`p-3 rounded-xl border flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs transition-colors ${
+        className={`p-3.5 rounded-xl border flex flex-col gap-2.5 text-xs transition-colors ${
           isCorrectEliminated
             ? 'bg-red-50 border-red-200 text-red-900'
             : 'bg-white border-stone-200 text-slate-700'
         }`}
       >
-        <div className="flex items-center gap-2 font-medium">
-          <span
-            className={`inline-block w-2 h-2 rounded-full shrink-0 ${
-              isCorrectEliminated ? 'bg-red-500' : 'bg-emerald-600'
-            }`}
-          />
-          <span>
-            {wrongEliminatedCount} {wrongEliminatedCount === 1 ? 'wrong option' : 'wrong options'} eliminated
-          </span>
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+          <div className="flex items-center gap-2 font-medium">
+            <span
+              className={`inline-block w-2 h-2 rounded-full shrink-0 ${
+                isCorrectEliminated ? 'bg-red-500' : 'bg-emerald-600'
+              }`}
+            />
+            <span>
+              {wrongEliminatedCount} {wrongEliminatedCount === 1 ? 'wrong option' : 'wrong options'} eliminated
+            </span>
+          </div>
+
+          <div className="flex items-center justify-between sm:justify-end gap-3.5 pt-1 sm:pt-0 border-t sm:border-t-0 border-stone-100">
+            <div className="flex items-center gap-1.5">
+              <span className="text-stone-500">Chance of a correct guess:</span>
+              <motion.span 
+                key={guessChance}
+                initial={shouldReduceMotion ? false : { opacity: 0, y: -3 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.2 }}
+                className="font-bold text-slate-900 tabular-nums"
+              >
+                {guessChance}
+              </motion.span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <span className="text-stone-500">Confidence:</span>
+              <motion.span 
+                key={confidenceLabel}
+                initial={shouldReduceMotion ? false : { opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.2 }}
+                className={`font-bold ${confidenceColor}`}
+              >
+                {confidenceLabel}
+              </motion.span>
+            </div>
+          </div>
         </div>
 
-        <div className="flex items-center justify-between sm:justify-end gap-3.5 pt-1 sm:pt-0 border-t sm:border-t-0 border-stone-100">
-          <div className="flex items-center gap-1.5">
-            <span className="text-stone-500">Chance of a correct guess:</span>
-            <span className="font-bold text-slate-900">{guessChance}</span>
-          </div>
-          <div className="flex items-center gap-1.5">
-            <span className="text-stone-500">Confidence:</span>
-            <span className={`font-bold ${confidenceColor}`}>{confidenceLabel}</span>
-          </div>
+        {/* Smooth animated confidence & chance meter bar */}
+        <div className="w-full bg-stone-100 rounded-full h-1.5 overflow-hidden">
+          <motion.div
+            className={`h-full rounded-full transition-colors ${
+              isCorrectEliminated ? 'bg-red-500' : 'bg-emerald-600'
+            }`}
+            initial={false}
+            animate={{ width: guessChance }}
+            transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.45, ease: 'easeOut' }}
+          />
         </div>
       </div>
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   MessageSquare, 
   Scale, 
@@ -10,6 +10,8 @@ import {
   Loader2,
   CheckCircle2
 } from 'lucide-react';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
+import { SectionReveal, WordReveal, motionButtonProps } from './motion/MotionUtils.jsx';
 
 const darkBullets = [
   {
@@ -109,6 +111,47 @@ export default function DarkSection({ onOpenLogin }) {
   const [promptInput, setPromptInput] = useState('');
   const [isGenerating, setIsGenerating] = useState(false);
   const [inputSubmitted, setInputSubmitted] = useState(false);
+  const [typedSummaryLength, setTypedSummaryLength] = useState(0);
+  const [mousePos, setMousePos] = useState({ x: -1000, y: -1000 });
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
+  const shouldReduceMotion = useReducedMotion();
+
+  const currentTabContent = tabContentMap[activeTab] || tabContentMap.concept;
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setIsTouchDevice(window.matchMedia('(pointer: coarse)').matches);
+    }
+  }, []);
+
+  // Typewriter effect for AI breakdown text when tab changes
+  useEffect(() => {
+    if (shouldReduceMotion) {
+      setTypedSummaryLength(currentTabContent.summary.length);
+      return;
+    }
+    setTypedSummaryLength(0);
+    let idx = 0;
+    const interval = setInterval(() => {
+      idx += 2;
+      if (idx >= currentTabContent.summary.length) {
+        setTypedSummaryLength(currentTabContent.summary.length);
+        clearInterval(interval);
+      } else {
+        setTypedSummaryLength(idx);
+      }
+    }, 18);
+    return () => clearInterval(interval);
+  }, [activeTab, shouldReduceMotion, currentTabContent.summary]);
+
+  const handleMouseMove = (e) => {
+    if (isTouchDevice || shouldReduceMotion) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    setMousePos({
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top,
+    });
+  };
 
   const handlePromptSubmit = (e) => {
     if (e) e.preventDefault();
@@ -122,36 +165,51 @@ export default function DarkSection({ onOpenLogin }) {
     }, 1500);
   };
 
-  const currentTabContent = tabContentMap[activeTab] || tabContentMap.concept;
-
   return (
     <section 
+      onMouseMove={handleMouseMove}
       className="py-20 lg:py-28 bg-[#133026] bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] text-white relative overflow-hidden scroll-mt-20" 
       id="ai-tools"
     >
       {/* Anchor for #ai-assistant */}
       <div id="ai-assistant" className="absolute -top-20" />
 
-      {/* Subtle background glow */}
+      {/* Subtle moving dot/grid backdrop pattern */}
+      <div className="absolute inset-0 bg-grid-pattern opacity-40 pointer-events-none animate-slow-wave" />
+
+      {/* Cursor tracking faint gold radial glow on desktop */}
+      {!isTouchDevice && !shouldReduceMotion && mousePos.x >= 0 && (
+        <div
+          className="pointer-events-none absolute inset-0 z-0 transition-opacity duration-200"
+          style={{
+            background: `radial-gradient(550px circle at ${mousePos.x}px ${mousePos.y}px, rgba(245, 158, 11, 0.09), transparent 70%)`
+          }}
+        />
+      )}
+
+      {/* Ambient background glows */}
       <div className="absolute top-0 right-1/4 w-96 h-96 bg-white/5 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-0 left-10 w-80 h-80 bg-[#F59E0B]/5 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 items-center">
-          
-          {/* Section Copy */}
-          <div className="lg:col-span-5">
-            <span className="text-xs font-bold text-[#F59E0B] tracking-wider block mb-3 uppercase">
-              24/7 AI UPSC MENTOR & MAINS LAB
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-serif font-bold text-white tracking-tight leading-tight mb-4">
-              Not just answers. The art of UPSC Mains Answer Writing.
-            </h2>
-            <p className="text-sm sm:text-base text-[#D7E5DB] leading-relaxed mb-8 max-w-md font-normal">
-              From tackling nuanced GS II constitutional dilemmas to articulating multi-dimensional GS IV Ethics case studies, bridge the gap between reading reference material and scoring higher in Mains.
-            </p>
+        <SectionReveal>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 items-center">
+            
+            {/* Section Copy */}
+            <div className="lg:col-span-5">
+              <span className="text-xs font-bold text-[#F59E0B] tracking-wider block mb-3 uppercase">
+                24/7 AI UPSC MENTOR & MAINS LAB
+              </span>
+              <WordReveal
+                text="Not just answers. The art of UPSC Mains Answer Writing."
+                as="h2"
+                className="text-3xl sm:text-4xl font-serif font-bold text-white tracking-tight leading-tight mb-4"
+              />
+              <p className="text-sm sm:text-base text-[#D7E5DB] leading-relaxed mb-8 max-w-md font-normal">
+                From tackling nuanced GS II constitutional dilemmas to articulating multi-dimensional GS IV Ethics case studies, bridge the gap between reading reference material and scoring higher in Mains.
+              </p>
 
-            {/* Core Capabilities */}
+              {/* Core Capabilities */}
             <div className="space-y-6 mb-8">
               {darkBullets.map((item, idx) => {
                 const Icon = item.icon;
@@ -240,47 +298,61 @@ export default function DarkSection({ onOpenLogin }) {
                 </p>
               </div>
 
-              {/* AI Response Area with smooth tab transition */}
-              <div key={activeTab} className="space-y-3 animate-fadeIn">
-                <div className="flex items-center justify-between">
-                  <span className="text-[10px] font-bold text-[#133026] tracking-wider block uppercase">
-                    UPSC ZONE AI STRUCTURED BREAKDOWN
-                  </span>
-                  <span className="text-xs font-semibold text-[#133026] bg-[#EAF1EB] px-2.5 py-0.5 rounded-full">
-                    {currentTabContent.target}
-                  </span>
-                </div>
-                <p className="text-xs sm:text-[13px] text-slate-600 leading-relaxed font-normal">
-                  {currentTabContent.summary}
-                </p>
+              {/* AI Response Area with smooth cross-fade tab transition & typewriter effect */}
+              <AnimatePresence mode="wait">
+                <motion.div 
+                  key={activeTab} 
+                  initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: -8 }}
+                  transition={{ duration: 0.25, ease: 'easeOut' }}
+                  className="space-y-3"
+                >
+                  <div className="flex items-center justify-between">
+                    <span className="text-[10px] font-bold text-[#133026] tracking-wider block uppercase">
+                      UPSC ZONE AI STRUCTURED BREAKDOWN
+                    </span>
+                    <span className="text-xs font-semibold text-[#133026] bg-[#EAF1EB] px-2.5 py-0.5 rounded-full">
+                      {currentTabContent.target}
+                    </span>
+                  </div>
+                  
+                  {/* Typewriter text with blinking cursor */}
+                  <p className="text-xs sm:text-[13px] text-slate-600 leading-relaxed font-normal min-h-[38px]">
+                    {currentTabContent.summary.slice(0, typedSummaryLength)}
+                    {typedSummaryLength < currentTabContent.summary.length && (
+                      <span className="inline-block w-1.5 h-3.5 bg-orange-500 ml-0.5 animate-pulse align-middle" />
+                    )}
+                  </p>
 
-                {/* Structured Answer Breakdown */}
-                <div className="space-y-2.5 my-3">
-                  {currentTabContent.steps.map((step, idx) => (
-                    <div key={idx} className="flex items-start gap-2.5">
-                      <span className="text-xs font-bold text-[#133026] shrink-0 mt-0.5 w-5 h-5 rounded-full bg-[#EAF1EB] flex items-center justify-center">
-                        {step.num}
-                      </span>
-                      <div>
-                        <strong className="text-xs sm:text-[13px] font-sans font-bold text-slate-900 block">
-                          {step.heading}
-                        </strong>
-                        <p className="text-xs text-slate-600 leading-relaxed font-normal">
-                          {step.body}
-                        </p>
+                  {/* Structured Answer Breakdown */}
+                  <div className="space-y-2.5 my-3">
+                    {currentTabContent.steps.map((step, idx) => (
+                      <div key={idx} className="flex items-start gap-2.5">
+                        <span className="text-xs font-bold text-[#133026] shrink-0 mt-0.5 w-5 h-5 rounded-full bg-[#EAF1EB] flex items-center justify-center">
+                          {step.num}
+                        </span>
+                        <div>
+                          <strong className="text-xs sm:text-[13px] font-sans font-bold text-slate-900 block">
+                            {step.heading}
+                          </strong>
+                          <p className="text-xs text-slate-600 leading-relaxed font-normal">
+                            {step.body}
+                          </p>
+                        </div>
                       </div>
-                    </div>
-                  ))}
-                </div>
+                    ))}
+                  </div>
 
-                {/* Reference Sources */}
-                <div className="bg-[#EAF1EB] border border-[#133026]/10 rounded-xl p-3 flex items-center gap-2.5 text-xs text-[#133026]">
-                  <BookOpen className="w-4 h-4 text-[#133026] shrink-0" />
-                  <span>
-                    <strong>Recommended Study Reference:</strong> {currentTabContent.reference}
-                  </span>
-                </div>
-              </div>
+                  {/* Reference Sources */}
+                  <div className="bg-[#EAF1EB] border border-[#133026]/10 rounded-xl p-3 flex items-center gap-2.5 text-xs text-[#133026]">
+                    <BookOpen className="w-4 h-4 text-[#133026] shrink-0" />
+                    <span>
+                      <strong>Recommended Study Reference:</strong> {currentTabContent.reference}
+                    </span>
+                  </div>
+                </motion.div>
+              </AnimatePresence>
 
               {/* Question Input form - Single Seamless Pill */}
               <form 
@@ -295,7 +367,8 @@ export default function DarkSection({ onOpenLogin }) {
                   placeholder='Ask: "Add a crisp 25-word conclusion on constitutional morality"'
                   className="bg-transparent border-none outline-none focus:ring-0 focus:outline-none flex-1 w-full text-xs sm:text-sm text-slate-700 placeholder:text-stone-400 disabled:opacity-60 disabled:cursor-not-allowed pr-2"
                 />
-                <button 
+                <motion.button 
+                  {...motionButtonProps}
                   type="submit" 
                   disabled={isGenerating}
                   aria-label="Generate sample AI answer breakdown"
@@ -306,7 +379,7 @@ export default function DarkSection({ onOpenLogin }) {
                   ) : (
                     <Plus className="w-4 h-4 stroke-[2.5]" />
                   )}
-                </button>
+                </motion.button>
               </form>
 
               {/* AI Generating Indicator */}
@@ -340,6 +413,7 @@ export default function DarkSection({ onOpenLogin }) {
           </div>
 
         </div>
+        </SectionReveal>
       </div>
     </section>
   );

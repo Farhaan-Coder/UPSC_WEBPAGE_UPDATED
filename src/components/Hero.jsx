@@ -20,9 +20,11 @@ import {
   Layers,
   Clock
 } from 'lucide-react';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { EXAM_YEAR, PRELIMS_DATE, PRELIMS_DATE_LABEL } from '../config/exam.js';
 import { useCountdown } from '../hooks/useCountdown.js';
 import { PYQ_RANGE } from '../data/pyqSample.js';
+import { WordReveal, StaggerGrid, StaggerCard, CountUp } from './motion/MotionUtils.jsx';
 
 const STOIC_QUOTES = [
   "Discipline is choosing between what you want now and what you want most.", // Sun
@@ -56,12 +58,12 @@ const initialTasks = [
 ];
 
 const MOCK_DATA = [
-  { label: 'M1', score: 86, x: 38, y: 67 },
-  { label: 'M2', score: 95, x: 88, y: 58 },
-  { label: 'M3', score: 104, x: 138, y: 49 },
-  { label: 'M4', score: 114, x: 188, y: 39 },
-  { label: 'M5', score: 125, x: 238, y: 30 },
-  { label: 'M6', score: 134, x: 288, y: 20 },
+  { label: 'M1', score: 86, x: 38, y: 67, diff: null },
+  { label: 'M2', score: 95, x: 88, y: 58, diff: '+9' },
+  { label: 'M3', score: 104, x: 138, y: 49, diff: '+9' },
+  { label: 'M4', score: 114, x: 188, y: 39, diff: '+10' },
+  { label: 'M5', score: 125, x: 238, y: 30, diff: '+11' },
+  { label: 'M6', score: 134, x: 288, y: 20, diff: '+9' },
 ];
 
 export default function Hero({ onOpenAuth }) {
@@ -69,6 +71,23 @@ export default function Hero({ onOpenAuth }) {
   const [toastMessage, setToastMessage] = useState(null);
   const toastTimeoutRef = useRef(null);
   const timeLeft = useCountdown(PRELIMS_DATE);
+  const shouldReduceMotion = useReducedMotion();
+
+  // 3D Card tilt state towards cursor (max 6deg)
+  const [tilt, setTilt] = useState({ x: 0, y: 0 });
+
+  const handleMouseMove = (e) => {
+    if (shouldReduceMotion) return;
+    if (typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+    setTilt({ x: -y * 6, y: x * 6 });
+  };
+
+  const handleMouseLeave = () => {
+    setTilt({ x: 0, y: 0 });
+  };
 
   const handleInactiveNavClick = () => {
     if (toastTimeoutRef.current) {
@@ -97,8 +116,7 @@ export default function Hero({ onOpenAuth }) {
         behavior: 'smooth'
       });
 
-      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if (!prefersReducedMotion) {
+      if (!shouldReduceMotion) {
         target.classList.remove('pulse-amber-active');
         void target.offsetWidth;
         target.classList.add('pulse-amber-active');
@@ -118,7 +136,6 @@ export default function Hero({ onOpenAuth }) {
   const totalMinutes = 345 + completedCount * 30; // 5h 45m baseline + 30 mins per completed task
   const displayHours = Math.floor(totalMinutes / 60);
   const displayMins = totalMinutes % 60;
-  const displayTimeString = `${displayHours}h ${displayMins}m`;
 
   return (
     <section className="pt-8 pb-16 md:pt-14 md:pb-20 bg-transparent overflow-hidden relative">
@@ -128,17 +145,25 @@ export default function Hero({ onOpenAuth }) {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-start mb-12">
           
           {/* Main Hero Copy */}
-          <div className="lg:col-span-6 max-w-xl">
+          <motion.div 
+            initial={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            className="lg:col-span-6 max-w-xl"
+          >
             <div className="inline-flex items-center gap-2 bg-[#EAF1EB] border border-[#133026]/15 text-[#133026] text-xs font-semibold tracking-wide px-4 py-1.5 rounded-full mb-6 shadow-xs">
               <Sparkles className="w-3.5 h-3.5 text-[#133026] fill-[#133026]" />
               <span className="uppercase font-sans font-bold text-xs tracking-wider">BUILT FOR SERIOUS UPSC CSE ASPIRANTS</span>
             </div>
 
-            {/* Serif High-Impact Headline with Saffron Underline */}
+            {/* Serif High-Impact Headline with Word-by-Word Reveal & Saffron Underline */}
             <h1 className="text-4xl sm:text-5xl lg:text-[54px] font-serif font-bold text-[#133026] leading-[1.15] tracking-tight mb-5">
-              Your UPSC day,<br />
+              <WordReveal text="Your UPSC day," />
+              <br />
               <span className="relative inline-block mt-1">
-                <span className="relative z-10">planned to the minute.</span>
+                <span className="relative z-10">
+                  <WordReveal text="planned to the minute." delay={0.25} />
+                </span>
                 <svg 
                   className="absolute -bottom-2.5 left-0 w-full h-3 sm:h-4 text-[#F59E0B] -z-0 overflow-visible" 
                   viewBox="0 0 280 14" 
@@ -146,11 +171,14 @@ export default function Hero({ onOpenAuth }) {
                   xmlns="http://www.w3.org/2000/svg"
                   aria-hidden="true"
                 >
-                  <path 
+                  <motion.path 
                     d="M3 9C60 2.5 170 2 277 8.5C215 5 110 5.8 28 12" 
                     stroke="currentColor" 
                     strokeWidth="3.5" 
                     strokeLinecap="round" 
+                    initial={shouldReduceMotion ? { pathLength: 1 } : { pathLength: 0 }}
+                    animate={{ pathLength: 1 }}
+                    transition={{ duration: 1.1, ease: 'easeOut', delay: 0.35 }}
                   />
                 </svg>
               </span>
@@ -161,27 +189,36 @@ export default function Hero({ onOpenAuth }) {
               AI mock tests, daily current affairs, notes and PYQs in one calm workspace.
             </p>
 
-            {/* Action CTAs */}
+            {/* Action CTAs with subtle glow and 4s sweep */}
             <div id="hero-cta-container" className="flex flex-wrap items-center gap-3.5 mb-3">
-              <button
+              <motion.button
                 type="button"
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
                 onClick={() => onOpenAuth ? onOpenAuth('signup') : window.location.assign('#get-started')}
-                className="group relative inline-flex items-center gap-2.5 bg-gradient-to-b from-[#FBBF24] to-[#F59E0B] hover:from-[#F59E0B] hover:to-[#D97706] text-stone-900 font-bold text-sm px-7 py-3.5 rounded-xl shadow-[0_4px_16px_rgba(245,158,11,0.28)] hover:shadow-[0_8px_28px_rgba(245,158,11,0.42)] border border-amber-300/60 transition-all duration-300 ease-out hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98] overflow-hidden cursor-pointer"
+                className="group relative inline-flex items-center gap-2.5 bg-gradient-to-b from-[#FBBF24] to-[#F59E0B] hover:from-[#F59E0B] hover:to-[#D97706] text-stone-900 font-bold text-sm px-7 py-3.5 rounded-xl shadow-[0_4px_16px_rgba(245,158,11,0.32)] hover:shadow-[0_8px_28px_rgba(245,158,11,0.5)] border border-amber-300/60 transition-all duration-300 ease-out overflow-hidden cursor-pointer"
               >
-                <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out pointer-events-none" />
+                {/* 4s shine sweep */}
+                <motion.span 
+                  className="absolute inset-0 w-1/2 h-full bg-gradient-to-r from-transparent via-white/40 to-transparent -skew-x-12 pointer-events-none"
+                  animate={shouldReduceMotion ? {} : { x: ['-200%', '350%'] }}
+                  transition={{ duration: 1.5, repeat: Infinity, repeatDelay: 4, ease: 'easeInOut' }}
+                />
                 <span className="relative tracking-tight">Start Free Prep</span>
                 <ArrowRight className="w-4 h-4 stroke-[2.4] transition-transform duration-300 group-hover:translate-x-1" />
-              </button>
+              </motion.button>
               
-              <a
+              <motion.a
                 href="#preparation"
-                className="group inline-flex items-center gap-2.5 bg-white/95 hover:bg-white text-stone-800 hover:text-[#133026] font-semibold text-sm px-6 py-3.5 rounded-xl shadow-[0_2px_8px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_24px_rgba(19,48,38,0.1)] border border-stone-200/90 hover:border-stone-300 transition-all duration-300 ease-out hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98]"
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
+                className="group inline-flex items-center gap-2.5 bg-white/95 hover:bg-white text-stone-800 hover:text-[#133026] font-semibold text-sm px-6 py-3.5 rounded-xl shadow-[0_2px_8px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_24px_rgba(19,48,38,0.1)] border border-stone-200/90 hover:border-stone-300 transition-all duration-300 ease-out"
               >
                 <span className="tracking-tight">Explore Live Dashboard</span>
                 <span className="w-5 h-5 rounded-full bg-stone-100 group-hover:bg-[#133026] flex items-center justify-center transition-colors duration-300">
                   <Play className="w-2.5 h-2.5 fill-stone-700 group-hover:fill-[#F59E0B] text-stone-700 group-hover:text-[#F59E0B] ml-0.5 transition-colors duration-300" />
                 </span>
-              </a>
+              </motion.a>
             </div>
 
             {/* Try a sample question link with down arrow */}
@@ -197,62 +234,59 @@ export default function Hero({ onOpenAuth }) {
               </button>
             </div>
 
-            {/* 4-Item Honest UPSC Trust Strip - Min 14px Text & 2x2 Responsive Wrap */}
-            <div className="grid grid-cols-2 gap-3 sm:gap-4 text-sm text-stone-700 font-medium pt-2">
-              <div className="flex items-start gap-2.5 bg-white/70 sm:bg-white/50 p-2.5 sm:p-3 rounded-xl border border-stone-200/70 shadow-2xs hover:border-orange-400 hover:bg-white hover:shadow-sm hover:-translate-y-0.5 transition-all duration-300 cursor-pointer group/trust">
+            {/* 4-Item Honest UPSC Trust Strip - Staggered Card Grid with uniform hover lift */}
+            <StaggerGrid className="grid grid-cols-2 gap-3 sm:gap-4 text-sm text-stone-700 font-medium pt-2">
+              <StaggerCard className="flex items-start gap-2.5 bg-white/70 sm:bg-white/50 p-2.5 sm:p-3 rounded-xl border border-stone-200/70 shadow-2xs hover:border-orange-400 hover:bg-white transition-colors duration-300 cursor-pointer group/trust">
                 <Layers className="w-5 h-5 text-[#133026] stroke-[2.2] shrink-0 mt-0.5 group-hover/trust:text-[#F59E0B] transition-colors" />
                 <div className="min-w-0">
                   <div className="text-[14px] sm:text-[15px] font-bold text-stone-900 leading-tight group-hover/trust:text-[#133026] transition-colors">3 stages covered</div>
                   <div className="text-xs text-stone-500 font-normal leading-tight mt-0.5">Prelims, Mains, Interview</div>
                 </div>
-              </div>
+              </StaggerCard>
 
-              <div className="flex items-start gap-2.5 bg-white/70 sm:bg-white/50 p-2.5 sm:p-3 rounded-xl border border-stone-200/70 shadow-2xs hover:border-orange-400 hover:bg-white hover:shadow-sm hover:-translate-y-0.5 transition-all duration-300 cursor-pointer group/trust">
+              <StaggerCard className="flex items-start gap-2.5 bg-white/70 sm:bg-white/50 p-2.5 sm:p-3 rounded-xl border border-stone-200/70 shadow-2xs hover:border-orange-400 hover:bg-white transition-colors duration-300 cursor-pointer group/trust">
                 <Clock className="w-5 h-5 text-[#133026] stroke-[2.2] shrink-0 mt-0.5 group-hover/trust:text-[#F59E0B] transition-colors" />
                 <div className="min-w-0">
                   <div className="text-[14px] sm:text-[15px] font-bold text-stone-900 leading-tight group-hover/trust:text-[#133026] transition-colors">25-year PYQ window</div>
                   <div className="text-xs text-stone-500 font-normal leading-tight mt-0.5">{PYQ_RANGE}, topic-wise</div>
                 </div>
-              </div>
+              </StaggerCard>
 
-              <div className="flex items-start gap-2.5 bg-white/70 sm:bg-white/50 p-2.5 sm:p-3 rounded-xl border border-stone-200/70 shadow-2xs hover:border-orange-400 hover:bg-white hover:shadow-sm hover:-translate-y-0.5 transition-all duration-300 cursor-pointer group/trust">
+              <StaggerCard className="flex items-start gap-2.5 bg-white/70 sm:bg-white/50 p-2.5 sm:p-3 rounded-xl border border-stone-200/70 shadow-2xs hover:border-orange-400 hover:bg-white transition-colors duration-300 cursor-pointer group/trust">
                 <BookOpenCheck className="w-5 h-5 text-[#133026] stroke-[2.2] shrink-0 mt-0.5 group-hover/trust:text-[#F59E0B] transition-colors" />
                 <div className="min-w-0">
                   <div className="text-[14px] sm:text-[15px] font-bold text-stone-900 leading-tight group-hover/trust:text-[#133026] transition-colors">GS I-IV + CSAT mapping</div>
                   <div className="text-xs text-stone-500 font-normal leading-tight mt-0.5">Syllabus-linked practice</div>
                 </div>
-              </div>
+              </StaggerCard>
 
-              <button
-                type="button"
+              <StaggerCard 
                 onClick={() => onOpenAuth ? onOpenAuth('signup') : null}
-                className="flex items-start gap-2.5 bg-white/70 sm:bg-white/50 p-2.5 sm:p-3 rounded-xl border border-stone-200/70 shadow-2xs hover:border-orange-400 hover:bg-white hover:shadow-sm hover:-translate-y-0.5 transition-all duration-300 text-left cursor-pointer group/trust"
+                className="flex items-start gap-2.5 bg-white/70 sm:bg-white/50 p-2.5 sm:p-3 rounded-xl border border-stone-200/70 shadow-2xs hover:border-orange-400 hover:bg-white transition-colors duration-300 text-left cursor-pointer group/trust"
               >
                 <ShieldCheck className="w-5 h-5 text-[#133026] stroke-[2.2] shrink-0 mt-0.5 group-hover/trust:text-[#F59E0B] transition-colors" />
                 <div className="min-w-0">
                   <div className="text-[14px] sm:text-[15px] font-bold text-stone-900 leading-tight group-hover/trust:text-[#133026] transition-colors">Free diagnostic test</div>
                   <div className="text-xs text-stone-500 font-normal leading-tight mt-0.5">No credit card required</div>
                 </div>
-              </button>
-            </div>
+              </StaggerCard>
+            </StaggerGrid>
 
-            {/* Signature Element 1: Live Prelims Countdown Widget */}
+            {/* Signature Element 1: Live Prelims Countdown Widget with rolling seconds */}
             <div className="mt-8 bg-white/95 backdrop-blur-sm border border-slate-200/90 rounded-2xl p-5 sm:p-6 shadow-sm hover:shadow-md transition-shadow duration-300">
               <div className="flex items-center justify-between mb-4 pb-3 border-b border-slate-100">
-                <div className="flex items-center gap-2">
-                  <span className="font-sans font-bold text-xs uppercase tracking-wider text-[#133026]">
-                    PRELIMS {EXAM_YEAR} LIVE COUNTDOWN
-                  </span>
-                </div>
-                <span className="text-xs font-semibold text-amber-800 bg-amber-50 px-2.5 py-0.5 rounded-full border border-amber-200">
+                <span className="text-xs font-bold tracking-widest text-slate-500 uppercase font-sans">
+                  PRELIMS {EXAM_YEAR} LIVE COUNTDOWN
+                </span>
+                <span className="bg-emerald-50 text-emerald-700 text-xs px-2.5 py-1 rounded-full font-medium border border-emerald-100">
                   {PRELIMS_DATE_LABEL}
                 </span>
               </div>
 
               {/* Countdown Digits */}
               <div className="grid grid-cols-4 gap-2.5 sm:gap-3 text-center mb-4">
-                <div className="bg-slate-50 border border-slate-200 shadow-sm rounded-xl py-3 px-1.5 flex flex-col items-center justify-center">
-                  <div className="font-sans font-extrabold text-3xl md:text-4xl text-slate-800 tracking-tighter">
+                <div className="bg-white border border-slate-200 rounded-xl shadow-sm py-3 px-1.5 flex flex-col items-center justify-center">
+                  <div className="font-sans font-extrabold text-3xl md:text-4xl text-slate-800 tracking-tight tabular-nums">
                     {timeLeft.days}
                   </div>
                   <div className="text-xs font-semibold uppercase tracking-wider text-slate-500 mt-1">
@@ -260,8 +294,8 @@ export default function Hero({ onOpenAuth }) {
                   </div>
                 </div>
 
-                <div className="bg-slate-50 border border-slate-200 shadow-sm rounded-xl py-3 px-1.5 flex flex-col items-center justify-center">
-                  <div className="font-sans font-extrabold text-3xl md:text-4xl text-slate-800 tracking-tighter">
+                <div className="bg-white border border-slate-200 rounded-xl shadow-sm py-3 px-1.5 flex flex-col items-center justify-center">
+                  <div className="font-sans font-extrabold text-3xl md:text-4xl text-slate-800 tracking-tight tabular-nums">
                     {String(timeLeft.hours).padStart(2, '0')}
                   </div>
                   <div className="text-xs font-semibold uppercase tracking-wider text-slate-500 mt-1">
@@ -269,8 +303,8 @@ export default function Hero({ onOpenAuth }) {
                   </div>
                 </div>
 
-                <div className="bg-slate-50 border border-slate-200 shadow-sm rounded-xl py-3 px-1.5 flex flex-col items-center justify-center">
-                  <div className="font-sans font-extrabold text-3xl md:text-4xl text-slate-800 tracking-tighter">
+                <div className="bg-white border border-slate-200 rounded-xl shadow-sm py-3 px-1.5 flex flex-col items-center justify-center">
+                  <div className="font-sans font-extrabold text-3xl md:text-4xl text-slate-800 tracking-tight tabular-nums">
                     {String(timeLeft.minutes).padStart(2, '0')}
                   </div>
                   <div className="text-xs font-semibold uppercase tracking-wider text-slate-500 mt-1">
@@ -278,37 +312,83 @@ export default function Hero({ onOpenAuth }) {
                   </div>
                 </div>
 
-                <div className="bg-orange-50 border border-orange-200 shadow-sm rounded-xl py-3 px-1.5 flex flex-col items-center justify-center">
-                  <div className="font-sans font-extrabold text-3xl md:text-4xl text-orange-700 tracking-tighter">
-                    {String(timeLeft.seconds).padStart(2, '0')}
+                {/* Animated Rolling Seconds with Glow */}
+                <div className="bg-orange-50 border border-orange-200 rounded-xl shadow-sm py-3 px-1.5 flex flex-col items-center justify-center relative overflow-hidden text-orange-600">
+                  <div className="font-sans font-extrabold text-3xl md:text-4xl text-orange-600 tracking-tight tabular-nums drop-shadow-[0_0_10px_rgba(249,115,22,0.3)] h-9 md:h-10 flex items-center justify-center">
+                    <AnimatePresence mode="popLayout">
+                      <motion.span
+                        key={timeLeft.seconds}
+                        initial={shouldReduceMotion ? { opacity: 1 } : { y: 14, opacity: 0 }}
+                        animate={{ y: 0, opacity: 1 }}
+                        exit={shouldReduceMotion ? { opacity: 0 } : { y: -14, opacity: 0 }}
+                        transition={{ duration: 0.25, ease: 'easeOut' }}
+                        className="inline-block tabular-nums"
+                      >
+                        {String(timeLeft.seconds).padStart(2, '0')}
+                      </motion.span>
+                    </AnimatePresence>
                   </div>
-                  <div className="text-xs font-bold uppercase tracking-wider text-orange-700 mt-1">
+                  <div className="text-xs font-bold uppercase tracking-wider text-orange-600 mt-1">
                     Secs
                   </div>
                 </div>
               </div>
 
-              {/* Day-of-week Stoic Quote */}
-              <div className="flex items-start gap-2.5 pt-3 border-t border-slate-100/90 text-slate-500">
-                <Quote className="w-3.5 h-3.5 text-amber-500/70 shrink-0 mt-0.5" />
-                <p className="font-sans italic text-sm text-slate-500 leading-relaxed">
-                  "{currentQuote}"
+              {/* Humanized Mentor Quote */}
+              <div className="pt-3 border-t border-slate-100">
+                <p className="text-sm text-slate-600 italic border-l-2 border-emerald-500 pl-3 leading-relaxed font-sans">
+                  Consistency is your greatest edge. Make today's hours count.
                 </p>
               </div>
             </div>
 
-          </div>
+          </motion.div>
 
-          {/* Right Column: Live Interactive Dashboard Mockup */}
-          <div className="lg:col-span-6">
+          {/* Right Column: Live Interactive Dashboard Mockup with Floating Gradient Orbs & 3D Tilt */}
+          <div className="lg:col-span-6 relative">
+            {/* Soft floating gradient orbs (gold and navy, blur, slow 12s drift) */}
+            <div className="absolute -inset-6 -z-10 pointer-events-none overflow-hidden">
+              <motion.div
+                className="absolute -top-10 -left-10 w-72 h-72 rounded-full bg-amber-400/20 blur-3xl"
+                animate={shouldReduceMotion ? {} : {
+                  x: [0, 35, -25, 0],
+                  y: [0, -30, 20, 0],
+                }}
+                transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }}
+              />
+              <motion.div
+                className="absolute -bottom-10 -right-10 w-80 h-80 rounded-full bg-[#133026]/25 blur-3xl"
+                animate={shouldReduceMotion ? {} : {
+                  x: [0, -35, 25, 0],
+                  y: [0, 25, -20, 0],
+                }}
+                transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
+              />
+            </div>
+
             {/* Meta Tag */}
             <div className="flex items-center justify-between text-xs font-semibold text-stone-500 mb-3 px-2">
               <span className="tracking-wider text-[#133026]/80 uppercase font-sans font-bold">LESS GUESSWORK. MORE DIRECTION.</span>
               <span className="text-stone-500 font-medium text-xs">• Sample data for demonstration</span>
             </div>
 
-            {/* Dashboard Container */}
-            <div className="bg-white border border-slate-200/80 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden relative">
+            {/* Dashboard Container: Floats gently +-8px with cursor tilt */}
+            <motion.div 
+              onMouseMove={handleMouseMove}
+              onMouseLeave={handleMouseLeave}
+              animate={shouldReduceMotion ? {} : {
+                y: [-8, 8, -8],
+                rotateX: tilt.x,
+                rotateY: tilt.y,
+              }}
+              transition={{
+                y: { duration: 6, repeat: Infinity, ease: 'easeInOut' },
+                rotateX: { type: 'spring', stiffness: 220, damping: 25 },
+                rotateY: { type: 'spring', stiffness: 220, damping: 25 },
+              }}
+              style={{ transformStyle: 'preserve-3d' }}
+              className="bg-white border border-slate-200/80 rounded-2xl shadow-xl hover:shadow-2xl transition-shadow duration-300 overflow-hidden relative"
+            >
               
               {/* Premium Plan Toast Notification */}
               {toastMessage && (
@@ -441,24 +521,24 @@ export default function Hero({ onOpenAuth }) {
                       </p>
                     </div>
 
-                    {/* Performance Metrics: Min 12px labels with high contrast */}
+                    {/* Performance Metrics with Animated Count-Ups */}
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 mb-4">
                       <div className="border border-slate-200/90 rounded-xl px-3.5 py-3 bg-white hover:-translate-y-0.5 hover:shadow-md transition-all duration-200 cursor-pointer group shadow-2xs flex flex-col items-start justify-center">
                         <div className="text-lg font-sans font-bold tracking-tight text-slate-800 group-hover:text-[#133026] transition-colors whitespace-nowrap">
-                          {currentSyllabusPercent}%
+                          <CountUp end={currentSyllabusPercent} suffix="%" />
                         </div>
                         <div className="text-xs text-stone-600 font-medium mt-1">Syllabus done</div>
                       </div>
                       <div className="border border-slate-200/90 rounded-xl px-3.5 py-3 bg-white hover:-translate-y-0.5 hover:shadow-md transition-all duration-200 cursor-pointer group shadow-2xs flex flex-col items-start justify-center">
                         <div className="text-lg font-sans font-bold tracking-tight text-slate-800 group-hover:text-[#133026] transition-colors whitespace-nowrap flex items-baseline gap-1">
-                          <span>118</span>
+                          <CountUp end={118} />
                           <span className="text-xs font-semibold text-slate-500">/ 200</span>
                         </div>
                         <div className="text-xs text-stone-600 font-medium mt-1">Mock score</div>
                       </div>
                       <div className="border border-slate-200/90 rounded-xl px-3.5 py-3 bg-white hover:-translate-y-0.5 hover:shadow-md transition-all duration-200 cursor-pointer group shadow-2xs flex flex-col items-start justify-center">
                         <div className="text-lg font-sans font-bold tracking-tight text-slate-800 group-hover:text-[#133026] transition-colors whitespace-nowrap">
-                          {displayTimeString}
+                          {displayHours}h <CountUp end={displayMins} suffix="m" />
                         </div>
                         <div className="text-xs text-stone-600 font-medium mt-1">This week</div>
                       </div>
@@ -475,9 +555,11 @@ export default function Hero({ onOpenAuth }) {
 
                       {/* Dynamic Progress Bar */}
                       <div className="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden mb-3">
-                        <div 
-                          className="h-full bg-emerald-500 rounded-full transition-all duration-500 ease-out"
-                          style={{ width: `${progressPercent}%` }}
+                        <motion.div 
+                          className="h-full bg-emerald-500 rounded-full"
+                          initial={{ width: 0 }}
+                          animate={{ width: `${progressPercent}%` }}
+                          transition={{ duration: 0.5, ease: 'easeOut' }}
                         />
                       </div>
 
@@ -488,7 +570,7 @@ export default function Hero({ onOpenAuth }) {
                             onClick={() => toggleTask(task.id)}
                             className="flex items-center gap-3 p-2.5 sm:p-3 rounded-xl border border-slate-200/80 bg-white hover:bg-slate-50 hover:shadow-sm transition-all duration-200 cursor-pointer group"
                           >
-                            <div className={`w-5 h-5 rounded-md flex items-center justify-center border transition-all duration-200 active:scale-90 transition-transform shrink-0 ${
+                            <div className={`w-5 h-5 rounded-md flex items-center justify-center border transition-all duration-200 active:scale-90 shrink-0 ${
                               task.completed 
                                 ? 'bg-[#133026] border-[#133026] text-white shadow-2xs' 
                                 : 'border-slate-300 bg-white group-hover:border-slate-400'
@@ -557,13 +639,17 @@ export default function Hero({ onOpenAuth }) {
                           <text x="8" y="78" className="fill-slate-400 text-[9px] font-medium font-sans">70</text>
 
                           {/* Soft rich gradient fill under line */}
-                          <path
+                          <motion.path
                             d="M 38 67 L 88 58 L 138 49 L 188 39 L 238 30 L 288 20 L 288 75 L 38 75 Z"
                             fill="url(#greenGradient)"
+                            initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0 }}
+                            whileInView={{ opacity: 1 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.8, delay: 0.6 }}
                           />
 
-                          {/* Upward trending line */}
-                          <path
+                          {/* Upward trending line with pathLength drawing in */}
+                          <motion.path
                             d="M 38 67 L 88 58 L 138 49 L 188 39 L 238 30 L 288 20"
                             fill="none"
                             stroke="currentColor"
@@ -571,6 +657,10 @@ export default function Hero({ onOpenAuth }) {
                             strokeLinecap="round"
                             strokeLinejoin="round"
                             className="text-emerald-600"
+                            initial={shouldReduceMotion ? { pathLength: 1 } : { pathLength: 0 }}
+                            whileInView={{ pathLength: 1 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
                           />
 
                           {/* 6 Interactive data point nodes with hover tooltips */}
@@ -585,17 +675,37 @@ export default function Hero({ onOpenAuth }) {
                                       cx={pt.x}
                                       cy={pt.y}
                                       r="9"
-                                      className="fill-emerald-400/30 animate-ping"
+                                      className="fill-emerald-400/35 animate-ping"
                                       style={{ transformOrigin: `${pt.x}px ${pt.y}px`, animationDuration: '2.4s' }}
                                     />
                                     <circle
                                       cx={pt.x}
                                       cy={pt.y}
                                       r="6.5"
-                                      className="fill-emerald-500/25 animate-pulse"
+                                      className="fill-emerald-500/30 animate-pulse"
                                     />
                                   </g>
                                 )}
+
+                                {/* Vertical Guide Line on Hover */}
+                                <line
+                                  x1={pt.x}
+                                  y1={15}
+                                  x2={pt.x}
+                                  y2={75}
+                                  stroke="#10b981"
+                                  strokeWidth="1"
+                                  strokeDasharray="2 2"
+                                  className="opacity-0 group-hover:opacity-70 transition-opacity duration-200 pointer-events-none"
+                                />
+
+                                {/* Soft Glow Ring */}
+                                <circle
+                                  cx={pt.x}
+                                  cy={pt.y}
+                                  r="8"
+                                  className="fill-emerald-400/0 group-hover:fill-emerald-400/25 transition-all duration-300 pointer-events-none"
+                                />
 
                                 {/* Hit area for smooth interaction */}
                                 <circle
@@ -605,26 +715,51 @@ export default function Hero({ onOpenAuth }) {
                                   fill="transparent"
                                 />
 
-                                {/* Interactive Visual Node */}
-                                <circle
+                                {/* Interactive Visual Node with Staggered Entrance & 1.6x Hover Scale */}
+                                <motion.circle
                                   cx={pt.x}
                                   cy={pt.y}
                                   r="3.5"
                                   fill="white"
                                   stroke="#059669"
                                   strokeWidth="2"
-                                  className="group-hover:fill-orange-500 group-hover:r-[6px] transition-all duration-300"
+                                  initial={shouldReduceMotion ? { scale: 1 } : { scale: 0 }}
+                                  whileInView={{ scale: 1 }}
+                                  viewport={{ once: true }}
+                                  transition={{ delay: 0.8 + i * 0.08, type: 'spring', stiffness: 350, damping: 20 }}
+                                  className="group-hover:fill-[#F59E0B] group-hover:stroke-[#133026] group-hover:scale-[1.6] transition-all duration-300 pointer-events-none origin-center"
+                                  style={{ transformOrigin: `${pt.x}px ${pt.y}px` }}
                                 />
 
-                                {/* Score Tooltip Text above node */}
-                                <text
-                                  x={pt.x}
-                                  y={pt.y - 9}
-                                  textAnchor="middle"
-                                  className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-[10px] fill-slate-700 font-bold pointer-events-none select-none"
-                                >
-                                  {pt.score}
-                                </text>
+                                {/* Bigger Rounded Dark Chip Tooltip */}
+                                <g className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
+                                  <rect
+                                    x={Math.min(Math.max(pt.x - 48, 26), 204)}
+                                    y={pt.y - 34}
+                                    width="96"
+                                    height="22"
+                                    rx="6"
+                                    fill="#133026"
+                                    className="drop-shadow-lg"
+                                  />
+                                  <polygon
+                                    points={`
+                                      ${pt.x - 3.5},${pt.y - 12}
+                                      ${pt.x + 3.5},${pt.y - 12}
+                                      ${pt.x},${pt.y - 8}
+                                    `}
+                                    fill="#133026"
+                                  />
+                                  <text
+                                    x={Math.min(Math.max(pt.x - 48, 26), 204) + 48}
+                                    y={pt.y - 23}
+                                    textAnchor="middle"
+                                    dominantBaseline="central"
+                                    className="text-[10px] font-sans font-bold fill-white tracking-tight"
+                                  >
+                                    <tspan fill="#F59E0B">{pt.label}</tspan> • {pt.score}m {pt.diff ? `(↑${pt.diff})` : ''}
+                                  </text>
+                                </g>
                               </g>
                             );
                           })}
@@ -648,10 +783,23 @@ export default function Hero({ onOpenAuth }) {
                         </div>
                       </div>
 
-                      {/* Footer trend text with active pulse indicator */}
-                      <div className="text-xs font-semibold text-emerald-700 mt-3 flex items-center gap-1.5">
-                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse shrink-0" />
-                        <span>86 → 134 marks - steady, measurable progress</span>
+                      {/* Footer trend text with count-up & bouncing improvement badge */}
+                      <div className="text-xs font-semibold text-emerald-700 mt-3 flex items-center justify-between flex-wrap gap-2">
+                        <span className="flex items-center gap-1.5">
+                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse shrink-0" />
+                          <span>
+                            <CountUp end={86} /> → <CountUp end={134} /> marks - steady, measurable progress
+                          </span>
+                        </span>
+                        <motion.span
+                          initial={shouldReduceMotion ? { opacity: 1 } : { scale: 0, opacity: 0 }}
+                          whileInView={{ scale: [0, 1.15, 1], opacity: 1 }}
+                          viewport={{ once: true }}
+                          transition={{ duration: 0.5, delay: 1.1, ease: 'easeOut' }}
+                          className="text-[10px] font-bold text-emerald-800 bg-emerald-100/80 border border-emerald-300/80 px-2 py-0.5 rounded-full shadow-2xs"
+                        >
+                          +56% improvement
+                        </motion.span>
                       </div>
                     </div>
                   </div>
@@ -677,7 +825,7 @@ export default function Hero({ onOpenAuth }) {
                   <ArrowRight className="w-4 h-4 text-[#F59E0B] shrink-0 relative z-10 group-hover:translate-x-1 transition-transform duration-200 ml-2" />
                 </div>
               </div>
-            </div>
+            </motion.div>
           </div>
 
         </div>
@@ -685,3 +833,4 @@ export default function Hero({ onOpenAuth }) {
     </section>
   );
 }
+

@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { ChevronDown, HelpCircle } from 'lucide-react';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
+import { SectionReveal, WordReveal } from './motion/MotionUtils.jsx';
 
 const faqs = [
   {
@@ -26,6 +28,7 @@ const faqs = [
 
 export default function FaqSection({ onOpenAuth }) {
   const [openIndex, setOpenIndex] = useState(0);
+  const shouldReduceMotion = useReducedMotion();
 
   const toggleAccordion = (idx) => {
     setOpenIndex(openIndex === idx ? -1 : idx);
@@ -34,77 +37,96 @@ export default function FaqSection({ onOpenAuth }) {
   return (
     <section className="pt-8 md:pt-10 pb-8 md:pb-12 bg-transparent border-b border-stone-200/60 font-sans" id="faq">
       <div className="max-w-4xl mx-auto px-4 sm:px-6">
-        
-        {/* Section Header */}
-        <div className="text-center mb-10 sm:mb-12">
-          <div className="inline-flex items-center gap-2 bg-white border border-slate-200 shadow-xs px-4 py-1.5 rounded-full mb-4">
-            <HelpCircle className="w-3.5 h-3.5 text-[#133026]" />
-            <span className="text-xs font-bold tracking-widest uppercase text-[#133026]">
-              FREQUENTLY ASKED QUESTIONS
-            </span>
+        <SectionReveal>
+          {/* Section Header */}
+          <div className="text-center mb-10 sm:mb-12">
+            <div className="inline-flex items-center gap-2 bg-white border border-slate-200 shadow-xs px-4 py-1.5 rounded-full mb-4">
+              <HelpCircle className="w-3.5 h-3.5 text-[#133026]" />
+              <span className="text-xs font-bold tracking-widest uppercase text-[#133026]">
+                FREQUENTLY ASKED QUESTIONS
+              </span>
+            </div>
+            <WordReveal
+              text="Common questions about UPSC ZONE AI."
+              as="h2"
+              className="font-sans text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight mb-3"
+            />
+            <p className="text-[15px] sm:text-base text-slate-600 max-w-xl mx-auto leading-relaxed font-normal">
+              Everything you need to know about our study pedagogy, answer evaluations, and daily preparation workflows.
+            </p>
           </div>
-          <h2 className="font-sans text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight mb-3">
-            Common questions about UPSC ZONE AI.
-          </h2>
-          <p className="text-[15px] sm:text-base text-slate-600 max-w-xl mx-auto leading-relaxed font-normal">
-            Everything you need to know about our study pedagogy, answer evaluations, and daily preparation workflows.
-          </p>
-        </div>
 
-        {/* Accordion List */}
-        <div className="space-y-3.5">
-          {faqs.map((faq, idx) => {
-            const isOpen = openIndex === idx;
-            return (
-              <div
-                key={idx}
-                className="bg-white border border-stone-200/80 rounded-2xl overflow-hidden transition-all duration-200 shadow-2xs hover:shadow-xs"
-              >
-                <button
-                  type="button"
-                  onClick={() => toggleAccordion(idx)}
-                  className="w-full text-left p-5 sm:p-6 flex items-center justify-between gap-4 cursor-pointer focus:outline-none focus:bg-stone-50/60"
-                  aria-expanded={isOpen}
-                  aria-controls={`faq-answer-${idx}`}
+          {/* Accordion List with Smooth Height & Soft Highlight */}
+          <div className="space-y-3.5">
+            {faqs.map((faq, idx) => {
+              const isOpen = openIndex === idx;
+              return (
+                <div
+                  key={idx}
+                  className={`rounded-2xl overflow-hidden transition-all duration-300 ${
+                    isOpen 
+                      ? 'bg-amber-50/25 border border-amber-300/80 shadow-xs ring-1 ring-amber-300/30' 
+                      : 'bg-white border border-stone-200/80 shadow-2xs hover:border-stone-300 hover:shadow-xs'
+                  }`}
                 >
-                  <span className="font-sans font-bold text-sm sm:text-base text-stone-900 tracking-tight">
-                    {faq.question}
-                  </span>
-                  <div className={`w-7 h-7 rounded-full bg-stone-100 flex items-center justify-center shrink-0 transition-transform duration-300 ${
-                    isOpen ? 'rotate-180 bg-[#133026] text-white' : 'text-stone-600'
-                  }`}>
-                    <ChevronDown className="w-4 h-4" />
-                  </div>
-                </button>
-
-                {isOpen && (
-                  <div
-                    id={`faq-answer-${idx}`}
-                    className="px-5 sm:px-6 pb-5 sm:pb-6 pt-0 text-xs sm:text-sm text-stone-600 leading-relaxed font-normal animate-fadeIn"
+                  <button
+                    type="button"
+                    onClick={() => toggleAccordion(idx)}
+                    className="w-full text-left p-5 sm:p-6 flex items-center justify-between gap-4 cursor-pointer focus:outline-none focus:bg-stone-50/60"
+                    aria-expanded={isOpen}
+                    aria-controls={`faq-answer-${idx}`}
                   >
-                    <div className="pt-2 border-t border-stone-100">
-                      {faq.answer}
-                    </div>
-                  </div>
-                )}
-              </div>
-            );
-          })}
-        </div>
+                    <span className="font-sans font-bold text-sm sm:text-base text-stone-900 tracking-tight">
+                      {faq.question}
+                    </span>
+                    <motion.div
+                      animate={{ rotate: isOpen ? 180 : 0 }}
+                      transition={{ duration: 0.25, ease: 'easeOut' }}
+                      className={`w-7 h-7 rounded-full flex items-center justify-center shrink-0 transition-colors duration-200 ${
+                        isOpen ? 'bg-[#133026] text-white' : 'bg-stone-100 text-stone-600'
+                      }`}
+                    >
+                      <ChevronDown className="w-4 h-4" />
+                    </motion.div>
+                  </button>
 
-        {/* Support Note */}
-        <div className="text-center text-sm text-slate-500 mt-6 mb-8">
-          Have additional queries about syllabus strategy?{' '}
-          <button
-            type="button"
-            onClick={() => onOpenAuth ? onOpenAuth('signup') : null}
-            className="font-semibold text-[#133026] hover:text-[#F59E0B] underline cursor-pointer"
-          >
-            Start a free diagnostic test
-          </button>{' '}
-          or talk to our mentoring team.
-        </div>
+                  <AnimatePresence initial={false}>
+                    {isOpen && (
+                      <motion.div
+                        id={`faq-answer-${idx}`}
+                        key="content"
+                        initial={shouldReduceMotion ? { opacity: 0 } : { height: 0, opacity: 0 }}
+                        animate={{ height: 'auto', opacity: 1 }}
+                        exit={shouldReduceMotion ? { opacity: 0 } : { height: 0, opacity: 0 }}
+                        transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                        className="overflow-hidden"
+                      >
+                        <div className="px-5 sm:px-6 pb-5 sm:pb-6 pt-0 text-xs sm:text-sm text-stone-600 leading-relaxed font-normal">
+                          <div className="pt-2 border-t border-stone-100">
+                            {faq.answer}
+                          </div>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              );
+            })}
+          </div>
 
+          {/* Support Note */}
+          <div className="text-center text-sm text-slate-500 mt-6 mb-8">
+            Have additional queries about syllabus strategy?{' '}
+            <button
+              type="button"
+              onClick={() => onOpenAuth ? onOpenAuth('signup') : null}
+              className="font-semibold text-[#133026] hover:text-[#F59E0B] underline cursor-pointer"
+            >
+              Start a free diagnostic test
+            </button>{' '}
+            or talk to our mentoring team.
+          </div>
+        </SectionReveal>
       </div>
     </section>
   );

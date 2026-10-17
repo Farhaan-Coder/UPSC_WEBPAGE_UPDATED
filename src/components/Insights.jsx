@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrainCircuit, BarChart3, Scale, ArrowUpRight, ArrowRight } from 'lucide-react';
+import { SectionReveal, WordReveal } from './motion/MotionUtils.jsx';
 
 const fieldNotes = [
   {
@@ -46,17 +47,19 @@ export default function Insights() {
   return (
     <section className="pt-10 md:pt-12 pb-16 md:pb-20 bg-transparent border-b border-stone-200/60 scroll-mt-20" id="resources">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        
-        {/* Split Header */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10 md:mb-12">
-          <div>
-            <span className="text-xs font-bold text-[#133026] tracking-wider block mb-2 uppercase">
-              EDITORIALS & CURATED FIELD NOTES
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-serif font-bold text-[#133026] tracking-tight leading-tight">
-              Less information overload. High-yield UPSC insights.
-            </h2>
-          </div>
+        <SectionReveal>
+          {/* Split Header */}
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10 md:mb-12">
+            <div>
+              <span className="text-xs font-bold text-[#133026] tracking-wider block mb-2 uppercase">
+                EDITORIALS & CURATED FIELD NOTES
+              </span>
+              <WordReveal
+                text="Less information overload. High-yield UPSC insights."
+                as="h2"
+                className="text-3xl sm:text-4xl font-serif font-bold text-[#133026] tracking-tight leading-tight"
+              />
+            </div>
           <a
             href="#features"
             className="group inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-[#133026] hover:underline transition-colors duration-200"
@@ -295,7 +298,7 @@ export default function Insights() {
           </div>
 
         </div>
-
+        </SectionReveal>
       </div>
     </section>
   );

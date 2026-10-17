@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion, useReducedMotion } from 'framer-motion';
 import Navbar from './components/Navbar.jsx';
 import Hero from './components/Hero.jsx';
 import ValueStrip from './components/ValueStrip.jsx';
@@ -21,6 +22,7 @@ export default function App() {
   const [authModalOpen, setAuthModalOpen] = useState(false);
   const [authModalTab, setAuthModalTab] = useState('login');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const shouldReduceMotion = useReducedMotion();
 
   const handleOpenAuth = (tab = 'login') => {
     setAuthModalTab(tab);
@@ -32,7 +34,12 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FDF9F1] bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] text-slate-900 font-sans selection:bg-amber-200 selection:text-amber-950 pb-16 md:pb-0">
+    <motion.div 
+      initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5, ease: 'easeOut' }}
+      className="min-h-screen bg-[#FDF9F1] bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] text-slate-900 font-sans selection:bg-amber-200 selection:text-amber-950 pb-16 md:pb-0"
+    >
       <Navbar 
         onOpenAuth={handleOpenAuth} 
         onMobileMenuToggle={setMobileMenuOpen}
@@ -69,6 +76,6 @@ export default function App() {
         onClose={handleCloseAuth}
         initialTab={authModalTab}
       />
-    </div>
+    </motion.div>
   );
 }

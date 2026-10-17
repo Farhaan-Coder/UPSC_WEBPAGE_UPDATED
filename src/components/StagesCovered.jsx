@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { SlidersHorizontal, PenTool, BookMarked, MessageSquare } from 'lucide-react';
 import JourneyRoadmapCard from './JourneyRoadmapCard';
+import { SectionReveal, WordReveal } from './motion/MotionUtils.jsx';
 
 const stagesData = [
   {
@@ -98,21 +99,23 @@ export default function StagesCovered() {
   return (
     <section className="pt-12 md:pt-16 pb-10 md:pb-12 bg-transparent border-b border-stone-200/60 font-sans scroll-mt-20" id="stages">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        
-        {/* Split Header - Perfectly Aligned */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-8 mb-12 sm:mb-14">
-          <div className="max-w-xl">
-            <span className="text-xs font-semibold text-[#133026] tracking-wider block mb-2 uppercase font-sans">
-              FROM DAY 1 TO FINAL SELECTION
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-sans font-bold text-[#133026] tracking-tight leading-tight">
-              One goal. Every stage of UPSC covered.
-            </h2>
+        <SectionReveal>
+          {/* Split Header - Perfectly Aligned */}
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-8 mb-12 sm:mb-14">
+            <div className="max-w-xl">
+              <span className="text-xs font-semibold text-[#133026] tracking-wider block mb-2 uppercase font-sans">
+                FROM DAY 1 TO FINAL SELECTION
+              </span>
+              <WordReveal
+                text="One goal. Every stage of UPSC covered."
+                as="h2"
+                className="text-3xl sm:text-4xl font-sans font-bold text-[#133026] tracking-tight leading-tight"
+              />
+            </div>
+            <p className="text-sm sm:text-base text-stone-600 max-w-sm md:text-right leading-relaxed font-normal font-sans">
+              Civil Services is a 3-tier mental marathon spanning 12 months. Your platform grows with you at each stage.
+            </p>
           </div>
-          <p className="text-sm sm:text-base text-stone-600 max-w-sm md:text-right leading-relaxed font-normal font-sans">
-            Civil Services is a 3-tier mental marathon spanning 12 months. Your platform grows with you at each stage.
-          </p>
-        </div>
 
         {/* Section Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
@@ -193,7 +196,7 @@ export default function StagesCovered() {
           </div>
 
         </div>
-
+        </SectionReveal>
       </div>
     </section>
   );

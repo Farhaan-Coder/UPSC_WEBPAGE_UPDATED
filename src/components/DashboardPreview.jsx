@@ -23,8 +23,10 @@ import {
   GraduationCap,
   Plus
 } from 'lucide-react';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { EXAM_YEAR } from '../config/exam.js';
 import { PYQ_RANGE, PYQ_TOTAL, pyqThemes } from '../data/pyqSample.js';
+import { SectionReveal, WordReveal, triggerConfetti } from './motion/MotionUtils.jsx';
 
 const tabsConfig = [
   {
@@ -99,7 +101,9 @@ export default function DashboardPreview() {
   const [studyHours, setStudyHours] = useState(6.0);
   const [studyMode, setStudyMode] = useState('fulltime'); // 'working' or 'fulltime'
   const [completedTasks, setCompletedTasks] = useState([]);
+  const [showStreakToast, setShowStreakToast] = useState(false);
   const [typingIndex, setTypingIndex] = useState(0);
+  const shouldReduceMotion = useReducedMotion();
 
   // Interconnected dynamic calculation: studyHours slider drives progress benchmarks proportionally
   const syllabusProgress = useMemo(() => {
@@ -137,10 +141,22 @@ export default function DashboardPreview() {
   }, [activeTab]);
 
   const toggleTask = (id) => {
-    setCompletedTasks((prev) => 
-      prev.includes(id) ? prev.filter((taskId) => taskId !== id) : [...prev, id]
-    );
+    setCompletedTasks((prev) => {
+      const next = prev.includes(id) ? prev.filter((taskId) => taskId !== id) : [...prev, id];
+      if (next.length === 3 && prev.length < 3) {
+        triggerConfetti();
+        setShowStreakToast(true);
+      }
+      return next;
+    });
   };
+
+  useEffect(() => {
+    if (showStreakToast) {
+      const timer = setTimeout(() => setShowStreakToast(false), 4500);
+      return () => clearTimeout(timer);
+    }
+  }, [showStreakToast]);
 
   const handleModeChange = (mode) => {
     setStudyMode(mode);
@@ -163,19 +179,21 @@ export default function DashboardPreview() {
   return (
     <section className="pt-8 sm:pt-12 pb-8 sm:pb-10 bg-transparent border-b border-stone-200/60" id="preparation">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        
-        {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-14">
-          <span className="text-xs font-bold tracking-widest text-slate-500 uppercase mb-4 block">
-            DISCIPLINED PREPARATION, OPTIMIZED FOR YOUR DESK
-          </span>
-          <h2 className="font-sans text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
-            Everything you study today, in one command center.
-          </h2>
-          <p className="text-slate-600 text-[17px] leading-relaxed max-w-2xl mx-auto mt-5">
-            Eliminate scattered notes, chaotic tabs, and syllabus anxiety. Synchronize syllabus completion, 25-year PYQs, and daily AI answer reviews into a serene daily rhythm.
-          </p>
-        </div>
+        <SectionReveal>
+          {/* Section Header */}
+          <div className="text-center max-w-3xl mx-auto mb-14">
+            <span className="text-xs font-bold tracking-widest text-slate-500 uppercase mb-4 block">
+              DISCIPLINED PREPARATION, OPTIMIZED FOR YOUR DESK
+            </span>
+            <WordReveal
+              text="Everything you study today, in one command center."
+              as="h2"
+              className="font-sans text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight"
+            />
+            <p className="text-slate-600 text-[17px] leading-relaxed max-w-2xl mx-auto mt-5">
+              Eliminate scattered notes, chaotic tabs, and syllabus anxiety. Synchronize syllabus completion, 25-year PYQs, and daily AI answer reviews into a serene daily rhythm.
+            </p>
+          </div>
 
         {/* 2-Column Showcase */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
@@ -410,7 +428,7 @@ export default function DashboardPreview() {
                       </p>
                     </div>
 
-                    {/* Circular Progress Ring */}
+                    {/* Circular Progress Ring with Smooth SVG Draw */}
                     <div className="flex items-center gap-3 shrink-0">
                       <div className="relative w-16 h-16 flex items-center justify-center">
                         <svg className="w-16 h-16 transform -rotate-90" viewBox="0 0 80 80">
@@ -422,17 +440,18 @@ export default function DashboardPreview() {
                             strokeWidth="7"
                             fill="transparent"
                           />
-                          <circle
+                          <motion.circle
                             cx="40"
                             cy="40"
                             r="34"
                             stroke="#133026"
                             strokeWidth="7"
                             strokeDasharray={213.6}
-                            strokeDashoffset={213.6 * (1 - overallCoverage / 100)}
+                            initial={shouldReduceMotion ? { strokeDashoffset: 213.6 * (1 - overallCoverage / 100) } : { strokeDashoffset: 213.6 }}
+                            animate={{ strokeDashoffset: 213.6 * (1 - overallCoverage / 100) }}
+                            transition={{ duration: 0.8, ease: 'easeOut' }}
                             strokeLinecap="round"
                             fill="transparent"
-                            className="transition-all duration-500 ease-out"
                           />
                         </svg>
                         <span className="absolute font-sans font-extrabold text-xs text-slate-900 transition-all duration-300 tabular-nums">
@@ -466,7 +485,7 @@ export default function DashboardPreview() {
                             onClick={() => toggleTask(task.id)}
                             className={`group p-3 sm:p-3.5 rounded-xl border transition-all duration-300 cursor-pointer active:scale-[0.98] flex items-center justify-between gap-3 ${
                               isCompleted
-                                ? 'bg-slate-50 border-slate-200/70 opacity-60'
+                                ? 'bg-slate-50 border-slate-200/70 opacity-70'
                                 : 'bg-white border-slate-200/80 shadow-2xs hover:border-slate-300 hover:bg-slate-50/60 hover:-translate-y-0.5'
                             }`}
                           >
@@ -476,18 +495,39 @@ export default function DashboardPreview() {
                                   ? 'bg-[#133026] border-[#133026] text-white shadow-2xs' 
                                   : 'border-slate-300 bg-white group-hover:border-slate-400'
                               }`}>
-                                {isCompleted && <Check className="w-3.5 h-3.5 stroke-[3]" />}
+                                {isCompleted && (
+                                  <svg className="w-3.5 h-3.5 stroke-white" viewBox="0 0 24 24" fill="none" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                                    <motion.path
+                                      d="M20 6L9 17L4 12"
+                                      initial={shouldReduceMotion ? { pathLength: 1 } : { pathLength: 0 }}
+                                      animate={{ pathLength: 1 }}
+                                      transition={{ duration: 0.3, ease: 'easeOut' }}
+                                    />
+                                  </svg>
+                                )}
                               </div>
                               <div className="min-w-0">
-                                <div className={`font-sans text-sm font-semibold transition-all duration-300 ${
-                                  isCompleted ? 'line-through text-slate-400' : 'text-slate-900'
+                                <div className={`font-sans text-sm font-semibold relative inline-block transition-colors duration-300 ${
+                                  isCompleted ? 'text-slate-400' : 'text-slate-900'
                                 }`}>
                                   {task.title}
+                                  <motion.span
+                                    className="absolute left-0 top-1/2 h-[1.5px] bg-slate-400"
+                                    initial={false}
+                                    animate={{ width: isCompleted ? '100%' : '0%' }}
+                                    transition={{ duration: 0.3, ease: 'easeInOut' }}
+                                  />
                                 </div>
-                                <div className={`font-sans text-xs sm:text-sm mt-0.5 transition-all duration-300 ${
-                                  isCompleted ? 'line-through text-slate-400 opacity-80' : 'text-slate-500'
+                                <div className={`font-sans text-xs sm:text-sm mt-0.5 relative inline-block transition-colors duration-300 ${
+                                  isCompleted ? 'text-slate-400 opacity-80' : 'text-slate-500'
                                 }`}>
                                   {task.sub}
+                                  <motion.span
+                                    className="absolute left-0 top-1/2 h-[1px] bg-slate-400"
+                                    initial={false}
+                                    animate={{ width: isCompleted ? '100%' : '0%' }}
+                                    transition={{ duration: 0.3, ease: 'easeInOut' }}
+                                  />
                                 </div>
                               </div>
                             </div>
@@ -502,7 +542,7 @@ export default function DashboardPreview() {
                     </div>
                   </div>
 
-                  {/* Syllabus Bars Breakdown */}
+                  {/* Syllabus Bars Breakdown with smooth animated fill */}
                   <div className="bg-slate-50/60 border border-slate-200/70 rounded-xl p-4">
                     <div className="flex items-center justify-between text-xs font-bold text-slate-800 mb-3 font-sans">
                       <span>Subject Completion Benchmarks</span>
@@ -516,11 +556,13 @@ export default function DashboardPreview() {
                             <span className="font-bold text-[#133026] tabular-nums transition-all duration-300">{item.percentage}%</span>
                           </div>
                           <div className="w-full h-1.5 bg-slate-200/80 rounded-full overflow-hidden">
-                            <div
-                              className={`h-full rounded-full transition-all duration-500 ease-out ${
+                            <motion.div
+                              className={`h-full rounded-full ${
                                 item.isCoral ? 'bg-[#F59E0B]' : 'bg-[#133026]'
                               }`}
-                              style={{ width: `${item.percentage}%` }}
+                              initial={shouldReduceMotion ? { width: `${item.percentage}%` } : { width: '0%' }}
+                              animate={{ width: `${item.percentage}%` }}
+                              transition={{ duration: 0.6, ease: 'easeOut' }}
                             />
                           </div>
                         </div>
@@ -747,8 +789,35 @@ export default function DashboardPreview() {
             Built around the UPSC CSE syllabus structure
           </div>
         </div>
+      </SectionReveal>
 
-      </div>
-    </section>
+      {/* Streak +1 Toast */}
+      <AnimatePresence>
+        {showStreakToast && (
+          <motion.div
+            initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 24, scale: 0.92 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 24, scale: 0.92 }}
+            transition={{ type: 'spring', stiffness: 400, damping: 25 }}
+            className="fixed bottom-20 md:bottom-24 right-5 sm:right-8 z-50 bg-[#133026] text-white px-4 py-3 rounded-2xl shadow-2xl border border-amber-400/60 flex items-center gap-3"
+          >
+            <span className="text-xl">🔥</span>
+            <div>
+              <div className="font-bold text-sm text-[#FBBF24]">Great job, streak +1</div>
+              <div className="text-xs text-stone-300">All 3 daily action items complete!</div>
+            </div>
+            <button
+              type="button"
+              onClick={() => setShowStreakToast(false)}
+              className="ml-2 text-stone-400 hover:text-white text-xs p-1 cursor-pointer"
+              aria-label="Dismiss toast"
+            >
+              ✕
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  </section>
   );
 }

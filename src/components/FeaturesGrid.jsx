@@ -8,8 +8,18 @@ import {
   CalendarCheck 
 } from 'lucide-react';
 import EliminationDrill from './EliminationDrill.jsx';
+import { 
+  SectionReveal, 
+  WordReveal, 
+  StaggerGrid, 
+  StaggerCard, 
+  motionButtonProps 
+} from './motion/MotionUtils.jsx';
+import { motion, useReducedMotion } from 'framer-motion';
 
 export default function FeaturesGrid({ onOpenLogin }) {
+  const shouldReduceMotion = useReducedMotion();
+
   const features = [
     {
       icon: ClipboardCheck,
@@ -70,103 +80,113 @@ export default function FeaturesGrid({ onOpenLogin }) {
   return (
     <section className="pt-16 md:pt-20 pb-12 md:pb-16 bg-transparent border-b border-stone-200/60 scroll-mt-20" id="features">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        
-        {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
-          <div>
-            <span className="text-xs font-bold text-[#133026] tracking-wider block mb-2 uppercase">
-              STRATEGIC PREPARATION TOOLKIT
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-serif font-bold text-[#133026] leading-tight">
-              One unified platform. Master Prelims, Mains, and the Interview.
-            </h2>
-          </div>
-          <p className="text-sm sm:text-base text-stone-600 font-normal max-w-sm md:text-right leading-relaxed">
-            Move beyond scattered materials into a calm preparation ecosystem engineered to maximize your score per study hour.
-          </p>
-        </div>
-
-        {/* 6-Card Feature Grid (3 Columns on Desktop) */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {features.map((feature, idx) => {
-            const Icon = feature.icon;
-
-            return (
-              <div
-                key={idx}
-                className="group bg-white rounded-2xl border border-slate-200 shadow-sm p-6 cursor-pointer transition-all duration-300 hover:-translate-y-1 hover:shadow-md flex flex-col justify-between"
-              >
-                <div>
-                  {/* Top-left icon inside soft tinted square with hover inversion */}
-                  <div className="bg-emerald-50 text-emerald-800 transition-colors duration-300 group-hover:bg-[#0B1E19] group-hover:text-orange-500 p-2.5 rounded-lg w-fit mb-4">
-                    <Icon className="w-5 h-5 stroke-[2.2]" />
-                  </div>
-
-                  {/* Overline categorical tag */}
-                  <div className="text-[10px] font-bold tracking-widest uppercase text-slate-500 bg-slate-100 px-2 py-1 rounded w-fit mb-3">
-                    {feature.overline}
-                  </div>
-
-                  {/* Title */}
-                  <h3 className="text-lg font-bold text-slate-900 mb-2">
-                    {feature.title}
-                  </h3>
-
-                  {/* Description */}
-                  <p className="text-sm text-slate-600 leading-relaxed font-normal">
-                    {feature.description}
-                  </p>
-                </div>
-
-                {/* Footer Section */}
-                <div>
-                  {/* Divider */}
-                  <div className="border-t border-slate-100 my-4" />
-
-                  {/* Card Footer: Meta-text on left, thematic link on right */}
-                  <div className="flex items-center justify-between text-xs">
-                    <span className="text-slate-500 font-medium">
-                      {feature.meta}
-                    </span>
-                    <a
-                      href={feature.href}
-                      className="text-xs font-semibold text-emerald-700 hover:text-emerald-800 bg-emerald-50 px-2 py-1 rounded transition-colors duration-150 inline-flex items-center gap-1 cursor-pointer"
-                    >
-                      <span>{feature.linkText}</span>
-                      <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">↗</span>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-
-        {/* Live Interactive Option Elimination Preview */}
-        <div className="mt-12 bg-white border border-slate-200/90 rounded-2xl p-6 sm:p-8 shadow-sm">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-100">
+        <SectionReveal>
+          {/* Section Header */}
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
             <div>
-              <span className="text-[10px] font-bold tracking-widest uppercase text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded inline-block mb-1.5">
-                INTERACTIVE PREVIEW
+              <span className="text-xs font-bold text-[#133026] tracking-wider block mb-2 uppercase">
+                STRATEGIC PREPARATION TOOLKIT
               </span>
-              <h3 className="text-xl font-bold text-slate-900">
-                Option Elimination & Negative Marks Simulator
-              </h3>
-              <p className="text-sm text-slate-600 mt-0.5">
-                Practice structured distractor elimination with live confidence and chance calculation.
-              </p>
+              <WordReveal
+                text="One unified platform. Master Prelims, Mains, and the Interview."
+                as="h2"
+                className="text-3xl sm:text-4xl font-serif font-bold text-[#133026] leading-tight"
+              />
             </div>
-            <button
-              type="button"
-              onClick={() => onOpenLogin ? onOpenLogin() : null}
-              className="text-xs font-bold text-emerald-800 bg-emerald-50 hover:bg-emerald-100 px-3.5 py-2 rounded-xl transition-colors shrink-0 self-start sm:self-auto cursor-pointer"
-            >
-              Unlock Full Drill Bank →
-            </button>
+            <p className="text-sm sm:text-base text-stone-600 font-normal max-w-sm md:text-right leading-relaxed">
+              Move beyond scattered materials into a calm preparation ecosystem engineered to maximize your score per study hour.
+            </p>
           </div>
-          <EliminationDrill />
-        </div>
 
+          {/* 6-Card Feature Grid (3 Columns on Desktop) */}
+          <StaggerGrid className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {features.map((feature, idx) => {
+              const Icon = feature.icon;
+
+              return (
+                <StaggerCard
+                  key={idx}
+                  className="group bg-white rounded-2xl border border-slate-200 shadow-sm p-6 cursor-pointer flex flex-col justify-between"
+                >
+                  <div>
+                    {/* Top-left icon inside soft tinted square with gentle bounce on card hover */}
+                    <motion.div 
+                      className="bg-emerald-50 text-emerald-800 transition-colors duration-300 group-hover:bg-[#0B1E19] group-hover:text-orange-500 p-2.5 rounded-lg w-fit mb-4"
+                      whileHover={shouldReduceMotion ? undefined : { y: [-2, -6, -2], transition: { duration: 0.5, ease: 'easeInOut' } }}
+                    >
+                      <motion.div
+                        className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:scale-110"
+                      >
+                        <Icon className="w-5 h-5 stroke-[2.2]" />
+                      </motion.div>
+                    </motion.div>
+
+                    {/* Overline categorical tag */}
+                    <div className="text-[10px] font-bold tracking-widest uppercase text-slate-500 bg-slate-100 px-2 py-1 rounded w-fit mb-3">
+                      {feature.overline}
+                    </div>
+
+                    {/* Title */}
+                    <h3 className="text-lg font-bold text-slate-900 mb-2">
+                      {feature.title}
+                    </h3>
+
+                    {/* Description */}
+                    <p className="text-sm text-slate-600 leading-relaxed font-normal">
+                      {feature.description}
+                    </p>
+                  </div>
+
+                  {/* Footer Section */}
+                  <div>
+                    {/* Divider */}
+                    <div className="border-t border-slate-100 my-4" />
+
+                    {/* Card Footer: Meta-text on left, thematic link on right */}
+                    <div className="flex items-center justify-between text-xs">
+                      <span className="text-slate-500 font-medium">
+                        {feature.meta}
+                      </span>
+                      <a
+                        href={feature.href}
+                        className="text-xs font-semibold text-emerald-700 hover:text-emerald-800 bg-emerald-50 px-2 py-1 rounded transition-colors duration-150 inline-flex items-center gap-1 cursor-pointer"
+                      >
+                        <span>{feature.linkText}</span>
+                        <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">↗</span>
+                      </a>
+                    </div>
+                  </div>
+                </StaggerCard>
+              );
+            })}
+          </StaggerGrid>
+
+          {/* Live Interactive Option Elimination Preview */}
+          <div className="mt-12 bg-white border border-slate-200/90 rounded-2xl p-6 sm:p-8 shadow-sm">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-100">
+              <div>
+                <span className="text-[10px] font-bold tracking-widest uppercase text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded inline-block mb-1.5">
+                  INTERACTIVE PREVIEW
+                </span>
+                <h3 className="text-xl font-bold text-slate-900">
+                  Option Elimination & Negative Marks Simulator
+                </h3>
+                <p className="text-sm text-slate-600 mt-0.5">
+                  Practice structured distractor elimination with live confidence and chance calculation.
+                </p>
+              </div>
+              <motion.button
+                {...motionButtonProps}
+                type="button"
+                onClick={() => onOpenLogin ? onOpenLogin() : null}
+                className="text-xs font-bold text-emerald-800 bg-emerald-50 hover:bg-emerald-100 px-3.5 py-2 rounded-xl transition-colors shrink-0 self-start sm:self-auto cursor-pointer"
+              >
+                Unlock Full Drill Bank →
+              </motion.button>
+            </div>
+            <EliminationDrill />
+          </div>
+        </SectionReveal>
       </div>
     </section>
   );

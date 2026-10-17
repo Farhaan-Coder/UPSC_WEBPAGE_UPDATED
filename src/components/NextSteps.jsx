@@ -1,5 +1,6 @@
 import React from 'react';
 import { SlidersHorizontal, Calendar, RotateCw } from 'lucide-react';
+import { SectionReveal, WordReveal, StaggerGrid, StaggerCard } from './motion/MotionUtils.jsx';
 
 const stepsData = [
   {
@@ -29,60 +30,62 @@ export default function NextSteps() {
   return (
     <section className="pt-16 lg:pt-20 pb-10 lg:pb-12 bg-transparent border-b border-stone-200/60" id="how-it-works">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        
-        {/* Split Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
-          <div>
-            <span className="text-xs font-semibold text-[#133026] tracking-wider block mb-2 uppercase">
-              YOUR STEP-BY-STEP ROADMAP
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-sans font-bold text-[#133026] tracking-tight leading-tight">
-              Your next step doesn't have to be<br className="hidden sm:inline" /> guesswork.
-            </h2>
+        <SectionReveal>
+          {/* Split Header */}
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
+            <div>
+              <span className="text-xs font-semibold text-[#133026] tracking-wider block mb-2 uppercase">
+                YOUR STEP-BY-STEP ROADMAP
+              </span>
+              <WordReveal
+                text="Your next step doesn't have to be guesswork."
+                as="h2"
+                className="text-3xl sm:text-4xl font-sans font-bold text-[#133026] tracking-tight leading-tight"
+              />
+            </div>
+            <p className="text-sm sm:text-base text-stone-600 max-w-sm md:text-right leading-relaxed font-normal">
+              From Day 1 NCERT basics to cracking the UPSC Civil Services Interview board with confidence.
+            </p>
           </div>
-          <p className="text-sm sm:text-base text-stone-600 max-w-sm md:text-right leading-relaxed font-normal">
-            From Day 1 NCERT basics to cracking the UPSC Civil Services Interview board with confidence.
-          </p>
-        </div>
 
-        {/* 3 Step Cards with dynamic mapping */}
-        <div className="relative grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-8">
-          
-          {/* Subtle horizontal connecting line on desktop */}
-          <div className="hidden md:block absolute top-[28px] left-[48px] right-[48px] h-0.5 bg-stone-300 z-0" />
+          {/* 3 Step Cards with dynamic mapping */}
+          <div className="relative">
+            {/* Subtle horizontal connecting line on desktop */}
+            <div className="hidden md:block absolute top-[28px] left-[48px] right-[48px] h-0.5 bg-stone-300 z-0" />
 
-          {stepsData.map((item, idx) => {
-            const Icon = item.icon;
-            return (
-              <div 
-                key={idx} 
-                className="relative z-10 flex flex-col justify-between p-6 sm:p-7 rounded-2xl bg-white border border-slate-200/70 transition-all duration-300 hover:-translate-y-1 hover:border-slate-300 hover:shadow-xl cursor-default group"
-              >
-                <div>
-                  {/* Step Bubble */}
-                  <div className="w-12 h-12 rounded-xl bg-[#133026] text-white font-sans font-bold text-base flex items-center justify-center mb-6 shadow-xs transition-transform duration-300 group-hover:scale-105">
-                    {item.step}
-                  </div>
+            <StaggerGrid className="relative grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-8">
+              {stepsData.map((item, idx) => {
+                const Icon = item.icon;
+                return (
+                  <StaggerCard 
+                    key={idx} 
+                    className="relative z-10 flex flex-col justify-between p-6 sm:p-7 rounded-2xl bg-white border border-slate-200/70 transition-all duration-300 cursor-default group"
+                  >
+                    <div>
+                      {/* Step Bubble */}
+                      <div className="w-12 h-12 rounded-xl bg-[#133026] text-white font-sans font-bold text-base flex items-center justify-center mb-6 shadow-xs transition-transform duration-300 group-hover:scale-105">
+                        {item.step}
+                      </div>
 
-                  <h3 className="font-sans font-bold text-slate-800 tracking-tight text-lg mb-2.5">
-                    {item.title}
-                  </h3>
-                  <p className="text-[15px] text-slate-600 leading-relaxed mb-6 font-normal">
-                    {item.description}
-                  </p>
-                </div>
+                      <h3 className="font-sans font-bold text-slate-800 tracking-tight text-lg mb-2.5">
+                        {item.title}
+                      </h3>
+                      <p className="text-[15px] text-slate-600 leading-relaxed mb-6 font-normal">
+                        {item.description}
+                      </p>
+                    </div>
 
-                {/* Bottom link feature */}
-                <div className="flex items-center gap-2.5 text-xs sm:text-[13px] font-semibold text-slate-700 border-t border-slate-100 pt-4">
-                  <Icon className="w-4 h-4 text-[#F59E0B]" />
-                  <span>{item.feature}</span>
-                </div>
-              </div>
-            );
-          })}
-
-        </div>
-
+                    {/* Bottom link feature */}
+                    <div className="flex items-center gap-2.5 text-xs sm:text-[13px] font-semibold text-slate-700 border-t border-slate-100 pt-4">
+                      <Icon className="w-4 h-4 text-[#F59E0B]" />
+                      <span>{item.feature}</span>
+                    </div>
+                  </StaggerCard>
+                );
+              })}
+            </StaggerGrid>
+          </div>
+        </SectionReveal>
       </div>
     </section>
   );
