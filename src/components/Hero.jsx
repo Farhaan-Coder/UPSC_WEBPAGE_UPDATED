@@ -199,26 +199,26 @@ export default function Hero({ onOpenAuth }) {
 
             {/* 4-Item Honest UPSC Trust Strip - Min 14px Text & 2x2 Responsive Wrap */}
             <div className="grid grid-cols-2 gap-3 sm:gap-4 text-sm text-stone-700 font-medium pt-2">
-              <div className="flex items-start gap-2.5 bg-white/70 sm:bg-white/50 p-2.5 sm:p-3 rounded-xl border border-stone-200/70 shadow-2xs">
-                <Layers className="w-5 h-5 text-[#133026] stroke-[2.2] shrink-0 mt-0.5" />
+              <div className="flex items-start gap-2.5 bg-white/70 sm:bg-white/50 p-2.5 sm:p-3 rounded-xl border border-stone-200/70 shadow-2xs hover:border-orange-400 hover:bg-white hover:shadow-sm hover:-translate-y-0.5 transition-all duration-300 cursor-pointer group/trust">
+                <Layers className="w-5 h-5 text-[#133026] stroke-[2.2] shrink-0 mt-0.5 group-hover/trust:text-[#F59E0B] transition-colors" />
                 <div className="min-w-0">
-                  <div className="text-[14px] sm:text-[15px] font-bold text-stone-900 leading-tight">3 stages covered</div>
+                  <div className="text-[14px] sm:text-[15px] font-bold text-stone-900 leading-tight group-hover/trust:text-[#133026] transition-colors">3 stages covered</div>
                   <div className="text-xs text-stone-500 font-normal leading-tight mt-0.5">Prelims, Mains, Interview</div>
                 </div>
               </div>
 
-              <div className="flex items-start gap-2.5 bg-white/70 sm:bg-white/50 p-2.5 sm:p-3 rounded-xl border border-stone-200/70 shadow-2xs">
-                <Clock className="w-5 h-5 text-[#133026] stroke-[2.2] shrink-0 mt-0.5" />
+              <div className="flex items-start gap-2.5 bg-white/70 sm:bg-white/50 p-2.5 sm:p-3 rounded-xl border border-stone-200/70 shadow-2xs hover:border-orange-400 hover:bg-white hover:shadow-sm hover:-translate-y-0.5 transition-all duration-300 cursor-pointer group/trust">
+                <Clock className="w-5 h-5 text-[#133026] stroke-[2.2] shrink-0 mt-0.5 group-hover/trust:text-[#F59E0B] transition-colors" />
                 <div className="min-w-0">
-                  <div className="text-[14px] sm:text-[15px] font-bold text-stone-900 leading-tight">25-year PYQ window</div>
+                  <div className="text-[14px] sm:text-[15px] font-bold text-stone-900 leading-tight group-hover/trust:text-[#133026] transition-colors">25-year PYQ window</div>
                   <div className="text-xs text-stone-500 font-normal leading-tight mt-0.5">{PYQ_RANGE}, topic-wise</div>
                 </div>
               </div>
 
-              <div className="flex items-start gap-2.5 bg-white/70 sm:bg-white/50 p-2.5 sm:p-3 rounded-xl border border-stone-200/70 shadow-2xs">
-                <BookOpenCheck className="w-5 h-5 text-[#133026] stroke-[2.2] shrink-0 mt-0.5" />
+              <div className="flex items-start gap-2.5 bg-white/70 sm:bg-white/50 p-2.5 sm:p-3 rounded-xl border border-stone-200/70 shadow-2xs hover:border-orange-400 hover:bg-white hover:shadow-sm hover:-translate-y-0.5 transition-all duration-300 cursor-pointer group/trust">
+                <BookOpenCheck className="w-5 h-5 text-[#133026] stroke-[2.2] shrink-0 mt-0.5 group-hover/trust:text-[#F59E0B] transition-colors" />
                 <div className="min-w-0">
-                  <div className="text-[14px] sm:text-[15px] font-bold text-stone-900 leading-tight">GS I-IV + CSAT mapping</div>
+                  <div className="text-[14px] sm:text-[15px] font-bold text-stone-900 leading-tight group-hover/trust:text-[#133026] transition-colors">GS I-IV + CSAT mapping</div>
                   <div className="text-xs text-stone-500 font-normal leading-tight mt-0.5">Syllabus-linked practice</div>
                 </div>
               </div>
@@ -226,7 +226,7 @@ export default function Hero({ onOpenAuth }) {
               <button
                 type="button"
                 onClick={() => onOpenAuth ? onOpenAuth('signup') : null}
-                className="flex items-start gap-2.5 bg-white/70 sm:bg-white/50 p-2.5 sm:p-3 rounded-xl border border-stone-200/70 shadow-2xs hover:border-[#133026]/40 hover:bg-white transition-all text-left cursor-pointer group/trust"
+                className="flex items-start gap-2.5 bg-white/70 sm:bg-white/50 p-2.5 sm:p-3 rounded-xl border border-stone-200/70 shadow-2xs hover:border-orange-400 hover:bg-white hover:shadow-sm hover:-translate-y-0.5 transition-all duration-300 text-left cursor-pointer group/trust"
               >
                 <ShieldCheck className="w-5 h-5 text-[#133026] stroke-[2.2] shrink-0 mt-0.5 group-hover/trust:text-[#F59E0B] transition-colors" />
                 <div className="min-w-0">
