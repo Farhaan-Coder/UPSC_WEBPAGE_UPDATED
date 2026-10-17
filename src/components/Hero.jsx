@@ -67,7 +67,6 @@ const MOCK_DATA = [
 export default function Hero({ onOpenAuth }) {
   const [tasks, setTasks] = useState(initialTasks);
   const [toastMessage, setToastMessage] = useState(null);
-  const [hoveredMockPoint, setHoveredMockPoint] = useState(null);
   const toastTimeoutRef = useRef(null);
   const timeLeft = useCountdown(PRELIMS_DATE);
 
@@ -574,12 +573,11 @@ export default function Hero({ onOpenAuth }) {
                             className="text-emerald-600"
                           />
 
-                          {/* 6 Interactive data point nodes */}
+                          {/* 6 Interactive data point nodes with hover tooltips */}
                           {MOCK_DATA.map((pt, i) => {
                             const isLatest = i === MOCK_DATA.length - 1;
-                            const isHovered = hoveredMockPoint?.label === pt.label;
                             return (
-                              <g key={pt.label} className="group/node">
+                              <g key={pt.label} className="group cursor-pointer">
                                 {/* Active Pulse on Current Progress (M6 circle) */}
                                 {isLatest && (
                                   <g className="pointer-events-none">
@@ -605,76 +603,43 @@ export default function Hero({ onOpenAuth }) {
                                   cy={pt.y}
                                   r="14"
                                   fill="transparent"
-                                  className="cursor-pointer"
-                                  onMouseEnter={() => setHoveredMockPoint(pt)}
-                                  onMouseLeave={() => setHoveredMockPoint(null)}
                                 />
 
                                 {/* Interactive Visual Node */}
                                 <circle
                                   cx={pt.x}
                                   cy={pt.y}
-                                  r={isHovered ? 5.5 : 3.5}
-                                  fill={isHovered ? '#F59E0B' : 'white'}
-                                  stroke={isHovered ? '#133026' : '#059669'}
-                                  strokeWidth={isHovered ? 2.5 : 2}
-                                  className="cursor-pointer transition-all duration-300 pointer-events-none hover:r-[6px] hover:fill-[#F59E0B] hover:stroke-[#133026]"
+                                  r="3.5"
+                                  fill="white"
+                                  stroke="#059669"
+                                  strokeWidth="2"
+                                  className="group-hover:fill-orange-500 group-hover:r-[6px] transition-all duration-300"
                                 />
+
+                                {/* Score Tooltip Text above node */}
+                                <text
+                                  x={pt.x}
+                                  y={pt.y - 9}
+                                  textAnchor="middle"
+                                  className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-[10px] fill-slate-700 font-bold pointer-events-none select-none"
+                                >
+                                  {pt.score}
+                                </text>
                               </g>
                             );
                           })}
-
-                          {/* Floating Tooltip displaying exact mock score */}
-                          {hoveredMockPoint && (
-                            <g className="transition-all duration-200 pointer-events-none">
-                              <rect
-                                x={Math.min(Math.max(hoveredMockPoint.x - 22, 28), 248)}
-                                y={hoveredMockPoint.y - 25}
-                                width="44"
-                                height="18"
-                                rx="4"
-                                fill="#133026"
-                                className="drop-shadow-md"
-                              />
-                              <polygon
-                                points={`
-                                  ${hoveredMockPoint.x - 3.5},${hoveredMockPoint.y - 7} 
-                                  ${hoveredMockPoint.x + 3.5},${hoveredMockPoint.y - 7} 
-                                  ${hoveredMockPoint.x},${hoveredMockPoint.y - 3}
-                                `}
-                                fill="#133026"
-                              />
-                              <text
-                                x={Math.min(Math.max(hoveredMockPoint.x - 22, 28), 248) + 22}
-                                y={hoveredMockPoint.y - 15}
-                                textAnchor="middle"
-                                dominantBaseline="central"
-                                fill="#F59E0B"
-                                className="text-[10px] font-sans font-bold tracking-tight"
-                              >
-                                {hoveredMockPoint.score} m
-                              </text>
-                            </g>
-                          )}
                         </svg>
 
-                        {/* X-axis labels M1 to M6 with synchronized hover */}
+                        {/* X-axis labels M1 to M6 */}
                         <div className="flex justify-between pl-8 pr-1 text-[10px] text-slate-400 font-medium mt-1">
                           {MOCK_DATA.map((pt) => {
-                            const isHovered = hoveredMockPoint?.label === pt.label;
                             const isLatest = pt.label === 'M6';
                             return (
                               <span
                                 key={pt.label}
                                 className={`transition-all duration-200 cursor-pointer ${
-                                  isHovered
-                                    ? 'text-[#133026] font-bold scale-110'
-                                    : isLatest
-                                    ? 'text-emerald-700 font-bold'
-                                    : 'hover:text-slate-700'
+                                  isLatest ? 'text-emerald-700 font-bold' : 'hover:text-slate-700'
                                 }`}
-                                onMouseEnter={() => setHoveredMockPoint(pt)}
-                                onMouseLeave={() => setHoveredMockPoint(null)}
                               >
                                 {pt.label}
                               </span>

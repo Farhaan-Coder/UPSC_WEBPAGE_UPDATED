@@ -81,9 +81,7 @@ export default function Navbar({ onOpenAuth, onMobileMenuToggle }) {
 
   return (
     <header 
-      className={`sticky top-0 z-50 bg-[#FDFBF7]/80 backdrop-blur-md border-b border-slate-200/50 transition-all duration-300 ${
-        scrolled ? 'shadow-xs py-0' : 'py-0.5'
-      }`}
+      className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200 shadow-sm transition-all duration-300"
     >
       <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between w-full">
         
