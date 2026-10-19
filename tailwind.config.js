@@ -35,6 +35,9 @@ export default {
           500: '#F59E0B',
           600: '#D97706',
         },
+        emerald: {
+          750: '#06694C',
+        },
       },
       fontFamily: {
         serif: ['"Playfair Display"', 'Merriweather', 'Georgia', 'serif'],

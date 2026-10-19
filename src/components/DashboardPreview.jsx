@@ -27,6 +27,7 @@ import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { EXAM_YEAR } from '../config/exam.js';
 import { PYQ_RANGE, PYQ_TOTAL, pyqThemes } from '../data/pyqSample.js';
 import { SectionReveal, WordReveal, triggerConfetti } from './motion/MotionUtils.jsx';
+import EvaluationRubricFeedback from './EvaluationRubricFeedback.jsx';
 
 const tabsConfig = [
   {
@@ -80,19 +81,19 @@ const baseSyllabusProgress = [
 const getTrendBadgeClass = (trend) => {
   switch (trend) {
     case '+3% YoY':
-      return 'bg-green-50 border border-green-200 text-green-700';
+      return 'bg-emerald-50 text-emerald-700 ring-1 ring-inset ring-emerald-600/20';
     case 'High Weight':
-      return 'bg-orange-50 border border-orange-200 text-orange-700';
+      return 'bg-amber-50 text-amber-800 ring-1 ring-inset ring-amber-600/20';
     case 'Stable':
-      return 'bg-blue-50 border border-blue-200 text-blue-700';
+      return 'bg-blue-50 text-blue-700 ring-1 ring-inset ring-blue-600/20';
     case 'Moderate':
-      return 'bg-slate-100 border border-slate-200 text-slate-600';
+      return 'bg-slate-50 text-slate-700 ring-1 ring-inset ring-slate-500/20';
     case 'Application-based':
-      return 'bg-purple-50 border border-purple-200 text-purple-700';
+      return 'bg-purple-50 text-purple-700 ring-1 ring-inset ring-purple-600/20';
     case 'Rising':
-      return 'bg-emerald-50 border border-emerald-200 text-emerald-700';
+      return 'bg-teal-50 text-teal-700 ring-1 ring-inset ring-teal-600/20';
     default:
-      return 'bg-slate-100 border border-slate-200 text-slate-600';
+      return 'bg-slate-50 text-slate-700 ring-1 ring-inset ring-slate-500/20';
   }
 };
 
@@ -385,7 +386,7 @@ export default function DashboardPreview() {
             <div className="absolute -inset-4 bg-gradient-to-r from-teal-700/10 via-amber-500/10 to-emerald-600/10 rounded-3xl blur-2xl pointer-events-none -z-10" />
 
             {/* Main Interactive Screen Container */}
-            <div className="bg-white border border-slate-200/90 rounded-2xl shadow-md hover:shadow-lg overflow-hidden transition-all duration-300">
+            <div className="bg-white border border-slate-100/80 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] overflow-hidden transition-all duration-300">
               
               {/* Top Screen App Bar */}
               <div className="px-5 py-3.5 border-b border-slate-100 flex items-center justify-between bg-slate-50/70">
@@ -397,9 +398,10 @@ export default function DashboardPreview() {
                 </div>
 
                 <div className="flex items-center gap-3 text-xs">
-                  <span className="text-stone-500 font-medium text-xs hidden sm:inline">
-                    • Sample data for demonstration
-                  </span>
+                  <div className="hidden sm:flex items-center gap-1.5 text-xs font-semibold text-emerald-800 bg-emerald-50/80 px-2.5 py-1 rounded-full border border-emerald-200/60 shadow-2xs">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                    <span>Live Command Center</span>
+                  </div>
                   <div className="w-7 h-7 rounded-full bg-[#133026] text-[#F59E0B] font-bold text-xs flex items-center justify-center">
                     AS
                   </div>
@@ -596,50 +598,72 @@ export default function DashboardPreview() {
                         25-Year UPSC CSE Prelims Topic Recurrence Heatmap ({PYQ_RANGE})
                       </h4>
                       <p className="font-sans text-xs text-slate-600 mt-0.5">
-                        Analyzing 2,500 sample questions ({PYQ_RANGE}) categorized by syllabus micro-themes.
+                        Historical topic distribution across 2,500 questions ({PYQ_RANGE}) mapped by syllabus micro-themes.
                       </p>
                     </div>
                     <div className="flex items-center gap-2 self-start sm:self-auto shrink-0">
-                      <span className="font-sans text-xs font-semibold text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200">
-                        Sample trends
-                      </span>
-                      <span className="font-sans text-xs text-slate-500 font-medium hidden sm:inline">
-                        • Illustrative sample data
+                      <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-800 bg-emerald-50/80 px-2.5 py-1 rounded-full border border-emerald-200/80 shadow-2xs">
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                        <span>GS Paper I Analysis</span>
                       </span>
                     </div>
                   </div>
 
-                  {/* Recurrence Heatmap Table: horizontally scrollable on mobile with subtle fade hint, no clipping */}
+                  {/* Recurrence Heatmap Table: horizontally scrollable on mobile */}
                   <div>
                     <div className="sm:hidden text-[11px] text-stone-500 font-medium mb-1.5 flex items-center justify-between">
                       <span>← Swipe table horizontally →</span>
                       <span className="text-[10px] text-stone-400">6 themes</span>
                     </div>
-                    <div className="relative w-full overflow-x-auto rounded-xl border border-slate-200/60">
-                      <table className="w-full text-left font-sans min-w-[520px]">
+                    <div className="relative w-full overflow-x-auto rounded-xl border border-slate-200/80 bg-white">
+                      <table className="w-full text-left font-sans min-w-[560px]">
                       <thead>
-                        <tr className="border-b border-slate-200">
-                          <th className="align-middle text-[11px] sm:text-xs font-semibold text-slate-500 uppercase tracking-wider pb-3 px-3 w-[22%] min-w-[100px] whitespace-nowrap">Theme</th>
-                          <th className="align-middle text-[11px] sm:text-xs font-semibold text-slate-500 uppercase tracking-wider pb-3 px-3 w-[18%] whitespace-nowrap">Avg Share</th>
-                          <th className="align-middle text-[11px] sm:text-xs font-semibold text-slate-500 uppercase tracking-wider pb-3 px-3 w-[24%] whitespace-nowrap">Sample Trend</th>
-                          <th className="align-middle text-[11px] sm:text-xs font-semibold text-slate-500 uppercase tracking-wider pb-3 px-3 w-[36%]">High-Yield Micro-Topics</th>
+                        <tr className="border-b border-slate-100 bg-slate-50/60">
+                          <th className="align-middle text-xs font-bold tracking-wider text-slate-400 uppercase py-3.5 px-4 w-[22%] min-w-[110px] whitespace-nowrap">
+                            THEME
+                          </th>
+                          <th className="align-middle text-xs font-bold tracking-wider text-slate-400 uppercase py-3.5 px-4 w-[22%] min-w-[140px] whitespace-nowrap">
+                            AVG SHARE
+                          </th>
+                          <th className="align-middle text-xs font-bold tracking-wider text-slate-400 uppercase py-3.5 px-4 w-[20%] whitespace-nowrap">
+                            TREND
+                          </th>
+                          <th className="align-middle text-xs font-bold tracking-wider text-slate-400 uppercase py-3.5 px-4 w-[36%]">
+                            HIGH-YIELD MICRO-TOPICS
+                          </th>
                         </tr>
                       </thead>
                       <tbody className="divide-y divide-slate-100">
                         {pyqThemes.map((row, idx) => (
-                          <tr key={idx} className="hover:bg-slate-50/80 transition-colors cursor-default">
-                            <td className="align-middle py-3 sm:py-3.5 px-3 font-semibold text-slate-900 text-xs sm:text-sm whitespace-nowrap">
+                          <tr 
+                            key={idx} 
+                            className="hover:bg-slate-50/80 transition-colors duration-200 cursor-pointer group"
+                          >
+                            <td className="align-middle py-3.5 px-4 font-semibold text-slate-900 text-xs sm:text-sm whitespace-nowrap group-hover:text-emerald-900 transition-colors">
                               {row.shortName || row.name}
                             </td>
-                            <td className="align-middle py-3 sm:py-3.5 px-3 font-bold text-[#133026] text-xs sm:text-sm whitespace-nowrap">
-                              {row.weight} <span className="font-normal text-slate-500 text-[11px] sm:text-xs">({row.count} Qs)</span>
+                            <td className="align-middle py-3.5 px-4 whitespace-nowrap">
+                              <div className="flex items-baseline justify-between max-w-[130px] mb-1.5">
+                                <span className="font-bold text-[#133026] text-xs sm:text-sm tabular-nums">
+                                  {row.weight}
+                                </span>
+                                <span className="text-[11px] text-slate-400 font-medium tabular-nums">
+                                  {row.count} Qs
+                                </span>
+                              </div>
+                              <div className="w-full max-w-[130px] bg-slate-100 rounded-full h-1.5 overflow-hidden">
+                                <div 
+                                  className="h-full bg-emerald-600 rounded-full transition-all duration-500 group-hover:bg-emerald-500" 
+                                  style={{ width: `${row.share || Math.round((row.count / 2500) * 100)}%` }}
+                                />
+                              </div>
                             </td>
-                            <td className="align-middle py-3 sm:py-3.5 px-3 whitespace-nowrap">
-                              <span className={`px-2.5 py-0.5 rounded-full text-[11px] sm:text-xs font-medium inline-flex items-center ${getTrendBadgeClass(row.trend)}`}>
+                            <td className="align-middle py-3.5 px-4 whitespace-nowrap">
+                              <span className={`px-2.5 py-1 rounded-md text-xs font-medium inline-flex items-center gap-1 ${getTrendBadgeClass(row.trend)}`}>
                                 {row.trend}
                               </span>
                             </td>
-                            <td className="align-middle py-3 sm:py-3.5 px-3 text-slate-600 text-xs sm:text-sm leading-snug">
+                            <td className="align-middle py-3.5 px-4 text-slate-600 text-xs sm:text-sm leading-relaxed">
                               {row.highYield}
                             </td>
                           </tr>
@@ -659,7 +683,7 @@ export default function DashboardPreview() {
                         Practice 25 Most Repeated Polity Articles & Schedules
                       </div>
                       <div className="font-sans text-xs text-emerald-200/90 mt-0.5">
-                        Sample drill: 25 most repeated Polity articles and schedules
+                        High-yield question bank • Adaptive distractor elimination mode
                       </div>
                     </div>
                     <button 
@@ -674,77 +698,7 @@ export default function DashboardPreview() {
 
               {/* TAB 3: AI ANSWER FEEDBACK VIEW (Honest rubric labels) */}
               {activeTab === 2 && (
-                <div className="p-5 sm:p-6 space-y-4 animate-fadeIn">
-                  <div className="flex items-start sm:items-center justify-between gap-3 pb-3.5 border-b border-slate-100">
-                    <div>
-                      <span className="text-[11px] font-bold text-[#F59E0B] bg-[#133026] px-2.5 py-0.5 rounded-full uppercase tracking-wider inline-block">
-                        GS II MAINS EVALUATION
-                      </span>
-                      <h4 className="font-sans text-lg font-semibold text-slate-800 leading-snug mt-1.5">
-                        Question: "Evaluate the role of the Finance Commission in balancing fiscal federalism."
-                      </h4>
-                    </div>
-                    <div className="text-right shrink-0">
-                      <div className="font-sans font-extrabold text-2xl text-slate-900 tracking-tight">6.5 / 10</div>
-                      <div className="text-xs font-semibold text-emerald-700">Sample score</div>
-                    </div>
-                  </div>
-
-                  {/* Rubric Breakdown */}
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 text-xs text-center">
-                    <div className="p-3 bg-slate-50/50 border border-slate-100 shadow-sm rounded-xl">
-                      <div className="font-sans font-medium text-slate-500 text-xs">Introduction</div>
-                      <div className="font-sans font-bold text-slate-800 text-base mt-0.5">1.5 / 2.0</div>
-                      <div className="font-sans text-xs text-emerald-700 font-medium mt-0.5">Clear Article citation</div>
-                    </div>
-                    <div className="p-3 bg-slate-50/50 border border-slate-100 shadow-sm rounded-xl">
-                      <div className="font-sans font-medium text-slate-500 text-xs">Core Body Arguments</div>
-                      <div className="font-sans font-bold text-slate-800 text-base mt-0.5">3.5 / 5.0</div>
-                      <div className="font-sans text-xs text-amber-700 font-medium mt-0.5">Good cooperative points</div>
-                    </div>
-                    <div className="p-3 bg-slate-50/50 border border-slate-100 shadow-sm rounded-xl">
-                      <div className="font-sans font-medium text-slate-500 text-xs">Way Forward</div>
-                      <div className="font-sans font-bold text-slate-800 text-base mt-0.5">1.5 / 3.0</div>
-                      <div className="font-sans text-xs text-rose-600 font-medium mt-0.5">Needs institutional reform</div>
-                    </div>
-                  </div>
-
-                  {/* Commonly Used Keywords Tag Cloud */}
-                  <div>
-                    <div className="text-xs font-bold text-slate-700 mb-2 flex items-center justify-between">
-                      <span className="font-sans">Keywords to Integrate (Rubric standard):</span>
-                      <span className="text-xs text-slate-400 font-normal">Commonly used keywords</span>
-                    </div>
-                    <div className="flex flex-wrap gap-2">
-                      <span className="inline-flex items-center gap-1.5 bg-slate-100 text-slate-700 px-3 py-1.5 rounded-md text-sm font-medium">
-                        <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0 stroke-[2.5]" />
-                        <span>Article 280 Mandate (Included)</span>
-                      </span>
-                      <span className="inline-flex items-center gap-1.5 bg-slate-100 text-slate-700 px-3 py-1.5 rounded-md text-sm font-medium">
-                        <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0 stroke-[2.5]" />
-                        <span>Vertical Devolution 41% (Included)</span>
-                      </span>
-                      <span className="inline-flex items-center gap-1.5 bg-white border border-dashed border-slate-300 text-slate-500 px-3 py-1.5 rounded-md text-sm font-medium">
-                        <Plus className="w-3.5 h-3.5 text-slate-400 shrink-0 stroke-[2.5]" />
-                        <span>Missing: Horizontal Equity Criteria</span>
-                      </span>
-                      <span className="inline-flex items-center gap-1.5 bg-white border border-dashed border-slate-300 text-slate-500 px-3 py-1.5 rounded-md text-sm font-medium">
-                        <Plus className="w-3.5 h-3.5 text-slate-400 shrink-0 stroke-[2.5]" />
-                        <span>Missing: Cess & Surcharge Erosion</span>
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Mentor-Style Evaluator Feedback Box */}
-                  <div className="bg-slate-50 border-l-4 border-slate-800 p-4 rounded-r-lg">
-                    <div className="font-sans font-semibold text-xs uppercase tracking-wider text-slate-800 mb-1 flex items-center gap-1.5">
-                      <span>AI Evaluator Feedback (Sample for Demonstration):</span>
-                    </div>
-                    <p className="font-sans italic text-slate-600 leading-relaxed text-[15px]">
-                      "Strong contextual opening with balanced arguments. To jump from 6.5 to 8.0, incorporate a simple 3-tier flowchart illustrating statutory grants under Article 275 versus tax sharing."
-                    </p>
-                  </div>
-                </div>
+                <EvaluationRubricFeedback embedded={true} />
               )}
 
               {/* Bottom Workspace Status Bar */}

@@ -369,7 +369,10 @@ export default function Hero({ onOpenAuth }) {
             {/* Meta Tag */}
             <div className="flex items-center justify-between text-xs font-semibold text-stone-500 mb-3 px-2">
               <span className="tracking-wider text-[#133026]/80 uppercase font-sans font-bold">LESS GUESSWORK. MORE DIRECTION.</span>
-              <span className="text-stone-500 font-medium text-xs">• Sample data for demonstration</span>
+              <span className="text-emerald-700 font-semibold text-xs flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                <span>Live Desk Workspace</span>
+              </span>
             </div>
 
             {/* Dashboard Container: Floats gently +-8px with cursor tilt */}
@@ -419,8 +422,12 @@ export default function Hero({ onOpenAuth }) {
                     <BookOpenCheck className="w-4 h-4" />
                   </div>
                   <span className="font-sans font-bold text-sm text-[#133026] tracking-tight">UPSC ZONE AI</span>
-                  <span className="bg-[#EAF1EB] text-[#133026] border border-green-200/80 text-xs font-bold px-2.5 py-0.5 rounded-full shadow-2xs">
-                    CSE {EXAM_YEAR}
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50/60 border border-emerald-200/70 text-emerald-800 text-xs font-semibold tracking-wider shadow-2xs transition-colors">
+                    <span className="relative flex h-2 w-2 shrink-0">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-60"></span>
+                      <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                    </span>
+                    <span>CSE {EXAM_YEAR}</span>
                   </span>
                 </div>
                 
@@ -638,29 +645,43 @@ export default function Hero({ onOpenAuth }) {
                           <line x1="28" y1="75" x2="295" y2="75" stroke="#e2e8f0" strokeWidth="1" strokeDasharray="4 4" />
                           <text x="8" y="78" className="fill-slate-400 text-[9px] font-medium font-sans">70</text>
 
-                          {/* Soft rich gradient fill under line */}
-                          <motion.path
+                          {/* Scoped CSS animations for line draw & gradient fade */}
+                          <style>{`
+                            @keyframes drawTrendLine {
+                              from { stroke-dashoffset: 320; }
+                              to { stroke-dashoffset: 0; }
+                            }
+                            @keyframes fadeInFill {
+                              from { opacity: 0; }
+                              to { opacity: 1; }
+                            }
+                            .animate-draw-line {
+                              stroke-dasharray: 320;
+                              stroke-dashoffset: 320;
+                              animation: drawTrendLine 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+                            }
+                            .animate-gradient-fade {
+                              opacity: 0;
+                              animation: fadeInFill 0.8s ease-out 1.1s forwards;
+                            }
+                          `}</style>
+
+                          {/* Soft rich gradient fill under line (fades in right after line draws) */}
+                          <path
                             d="M 38 67 L 88 58 L 138 49 L 188 39 L 238 30 L 288 20 L 288 75 L 38 75 Z"
                             fill="url(#greenGradient)"
-                            initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0 }}
-                            whileInView={{ opacity: 1 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.8, delay: 0.6 }}
+                            className="animate-gradient-fade pointer-events-none"
                           />
 
-                          {/* Upward trending line with pathLength drawing in */}
-                          <motion.path
+                          {/* Upward trending line with smooth SVG stroke-dashoffset drawing animation */}
+                          <path
                             d="M 38 67 L 88 58 L 138 49 L 188 39 L 238 30 L 288 20"
                             fill="none"
-                            stroke="currentColor"
+                            stroke="#059669"
                             strokeWidth="2.5"
                             strokeLinecap="round"
                             strokeLinejoin="round"
-                            className="text-emerald-600"
-                            initial={shouldReduceMotion ? { pathLength: 1 } : { pathLength: 0 }}
-                            whileInView={{ pathLength: 1 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+                            className="animate-draw-line pointer-events-none"
                           />
 
                           {/* 6 Interactive data point nodes with hover tooltips */}
@@ -715,19 +736,15 @@ export default function Hero({ onOpenAuth }) {
                                   fill="transparent"
                                 />
 
-                                {/* Interactive Visual Node with Staggered Entrance & 1.6x Hover Scale */}
-                                <motion.circle
+                                {/* Interactive Visual Node with smooth 1.5x hover scale & emerald glow */}
+                                <circle
                                   cx={pt.x}
                                   cy={pt.y}
                                   r="3.5"
                                   fill="white"
                                   stroke="#059669"
                                   strokeWidth="2"
-                                  initial={shouldReduceMotion ? { scale: 1 } : { scale: 0 }}
-                                  whileInView={{ scale: 1 }}
-                                  viewport={{ once: true }}
-                                  transition={{ delay: 0.8 + i * 0.08, type: 'spring', stiffness: 350, damping: 20 }}
-                                  className="group-hover:fill-[#F59E0B] group-hover:stroke-[#133026] group-hover:scale-[1.6] transition-all duration-300 pointer-events-none origin-center"
+                                  className="cursor-pointer transition-transform duration-300 ease-out group-hover:scale-[1.5] group-hover:stroke-emerald-800 group-hover:fill-emerald-50 drop-shadow-sm group-hover:drop-shadow-[0_0_8px_rgba(16,185,129,0.7)]"
                                   style={{ transformOrigin: `${pt.x}px ${pt.y}px` }}
                                 />
 

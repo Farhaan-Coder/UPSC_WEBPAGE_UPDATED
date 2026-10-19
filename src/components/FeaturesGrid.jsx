@@ -161,8 +161,14 @@ export default function FeaturesGrid({ onOpenLogin }) {
             })}
           </StaggerGrid>
 
-          {/* Live Interactive Option Elimination Preview */}
-          <div className="mt-12 bg-white border border-slate-200/90 rounded-2xl p-6 sm:p-8 shadow-sm">
+          {/* Live Interactive Option Elimination Preview with Scroll-Reveal Fade-in-up */}
+          <motion.div 
+            initial={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-60px' }}
+            transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+            className="mt-12 bg-white border border-slate-200/90 rounded-2xl p-6 sm:p-8 shadow-sm"
+          >
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-100">
               <div>
                 <span className="text-[10px] font-bold tracking-widest uppercase text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded inline-block mb-1.5">
@@ -185,7 +191,7 @@ export default function FeaturesGrid({ onOpenLogin }) {
               </motion.button>
             </div>
             <EliminationDrill />
-          </div>
+          </motion.div>
         </SectionReveal>
       </div>
     </section>
