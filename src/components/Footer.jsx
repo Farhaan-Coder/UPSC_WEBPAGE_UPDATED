@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BookOpenCheck, Youtube, Linkedin, Instagram, ArrowRight, CheckCircle2 } from 'lucide-react';
+import { Youtube, Linkedin, Instagram, ArrowRight, CheckCircle2 } from 'lucide-react';
 
 const footerSections = [
   {
@@ -64,10 +64,12 @@ export default function Footer({ onOpenLogin }) {
           
           {/* Brand & Mission Column */}
           <div className="lg:col-span-4 max-w-sm">
-            <a href="#" className="flex items-center gap-2.5 mb-4 group focus:outline-none focus:ring-2 focus:ring-[#133026] rounded-xl p-0.5 inline-flex" aria-label="UPSC ZONE AI Home">
-              <div className="w-9 h-9 rounded-xl bg-[#133026] flex items-center justify-center text-[#F59E0B] shadow-xs group-hover:scale-105 transition-transform duration-200">
-                <BookOpenCheck className="w-5 h-5 stroke-[2.2]" />
-              </div>
+            <a href="#" className="flex items-center gap-3 mb-4 group focus:outline-none focus:ring-2 focus:ring-[#133026] rounded-xl p-0.5 inline-flex" aria-label="UPSC ZONE AI Home">
+              <img 
+                src="/assets/upsc-logo.png" 
+                alt="UPSC Ashoka Emblem and Chakra Logo" 
+                className="w-10 h-10 object-contain shrink-0 group-hover:scale-105 transition-transform duration-200"
+              />
               <span className="font-sans font-extrabold text-xl text-slate-900 group-hover:text-emerald-800 transition-colors duration-200 tracking-tight">
                 UPSC ZONE AI
               </span>

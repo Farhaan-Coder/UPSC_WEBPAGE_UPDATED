@@ -239,7 +239,7 @@ export default function Hero({ onOpenAuth }) {
               <StaggerCard className="flex items-start gap-2.5 bg-white/70 sm:bg-white/50 p-2.5 sm:p-3 rounded-xl border border-stone-200/70 shadow-2xs hover:border-orange-400 hover:bg-white transition-colors duration-300 cursor-pointer group/trust">
                 <Layers className="w-5 h-5 text-[#133026] stroke-[2.2] shrink-0 mt-0.5 group-hover/trust:text-[#F59E0B] transition-colors" />
                 <div className="min-w-0">
-                  <div className="text-[14px] sm:text-[15px] font-bold text-stone-900 leading-tight group-hover/trust:text-[#133026] transition-colors">3 stages covered</div>
+                  <div className="text-[14px] sm:text-[15px] font-bold text-stone-900 leading-tight group-hover/trust:text-[#133026] transition-colors">3 Stages Covered</div>
                   <div className="text-xs text-stone-500 font-normal leading-tight mt-0.5">Prelims, Mains, Interview</div>
                 </div>
               </StaggerCard>
@@ -276,9 +276,9 @@ export default function Hero({ onOpenAuth }) {
             <div className="mt-8 bg-white/95 backdrop-blur-sm border border-slate-200/90 rounded-2xl p-5 sm:p-6 shadow-sm hover:shadow-md transition-shadow duration-300">
               <div className="flex items-center justify-between mb-4 pb-3 border-b border-slate-100">
                 <span className="text-xs font-bold tracking-widest text-slate-500 uppercase font-sans">
-                  PRELIMS {EXAM_YEAR} LIVE COUNTDOWN
+                  PRELIMS {EXAM_YEAR} COUNTDOWN
                 </span>
-                <span className="bg-emerald-50 text-emerald-700 text-xs px-2.5 py-1 rounded-full font-medium border border-emerald-100">
+                <span className="bg-amber-50 text-amber-800 text-xs px-2.5 py-1 rounded-md font-semibold border border-amber-200/70">
                   {PRELIMS_DATE_LABEL}
                 </span>
               </div>
@@ -334,6 +334,11 @@ export default function Hero({ onOpenAuth }) {
                 </div>
               </div>
 
+              {/* Official notification disclaimer */}
+              <div className="text-[11px] text-slate-400 font-normal text-center mb-3">
+                *Targeting late May 2027 indicative window. Official UPSC Annual Calendar notification awaited.
+              </div>
+
               {/* Humanized Mentor Quote */}
               <div className="pt-3 border-t border-slate-100">
                 <p className="text-sm text-slate-600 italic border-l-2 border-emerald-500 pl-3 leading-relaxed font-sans">
@@ -367,12 +372,8 @@ export default function Hero({ onOpenAuth }) {
             </div>
 
             {/* Meta Tag */}
-            <div className="flex items-center justify-between text-xs font-semibold text-stone-500 mb-3 px-2">
+            <div className="flex items-center text-xs font-semibold text-stone-500 mb-3 px-2">
               <span className="tracking-wider text-[#133026]/80 uppercase font-sans font-bold">LESS GUESSWORK. MORE DIRECTION.</span>
-              <span className="text-emerald-700 font-semibold text-xs flex items-center gap-1.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                <span>Live Desk Workspace</span>
-              </span>
             </div>
 
             {/* Dashboard Container: Floats gently +-8px with cursor tilt */}
@@ -418,17 +419,12 @@ export default function Hero({ onOpenAuth }) {
               {/* Top Navigation */}
               <div className="px-4 sm:px-5 py-3 border-b border-slate-100 flex items-center justify-between bg-white/95">
                 <div className="flex items-center gap-2.5">
-                  <div className="w-7 h-7 rounded-lg bg-[#133026] flex items-center justify-center text-[#F59E0B] shadow-2xs">
-                    <BookOpenCheck className="w-4 h-4" />
-                  </div>
+                  <img 
+                    src="/assets/upsc-logo.png" 
+                    alt="UPSC Ashoka Emblem and Chakra Logo" 
+                    className="w-7 h-7 object-contain shrink-0"
+                  />
                   <span className="font-sans font-bold text-sm text-[#133026] tracking-tight">UPSC ZONE AI</span>
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50/60 border border-emerald-200/70 text-emerald-800 text-xs font-semibold tracking-wider shadow-2xs transition-colors">
-                    <span className="relative flex h-2 w-2 shrink-0">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-60"></span>
-                      <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-                    </span>
-                    <span>CSE {EXAM_YEAR}</span>
-                  </span>
                 </div>
                 
                 <div className="flex items-center gap-2.5">
@@ -689,24 +685,6 @@ export default function Hero({ onOpenAuth }) {
                             const isLatest = i === MOCK_DATA.length - 1;
                             return (
                               <g key={pt.label} className="group cursor-pointer">
-                                {/* Active Pulse on Current Progress (M6 circle) */}
-                                {isLatest && (
-                                  <g className="pointer-events-none">
-                                    <circle
-                                      cx={pt.x}
-                                      cy={pt.y}
-                                      r="9"
-                                      className="fill-emerald-400/35 animate-ping"
-                                      style={{ transformOrigin: `${pt.x}px ${pt.y}px`, animationDuration: '2.4s' }}
-                                    />
-                                    <circle
-                                      cx={pt.x}
-                                      cy={pt.y}
-                                      r="6.5"
-                                      className="fill-emerald-500/30 animate-pulse"
-                                    />
-                                  </g>
-                                )}
 
                                 {/* Vertical Guide Line on Hover */}
                                 <line
@@ -803,9 +781,8 @@ export default function Hero({ onOpenAuth }) {
                       {/* Footer trend text with count-up & bouncing improvement badge */}
                       <div className="text-xs font-semibold text-emerald-700 mt-3 flex items-center justify-between flex-wrap gap-2">
                         <span className="flex items-center gap-1.5">
-                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse shrink-0" />
                           <span>
-                            <CountUp end={86} /> → <CountUp end={134} /> marks - steady, measurable progress
+                            <CountUp end={86} /> → <CountUp end={134} /> marks • Simulated student progression
                           </span>
                         </span>
                         <motion.span

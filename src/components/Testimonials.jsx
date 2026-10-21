@@ -64,7 +64,7 @@ export default function Testimonials() {
           {/* Section Header */}
           <div className="mb-8 sm:mb-9 max-w-2xl">
             <span className="text-xs font-bold text-[#133026] tracking-wider block mb-2 uppercase font-sans">
-              ASPIRANT STORIES & DISCIPLINE
+              ASPIRANT CASE STUDIES & STUDY ROUTINES
             </span>
             <WordReveal
               text="Different journeys. One shared pursuit of clarity."
@@ -174,7 +174,7 @@ export default function Testimonials() {
 
           {/* Required Sample Reviews Caption */}
           <p className="text-sm text-slate-400 font-medium text-center mt-6">
-            Sample reviews for design purposes. Based on typical preparation workflows of UPSC CSE candidates.
+            *Illustrative aspirant profiles and sample study routines for demonstration. Based on typical CSE preparation workflows; not an endorsement or rank claim.
           </p>
         </SectionReveal>
       </div>

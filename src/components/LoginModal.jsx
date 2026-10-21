@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { X, Check, Lock, Mail, User, BookOpenCheck, ArrowRight, Sparkles, CheckCircle2 } from 'lucide-react';
+import { X, Check, Lock, Mail, User, ArrowRight, Sparkles, CheckCircle2 } from 'lucide-react';
 import { EXAM_YEAR, ROADMAP_LABEL, TARGET_YEAR_OPTIONS } from '../config/exam.js';
 
 export default function LoginModal({ isOpen, onClose, initialTab = 'login' }) {
@@ -152,9 +152,11 @@ export default function LoginModal({ isOpen, onClose, initialTab = 'login' }) {
         {/* Header Ribbon */}
         <div className="bg-[#133026] text-white px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-2.5">
-            <div className="w-7 h-7 rounded-lg bg-[#183C30] flex items-center justify-center text-[#F59E0B]">
-              <BookOpenCheck className="w-4 h-4 stroke-[2.2]" />
-            </div>
+            <img 
+              src="/assets/upsc-logo.png" 
+              alt="UPSC Ashoka Emblem and Chakra Logo" 
+              className="w-8 h-8 object-contain shrink-0"
+            />
             <div>
               <span className="font-sans font-bold text-sm tracking-tight">UPSC ZONE AI</span>
               <span className="text-[10px] text-emerald-300 block font-normal">Aspirant Command Desk</span>

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { X, RotateCcw, CheckCircle2, AlertTriangle, XCircle, Check } from 'lucide-react';
 import { motion, useReducedMotion } from 'framer-motion';
-import { triggerConfetti } from './motion/MotionUtils.jsx';
 
 export const DRILL_CONFIG = {
   headerChip: "Q.1 • Polity • Sample drill",
@@ -55,7 +54,6 @@ export default function EliminationDrill() {
     setSelectedAnswer(id);
     if (id === DRILL_CONFIG.correctId) {
       setLastSelectedWrong(null);
-      triggerConfetti();
     } else {
       setLastSelectedWrong(id);
     }
@@ -178,7 +176,7 @@ export default function EliminationDrill() {
                 isShaking
                   ? { x: [-8, 8, -6, 6, -3, 3, 0] }
                   : isPulseGreen
-                  ? { scale: [1, 1.025, 1], boxShadow: ['0 0 0 0 rgba(16, 185, 129, 0.4)', '0 0 0 8px rgba(16, 185, 129, 0)', '0 0 0 0 rgba(16, 185, 129, 0)'] }
+                  ? { scale: [1, 1.015, 1] }
                   : {}
               }
               transition={isShaking ? { duration: 0.45, ease: 'easeInOut' } : { duration: 0.6 }}
@@ -262,11 +260,6 @@ export default function EliminationDrill() {
       >
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
           <div className="flex items-center gap-2 font-medium">
-            <span
-              className={`inline-block w-2 h-2 rounded-full shrink-0 ${
-                isCorrectEliminated ? 'bg-red-500' : 'bg-emerald-600'
-              }`}
-            />
             <span>
               {wrongEliminatedCount} {wrongEliminatedCount === 1 ? 'wrong option' : 'wrong options'} eliminated
             </span>

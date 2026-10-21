@@ -26,7 +26,7 @@ import {
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { EXAM_YEAR } from '../config/exam.js';
 import { PYQ_RANGE, PYQ_TOTAL, pyqThemes } from '../data/pyqSample.js';
-import { SectionReveal, WordReveal, triggerConfetti } from './motion/MotionUtils.jsx';
+import { SectionReveal, WordReveal } from './motion/MotionUtils.jsx';
 import EvaluationRubricFeedback from './EvaluationRubricFeedback.jsx';
 
 const tabsConfig = [
@@ -145,7 +145,6 @@ export default function DashboardPreview() {
     setCompletedTasks((prev) => {
       const next = prev.includes(id) ? prev.filter((taskId) => taskId !== id) : [...prev, id];
       if (next.length === 3 && prev.length < 3) {
-        triggerConfetti();
         setShowStreakToast(true);
       }
       return next;
@@ -340,7 +339,6 @@ export default function DashboardPreview() {
               <div className="grid grid-cols-2 gap-2.5 text-xs">
                 <div className="p-2.5 bg-stone-50 rounded-xl border border-stone-200/60">
                   <div className="flex items-center gap-1.5 text-stone-600 mb-0.5">
-                    <span className="w-2 h-2 rounded-full bg-[#133026]" />
                     <span className="font-medium text-xs">Core GS Textbooks</span>
                   </div>
                   <div className="font-bold text-stone-900 text-sm">{staticHours} hrs</div>
@@ -349,7 +347,6 @@ export default function DashboardPreview() {
 
                 <div className="p-2.5 bg-stone-50 rounded-xl border border-stone-200/60">
                   <div className="flex items-center gap-1.5 text-stone-600 mb-0.5">
-                    <span className="w-2 h-2 rounded-full bg-[#F59E0B]" />
                     <span className="font-medium text-xs">Editorials & Current</span>
                   </div>
                   <div className="font-bold text-stone-900 text-sm">{currentAffairsHours} hrs</div>
@@ -358,7 +355,6 @@ export default function DashboardPreview() {
 
                 <div className="p-2.5 bg-stone-50 rounded-xl border border-stone-200/60">
                   <div className="flex items-center gap-1.5 text-stone-600 mb-0.5">
-                    <span className="w-2 h-2 rounded-full bg-emerald-600" />
                     <span className="font-medium text-xs">PYQ Practice</span>
                   </div>
                   <div className="font-bold text-stone-900 text-sm">{pyqHours} hrs</div>
@@ -367,7 +363,6 @@ export default function DashboardPreview() {
 
                 <div className="p-2.5 bg-stone-50 rounded-xl border border-stone-200/60">
                   <div className="flex items-center gap-1.5 text-stone-600 mb-0.5">
-                    <span className="w-2 h-2 rounded-full bg-stone-400" />
                     <span className="font-medium text-xs">Spaced Revision</span>
                   </div>
                   <div className="font-bold text-stone-900 text-sm">{flashcardsMin} mins</div>
@@ -391,16 +386,17 @@ export default function DashboardPreview() {
               {/* Top Screen App Bar */}
               <div className="px-5 py-3.5 border-b border-slate-100 flex items-center justify-between bg-slate-50/70">
                 <div className="flex items-center gap-2.5">
-                  <div className="w-7 h-7 rounded-lg bg-[#133026] flex items-center justify-center text-[#F59E0B]">
-                    <Layers className="w-4 h-4" />
-                  </div>
+                  <img 
+                    src="/assets/upsc-logo.png" 
+                    alt="UPSC Ashoka Emblem and Chakra Logo" 
+                    className="w-7 h-7 object-contain shrink-0"
+                  />
                   <span className="font-sans font-bold text-sm text-[#133026] tracking-tight">UPSC ZONE AI</span>
                 </div>
 
                 <div className="flex items-center gap-3 text-xs">
                   <div className="hidden sm:flex items-center gap-1.5 text-xs font-semibold text-emerald-800 bg-emerald-50/80 px-2.5 py-1 rounded-full border border-emerald-200/60 shadow-2xs">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                    <span>Live Command Center</span>
+                    <span>Interactive Study Desk • Sample Model</span>
                   </div>
                   <div className="w-7 h-7 rounded-full bg-[#133026] text-[#F59E0B] font-bold text-xs flex items-center justify-center">
                     AS
@@ -603,7 +599,6 @@ export default function DashboardPreview() {
                     </div>
                     <div className="flex items-center gap-2 self-start sm:self-auto shrink-0">
                       <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-800 bg-emerald-50/80 px-2.5 py-1 rounded-full border border-emerald-200/80 shadow-2xs">
-                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
                         <span>GS Paper I Analysis</span>
                       </span>
                     </div>

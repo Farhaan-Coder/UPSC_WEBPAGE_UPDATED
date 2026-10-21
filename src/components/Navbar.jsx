@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ArrowRight, Menu, X, BookOpenCheck } from 'lucide-react';
+import { ArrowRight, Menu, X } from 'lucide-react';
 import { motion, useScroll, useSpring } from 'framer-motion';
 
 export default function Navbar({ onOpenAuth, onMobileMenuToggle }) {
@@ -38,7 +38,7 @@ export default function Navbar({ onOpenAuth, onMobileMenuToggle }) {
     { name: 'AI Answer Lab', href: '#ai-tools' },
     { name: 'Daily Target', href: '#preparation' },
     { name: 'Editorial Notes', href: '#resources' },
-    { name: 'Ranker Stories', href: '#testimonials' },
+    { name: 'Aspirant Stories', href: '#testimonials' },
   ];
 
   // Scroll detection for backdrop shadow & height shrinking
@@ -115,9 +115,11 @@ export default function Navbar({ onOpenAuth, onMobileMenuToggle }) {
             className="flex items-center gap-2 sm:gap-2.5 shrink-0 group focus:outline-none focus:ring-2 focus:ring-[#133026] rounded-xl p-1"
             aria-label="UPSC ZONE AI Homepage"
           >
-            <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-[#133026] flex items-center justify-center text-[#F59E0B] shadow-xs transition-transform duration-300 group-hover:scale-105 shrink-0">
-              <BookOpenCheck className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.2]" />
-            </div>
+            <img 
+              src="/assets/upsc-logo.png" 
+              alt="UPSC Ashoka Emblem and Chakra Logo" 
+              className="w-9 h-9 sm:w-10 sm:h-10 object-contain shrink-0 transition-transform duration-300 group-hover:scale-105"
+            />
             <span className="font-sans font-extrabold tracking-tight text-slate-900 text-lg sm:text-xl whitespace-nowrap">
               UPSC ZONE AI
             </span>
@@ -179,7 +181,7 @@ export default function Navbar({ onOpenAuth, onMobileMenuToggle }) {
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="xl:hidden p-2 text-stone-800 hover:text-[#133026] transition-colors duration-200 focus:outline-none min-h-[40px] min-w-[40px] flex items-center justify-center rounded-lg hover:bg-stone-100 cursor-pointer ml-1 shrink-0"
-              aria-label="Toggle mobile menu"
+              aria-label="Toggle navigation menu"
               aria-expanded={mobileMenuOpen}
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}

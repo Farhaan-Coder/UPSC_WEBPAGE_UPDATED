@@ -244,11 +244,6 @@ export default function DarkSection({ onOpenLogin }) {
           <div className="lg:col-span-7">
             <div className="bg-white rounded-2xl p-6 sm:p-7 text-stone-900 shadow-2xl max-w-lg mx-auto lg:ml-auto border border-stone-200 relative">
               
-              {/* Sample data label */}
-              <div className="absolute top-2 right-4 text-[10px] text-stone-600 font-medium tracking-wide">
-                Sample data for demonstration
-              </div>
-
               {/* Card Header */}
               <div className="flex items-center justify-between pb-4 border-b border-stone-100 mb-4 pt-1">
                 <div className="flex items-center gap-3">

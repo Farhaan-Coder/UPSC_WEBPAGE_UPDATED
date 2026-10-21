@@ -195,7 +195,6 @@ export default function EvaluationRubricFeedback({
           <span className="font-medium">{syllabusNote}</span>
         </div>
         <span className="font-semibold text-[#133026] flex items-center gap-1.5">
-          <span className="w-2 h-2 rounded-full bg-emerald-500" />
           {commandStatus}
         </span>
       </div>
