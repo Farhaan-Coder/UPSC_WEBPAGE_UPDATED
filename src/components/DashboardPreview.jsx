@@ -6,7 +6,7 @@ import {
   CheckSquare, 
   Check, 
   ArrowRight, 
-  Sparkles, 
+  Target,
   ArrowUpRight, 
   RotateCw,
   Bell,
@@ -570,7 +570,7 @@ export default function DashboardPreview() {
 
                   {/* AI Next Recommended Step with Typing Animation */}
                   <div className="p-3.5 rounded-xl bg-[#133026] text-white flex items-start gap-3">
-                    <Sparkles className="w-4 h-4 text-[#F59E0B] shrink-0 mt-0.5" />
+                    <Target className="w-4 h-4 text-[#F59E0B] shrink-0 mt-0.5" />
                     <div className="min-w-0 text-xs">
                       <div className="font-bold text-[#F59E0B] text-xs uppercase tracking-wider mb-0.5">
                         AI Mentor Recommended Step

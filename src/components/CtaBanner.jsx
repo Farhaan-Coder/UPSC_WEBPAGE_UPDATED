@@ -3,15 +3,7 @@ import { ArrowRight, ShieldCheck } from 'lucide-react';
 import { motion, useReducedMotion } from 'framer-motion';
 import { SectionReveal, WordReveal } from './motion/MotionUtils.jsx';
 
-const sparkles = [
-  { top: '18%', left: '12%', size: 'w-1.5 h-1.5', delay: 0 },
-  { top: '25%', right: '15%', size: 'w-2 h-2', delay: 1.2 },
-  { top: '65%', left: '18%', size: 'w-2 h-2', delay: 0.8 },
-  { top: '75%', right: '20%', size: 'w-1.5 h-1.5', delay: 2.1 },
-  { top: '40%', left: '8%', size: 'w-1 h-1', delay: 1.8 },
-  { top: '50%', right: '10%', size: 'w-1 h-1', delay: 0.5 },
-  { top: '82%', left: '42%', size: 'w-1.5 h-1.5', delay: 2.5 },
-];
+
 
 export default function CtaBanner({ onOpenAuth }) {
   const shouldReduceMotion = useReducedMotion();
@@ -39,25 +31,7 @@ export default function CtaBanner({ onOpenAuth }) {
         className="absolute -bottom-32 -right-32 w-96 h-96 bg-gradient-to-tl from-orange-500/20 via-emerald-700/15 to-transparent rounded-full blur-3xl pointer-events-none"
       />
 
-      {/* Floating gold sparkle dots */}
-      {!shouldReduceMotion && sparkles.map((s, i) => (
-        <motion.div
-          key={i}
-          style={{ top: s.top, left: s.left, right: s.right }}
-          animate={{
-            y: [-6, 6, -6],
-            opacity: [0.3, 0.9, 0.3],
-            scale: [0.9, 1.25, 0.9],
-          }}
-          transition={{
-            duration: 4.5,
-            repeat: Infinity,
-            delay: s.delay,
-            ease: 'easeInOut',
-          }}
-          className={`absolute ${s.size} rounded-full bg-[#F59E0B] shadow-[0_0_8px_rgba(245,158,11,0.8)] pointer-events-none`}
-        />
-      ))}
+
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 relative z-10 text-center">
         <SectionReveal>

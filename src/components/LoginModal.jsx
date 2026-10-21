@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { X, Check, Lock, Mail, User, ArrowRight, Sparkles, CheckCircle2 } from 'lucide-react';
+import { X, Check, Lock, Mail, User, ArrowRight, CheckCircle2 } from 'lucide-react';
 import { EXAM_YEAR, ROADMAP_LABEL, TARGET_YEAR_OPTIONS } from '../config/exam.js';
 
 export default function LoginModal({ isOpen, onClose, initialTab = 'login' }) {

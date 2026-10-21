@@ -4,7 +4,7 @@ import {
   Scale, 
   PenTool, 
   ArrowRight, 
-  Sparkles, 
+  NotebookPen,
   BookOpen, 
   Plus,
   Loader2,
@@ -248,7 +248,7 @@ export default function DarkSection({ onOpenLogin }) {
               <div className="flex items-center justify-between pb-4 border-b border-stone-100 mb-4 pt-1">
                 <div className="flex items-center gap-3">
                   <div className="w-9 h-9 rounded-xl bg-[#EAF1EB] flex items-center justify-center text-[#133026]">
-                    <Sparkles className="w-5 h-5 fill-[#133026]" />
+                    <NotebookPen className="w-5 h-5 text-[#133026] stroke-[2]" />
                   </div>
                   <div>
                     <div className="text-sm sm:text-base font-sans font-bold text-slate-800 tracking-tight">

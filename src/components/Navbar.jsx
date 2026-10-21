@@ -172,7 +172,6 @@ export default function Navbar({ onOpenAuth, onMobileMenuToggle }) {
               onClick={() => onOpenAuth ? onOpenAuth('signup') : null}
               className="group relative inline-flex items-center gap-2 bg-gradient-to-b from-[#FBBF24] to-[#F59E0B] hover:from-[#F59E0B] hover:to-[#D97706] text-stone-900 text-sm font-bold px-5 py-2.5 rounded-xl shadow-[0_3px_12px_rgba(245,158,11,0.25)] hover:shadow-[0_6px_22px_rgba(245,158,11,0.4)] border border-amber-300/60 transition-all duration-300 ease-out hover:-translate-y-0.5 active:translate-y-0 overflow-hidden cursor-pointer whitespace-nowrap shrink-0"
             >
-              <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out pointer-events-none" />
               <span className="relative whitespace-nowrap">Start Free Prep</span>
               <ArrowRight className="w-3.5 h-3.5 stroke-[2.4] transition-transform duration-300 group-hover:translate-x-1 shrink-0" />
             </motion.button>

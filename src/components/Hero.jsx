@@ -4,7 +4,7 @@ import {
   ArrowDown,
   Play, 
   Check, 
-  Sparkles, 
+  BookOpen,
   Bell, 
   BookOpenCheck, 
   LayoutDashboard, 
@@ -151,9 +151,8 @@ export default function Hero({ onOpenAuth }) {
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             className="lg:col-span-6 max-w-xl"
           >
-            <div className="inline-flex items-center gap-2 bg-[#EAF1EB] border border-[#133026]/15 text-[#133026] text-xs font-semibold tracking-wide px-4 py-1.5 rounded-full mb-6 shadow-xs">
-              <Sparkles className="w-3.5 h-3.5 text-[#133026] fill-[#133026]" />
-              <span className="uppercase font-sans font-bold text-xs tracking-wider">BUILT FOR SERIOUS UPSC CSE ASPIRANTS</span>
+            <div className="inline-flex items-center bg-[#EAF1EB] border border-[#133026]/20 text-[#133026] px-3.5 py-1.5 rounded-md mb-6 shadow-2xs">
+              <span className="uppercase font-sans font-bold text-[11px] sm:text-xs tracking-wider">BUILT FOR SERIOUS UPSC CSE ASPIRANTS</span>
             </div>
 
             {/* Serif High-Impact Headline with Word-by-Word Reveal & Saffron Underline */}
@@ -198,12 +197,7 @@ export default function Hero({ onOpenAuth }) {
                 onClick={() => onOpenAuth ? onOpenAuth('signup') : window.location.assign('#get-started')}
                 className="group relative inline-flex items-center gap-2.5 bg-gradient-to-b from-[#FBBF24] to-[#F59E0B] hover:from-[#F59E0B] hover:to-[#D97706] text-stone-900 font-bold text-sm px-7 py-3.5 rounded-xl shadow-[0_4px_16px_rgba(245,158,11,0.32)] hover:shadow-[0_8px_28px_rgba(245,158,11,0.5)] border border-amber-300/60 transition-all duration-300 ease-out overflow-hidden cursor-pointer"
               >
-                {/* 4s shine sweep */}
-                <motion.span 
-                  className="absolute inset-0 w-1/2 h-full bg-gradient-to-r from-transparent via-white/40 to-transparent -skew-x-12 pointer-events-none"
-                  animate={shouldReduceMotion ? {} : { x: ['-200%', '350%'] }}
-                  transition={{ duration: 1.5, repeat: Infinity, repeatDelay: 4, ease: 'easeInOut' }}
-                />
+
                 <span className="relative tracking-tight">Start Free Prep</span>
                 <ArrowRight className="w-4 h-4 stroke-[2.4] transition-transform duration-300 group-hover:translate-x-1" />
               </motion.button>
@@ -402,7 +396,7 @@ export default function Hero({ onOpenAuth }) {
                   className="fixed bottom-20 right-4 sm:bottom-6 sm:right-6 md:absolute md:bottom-5 md:right-5 z-50 bg-[#133026] text-white text-xs sm:text-sm font-medium px-4 py-3 rounded-xl shadow-2xl border border-emerald-700/80 flex items-center gap-2.5 animate-fadeIn backdrop-blur-md"
                 >
                   <div className="w-5 h-5 rounded-full bg-[#F59E0B]/20 flex items-center justify-center shrink-0">
-                    <Sparkles className="w-3.5 h-3.5 text-[#F59E0B]" />
+                    <CheckCircle2 className="w-3.5 h-3.5 text-[#F59E0B]" />
                   </div>
                   <span className="tracking-tight font-sans">{toastMessage}</span>
                   <button 
@@ -806,7 +800,7 @@ export default function Hero({ onOpenAuth }) {
                   <div className="absolute top-0 right-0 -mr-6 -mt-6 w-24 h-24 bg-emerald-400/10 rounded-full blur-xl pointer-events-none" />
                   
                   <div className="flex items-center gap-3 relative z-10 min-w-0">
-                    <Sparkles className="w-4 h-4 text-[#F59E0B] shrink-0 fill-[#F59E0B] group-hover:rotate-12 transition-transform duration-300" />
+                    <BookOpen className="w-4 h-4 text-[#F59E0B] shrink-0 transition-transform duration-300" />
                     <div>
                       <div className="text-xs sm:text-[13px] font-sans font-bold text-white tracking-tight leading-snug">
                         Accelerate focus on Environment PYQs.
